@@ -9,3 +9,5 @@ https://trello.com/invite/b/YdgIjphD/ATTI4749f0685ba7cc025dd70f56579f6b9578CF7B4
 2. As a customer, I want to be able to track my current orders, to see where in the process the order is, and its expected completition (either pick up or delivery) date.
 
 3. As an admin, I want to be able to add holiday packs to the shop, with the ability to insert images and a description of the box (as well as the price).
+
+# User Stories Task Chart
