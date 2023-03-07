@@ -1,55 +1,214 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Georgia Sweets</title>
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/9.17.1/firebase-app-compat.js"></script>
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/9.17.1/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/9.17.1/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/9.17.1/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/9.17.1/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/9.17.1/firebase-messaging-compat.js"></script>
+    <script
+      defer
+      src="/__/firebase/9.17.1/firebase-database-compat.js"
+    ></script>
+    <script
+      defer
+      src="/__/firebase/9.17.1/firebase-firestore-compat.js"
+    ></script>
+    <script
+      defer
+      src="/__/firebase/9.17.1/firebase-functions-compat.js"
+    ></script>
+    <script
+      defer
+      src="/__/firebase/9.17.1/firebase-messaging-compat.js"
+    ></script>
     <script defer src="/__/firebase/9.17.1/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/9.17.1/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/9.17.1/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/9.17.1/firebase-performance-compat.js"></script>
+    <script
+      defer
+      src="/__/firebase/9.17.1/firebase-analytics-compat.js"
+    ></script>
+    <script
+      defer
+      src="/__/firebase/9.17.1/firebase-remote-config-compat.js"
+    ></script>
+    <script
+      defer
+      src="/__/firebase/9.17.1/firebase-performance-compat.js"
+    ></script>
     <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
+    <!-- Bulma CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
     <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      body {
+        background: #eceff1;
+        color: rgba(0, 0, 0, 0.87);
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      #message {
+        background: white;
+        max-width: 360px;
+        margin: 100px auto 16px;
+        padding: 32px 24px;
+        border-radius: 3px;
+      }
+      #message h2 {
+        color: #ffa100;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 0 0 8px;
+      }
+      #message h1 {
+        font-size: 22px;
+        font-weight: 300;
+        color: rgba(0, 0, 0, 0.6);
+        margin: 0 0 16px;
+      }
+      #message p {
+        line-height: 140%;
+        margin: 16px 0 24px;
+        font-size: 14px;
+      }
+      #message a {
+        display: block;
+        text-align: center;
+        background: #039be5;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: white;
+        padding: 16px;
+        border-radius: 4px;
+      }
+      #message,
+      #message a {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+      #load {
+        color: rgba(0, 0, 0, 0.4);
+        text-align: center;
+        font-size: 13px;
+      }
       @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
+        body,
+        #message {
+          margin-top: 0;
+          background: white;
+          box-shadow: none;
+        }
+        body {
+          border-top: 16px solid #ffa100;
+        }
       }
     </style>
   </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+  <body style="background-color: #f5f5f5">
+    <!-- Beginning of Website HTML -->
+    <div class="container">
+      <!-- Beginning of Navbar -->
+      <nav
+        class="navbar is-flex"
+        role="navigation"
+        aria-label="main navigation"
+      >
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <div class="figure is-rounded">
+              <img src="/georgia_sweets_logo.jpg" width="112" height="28" />
+            </div>
+          </a>
+          <a
+            role="button"
+            class="navbar-burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarBasicExample"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <!-- Main Elements -->
+            <a class="navbar-item"> Home </a>
+            <a class="navbar-item"> Shop </a>
+            <a class="navbar-item"> Gallery </a>
+            <a class="navbar-item"> Dashboard </a>
+            <!-- Dropdown -->
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link"> More </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item"> About </a>
+                <a class="navbar-item"> Contact </a>
+                <hr class="navbar-divider" />
+                <a class="navbar-item"> Report an issue </a>
+              </div>
+            </div>
+          </div>
+          <!-- End of Navbar Options -->
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light"> Log in </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!-- End of Navbar -->
 
+      <!-- Start of Modals -->
+
+      <!-- End of Modals -->
+
+      <!-- Start of Page Div Elements -->
+
+      <!-- Start of Homepage -->
+      <div class="container is-hidden" id="publicLandingPage">
+        <div class="columns is-flex">
+          <!-- Image Column -->
+          <div class="is-6"></div>
+          <!-- General Description Column -->
+          <div class="is-6"></div>
+        </div>
+      </div>
+      <!-- End of Homepage -->
+
+      <!-- Start of Shop -->
+      <div class="container is-hidden" id="shopPage"></div>
+      <!-- End of Shop -->
+
+      <!-- Start of Photo Gallery -->
+      <div class="container is-hidden" id="photoGalleryPage"></div>
+      <!-- End of Photo Gallery -->
+
+      <!-- Start of Admin Dashboard -->
+      <div class="container is-hidden" id="dashboardPage"></div>
+      <!-- End of Admin Dashboard -->
+
+      <!-- End of Page Div Elements -->
+    </div>
+    <!-- End of Website HTML-->
+
+    <!-- Start Of Embedded Script -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
+      document.addEventListener("DOMContentLoaded", function () {
+        const loadEl = document.querySelector("#load");
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
         //
@@ -68,20 +227,23 @@
         try {
           let app = firebase.app();
           let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+            "auth",
+            "database",
+            "firestore",
+            "functions",
+            "messaging",
+            "storage",
+            "analytics",
+            "remoteConfig",
+            "performance",
+          ].filter((feature) => typeof app[feature] === "function");
+          loadEl.textContent = `Firebase SDK loaded with ${features.join(
+            ", "
+          )}`;
         } catch (e) {
           console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+          loadEl.textContent =
+            "Error loading the Firebase SDK, check the console.";
         }
       });
     </script>
