@@ -14,3 +14,91 @@ https://trello.com/invite/b/YdgIjphD/ATTI4749f0685ba7cc025dd70f56579f6b9578CF7B4
 <img width="631" alt="Screenshot 2023-03-05 at 10 55 33 PM" src="https://user-images.githubusercontent.com/93365258/223022600-dd7a5c03-cbd8-4c23-acae-b3af2bd68474.png">
 
 # Burndown Chart
+
+# Daily Stand Ups
+Questions:
+1) What did you do yesterday?
+2) What are you planning to do today?
+3) Any problems are you facing?
+
+## March 1st Stand Up
+Connor:
+1) Yesterday I finalized the Trello board.
+2) Today I plan to finish the burndown chart time estimates
+3) No problems at this time!
+
+Alex:
+1)
+2)
+3)
+
+Isaac:
+1)
+2)
+3)
+
+Trent:
+1)
+2)
+3)
+
+Mason:
+1)
+2)
+3)
+
+## March 6th Stand Up
+Connor:
+1) Yesterday I got started on our HTML file (set up basic structure and set precedence for naming conventions)
+2) Today I plan to work more on the homepage.
+3) Only problem I have right now is deciding what content to include (i.e. the text on the homepage)
+
+Alex:
+1)
+2)
+3)
+
+Isaac:
+1)
+2)
+3)
+
+Trent:
+1)
+2)
+3)
+
+Mason:
+1)
+2)
+3)
+
+
+## March 9th Stand Up
+Connor:
+1) Yesterday I finished up the outline of the homepage.
+2) Today I plan to review the sprint requirements and make sure we have everything for submission.
+3) No questions at this time.
+
+Alex:
+1)
+2)
+3)
+
+Isaac:
+1)
+2)
+3)
+
+Trent:
+1)
+2)
+3)
+
+Mason:
+1)
+2)
+3)
+
+
+
