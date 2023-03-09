@@ -43,9 +43,9 @@ Trent:
 3)
 
 Mason:
-1)
-2)
-3)
+1) Yesterday I worked with the prototype through Justinmind with Trent, making minor edits and changes.
+2) Today I organized the tasks into the task chart so the trello board can be finalized.
+3)I am not having any obstacles at the moment!
 
 ## March 6th Stand Up
 Connor:
@@ -69,9 +69,9 @@ Trent:
 3)
 
 Mason:
-1)
-2)
-3)
+1) Yesterday I talked with my sister (the client) to gather some photos she may want to use for the gallery page.
+2) Today I plan to pull work done by Conner to run it past my sister and get initial feedback.
+3) I am running into some troubles when fetching remote branches Connor worked on, but I am hoping to figure that out today.
 
 
 ## March 9th Stand Up
@@ -96,9 +96,9 @@ Trent:
 3)
 
 Mason:
-1)
-2)
-3)
+1) Yesterday I reviewed milestone 1 to ensure I am aware of project capabilities and goals.
+2) Today, I plant to start working on the html for the "About Us" page and designing the framework around it!
+3) I am wondering what the difference between the home page and about us page will be. I will talk with my group members to lay this out.
 
 
 
