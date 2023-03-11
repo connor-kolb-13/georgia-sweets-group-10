@@ -10,6 +10,10 @@ https://trello.com/invite/b/YdgIjphD/ATTI4749f0685ba7cc025dd70f56579f6b9578CF7B4
 
 3. As an admin, I want to be able to add holiday packs to the shop, with the ability to insert images and a description of the box (as well as the price).
 
+4. As an admin, I want to be able to update the gallary page with images of the newest orders on the dashboard. 
+
+5. As an admin, I want to be able to see order requests, pending orders, and completed orders on the dashbaord.
+
 # User Stories Task Chart
 <img width="631" alt="Screenshot 2023-03-05 at 10 55 33 PM" src="https://user-images.githubusercontent.com/93365258/223022600-dd7a5c03-cbd8-4c23-acae-b3af2bd68474.png">
 
