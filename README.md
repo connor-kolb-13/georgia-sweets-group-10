@@ -9,6 +9,7 @@ https://github.com/connor-kolb-13/georgia-sweets-group-10
 
 # User Stories
 
+
 1. As a customer, I want to have a clean, professional looking, gallery page where I can view past products to inspire a custom box, or help me decide on a holiday box to order.
 
 2. As a customer, I want to be able to track my current orders, to see where in the process the order is, and its expected completition (either pick up or delivery) date.
