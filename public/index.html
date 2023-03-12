@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Georgia Sweets</title>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Georgia Sweets</title>
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/9.17.1/firebase-app-compat.js"></script>
@@ -42,84 +43,61 @@
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
-    <!-- <script defer src="/__/firebase/init.js?useEmulator=false"></script> -->
-    <!-- Bulma CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <!-- Font Awesome CDN -->
-    <script
-      src="https://kit.fontawesome.com/8a80b728dc.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body style="background-color: #f5f5f5">
-    <!-- Beginning of Website HTML -->
-    <!-- Beginning of Navbar -->
-    <nav
-      class="navbar is-flex"
-      role="navigation"
-      aria-label="main navigation"
-      style="background-color: #f5f5f5"
-    >
-      <div class="navbar-brand">
-        <a class="navbar-item">
-          <div class="figure is-rounded">
-            <img src="roundedLogo.png" width="50" height="50" />
-          </div>
-        </a>
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-      <div id="navbarBasicExample" class="navbar-menu is-fullwidth">
-        <div class="navbar-start">
-          <!-- Main Elements -->
-          <a class="navbar-item"> Home </a>
-          <a class="navbar-item"> Shop </a>
-          <a class="navbar-item"> Gallery </a>
-          <a class="navbar-item"> Dashboard </a>
-          <!-- Dropdown -->
-          <div class="navbar-item has-dropdown is-hoverable is-fullwidth">
-            <a class="navbar-link"> More </a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item"> About </a>
-              <a class="navbar-item"> Contact </a>
-              <hr class="navbar-divider" />
-              <a class="navbar-item"> Report an issue </a>
-            </div>
-          </div>
-        </div>
-        <!-- End of Navbar Options -->
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a
-                class="button has-text-white"
-                style="background-color: #b493db"
-                id="signUpBtn"
-              >
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light" id="loginBtn"> Log in </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <!-- End of Navbar -->
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <!-- Bulma CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <!-- Font Awesome CDN -->
+  <script src="https://kit.fontawesome.com/8a80b728dc.js" crossorigin="anonymous"></script>
+</head>
 
-    <!-- Message Bar -->
-    <div class="is-hidden has-background-warning p-2 has-text-centered" id="message_bar">Test</div>
+<body style="background-color: #f5f5f5">
+  <!-- Beginning of Website HTML -->
+  <!-- Beginning of Navbar -->
+  <nav class="navbar is-flex" role="navigation" aria-label="main navigation" style="background-color: #f5f5f5">
+    <div class="navbar-brand">
+      <a class="navbar-item">
+        <div class="figure is-rounded">
+          <img src="roundedLogo.png" width="50" height="50" />
+        </div>
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="navbarBasicExample" class="navbar-menu is-fullwidth">
+      <div class="navbar-start">
+        <!-- Main Elements -->
+        <a class="navbar-item" id="homebtn"> Home </a>
+        <a class="navbar-item" id="shopbtn"> Shop </a>
+        <a class="navbar-item" id="gallerybtn"> Gallery </a>
+        <a class="navbar-item" id="dashboardbtn"> Dashboard </a>
+        <!-- Dropdown -->
+        <div class="navbar-item has-dropdown is-hoverable is-fullwidth">
+          <a class="navbar-link"> More </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" id="aboutbtn"> About </a>
+            <a class="navbar-item" id="contactbtn"> Contact </a>
+            <hr class="navbar-divider" />
+            <a class="navbar-item" id="reportanissuebtn"> Report an issue </a>
+          </div>
+        </div>
+      </div>
+      <!-- End of Navbar Options -->
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button has-text-white" style="background-color: #b493db">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light"> Log in </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- End of Navbar -->
 
     <!-- Start of Modals -->
     <!-- Start Sign Up Modal -->
@@ -249,7 +227,7 @@
     <!-- End Login Modal -->
     <!-- End Login Modal -->
 
-    <!-- End of Modals -->
+  <!-- End of Modals -->
 
     <!-- Start of Page Div Elements -->
     <!-- Start of Homepage -->
@@ -303,43 +281,61 @@
     </div>
     <!-- End of Homepage -->
 
-    <!-- Start of Shop -->
-    <div class="container is-hidden" id="shopPage"></div>
-    <!-- End of Shop -->
+  <!-- Start of Shop -->
+  <div class="container is-hidden" id="shopPage"></div>
+  <!-- End of Shop -->
 
-    <!-- Start of Photo Gallery -->
-    <div class="container is-hidden" id="photoGalleryPage"></div>
-    <!-- End of Photo Gallery -->
+  <!-- Start of Photo Gallery -->
+  <div class="container is-hidden gallery" , id="gallerypage">
+    <div class=”gallery”>
+      <figure class="gallery__item gallery__item--1">
+        <img src="Users/alexjacqmin/Downloads/georgiasweetsbowling.jpeg" class="gallery__img" alt="Image 1">
+      </figure>
+      <figure class="gallery__item gallery__item--2">
+        <img src="/Users/alexjacqmin/Downloads/georgiasweetsblm.jpeg" class="gallery__img" alt="Image 2">
+      </figure>
+      <figure class="gallery__item gallery__item--3">
+        <img src="/Users/alexjacqmin/Downloads/georgiasweetsconstruction.jpeg" class="gallery__img" alt="Image 3">
+      </figure>
+      <figure class="gallery__item gallery__item--4">
+        <img src="/Users/alexjacqmin/Downloads/georgiasweetssuperbowl.jpeg" class="gallery__img" alt="Image 4">
+      </figure>
+      <figure class="gallery__item gallery__item--5">
+        <img src="/Users/alexjacqmin/Downloads/georgiasweetsliloandstitch.jpeg" class="gallery__img" alt="Image 5">
+      </figure>
+      <figure class="gallery__item gallery__item--6">
+        <img src="/Users/alexjacqmin/Downloads/georgiasweetsturkey.jpeg" class="gallery__img" alt="Image 6">
+      </figure>
+    </div>
+  </div>
+  <!-- End of Photo Gallery -->
 
-    <!-- Start of Admin Dashboard -->
-    <div class="container is-hidden" id="dashboardPage"></div>
-    <!-- End of Admin Dashboard -->
+  <!-- Start of Admin Dashboard -->
+  <div class="container is-hidden" id="dashboardpage"></div>
+  <!-- End of Admin Dashboard -->
 
-    <!-- End of Page Div Elements -->
+  <!-- End of Page Div Elements -->
 
-    <!-- Start of footer -->
-    <footer class="footer has-text-light" style="background-color: #f5f5f5">
-      <div class="has-text-centered">
-        <a href="#">
-          <i class="fa-brands fa-instagram fa-3x mx-2 has-text-grey-lighter"></i
-        ></a>
-        <a href="https://www.facebook.com/profile.php?id=100085994048020">
-          <i class="fa-brands fa-facebook fa-3x mx-2 has-text-grey-lighter"></i
-        ></a>
-        <a href="mailto:#">
-          <i class="fa-solid fa-envelope fa-3x mx-2 has-text-grey-lighter"></i
-        ></a>
-        <p class="has-text-centered mt-4 has-text-dark">
-          <span class="has-text-weight-bold">
-            Georgia Sweets Official Website
-          </span>
-          by
-          <a href="#" class="has-text-info">IS 424 - Group 10</a>
-        </p>
-      </div>
-    </footer>
-    <!-- End of Footer -->
-    <!-- End of Website HTML-->
+  <!-- Start of footer -->
+  <footer class="footer has-text-light" style="background-color: #f5f5f5">
+    <div class="has-text-centered">
+      <a href="#">
+        <i class="fa-brands fa-instagram fa-3x mx-2 has-text-grey-lighter"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=100085994048020">
+        <i class="fa-brands fa-facebook fa-3x mx-2 has-text-grey-lighter"></i></a>
+      <a href="mailto:#">
+        <i class="fa-solid fa-envelope fa-3x mx-2 has-text-grey-lighter"></i></a>
+      <p class="has-text-centered mt-4 has-text-dark">
+        <span class="has-text-weight-bold">
+          Georgia Sweets Official Website
+        </span>
+        by
+        <a href="#" class="has-text-info">IS 424 - Group 10</a>
+      </p>
+    </div>
+  </footer>
+  <!-- End of Footer -->
+  <!-- End of Website HTML-->
 
     <!-- Start Of Embedded Script -->
     <script>
