@@ -69,18 +69,18 @@
     <div id="navbarBasicExample" class="navbar-menu is-fullwidth">
       <div class="navbar-start">
         <!-- Main Elements -->
-        <a class="navbar-item"> Home </a>
-        <a class="navbar-item"> Shop </a>
-        <a class="navbar-item"> Gallery </a>
-        <a class="navbar-item"> Dashboard </a>
+        <a class="navbar-item" id="homebtn"> Home </a>
+        <a class="navbar-item" id="shopbtn"> Shop </a>
+        <a class="navbar-item" id="gallerybtn"> Gallery </a>
+        <a class="navbar-item" id="dashboardbtn"> Dashboard </a>
         <!-- Dropdown -->
         <div class="navbar-item has-dropdown is-hoverable is-fullwidth">
           <a class="navbar-link"> More </a>
           <div class="navbar-dropdown">
-            <a class="navbar-item"> About </a>
-            <a class="navbar-item"> Contact </a>
+            <a class="navbar-item" id="aboutbtn"> About </a>
+            <a class="navbar-item" id="contactbtn"> Contact </a>
             <hr class="navbar-divider" />
-            <a class="navbar-item"> Report an issue </a>
+            <a class="navbar-item" id="reportanissuebtn"> Report an issue </a>
           </div>
         </div>
       </div>
@@ -356,7 +356,7 @@
   <!-- End of Shop -->
 
   <!-- Start of About Us -->
-  <div class="container" id="publicLandingPage" style="background-color: #f5f5f5">
+  <div class="container is-hidden" id="publicLandingPage" style="background-color: #f5f5f5">
     <div class="columns is-flex-direction-row my-2">
       <!-- Image Column -->
       <div class="column is-5">
@@ -381,7 +381,7 @@
     </div>
   </div>
   </div>
-  <!-- End of Homepage -->
+  <!-- End of About us -->
 
   <!-- Start of Shop -->
   <div class="container is-hidden" id="shopPage"></div>

@@ -16,6 +16,10 @@ burger.addEventListener("click", () => {
   menu.classList.toggle("is-active");
 });
 
+function r_e(id) {
+  return document.querySelector(`#${id}`);
+}
+
 // Adding navbar functions
 let homebtn = r_e("homebtn");
 let shopbtn = r_e("shopbtn");
@@ -36,10 +40,10 @@ let = allBtns = [
 ];
 
 let homepage = r_e("homepage");
-let shoppage = r_e("shoppage");
+let shoppage = r_e("shopPage");
 let gallerypage = r_e("gallerypage");
 let dashboardpage = r_e("dashboardpage");
-let aboutpage = r_e("aboutpage");
+let aboutpage = r_e("publicLandingPage");
 let contactpage = r_e("conactpage");
 let reportanissuepage = r_e("reportanissuepage");
 
