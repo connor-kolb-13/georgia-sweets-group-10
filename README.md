@@ -5,6 +5,7 @@
 https://trello.com/invite/b/YdgIjphD/ATTI4749f0685ba7cc025dd70f56579f6b9578CF7B44/georgia-sweets-group-10
 
 # Repo URL
+
 https://github.com/connor-kolb-13/georgia-sweets-group-10
 
 # User Stories
@@ -34,6 +35,8 @@ https://github.com/connor-kolb-13/georgia-sweets-group-10
 <img width="631" alt="Screenshot 2023-03-06" src="burndown_1.png">
 
 <img width="631" alt="Screenshot 2023-03-07" src="burndown_2.png">
+
+<img width="631" alt="Screenshot 2023-03-07" src="burndown_3.png">
 
 # Daily Stand Ups
 
@@ -85,9 +88,7 @@ Connor:
 
 Alex:
 
-1.Yesterday I worked on implementing Javascript into the webpage to allow toggling between different pages
-2. Today I further worked on this Javascript and adding implementing it with the the index.hmtl file
-3. I had trouble with making sure all the pages are working correctly with all the different branches
+1.Yesterday I worked on implementing Javascript into the webpage to allow toggling between different pages 2. Today I further worked on this Javascript and adding implementing it with the the index.hmtl file 3. I had trouble with making sure all the pages are working correctly with all the different branches
 
 Isaac:
 
@@ -154,10 +155,13 @@ c. What didn’t go well? Why not?
 <p> Our team had issues with timing as this sprint took place during a very busy time in the semester for many of us. Because of this, combined with spring break, it became difficult to find times where we could all communicate together beyond the stand ups.  </p>
 
 d. How can you make things better next time?
+
 <p> To make things better next time around, we can all work to communicate after class to double up on the stand ups to communicate issues to each other. Often, questions can come up quickly while doing a task assigned to you during a stand up, and it will help to not have to wait as often to discuss these issues. </p>
 
 e. Are you satisfied with what you already completed?
+
 <p> We are satisfied with what we have already completed. We have accomplished a lot in this short period of time and this was one of our heavier sprints that we have. The other two sprints may be lighter than this one </p>
 
 f. Which group was invited? What are your observations/notes? Everybody was present?
+
 <p> We were all present for these standup meetings. We also inivited the client to a call hosted by Mason where we got feedback throughout the process of creating the page. These calls allowed us to implement the feedback given by the client where we could adjust if needed throughout the process of the sprint. We observed that this was helpful to figure out if we were on the right track with the clients hopes for this project. </p>
