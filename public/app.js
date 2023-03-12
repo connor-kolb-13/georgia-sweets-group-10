@@ -2,6 +2,224 @@
 
 // Functions
 
+// Navbar Work
+
+// Select the burger icon element
+const burger = document.querySelector("#burgerIcon");
+
+// Select the navbar menu element
+const menu = document.querySelector(".navbar-menu");
+
+// Add a click event listener to the burger icon
+burger.addEventListener("click", () => {
+  // Toggle the is-active class on the navbar menu element
+  menu.classList.toggle("is-active");
+});
+
+// Adding navbar functions
+let homebtn = r_e("homebtn");
+let shopbtn = r_e("shopbtn");
+let gallerybtn = r_e("gallerybtn");
+let dashboardbtn = r_e("dashboardbtn");
+let aboutbtn = r_e("aboutbtn");
+let contactbtn = r_e("contactbtn");
+let reportanissuebtn = r_e("reportanissuebtn");
+
+let = allBtns = [
+  homebtn,
+  shopbtn,
+  gallerybtn,
+  dashboardbtn,
+  aboutbtn,
+  contactbtn,
+  reportanissuebtn,
+];
+
+let homepage = r_e("homepage");
+let shoppage = r_e("shoppage");
+let gallerypage = r_e("gallerypage");
+let dashboardpage = r_e("dashboardpage");
+let aboutpage = r_e("aboutpage");
+let contactpage = r_e("conactpage");
+let reportanissuepage = r_e("reportanissuepage");
+
+let = allPages = [
+  homepage,
+  shoppage,
+  gallerypage,
+  dashboardpage,
+  aboutpage,
+  contactpage,
+  reportanissuepage,
+];
+
+function showmodal(mymodal) {
+  if (mymodal.classList.contains("is-hidden")) {
+    mymodal.classList.remove("is-hidden");
+  }
+  mymodal.classList.add("is-active");
+}
+
+function hidemodal(mymodal) {
+  if (mymodal.classList.contains("is-active")) {
+    mymodal.classList.remove("is-active");
+  }
+  mymodal.classList.add("is-hidden");
+}
+
+// Public Home Page
+document.querySelector("#homebtn").addEventListener("click", () => {
+  // Hide all other pages
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(homepage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  homebtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+});
+
+// Public shop Page
+document.querySelector("#shopbtn").addEventListener("click", () => {
+  // Hide all other pages
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(shoppage);
+  hidemodal(homepage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  shopbtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+});
+
+// Public gallery Page
+document.querySelector("#gallerybtn").addEventListener("click", () => {
+  // Hide all other pages
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(gallerypage);
+  hidemodal(homepage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  gallerybtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+});
+
+// Public dashboard Page
+document.querySelector("#dashboardbtn").addEventListener("click", () => {
+  // Hide all other pages
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(dashboardpage);
+  hidemodal(homepage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  dashboardbtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+});
+
+// Public about Page
+document.querySelector("#aboutbtn").addEventListener("click", () => {
+  // Hide all other pages
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(aboutpage);
+  hidemodal(homepage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  aboutbtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+});
+
+// Public contact Page
+document.querySelector("#contactbtn").addEventListener("click", () => {
+  // Hide all other pages
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(contactpage);
+  hidemodal(homepage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  contactbtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+});
+
+// Public report an issue Page
+document.querySelector("#reportanissuebtn").addEventListener("click", () => {
+  // Hide all other pages
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(reportanissuepage);
+  hidemodal(homepage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  reportanissuebtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+});
+
 // Example of how to use function for reference when working
 // get_firebase_data("users", "0G3Om9lyf9coc2wkYQMQ", "f_name").then(
 //   (name) => {
@@ -108,7 +326,7 @@ r_e("signUpForm").addEventListener("submit", (e) => {
       // get the email and password to submit
       let email = r_e("email_su").value;
       let password = r_e("password_su").value;
-
+      console.log(email, " ", password);
       let newUser = {
         f_name: r_e("f_name_su").value,
         l_name: r_e("l_name_su").value,
@@ -118,6 +336,10 @@ r_e("signUpForm").addEventListener("submit", (e) => {
         date_account_created: get_date(),
         profile_pic: url,
       };
+
+      console.log(newUser);
+
+      // send these to firebase
       // send these to firebase
       auth
         .createUserWithEmailAndPassword(email, password)
@@ -128,9 +350,10 @@ r_e("signUpForm").addEventListener("submit", (e) => {
           document.querySelector("#signupform").reset();
           // close (hide) the modal
           r_e("signupmodal").classList.remove("is-active");
+
           // add the additional user information into the database
-          db.collection("users").doc(auth.currentUser.uid).set(newUser);
-          // db.collection("users").add(newUser);
+          db.collection("users").doc(email).set(newUser);
+
           // Display their name in the Corner When Signed In
           // r_e("navBarEnd").innerHTML = `
           // <div class="navbar-item">
@@ -144,6 +367,8 @@ r_e("signUpForm").addEventListener("submit", (e) => {
           // `;
           // User is signed in
           configure_message_bar(`${newUser.email} has successfully signed in.`);
+          // hide the sign up form
+          r_e("signUpModal").classList.remove("is-active");
           // Load The Member Homepage
           allPages.forEach((page) => {
             if (page.classList.contains("is-active")) {
@@ -240,12 +465,10 @@ r_e("loginform").addEventListener("submit", (e) => {
 // keep track of user authenticaiton status
 auth.onAuthStateChanged((user) => {
   if (user) {
-    // User is signed in
-    hidemodal(indexpage);
-    showmodal(memhomepage);
+    showmodal(homepage);
     // configure_message_bar(`${user.email} has successfully signed in.`);
     // Configure navbar
-    configure_nav_bar(user.email);
+    // configure_nav_bar(user.email);
     // log the login to the user account in the database
     db.collection("users")
       .get()
@@ -308,14 +531,12 @@ auth.onAuthStateChanged((user) => {
       });
 
     // pause_videos();
-    // Update the Red Header
-    r_e("redPageTitle").innerHTML = "MEMBER HOME";
     // Highlight the selected nav element
     allPages.forEach((page) => {
       if (page.classList.contains("is-active")) {
-        let temp = page.id.substring(0, 5);
+        let temp = page.id.substring(0, 4);
         allBtns.forEach((btn) => {
-          let tempbtn = btn.id.substring(0, 5);
+          let tempbtn = btn.id.substring(0, 4);
           if (tempbtn == temp) {
             btn.classList.add("is-active");
           }
@@ -330,9 +551,9 @@ auth.onAuthStateChanged((user) => {
     // Highlight the selected nav element
     allPages.forEach((page) => {
       if (page.classList.contains("is-active")) {
-        let temp = page.id.substring(0, 5);
+        let temp = page.id.substring(0, 4);
         allBtns.forEach((btn) => {
-          let tempbtn = btn.id.substring(0, 5);
+          let tempbtn = btn.id.substring(0, 4);
           if (tempbtn == temp) {
             btn.classList.add("is-active");
           }

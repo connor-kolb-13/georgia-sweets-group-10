@@ -7,7 +7,7 @@
   <title>Georgia Sweets</title>
 
     <!-- update the version number as needed -->
-    <script defer src="/__/firebase/9.17.1/firebase-app-compat.js"></script>
+    <!-- <script defer src="/__/firebase/9.17.1/firebase-app-compat.js"></script> -->
     <!-- include only the Firebase features as you need -->
     <!-- <script defer src="/__/firebase/9.17.1/firebase-auth-compat.js"></script>
     <script
@@ -43,7 +43,7 @@
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
-  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <!-- <script defer src="/__/firebase/init.js?useEmulator=true"></script> -->
   <!-- Bulma CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
   <!-- Font Awesome CDN -->
@@ -60,7 +60,7 @@
           <img src="roundedLogo.png" width="50" height="50" />
         </div>
       </a>
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" id="burgerIcon">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -88,10 +88,10 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button has-text-white" style="background-color: #b493db">
+            <a class="button has-text-white" style="background-color: #b493db" id="signUpBtn">
               <strong>Sign up</strong>
             </a>
-            <a class="button is-light"> Log in </a>
+            <a class="button is-light" id="loginBtn"> Log in </a>
           </div>
         </div>
       </div>
@@ -187,7 +187,7 @@
     </div>
     <!-- End Sign Up Modal -->
 
-    <!-- Start Login Modal -->
+   
      <!-- Start Login Modal -->
      <div class="modal" id="loginModal">
       <div class="modal-background" id="loginModalBg"></div>
@@ -225,7 +225,7 @@
       </div>
     </div>
     <!-- End Login Modal -->
-    <!-- End Login Modal -->
+ 
 
   <!-- End of Modals -->
 
@@ -233,7 +233,7 @@
     <!-- Start of Homepage -->
     <div
       class="container"
-      id="publicLandingPage"
+      id="homepage"
       style="background-color: #f5f5f5"
     >
       <div class="columns is-flex-direction-row my-2">
@@ -282,7 +282,7 @@
     <!-- End of Homepage -->
 
   <!-- Start of Shop -->
-  <div class="container is-hidden" id="shopPage"></div>
+  <div class="container is-hidden" id="shoppage"></div>
   <!-- End of Shop -->
 
   <!-- Start of Photo Gallery -->
@@ -313,6 +313,19 @@
   <!-- Start of Admin Dashboard -->
   <div class="container is-hidden" id="dashboardpage"></div>
   <!-- End of Admin Dashboard -->
+
+  <!-- Start of About Us -->
+  <div class="container is-hidden" id="aboutpage"></div>
+  <!-- End of About Us-->
+
+  <!-- Start of Contat Us -->
+  <div class="container is-hidden" id="conactpage"></div>
+  <!-- End of Contact Us -->
+
+  <!-- Start of Report Issue -->
+  <div class="container is-hidden" id="reportanissuepage"></div>
+  <!-- End of Report Issue-->
+
 
   <!-- End of Page Div Elements -->
 
