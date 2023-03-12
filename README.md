@@ -125,3 +125,20 @@ Mason:
 1. Yesterday I reviewed milestone 1 to ensure I am aware of project capabilities and goals.
 2. Today, I plant to start working on the html for the "About Us" page and designing the framework around it!
 3. I am wondering what the difference between the home page and about us page will be. I will talk with my group members to lay this out.
+
+
+# Sprint Review
+
+
+a. What did you learn from doing our first sprint?
+
+b. What did go well? Why?
+
+c. What didn’t go well? Why not?
+
+d. How can you make things better next time?
+
+e. Are you satisfied with what you already completed?
+
+f. Which group was invited? What are your observations/notes? Everybody was present?
+
