@@ -14,4 +14,4 @@ https://trello.com/invite/b/YdgIjphD/ATTI4749f0685ba7cc025dd70f56579f6b9578CF7B4
 
 # User Stories Task Chart
 
-<img width="631" alt="Screenshot 2023-03-05 at 10 55 33 PM" src="georgia-sweets-group-10/Screenshot 2023-03-11 at 9.58.11 PM.png">
+<img width="631" alt="Screenshot 2023-03-05 at 10 55 33 PM" src="task_chart.png">
