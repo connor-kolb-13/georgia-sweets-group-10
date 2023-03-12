@@ -9,7 +9,6 @@ https://github.com/connor-kolb-13/georgia-sweets-group-10
 
 # User Stories
 
-
 1. As a customer, I want to have a clean, professional looking, gallery page where I can view past products to inspire a custom box, or help me decide on a holiday box to order.
 
 2. As a customer, I want to be able to track my current orders, to see where in the process the order is, and its expected completition (either pick up or delivery) date.
@@ -54,9 +53,9 @@ Connor:
 
 Alex:
 
-1.
-2.
-3.
+1. Yesterday I worked on starting the gallery page
+2. Today I finalized the gallery page
+3. No problems at this time
 
 Isaac:
 
@@ -86,9 +85,9 @@ Connor:
 
 Alex:
 
-1.
-2.
-3.
+1.Yesterday I worked on implementing Javascript into the webpage to allow toggling between different pages
+2. Today I further worked on this Javascript and adding implementing it with the the index.hmtl file
+3. I had trouble with making sure all the pages are working correctly with all the different branches
 
 Isaac:
 
@@ -118,9 +117,9 @@ Connor:
 
 Alex:
 
-1.
-2.
-3.
+1. Yesterday I am reviewed the gallery page to make sure my images were working properly and nothing had been changed
+2. Today I am reviewing with Connor the JavaScript and implementation of all the pages
+3. No problems at this time
 
 Isaac:
 
@@ -144,16 +143,21 @@ Mason:
 
 a. What did you learn from doing our first sprint?
 
-<p> Our team learned the importance of quality planning and communication. The process of breaking down tasks from user stories and input from multiple user types allowed us to break down the activities that needed to be done into manageable chunks. As a group, we were better able to see the big picture when things were broken down and we were able to grab different tasks. Each group memeber took the tasks from the trello board that be aligned with their interests/skills, and completed those. Additionally, it's hard to complete a project like this will little communication; talking with each other at meetings and through texting allowed up to realize a team that is not close or open to talking will not get very far using scrum and other agile methodologies. <p/>
+<p> Our team learned the importance of quality planning and communication. The process of breaking down tasks from user stories and input from multiple user types allowed us to break down the activities that needed to be done into manageable chunks. As a group, we were better able to see the big picture when things were broken down and we were able to grab different tasks. Each group memeber took the tasks from the trello board that be aligned with their interests/skills, and completed those. Additionally, it's hard to complete a project like this will little communication; talking with each other at meetings and through texting allowed up to realize a team that is not close or open to talking will not get very far using scrum and other agile methodologies. </p>
 
 b. What did go well? Why?
 
-<p> Translating our user stories into different tasks went really well. This allowed for a seamless transition from what the end product should look like to what needed to be done to get there. As a team, we had a better picture of what steps we need to be take to accomplish everything our client wants. This process also allowed for an easy way for the group to agree on the steps to be done; we could all see how these steps were derived from user stories, so there was no large disagreements or arguments. <p/>
+<p> Translating our user stories into different tasks went really well. This allowed for a seamless transition from what the end product should look like to what needed to be done to get there. As a team, we had a better picture of what steps we need to be take to accomplish everything our client wants. This process also allowed for an easy way for the group to agree on the steps to be done; we could all see how these steps were derived from user stories, so there was no large disagreements or arguments. </p>
 
 c. What didn’t go well? Why not?
 
+<p> Our team had issues with timing as this sprint took place during a very busy time in the semester for many of us. Because of this, combined with spring break, it became difficult to find times where we could all communicate together beyond the stand ups.  </p>
+
 d. How can you make things better next time?
+<p> To make things better next time around, we can all work to communicate after class to double up on the stand ups to communicate issues to each other. Often, questions can come up quickly while doing a task assigned to you during a stand up, and it will help to not have to wait as often to discuss these issues. </p>
 
 e. Are you satisfied with what you already completed?
+<p> We are satisfied with what we have already completed. We have accomplished a lot in this short period of time and this was one of our heavier sprints that we have. The other two sprints may be lighter than this one </p>
 
 f. Which group was invited? What are your observations/notes? Everybody was present?
+<p> We were all present for these standup meetings. We also inivited the client to a call hosted by Mason where we got feedback throughout the process of creating the page. These calls allowed us to implement the feedback given by the client where we could adjust if needed throughout the process of the sprint. We observed that this was helpful to figure out if we were on the right track with the clients hopes for this project. </p>
