@@ -48,18 +48,18 @@
     <div id="navbarBasicExample" class="navbar-menu is-fullwidth">
       <div class="navbar-start">
         <!-- Main Elements -->
-        <a class="navbar-item"> Home </a>
-        <a class="navbar-item"> Shop </a>
-        <a class="navbar-item"> Gallery </a>
-        <a class="navbar-item"> Dashboard </a>
+        <a class="navbar-item" id="homebtn"> Home </a>
+        <a class="navbar-item" id="shopbtn"> Shop </a>
+        <a class="navbar-item" id="gallerybtn"> Gallery </a>
+        <a class="navbar-item" id="dashboardbtn"> Dashboard </a>
         <!-- Dropdown -->
         <div class="navbar-item has-dropdown is-hoverable is-fullwidth">
           <a class="navbar-link"> More </a>
           <div class="navbar-dropdown">
-            <a class="navbar-item"> About </a>
-            <a class="navbar-item"> Contact </a>
+            <a class="navbar-item" id="aboutbtn"> About </a>
+            <a class="navbar-item" id="contactbtn"> Contact </a>
             <hr class="navbar-divider" />
-            <a class="navbar-item"> Report an issue </a>
+            <a class="navbar-item" id="reportanissuebtn"> Report an issue </a>
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@
   <!-- Start of Page Div Elements -->
 
   <!-- Start of Homepage -->
-  <div class="container" id="publicLandingPage" style="background-color: #f5f5f5">
+  <div class="container" id="homepage" style="background-color: #f5f5f5">
     <div class="columns is-flex-direction-row my-2">
       <!-- Image Column -->
       <div class="column is-5">
@@ -136,13 +136,32 @@
   <!-- End of Shop -->
 
   <!-- Start of Photo Gallery -->
-  <div class="container is-hidden" id="photoGalleryPage">
-    <img src="/Users/alexjacqmin/Downloads/georgiasweetsbowling.jpeg" alt="bowling">
+  <div class="container is-hidden gallery" , id="gallerypage">
+    <div class=”gallery”>
+      <figure class="gallery__item gallery__item--1">
+        <img src="Users/alexjacqmin/Downloads/georgiasweetsbowling.jpeg" class="gallery__img" alt="Image 1">
+      </figure>
+      <figure class="gallery__item gallery__item--2">
+        <img src="/Users/alexjacqmin/Downloads/georgiasweetsblm.jpeg" class="gallery__img" alt="Image 2">
+      </figure>
+      <figure class="gallery__item gallery__item--3">
+        <img src="/Users/alexjacqmin/Downloads/georgiasweetsconstruction.jpeg" class="gallery__img" alt="Image 3">
+      </figure>
+      <figure class="gallery__item gallery__item--4">
+        <img src="/Users/alexjacqmin/Downloads/georgiasweetssuperbowl.jpeg" class="gallery__img" alt="Image 4">
+      </figure>
+      <figure class="gallery__item gallery__item--5">
+        <img src="/Users/alexjacqmin/Downloads/georgiasweetsliloandstitch.jpeg" class="gallery__img" alt="Image 5">
+      </figure>
+      <figure class="gallery__item gallery__item--6">
+        <img src="/Users/alexjacqmin/Downloads/georgiasweetsturkey.jpeg" class="gallery__img" alt="Image 6">
+      </figure>
+    </div>
   </div>
   <!-- End of Photo Gallery -->
 
   <!-- Start of Admin Dashboard -->
-  <div class="container is-hidden" id="dashboardPage"></div>
+  <div class="container is-hidden" id="dashboardpage"></div>
   <!-- End of Admin Dashboard -->
 
   <!-- End of Page Div Elements -->
