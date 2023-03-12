@@ -4,6 +4,9 @@
 
 https://trello.com/invite/b/YdgIjphD/ATTI4749f0685ba7cc025dd70f56579f6b9578CF7B44/georgia-sweets-group-10
 
+# Repo URL
+https://github.com/connor-kolb-13/georgia-sweets-group-10
+
 # User Stories
 
 1. As a customer, I want to have a clean, professional looking, gallery page where I can view past products to inspire a custom box, or help me decide on a holiday box to order.
