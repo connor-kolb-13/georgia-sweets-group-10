@@ -57,6 +57,32 @@ function r_e(id) {
   return document.querySelector(`#${id}`);
 }
 
+// Show a modal
+function showmodal(mymodal) {
+  if (mymodal.classList.contains("is-hidden")) {
+    mymodal.classList.remove("is-hidden");
+  }
+  mymodal.classList.add("is-active");
+}
+
+// hide a modal
+function hidemodal(mymodal) {
+  if (mymodal.classList.contains("is-active")) {
+    mymodal.classList.remove("is-active");
+  }
+  mymodal.classList.add("is-hidden");
+}
+
+// Get the current date
+function get_date() {
+  let timeStamp = Date.now();
+  let dateObj = new Date(timeStamp);
+  let month = dateObj.getMonth() + 1;
+  let year = dateObj.getFullYear();
+  let date = dateObj.getDate();
+  return `${month}/${date}/${year}`;
+}
+
 // Start Sign Up Functions
 // user clicks the button, display the modal
 r_e("signUpBtn").addEventListener("click", () => {
@@ -160,7 +186,7 @@ r_e("resetsignup").addEventListener("click", () => {
 
 // Start Login Modal
 // user clicks the button, display the modal
-r_e("loginbtn").addEventListener("click", () => {
+r_e("loginBtn").addEventListener("click", () => {
   r_e("loginModal").classList.add("is-active");
 });
 
