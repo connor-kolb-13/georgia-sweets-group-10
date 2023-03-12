@@ -76,7 +76,7 @@ Mason:
 
 1. Yesterday I worked with the prototype through Justinmind with Trent, making minor edits and changes.
 2. Today I organized the tasks into the task chart so the trello board can be finalized.
-   3)I am not having any obstacles at the moment!
+3. I am not having any obstacles at the moment!
 
 ## March 6th Stand Up
 
