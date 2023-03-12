@@ -20,6 +20,12 @@ https://github.com/connor-kolb-13/georgia-sweets-group-10
 
 5. As an admin, I want to be able to see order requests, pending orders, and completed orders on the dashbaord.
 
+6. As an admin, I want to be able to add and remove images to the gallery page, to keep it current and relevant to the customers.
+
+7. As a customer, I want to be able to read up more on the backstory behind the company, which will help me decide that this company is worth ordering from.
+
+8. As a customer, I want to be able to contact this company if I have questions about products, custom boxes, my current orders, or give feedback.
+
 # User Stories Task Chart
 
 <img width="631" alt="Screenshot 2023-03-05 at 10 55 33 PM" src="task_chart.png">
