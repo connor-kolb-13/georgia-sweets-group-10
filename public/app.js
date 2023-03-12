@@ -2,6 +2,56 @@
 
 // Functions
 
+// Example of how to use function for reference when working
+// get_firebase_data("users", "0G3Om9lyf9coc2wkYQMQ", "f_name").then(
+//   (name) => {
+// console.log(name);    would log the firt name corredsponding to that id
+//   }
+// );
+
+// Get the requested data from the database
+function get_firebase_data(collection, documentid, field) {
+  return new Promise((resolve, reject) => {
+    // Reference the specified collection and document
+    let docRef = db.collection(collection).doc(documentid);
+    // Get the data from the specified field
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          // Resolve the promise with the data from the specified field
+          resolve(doc.data()[field]);
+        } else {
+          // Reject the promise if the document does not exist
+          reject("Document does not exist");
+        }
+      })
+      .catch((error) => {
+        // Reject the promise if there was an error while accessing the data
+        reject(error);
+      });
+  });
+}
+
+// Update the database
+function update_firebase(collection, document, field, newValue) {
+  firebase
+    .firestore()
+    .collection(collection)
+    .doc(document)
+    .update({
+      [field]: newValue,
+    })
+    .then(() => {
+      // console.log(
+      //   `Document ${document} in collection ${collection} was successfully updated`
+      // );
+    })
+    .catch((error) => {
+      // console.error(`Error writing document: ${error}`);
+    });
+}
+
 // Shortcut for selecting element by ids
 function r_e(id) {
   return document.querySelector(`#${id}`);
@@ -265,3 +315,15 @@ auth.onAuthStateChanged((user) => {
     });
   }
 });
+
+// Message Bar Code
+function configure_message_bar(msg) {
+  r_e("message_bar").innerHTML = msg;
+  // make the message bar hidden
+  r_e("message_bar").classList.remove("is-hidden");
+  // after 2 seconds, hide the bar again
+  setTimeout(() => {
+    r_e("message_bar").classList.add("is-hidden");
+    r_e("message_bar").innerHTML = "";
+  }, 2000);
+}
