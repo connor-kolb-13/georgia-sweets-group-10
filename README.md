@@ -20,7 +20,11 @@ https://trello.com/invite/b/YdgIjphD/ATTI4749f0685ba7cc025dd70f56579f6b9578CF7B4
 
 <img width="631" alt="Screenshot 2023-03-05 at 10 55 33 PM" src="task_chart.png">
 
-# Burndown Chart
+# Burndown Charts
+
+<img width="631" alt="Screenshot 2023-03-06" src="burndown_1.png">
+
+<img width="631" alt="Screenshot 2023-03-07" src="burndown_2.png">
 
 # Daily Stand Ups
 
@@ -126,14 +130,14 @@ Mason:
 2. Today, I plant to start working on the html for the "About Us" page and designing the framework around it!
 3. I am wondering what the difference between the home page and about us page will be. I will talk with my group members to lay this out.
 
-
 # Sprint Review
 
-
 a. What did you learn from doing our first sprint?
+
 <p> Our team learned the importance of quality planning and communication. The process of breaking down tasks from user stories and input from multiple user types allowed us to break down the activities that needed to be done into manageable chunks. As a group, we were better able to see the big picture when things were broken down and we were able to grab different tasks. Each group memeber took the tasks from the trello board that be aligned with their interests/skills, and completed those. Additionally, it's hard to complete a project like this will little communication; talking with each other at meetings and through texting allowed up to realize a team that is not close or open to talking will not get very far using scrum and other agile methodologies. <p/>
 
 b. What did go well? Why?
+
 <p> Translating our user stories into different tasks went really well. This allowed for a seamless transition from what the end product should look like to what needed to be done to get there. As a team, we had a better picture of what steps we need to be take to accomplish everything our client wants. This process also allowed for an easy way for the group to agree on the steps to be done; we could all see how these steps were derived from user stories, so there was no large disagreements or arguments. <p/>
 
 c. What didn’t go well? Why not?
@@ -143,4 +147,3 @@ d. How can you make things better next time?
 e. Are you satisfied with what you already completed?
 
 f. Which group was invited? What are your observations/notes? Everybody was present?
-
