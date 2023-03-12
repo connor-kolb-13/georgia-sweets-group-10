@@ -37,9 +37,9 @@ Alex:
 3)
 
 Isaac:
-1)
-2)
-3)
+1) Yesterday I created and initialized Google Firebase in the project and added group members as collaborators.
+2) Today I set-up hosting, authentication, and firestore database.
+3) No issues at this time.
 
 Trent:
 1)
@@ -63,9 +63,9 @@ Alex:
 3)
 
 Isaac:
-1)
-2)
-3)
+1) Yesterday I started looking into how we can possibly implement online payments with the site.
+2) Today I looked into it more and it's fairly simple, will need advisory from the client. 
+3) I Had trouble fetching and seeing the updates to the document, but a restart and update of my computer resolved the issue.
 
 Trent:
 1)
@@ -90,9 +90,9 @@ Alex:
 3)
 
 Isaac:
-1)
-2)
-3)
+1) Yesterday I reviewed the work currently done on the website and analyzed what needed to be done for the rest of the sprint.
+2) Today I worked on adding the code needed for firebase deployment to the website.
+3) No further issues regarding the fetching or otherwise.
 
 Trent:
 1)
