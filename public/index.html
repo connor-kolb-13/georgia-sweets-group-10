@@ -106,10 +106,11 @@
               <a
                 class="button has-text-white"
                 style="background-color: #b493db"
+                id="signUpBtn"
               >
                 <strong>Sign up</strong>
               </a>
-              <a class="button is-light"> Log in </a>
+              <a class="button is-light" id="loginBtn"> Log in </a>
             </div>
           </div>
         </div>
@@ -118,11 +119,136 @@
     <!-- End of Navbar -->
 
     <!-- Start of Modals -->
+    <!-- Start Sign Up Modal -->
+    <div class="modal" id="signUpModal">
+      <div class="modal-background" id="signUpModalBg"></div>
+      <div class="modal-content has-background-grey-light p-4">
+        <h1 class="subtitle has-text-weight-bold is-3">Sign Up</h1>
+        <form id="signUpForm">
+        <div class="columns is-flex">
+          <!-- First Name -->
+          <div class="column is-5">
+            <div class="field">
+              <label class="label">First Name</label>
+              <div class="control">
+                <input class="input" type="text" id="f_name_su" placeholder="e.g Alex" />
+              </div>
+            </div>
+          </div>
+          <!-- Last Name -->
+          <div class="column is-5">
+            <div class="field">
+              <label class="label">Last Name</label>
+              <div class="control">
+                <input class="input" type="text" id="l_name_su" placeholder="e.g Smith" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Username -->
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control">
+            <input class="input" type="text" id="username_su" placeholder="e.g bassFisher13" />
+          </div>
+        </div>
+        <!-- Email -->
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input
+              class="input"
+              type="email"
+              id="email_su"
+              placeholder="e.g. alexsmith@wisc.edu"
+            />
+          </div>
+        </div>
+        <!-- Password -->
+        <div class="field">
+          <label class="label">Password</label>
+          <p class="control has-icons-left">
+            <input class="input" type="password" id="password_su" placeholder="Password" />
+            <span class="icon is-small is-left m-auto">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+        <!-- Acount Type -->
+        <div class="field">
+          <label class="label">Account Type</label>
+          <div class="control">
+            <div class="select">
+              <select id="a_type_su">
+                <option>Customer</option>
+                <option>Admin</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- Profile Pic -->       
+        <div class="field">
+          <label class="label">Profile Picture</label>
+          <div class="control">
+            <input type="file" class="input" id="profilePic_su"/>
+          </div>
+        </div>
+        <div class="container m-0 has-text-centered">
+          <!-- submit button -->
+          <!-- <div class="control"> -->
+          <button class="button is-primary mt-2">Submit</button>
+          <!-- </div> -->
+          <!-- reset button -->
+          <button class="button is-danger ml-3 mt-2" id="resetsignup">Reset</button>
+        </div>
+      </form>
+      </div>
+    </div>
+    <!-- End Sign Up Modal -->
+
+    <!-- Start Login Modal -->
+     <!-- Start Login Modal -->
+     <div class="modal" id="loginModal">
+      <div class="modal-background" id="loginModalBg"></div>
+      <div class="modal-content has-background-grey-light p-4">
+        <form id="loginform">
+        <h1 class="subtitle has-text-weight-bold is-3">Login</h1>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input
+              class="input"
+              type="email"
+              id="loginemail"
+              placeholder="e.g. alexsmith@wisc.edu"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Password</label>
+          <p class="control has-icons-left">
+            <input class="input" type="password" id="loginpassword" placeholder="Password" />
+            <span class="icon is-small is-left m-auto">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+        <div class="container m-0 has-text-centered">
+          <!-- submit button -->
+          <button class="button is-primary">Submit</button>
+          <!-- reset button -->
+          <button class="button is-danger ml-3" id="resetlogin">Reset</button>
+        </div>
+      </form>
+      </div>
+    </div>
+    <!-- End Login Modal -->
+    <!-- End Login Modal -->
 
     <!-- End of Modals -->
 
     <!-- Start of Page Div Elements -->
-
     <!-- Start of Homepage -->
     <div
       class="container"
@@ -219,15 +345,15 @@
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
         //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
+        firebase.auth().onAuthStateChanged(user => { });
+        firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        firebase.firestore().doc('/foo/bar').get().then(() => { });
+        firebase.functions().httpsCallable('yourFunction')().then(() => { });
+        firebase.messaging().requestPermission().then(() => { });
+        firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        firebase.analytics(); // call to activate
+        firebase.analytics().logEvent('tutorial_completed');
+        firebase.performance(); // call to activate
         //
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
@@ -254,5 +380,6 @@
         }
       });
     </script>
+     <script src="/app.js"></script>
   </body>
 </html>
