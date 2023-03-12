@@ -341,45 +341,49 @@ r_e("signUpForm").addEventListener("submit", (e) => {
 
       // send these to firebase
       // send these to firebase
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .then((user) => {
-          // console.log("user created");
-          configure_message_bar(`Welcome ${auth.currentUser.email}`);
-          // reset the form
-          document.querySelector("#signupform").reset();
-          // close (hide) the modal
-          r_e("signupmodal").classList.remove("is-active");
+      auth.createUserWithEmailAndPassword(email, password).then((user) => {
+        // console.log("user created");
+        configure_message_bar(`Welcome ${auth.currentUser.email}`);
+        // reset the form
+        document.querySelector("#signUpForm").reset();
+        // close (hide) the modal
+        r_e("signUpModal").classList.remove("is-active");
 
-          // add the additional user information into the database
-          db.collection("users").doc(email).set(newUser);
-
-          // Display their name in the Corner When Signed In
-          // r_e("navBarEnd").innerHTML = `
-          // <div class="navbar-item">
-          //   <figure class="media-right mt-2">
-          //     <p class="image is-48x48">
-          //       <i class="fa-solid fa-user is-center fa-2x"></i>
-          //     </p>
-          //   </figure>
-          //   <div class="button mt-1">${auth.currentUser.email}</div>
-          // </div>
-          // `;
-          // User is signed in
-          configure_message_bar(`${newUser.email} has successfully signed in.`);
-          // hide the sign up form
-          r_e("signUpModal").classList.remove("is-active");
-          // Load The Member Homepage
-          allPages.forEach((page) => {
-            if (page.classList.contains("is-active")) {
-              hidemodal(page);
-            }
+        // add the additional user information into the database
+        // Store the object in the database
+        db.collection("users")
+          .doc(newUser.email)
+          .set(newUser)
+          .then(() => {
+            // Display their name in the Corner When Signed In
+            // r_e("navBarEnd").innerHTML = `
+            // <div class="navbar-item">
+            //   <figure class="media-right mt-2">
+            //     <p class="image is-48x48">
+            //       <i class="fa-solid fa-user is-center fa-2x"></i>
+            //     </p>
+            //   </figure>
+            //   <div class="button mt-1">${auth.currentUser.email}</div>
+            // </div>
+            // `;
+            // User is signed in
+            configure_message_bar(
+              `${newUser.email} has successfully signed in.`
+            );
+            // hide the sign up form
+            r_e("signUpModal").classList.remove("is-active");
+            // Load The Member Homepage
+            allPages.forEach((page) => {
+              if (page.classList.contains("is-active")) {
+                hidemodal(page);
+              }
+            });
+            showmodal(homepage);
+          })
+          .catch((error) => {
+            console.error("Error adding user: ", error);
           });
-          showmodal(homepage);
-        })
-        .catch((error) => {
-          // do nothing, form clears
-        });
+      });
     });
 });
 
@@ -462,6 +466,20 @@ r_e("loginform").addEventListener("submit", (e) => {
 
 // End Login Modal
 
+// Sign Out Modal
+r_e("logOutBtn").addEventListener("click", () => {
+  auth.signOut().then(() => {
+    // console.log("user signed out");
+    configure_message_bar(`You have successfully signed out!`);
+    allPages.forEach((page) => {
+      if (page.classList.contains("is-active")) {
+        hidemodal(page);
+      }
+    });
+    showmodal(homepage);
+  });
+});
+
 // keep track of user authenticaiton status
 auth.onAuthStateChanged((user) => {
   if (user) {
@@ -469,6 +487,9 @@ auth.onAuthStateChanged((user) => {
     // configure_message_bar(`${user.email} has successfully signed in.`);
     // Configure navbar
     // configure_nav_bar(user.email);
+    r_e("signUpBtn").classList.add("is-hidden");
+    r_e("loginBtn").classList.add("is-hidden");
+    r_e("logOutBtn").classList.remove("is-hidden");
     // log the login to the user account in the database
     db.collection("users")
       .get()
@@ -546,6 +567,10 @@ auth.onAuthStateChanged((user) => {
   } else {
     // User is signed out
     showmodal(homepage);
+    // configure_nav_bar(user.email);
+    r_e("signUpBtn").classList.remove("is-hidden");
+    r_e("loginBtn").classList.remove("is-hidden");
+    r_e("logOutBtn").classList.add("is-hidden");
     r_e("homepage").classList.add("is-active");
     // configure_message_bar(`You have sucessfully signed out.`);
     // Highlight the selected nav element
