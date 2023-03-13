@@ -68,9 +68,9 @@ Isaac:
 
 Trent:
 
-1.
-2.
-3.
+1. Yesterday I created the homepage prototype
+2. Today I will work of making the shop page prototype.
+3. No issues right now.
 
 Mason:
 
@@ -88,7 +88,9 @@ Connor:
 
 Alex:
 
-1.Yesterday I worked on implementing Javascript into the webpage to allow toggling between different pages 2. Today I further worked on this Javascript and adding implementing it with the the index.hmtl file 3. I had trouble with making sure all the pages are working correctly with all the different branches
+1.Yesterday I worked on implementing Javascript into the webpage to allow toggling between different pages
+2. Today I further worked on this Javascript and adding implementing it with the the index.hmtl file
+3. I had trouble with making sure all the pages are working correctly with all the different branches
 
 Isaac:
 
@@ -98,9 +100,9 @@ Isaac:
 
 Trent:
 
-1.
-2.
-3.
+1. Yesterday I started and finished the gallery prototype in justinmind.
+2. Today I will finish the admin dashboard prototype.
+3. I was having a problem opening the files in justinmind, however I quickly resolved this.
 
 Mason:
 
@@ -130,9 +132,9 @@ Isaac:
 
 Trent:
 
-1.
-2.
-3.
+1. Yesterday I checked in with my group members to ensure prototypes were being followed when writing html.
+2. Today I wrote the html for the shop page, and I made sure it looked similar to the other pages implemented.
+3. I didn't have any issues today.
 
 Mason:
 
