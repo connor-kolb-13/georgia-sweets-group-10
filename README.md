@@ -88,7 +88,7 @@ Connor:
 
 Alex:
 
-1.Yesterday I worked on implementing Javascript into the webpage to allow toggling between different pages
+1. Yesterday I worked on implementing Javascript into the webpage to allow toggling between different pages
 2. Today I further worked on this Javascript and adding implementing it with the the index.hmtl file
 3. I had trouble with making sure all the pages are working correctly with all the different branches
 
