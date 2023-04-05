@@ -582,56 +582,8 @@ auth.onAuthStateChanged((user) => {
         .then((users) => {
           users.forEach((currentuser) => {
             if (user.email == currentuser.data().email) {
-              // Get the current date and time
-              var currentDate = new Date();
-
-              // Get the day, month, and year
-              var day = currentDate.getDate();
-              var month = currentDate.getMonth() + 1; // January is 0
-              var year = currentDate.getFullYear();
-
-              // Get the hours and minutes
-              var hours = currentDate.getHours();
-              var minutes = currentDate.getMinutes();
-
-              // Determine AM or PM
-              var ampm = hours < 12 ? "AM" : "PM";
-
-              // Convert hours from military time to standard time
-              if (hours > 12) {
-                hours -= 12;
-              } else if (hours === 0) {
-                hours = 12;
-              }
-
-              // Add leading zeroes to minutes
-              if (minutes < 10) {
-                minutes = "0" + minutes;
-              }
-
-              // Add leading zeroes to month and day
-              if (day < 10) {
-                day = "0" + day;
-              }
-              if (month < 10) {
-                month = "0" + month;
-              }
-
-              // Format the date and time string
-              var dateTime =
-                month +
-                "/" +
-                day +
-                "/" +
-                year +
-                " " +
-                hours +
-                ":" +
-                minutes +
-                " " +
-                ampm;
-
-              // pdate the database
+              let dateTime = get_current_timestamp();
+              // update the database
               update_firebase("users", currentuser.id, "last_login", dateTime);
             }
           });
@@ -676,6 +628,42 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
+// Timestamp function
+function get_current_timestamp() {
+  // Get the current date and time
+  var currentDate = new Date();
+  // Get the day, month, and year
+  var day = currentDate.getDate();
+  var month = currentDate.getMonth() + 1; // January is 0
+  var year = currentDate.getFullYear();
+  // Get the hours and minutes
+  var hours = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  // Determine AM or PM
+  var ampm = hours < 12 ? "AM" : "PM";
+  // Convert hours from military time to standard time
+  if (hours > 12) {
+    hours -= 12;
+  } else if (hours === 0) {
+    hours = 12;
+  }
+  // Add leading zeroes to minutes
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  // Add leading zeroes to month and day
+  if (day < 10) {
+    day = "0" + day;
+  }
+  if (month < 10) {
+    month = "0" + month;
+  }
+  // Format the date and time string
+  var dateTime =
+    month + "/" + day + "/" + year + " " + hours + ":" + minutes + " " + ampm;
+  return dateTime;
+}
+
 // Message Bar Code
 function configure_message_bar(msg) {
   r_e("message_bar").innerHTML = msg;
@@ -687,3 +675,145 @@ function configure_message_bar(msg) {
     r_e("message_bar").innerHTML = "";
   }, 2000);
 }
+
+// Shop Page Work
+r_e("addShopItemBtn").addEventListener("click", () => {
+  r_e("addShopItemModal").classList.add("is-active");
+});
+
+r_e("addShopItemModalBg").addEventListener("click", () => {
+  r_e("addShopItemModal").classList.remove("is-active");
+});
+
+// Add the shop item to the database
+r_e("addShopItemForm").addEventListener("submit", (e) => {
+  // prevent the page from auto-refresh
+  e.preventDefault();
+  // Get the main picture
+  let mainPic = r_e("addShopItemMainPic").files[0];
+  let mainImage = new Date() + "_" + mainPic.name;
+  const task = ref.child(mainImage).put(mainPic);
+  let task1 = "";
+  let task2 = "";
+  let task3 = "";
+  let task4 = "";
+  let task5 = "";
+  // Check for supplement pictures
+  if (r_e("addShopItemSupPic1").files[0] != null) {
+    // One Sup Pic Submitted
+    let supPic1 = r_e("addShopItemSupPic1").files[0];
+    let supImage1 = new Date() + "_" + supPic1.name;
+    task1 = ref.child(supImage1).put(supPic1);
+  }
+  if (r_e("addShopItemSupPic2").files[0] != null) {
+    // Two Sup Pic Submitted
+    let supPic2 = r_e("addShopItemSupPic2").files[0];
+    let supImage2 = new Date() + "_" + supPic2.name;
+    task2 = ref.child(supImage2).put(supPic2);
+  }
+  if (r_e("addShopItemSupPic3").files[0] != null) {
+    // Three Sup Pic Submitted
+    let supPic3 = r_e("addShopItemSupPic3").files[0];
+    let supImage3 = new Date() + "_" + supPic3.name;
+    task3 = ref.child(supImage3).put(supPic3);
+  }
+  if (r_e("addShopItemSupPic4").files[0] != null) {
+    // Four Sup Pic Submitted
+    let supPic4 = r_e("addShopItemSupPic4").files[0];
+    let supImage4 = new Date() + "_" + supPic4.name;
+    task4 = ref.child(supImage4).put(supPic4);
+  }
+  if (r_e("addShopItemSupPic5").files[0] != null) {
+    // Five Sup Pic Submitted
+    let supPic5 = r_e("addShopItemSupPic5").files[0];
+    let supImage5 = new Date() + "_" + supPic5.name;
+    task5 = ref.child(supImage5).put(supPic5);
+  }
+  let sup_pics = [];
+
+  for (let index = 1; index < 6; index++) {
+    switch (index) {
+      case 1:
+        if (typeof task1 != "string") {
+          task1
+            .then((snapshot) => snapshot.ref.getDownloadURL())
+            .then((url) => {
+              sup_pics.push(url);
+            });
+        }
+        break;
+      case 2:
+        if (typeof task2 != "string") {
+          task2
+            .then((snapshot) => snapshot.ref.getDownloadURL())
+            .then((url) => {
+              sup_pics.push(url);
+            });
+        }
+        break;
+      case 3:
+        if (typeof task3 != "string") {
+          task3
+            .then((snapshot) => snapshot.ref.getDownloadURL())
+            .then((url) => {
+              sup_pics.push(url);
+            });
+        }
+        break;
+      case 4:
+        if (typeof task4 != "string") {
+          task4
+            .then((snapshot) => snapshot.ref.getDownloadURL())
+            .then((url) => {
+              sup_pics.push(url);
+            });
+        }
+        break;
+      case 5:
+        if (typeof task5 != "string") {
+          task5
+            .then((snapshot) => snapshot.ref.getDownloadURL())
+            .then((url) => {
+              sup_pics.push(url);
+            });
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  task
+    .then((snapshot) => snapshot.ref.getDownloadURL())
+    .then((url) => {
+      // get the information to submit
+      let item = {
+        product_name: r_e("addShopItemName").value,
+        product_description: r_e("addShopItemDescription").value,
+        current_inventory: r_e("addShopItemInventory").value,
+        price: r_e("addShopItemRegPrice").value,
+        sale_price: r_e("addShopItemSalePrice").value,
+        on_sale: r_e("addShopItemOnSale").checked,
+        main_pic: url,
+        date_added: get_current_timestamp(),
+        supplement_pics: sup_pics,
+        added_by: auth.currentUser.email,
+      };
+
+      // Store the object in the database
+      db.collection("products")
+        .add(item)
+        .then(() => {
+          // Hide the form
+          r_e("addShopItemModal").classList.remove("is-active");
+          // Clear the form
+
+          // Display Message
+          configure_message_bar(`${item.product_name} successfully added!`);
+        })
+        .catch((error) => {
+          // Display Message
+          configure_message_bar(`Error adding ${item.product_name}`);
+        });
+    });
+});

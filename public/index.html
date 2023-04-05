@@ -224,6 +224,93 @@
   </div>
   <!-- End Login Modal -->
 
+   <!-- Start Add Shop Item Modal -->
+   <div class="modal" id="addShopItemModal">
+    <div class="modal-background" id="addShopItemModalBg"></div>
+    <div class="modal-content has-background-white-ter p-4">
+      <form id="addShopItemForm">
+        <h1 class="subtitle has-text-weight-bold is-3">Add Shop Item</h1>
+        <!-- Item Name -->
+        <div class="field">
+          <label class="label">Item Name</label>
+          <div class="control">
+            <input class="input" type="text" id="addShopItemName" placeholder="Christmas Cookie Pack" />
+          </div>
+        </div>
+         <!-- Item Description -->
+         <div class="field">
+          <label class="label">Item Description</label>
+          <div class="control">
+            <textarea class="textarea" id="addShopItemDescription" placeholder="Explain what this product all includes here!"></textarea>
+          </div>
+        </div>
+        <!-- Inventory Count -->
+        <div class="columns is-flex">
+          <div class="column is-6">
+            <div class="field">
+              <label class="label">Inventory Count</label>
+              <div class="control">
+                <input class="input" type="number" id="addShopItemInventory" placeholder="100" />
+              </div>
+            </div>
+          </div>
+        </div>   
+        <div class="columns is-flex">
+          <div class="column is-4">
+            <!-- Regular Price -->
+            <div class="field">
+              <label class="label">Regular Price</label>
+              <div class="control">
+                <input class="input" type="number" id="addShopItemRegPrice" placeholder="9.99" />
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <!-- Sale Price -->
+            <div class="field">
+              <label class="label">Sale Price</label>
+              <div class="control">
+                <input class="input" type="number" id="addShopItemSalePrice" placeholder="7.99" />
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <!-- On Sale Checkbox -->
+            <label class="checkbox mt-5 pt-4">
+              <input type="checkbox" id="addShopItemOnSale">
+                On Sale
+            </label>
+          </div>
+          </div>
+          <!-- Main Image -->       
+          <div class="field">
+            <label class="label">Main Image</label>
+            <div class="control">
+              <input type="file" class="input" id="addShopItemMainPic"/>
+            </div>
+          </div>
+          <!-- Supplementary Images -->
+          <div class="field">
+            <label class="label">Supplementary Images</label>
+            <div class="control">
+              <input type="file" class="input" id="addShopItemSupPic1" />
+              <input type="file" class="input" id="addShopItemSupPic2" />
+              <input type="file" class="input" id="addShopItemSupPic3" />
+              <input type="file" class="input" id="addShopItemSupPic4" />
+              <input type="file" class="input" id="addShopItemSupPic5" />
+            </div>
+          </div>
+        <div class="container m-0 has-text-centered">
+          <!-- submit button -->
+          <button class="button" style="background-color: #b493db">Submit</button>
+          <!-- reset button -->
+          <button class="button ml-3" id="resetlogin" style="background-color: whitesmoke">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- End Add Shop Item Modal -->
+
 
   <!-- End of Modals -->
 
@@ -277,6 +364,13 @@
 
   <!-- Start of Shop -->
   <div class="container is-hidden" id="shopPage">
+     <div class="container">
+        <div class="section has-background-grey">
+          <div class="buttons">
+            <div class="button" id="addShopItemBtn">Add Item</div>
+          </div>
+        </div>
+      </div>
     <div class="block"></div>
     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem nam quod quia, aliquam sit iste ipsam
       maiores excepturi atque temporibus, laborum adipisci nihil assumenda quisquam nobis veritatis at cumque impedit
@@ -373,10 +467,6 @@
   </div>
   </div>
   <!-- End of About us -->
-
-  <!-- Start of Shop -->
-  <div class="container is-hidden" id="shopPage"></div>
-  <!-- End of Shop -->
 
   <!-- Start of Photo Gallery -->
   <div class="container is-hidden gallery" , id="gallerypage">
