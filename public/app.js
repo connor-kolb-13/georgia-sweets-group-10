@@ -255,6 +255,74 @@ function get_firebase_data(collection, documentid, field) {
   });
 }
 
+// Example of how to use function for reference when working
+// get_user_info(auth.currentUser.email, "full_name").then(
+//   (name) => {
+// console.log(name);    would log the full name (First Last) of the current user
+//   }
+// );
+
+// Function to find the requested field of the user with the given email
+function get_user_info(email, field) {
+  let val = "";
+  return new Promise((res, rej) => {
+    db.collection("users")
+      .where("email", "==", email)
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        // Check if user with matching email found
+        if (mydocs.length == 0) {
+          alert("user not found");
+          return;
+        }
+
+        for (i = 0; i < mydocs.length; i++) {
+          // User is found, return the requested field
+          switch (field) {
+            case "email":
+              alert("trying to get the email");
+              res(mydocs[0].data().email);
+              break;
+            case "f_name":
+              res(mydocs[0].data().f_name);
+              break;
+            case "l_name":
+              res(mydocs[0].data().l_name);
+              break;
+            case "a_type":
+              res(mydocs[0].data().a_type);
+              break;
+            case "profile_pic":
+              res(mydocs[0].data().profile_pic);
+              break;
+            case "username":
+              res(mydocs[0].data().username);
+              break;
+            case "last_login":
+              res(mydocs[0].data().last_login);
+              break;
+            case "date_account_created":
+              res(mydocs[0].data().date_account_created);
+              break;
+            case "full_name":
+              res(`${mydocs[0].data().f_name} ${mydocs[0].data().l_name}`);
+              break;
+            default:
+              res(mydocs[0].data().email);
+              break;
+          }
+        }
+      });
+    // End of Promise
+    // Set the delay
+    // setTimeout(() => {
+    //   // Return the value
+    //   return val;
+    // }, 5000);
+  });
+}
+
 // Update the database
 function update_firebase(collection, document, field, newValue) {
   firebase
@@ -330,7 +398,6 @@ r_e("signUpForm").addEventListener("submit", (e) => {
       // get the email and password to submit
       let email = r_e("email_su").value;
       let password = r_e("password_su").value;
-      console.log(email, " ", password);
       let newUser = {
         f_name: r_e("f_name_su").value,
         l_name: r_e("l_name_su").value,
@@ -341,7 +408,12 @@ r_e("signUpForm").addEventListener("submit", (e) => {
         profile_pic: url,
       };
 
-      console.log(newUser);
+      // console.log(newUser);
+      // Hide Dashboard Tab if Customer Account
+      if (newUser.a_type == "Customer") {
+        // Hide the dashboard tab
+        r_e("dashboardbtn").classList.add("is-hidden");
+      }
 
       // send these to firebase
       // send these to firebase
@@ -488,88 +560,100 @@ r_e("logOutBtn").addEventListener("click", () => {
 auth.onAuthStateChanged((user) => {
   if (user) {
     showmodal(homepage);
-    // configure_message_bar(`${user.email} has successfully signed in.`);
-    // Configure navbar
-    // configure_nav_bar(user.email);
-    r_e("signUpBtn").classList.add("is-hidden");
-    r_e("loginBtn").classList.add("is-hidden");
-    r_e("logOutBtn").classList.remove("is-hidden");
-    // log the login to the user account in the database
-    db.collection("users")
-      .get()
-      .then((users) => {
-        users.forEach((currentuser) => {
-          if (user.email == currentuser.data().email) {
-            // Get the current date and time
-            var currentDate = new Date();
-
-            // Get the day, month, and year
-            var day = currentDate.getDate();
-            var month = currentDate.getMonth() + 1; // January is 0
-            var year = currentDate.getFullYear();
-
-            // Get the hours and minutes
-            var hours = currentDate.getHours();
-            var minutes = currentDate.getMinutes();
-
-            // Determine AM or PM
-            var ampm = hours < 12 ? "AM" : "PM";
-
-            // Convert hours from military time to standard time
-            if (hours > 12) {
-              hours -= 12;
-            } else if (hours === 0) {
-              hours = 12;
-            }
-
-            // Add leading zeroes to minutes
-            if (minutes < 10) {
-              minutes = "0" + minutes;
-            }
-
-            // Add leading zeroes to month and day
-            if (day < 10) {
-              day = "0" + day;
-            }
-            if (month < 10) {
-              month = "0" + month;
-            }
-
-            // Format the date and time string
-            var dateTime =
-              month +
-              "/" +
-              day +
-              "/" +
-              year +
-              " " +
-              hours +
-              ":" +
-              minutes +
-              " " +
-              ampm;
-
-            // pdate the database
-            update_firebase("users", currentuser.id, "last_login", dateTime);
-          }
-        });
-      });
-
-    // pause_videos();
-    // Highlight the selected nav element
-    allPages.forEach((page) => {
-      if (page.classList.contains("is-active")) {
-        let temp = page.id.substring(0, 4);
-        allBtns.forEach((btn) => {
-          let tempbtn = btn.id.substring(0, 4);
-          if (tempbtn == temp) {
-            btn.classList.add("is-active");
-          }
-        });
+    configure_message_bar(`${user.email} has successfully signed in.`);
+    // Hiding Dashboard Tab From Non-Admin Accounts
+    get_user_info(auth.currentUser.email, "a_type").then((type) => {
+      // console.log(type);
+      if (type == "Customer") {
+        // Hide the dashboard tab
+        r_e("dashboardbtn").classList.add("is-hidden");
+      } else {
+        // Else hide nothing (make sure the dashboard tab is displayed)
+        if (r_e("dashboardbtn").classList.contains("is-hidden")) {
+          r_e("dashboardbtn").classList.remove("is-hidden");
+        }
       }
+      r_e("signUpBtn").classList.add("is-hidden");
+      r_e("loginBtn").classList.add("is-hidden");
+      r_e("logOutBtn").classList.remove("is-hidden");
+      // log the login to the user account in the database
+      db.collection("users")
+        .get()
+        .then((users) => {
+          users.forEach((currentuser) => {
+            if (user.email == currentuser.data().email) {
+              // Get the current date and time
+              var currentDate = new Date();
+
+              // Get the day, month, and year
+              var day = currentDate.getDate();
+              var month = currentDate.getMonth() + 1; // January is 0
+              var year = currentDate.getFullYear();
+
+              // Get the hours and minutes
+              var hours = currentDate.getHours();
+              var minutes = currentDate.getMinutes();
+
+              // Determine AM or PM
+              var ampm = hours < 12 ? "AM" : "PM";
+
+              // Convert hours from military time to standard time
+              if (hours > 12) {
+                hours -= 12;
+              } else if (hours === 0) {
+                hours = 12;
+              }
+
+              // Add leading zeroes to minutes
+              if (minutes < 10) {
+                minutes = "0" + minutes;
+              }
+
+              // Add leading zeroes to month and day
+              if (day < 10) {
+                day = "0" + day;
+              }
+              if (month < 10) {
+                month = "0" + month;
+              }
+
+              // Format the date and time string
+              var dateTime =
+                month +
+                "/" +
+                day +
+                "/" +
+                year +
+                " " +
+                hours +
+                ":" +
+                minutes +
+                " " +
+                ampm;
+
+              // pdate the database
+              update_firebase("users", currentuser.id, "last_login", dateTime);
+            }
+          });
+        });
+
+      // Highlight the selected nav element
+      allPages.forEach((page) => {
+        if (page.classList.contains("is-active")) {
+          let temp = page.id.substring(0, 4);
+          allBtns.forEach((btn) => {
+            let tempbtn = btn.id.substring(0, 4);
+            if (tempbtn == temp) {
+              btn.classList.add("is-active");
+            }
+          });
+        }
+      });
     });
   } else {
     // User is signed out
+    // Hide the dashboard tab
+    r_e("dashboardbtn").classList.add("is-hidden");
     showmodal(homepage);
     // configure_nav_bar(user.email);
     r_e("signUpBtn").classList.remove("is-hidden");
