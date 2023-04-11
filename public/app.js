@@ -136,6 +136,45 @@ document.querySelector("#gallerybtn").addEventListener("click", () => {
   menu.classList.toggle("is-active");
 });
 
+/* 
+ - Images to be added to some db from the admin page
+ - Image links stored Firestore
+ - Loop through each image and add it to the the page
+*/
+
+// Current collection does not exist yet in firebase
+db.collection("gallery_images")
+  .get().then((querySnapshot) => {
+    let count = 0
+    querySnapshot.forEach((doc) => {
+      data = doc.data();
+      count += 1
+      gallerypage.querySelector("#gallery").innerHTML +=
+        ` <figure class="gallery__item gallery__item--${count}">
+            <img src="${data.link}" class="gallery__img" alt="Image ${count}">
+          </figure>`
+    });
+  });
+// temporary code that takes the files fromthe images folder
+let temp_img_array = [
+  "georgiasweetsbowling.jpeg",
+  "georgiasweetsblm.jpeg",
+  "georgiasweetsconstruction.jpeg",
+  "georgiasweetssuperbowl.jpeg",
+  "georgiasweetsliloandstitch.jpeg",
+  "georgiasweetsturkey.jpeg"
+]
+let temp_img_count = 0
+temp_img_array.forEach((src) => {
+  temp_img_count += 1
+
+  gallerypage.querySelector("#gallery").innerHTML +=
+    ` <figure class="gallery__item gallery__item--${temp_img_count}">
+            <img src="images/${src}" class="gallery__img" alt="Image ${temp_img_count}">
+          </figure>`
+})
+
+
 // Public dashboard Page
 document.querySelector("#dashboardbtn").addEventListener("click", () => {
   // Hide all other pages
