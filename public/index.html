@@ -494,7 +494,92 @@
   <!-- End of Photo Gallery -->
 
   <!-- Start of Admin Dashboard -->
-  <div class="container is-hidden" id="dashboardpage"></div>
+  <div class="container is-hidden" id="dashboardpage">
+    <div class="columns is-multiline">
+      <div class="column is-4">
+        <div class="card productCard">
+          <div class="card-image">
+            <div class = "box">
+            <figure class="image is-512x512">
+              <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Placeholder image" onclick="mngShopBtn()">
+            </figure>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="title is-5" onclick="mngShopBtn()"> <a href="#">Manage Shop</a> </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="card productCard">
+          <div class="card-image">
+            <div class = "box">
+            <figure class="image is-512x512">
+              <img src="https://cdn-icons-png.flaticon.com/512/45/45010.png" alt="Placeholder image" onclick="mngGalleryBtn()">
+            </figure>
+          </div>
+          </div>
+          <div class="card-content">
+            <div class="title is-5" onclick="mngGalleryBtn()"> <a href="#">Manage Gallery</a> </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="card productCard">
+          <div class="card-image">
+            <div class = "box">
+            <figure class="image is-512x512">
+              <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="Placeholder image" onclick="mngUsersBtn()">
+            </figure>
+          </div>
+          </div>
+          <div class="card-content">
+            <div class="title is-5" onclick="mngUsersBtn()"> <a href="#">Manage Users</a> </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="card productCard">
+          <div class="card-image">
+            <div class = "box">
+            <figure class="image is-512x512">
+              <img src="https://cdn-icons-png.flaticon.com/512/8301/8301848.png" alt="Placeholder image" onclick="mngAbtUsBtn()">
+            </figure>
+          </div>
+          </div>
+          <div class="card-content">
+            <div class="title is-5" onclick="mngAbtUsBtn()"> <a href="#">Manage About Us</a> </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+    <!--Start of Manage Shop -->
+    <div class="container is-hidden" id="manageshoppage" style="background-color: #f5f5f5">
+      <a class="button has-text-white" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
+    </div>
+    <!--End of Manage Shop-->
+
+    <!--Start of Manage Gallery-->
+    <div class="container is-hidden" id="managegallerypage" style="background-color: #f5f5f5">
+      <a class="button has-text-white" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
+    </div>
+    <!--End of Manage Gallery-->
+
+    <!--Start of Manage Users-->
+    <div class="container is-hidden" id="manageuserspage" style="background-color: #f5f5f5">
+      <a class="button has-text-white" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
+    </div>
+    <!--End of Manage Users-->
+
+    <!--Start of Manage About Us-->
+    <div class="container is-hidden" id="manageaboutuspage" style="background-color: #f5f5f5">
+      <a class="button has-text-white" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
+   </div>
+    <!--End of Manage About Us-->
+  
   <!-- End of Admin Dashboard -->
 
   <!-- Start of About Us -->
