@@ -190,7 +190,6 @@
   </div>
   <!-- End Sign Up Modal -->
 
-
   <!-- Start Login Modal -->
   <div class="modal" id="loginModal">
     <div class="modal-background" id="loginModalBg"></div>
@@ -364,13 +363,6 @@
 
   <!-- Start of Shop -->
   <div class="container is-hidden" id="shopPage">
-     <div class="container">
-        <div class="section has-background-grey">
-          <div class="buttons">
-            <div class="button" id="addShopItemBtn">Add Item</div>
-          </div>
-        </div>
-      </div>
     <div class="block"></div>
     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem nam quod quia, aliquam sit iste ipsam
       maiores excepturi atque temporibus, laborum adipisci nihil assumenda quisquam nobis veritatis at cumque impedit
@@ -558,7 +550,31 @@
 
     <!--Start of Manage Shop -->
     <div class="container is-hidden" id="manageshoppage" style="background-color: #f5f5f5">
-      <a class="button has-text-white" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
+      <a class="button has-text-white mt-2" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
+      <br>
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Shop</div>
+        <div class="columns is-flex is-6">
+        <div class="column is-6" style="background-color: #b493db">
+          <div class="subtitle is-4 has-text-white ">Manage Products</div>
+          <hr class="mx-6">
+          <div class="buttons is-centered">
+            <div class="button" id="addShopItemBtn">Add Product</div>
+            <div class="button" id="viewShopProductsBtn">View All Products</div>
+          </div>
+        
+        </div>
+        <div class="column is-6" style="background-color: #b493db">
+          <div class="subtitle is-4 has-text-white">Manage Orders</div>
+          <hr class="mx-6">
+          <div class="buttons is-centered">
+            <div class="button" id="viewShopOrders">View All Orders</div>
+          </div>
+        </div>
+        
+        </div>
+        
+      </div>
     </div>
     <!--End of Manage Shop-->
 
