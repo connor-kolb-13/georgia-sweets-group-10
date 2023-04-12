@@ -315,19 +315,6 @@ function get_date() {
 
 // Start Sign Up Functions
 // user clicks the button, display the modal
-r_e("signUpBtn").addEventListener("click", () => {
-  r_e("signUpModal").classList.add("is-active");
-});
-
-// when the user clicks on the backgorund, hide the modal
-r_e("signUpModalBg").addEventListener("click", () => {
-  r_e("signUpModal").classList.remove("is-active");
-});
-
-// End Sign Up Functions
-
-// Start Sign Up Functions
-// user clicks the button, display the modal
 r_e("loginBtn").addEventListener("click", () => {
   r_e("loginModal").classList.add("is-active");
 });
@@ -338,7 +325,8 @@ r_e("loginModalBg").addEventListener("click", () => {
 });
 
 // Clear the form
-r_e("resetsignup").addEventListener("click", () => {
+r_e("resetsignup").addEventListener("click", (e) => {
+  e.preventDefault();
   r_e("f_name_su").value = "";
   r_e("l_name_su").value = "";
   r_e("username_su").value = "";
@@ -362,7 +350,8 @@ r_e("loginModalBg").addEventListener("click", () => {
 });
 
 // Clear the form
-r_e("resetlogin").addEventListener("click", () => {
+r_e("resetlogin").addEventListener("click", (e) => {
+  e.preventDefault();
   r_e("loginemail").value = "";
   r_e("loginpassword").value = "";
 });
@@ -415,114 +404,6 @@ r_e("logOutBtn").addEventListener("click", () => {
     });
     showmodal(homepage);
   });
-});
-
-// keep track of user authenticaiton status
-auth.onAuthStateChanged((user) => {
-  if (user) {
-    showmodal(homepage);
-    // configure_message_bar(`${user.email} has successfully signed in.`);
-    // Configure navbar
-    // configure_nav_bar(user.email);
-    r_e("signUpBtn").classList.add("is-hidden");
-    r_e("loginBtn").classList.add("is-hidden");
-    r_e("logOutBtn").classList.remove("is-hidden");
-    // log the login to the user account in the database
-    db.collection("users")
-      .get()
-      .then((users) => {
-        users.forEach((currentuser) => {
-          if (user.email == currentuser.data().email) {
-            // Get the current date and time
-            var currentDate = new Date();
-
-            // Get the day, month, and year
-            var day = currentDate.getDate();
-            var month = currentDate.getMonth() + 1; // January is 0
-            var year = currentDate.getFullYear();
-
-            // Get the hours and minutes
-            var hours = currentDate.getHours();
-            var minutes = currentDate.getMinutes();
-
-            // Determine AM or PM
-            var ampm = hours < 12 ? "AM" : "PM";
-
-            // Convert hours from military time to standard time
-            if (hours > 12) {
-              hours -= 12;
-            } else if (hours === 0) {
-              hours = 12;
-            }
-
-            // Add leading zeroes to minutes
-            if (minutes < 10) {
-              minutes = "0" + minutes;
-            }
-
-            // Add leading zeroes to month and day
-            if (day < 10) {
-              day = "0" + day;
-            }
-            if (month < 10) {
-              month = "0" + month;
-            }
-
-            // Format the date and time string
-            var dateTime =
-              month +
-              "/" +
-              day +
-              "/" +
-              year +
-              " " +
-              hours +
-              ":" +
-              minutes +
-              " " +
-              ampm;
-
-            // pdate the database
-            update_firebase("users", currentuser.id, "last_login", dateTime);
-          }
-        });
-      });
-
-    // pause_videos();
-    // Highlight the selected nav element
-    allPages.forEach((page) => {
-      if (page.classList.contains("is-active")) {
-        let temp = page.id.substring(0, 4);
-        allBtns.forEach((btn) => {
-          let tempbtn = btn.id.substring(0, 4);
-          if (tempbtn == temp) {
-            btn.classList.add("is-active");
-          }
-        });
-      }
-    });
-  } else {
-    // User is signed out
-    showmodal(homepage);
-    // configure_nav_bar(user.email);
-    r_e("signUpBtn").classList.remove("is-hidden");
-    r_e("loginBtn").classList.remove("is-hidden");
-    r_e("logOutBtn").classList.add("is-hidden");
-    r_e("homepage").classList.add("is-active");
-    // configure_message_bar(`You have sucessfully signed out.`);
-    // Highlight the selected nav element
-    allPages.forEach((page) => {
-      if (page.classList.contains("is-active")) {
-        let temp = page.id.substring(0, 4);
-        allBtns.forEach((btn) => {
-          let tempbtn = btn.id.substring(0, 4);
-          if (tempbtn == temp) {
-            btn.classList.add("is-active");
-          }
-        });
-      }
-    });
-  }
 });
 
 // Message Bar Code
@@ -804,7 +685,8 @@ r_e("loginModalBg").addEventListener("click", () => {
 });
 
 // Clear the form
-r_e("resetsignup").addEventListener("click", () => {
+r_e("resetsignup").addEventListener("click", (e) => {
+  e.preventDefault();
   r_e("f_name_su").value = "";
   r_e("l_name_su").value = "";
   r_e("username_su").value = "";
@@ -813,75 +695,7 @@ r_e("resetsignup").addEventListener("click", () => {
   r_e("password_su").value = "";
   r_e("profilePic_su").value = "";
 });
-
 // End Sign Up Functions
-
-// Start Login Modal
-// user clicks the button, display the modal
-r_e("loginBtn").addEventListener("click", () => {
-  r_e("loginModal").classList.add("is-active");
-});
-
-// when the user clicks on the backgorund, hide the modal
-r_e("loginModalBg").addEventListener("click", () => {
-  r_e("loginModal").classList.remove("is-active");
-});
-
-// Clear the form
-r_e("resetlogin").addEventListener("click", () => {
-  r_e("loginemail").value = "";
-  r_e("loginpassword").value = "";
-});
-
-// Sign in users
-r_e("loginform").addEventListener("submit", (e) => {
-  e.preventDefault();
-  // get the email and password from the form
-  let email = r_e("loginemail").value;
-  let password = r_e("loginpassword").value;
-  // Send email and password to firebase for verification (authentication)
-  auth
-    .signInWithEmailAndPassword(email, password)
-    .then((user) => {
-      configure_message_bar(`${email} has successfully signed in`);
-      // Load The Member Homepage
-      allPages.forEach((page) => {
-        if (page.classList.contains("is-active")) {
-          hidemodal(page);
-        }
-      });
-      showmodal(homepage);
-      // reset the form
-      r_e("loginform").reset();
-      // close (hide) the modal
-      r_e("loginModal").classList.remove("is-active");
-    })
-    .catch((error) => {
-      // If login fails, display an error message and exit the function
-      configure_message_bar("Invalid email or password");
-      // reset the form
-      r_e("loginform").reset();
-      // close (hide) the modal
-      r_e("loginModal").classList.remove("is-active");
-      return;
-    });
-});
-
-// End Login Modal
-
-// Sign Out Modal
-r_e("logOutBtn").addEventListener("click", () => {
-  auth.signOut().then(() => {
-    // console.log("user signed out");
-    configure_message_bar(`You have successfully signed out!`);
-    allPages.forEach((page) => {
-      if (page.classList.contains("is-active")) {
-        hidemodal(page);
-      }
-    });
-    showmodal(homepage);
-  });
-});
 
 // keep track of user authenticaiton status
 auth.onAuthStateChanged((user) => {
@@ -989,18 +803,6 @@ function get_current_timestamp() {
   var dateTime =
     month + "/" + day + "/" + year + " " + hours + ":" + minutes + " " + ampm;
   return dateTime;
-}
-
-// Message Bar Code
-function configure_message_bar(msg) {
-  r_e("message_bar").innerHTML = msg;
-  // make the message bar hidden
-  r_e("message_bar").classList.remove("is-hidden");
-  // after 2 seconds, hide the bar again
-  setTimeout(() => {
-    r_e("message_bar").classList.add("is-hidden");
-    r_e("message_bar").innerHTML = "";
-  }, 2000);
 }
 
 // Shop Page Work
