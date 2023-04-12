@@ -46,6 +46,10 @@ let dashboardpage = r_e("dashboardpage");
 let aboutpage = r_e("publicLandingPage");
 let contactpage = r_e("conactpage");
 let reportanissuepage = r_e("reportanissuepage");
+let manageshoppage = r_e("manageshoppage");
+let managegallerypage = r_e("managegallerypage");
+let manageuserspage = r_e("manageuserspage");
+let manageaboutuspage = r_e("manageaboutuspage");
 
 let = allPages = [
   homepage,
@@ -55,6 +59,10 @@ let = allPages = [
   aboutpage,
   contactpage,
   reportanissuepage,
+  manageshoppage,
+  managegallerypage,
+  manageuserspage,
+  manageaboutuspage,
 ];
 
 function showmodal(mymodal) {
@@ -606,15 +614,96 @@ function configure_message_bar(msg) {
 
 //Dashboard JS
 function mngShopBtn() {  
-  mngShopHTML += `<a class="button has-text-white" style="background-color: #b493db" id="signUpBtn"><strong>Sign up</strong></a>`
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(manageshoppage);
+  hidemodal(dashboardpage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  dashboardbtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
   }  
 function mngGalleryBtn() {  
-  mngGalleryHTML += `<a class="button has-text-white" style="background-color: #b493db" id="signUpBtn"><strong>Sign up</strong></a>`
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(managegallerypage);
+  hidemodal(dashboardpage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  dashboardbtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
   }  
 function mngUsersBtn() {  
-  mngUsersHTML += `<a class="button has-text-white" style="background-color: #b493db" id="signUpBtn"><strong>Sign up</strong></a>`
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(manageuserspage);
+  hidemodal(dashboardpage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  dashboardbtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
   }  
 function mngAbtUsBtn() {  
-  mngAboutUsHTML += `<a class="button has-text-white" style="background-color: #b493db" id="signUpBtn"><strong>Sign up</strong></a>`
-  }  
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(manageaboutuspage);
+  hidemodal(dashboardpage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  dashboardbtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+  } 
+
+function backToDashboardBtn(){
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(dashboardpage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+  } 
 
