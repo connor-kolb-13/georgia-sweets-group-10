@@ -603,3 +603,18 @@ function configure_message_bar(msg) {
     r_e("message_bar").innerHTML = "";
   }, 2000);
 }
+
+//Dashboard JS
+function mngShopBtn() {  
+  mngShopHTML += `<a class="button has-text-white" style="background-color: #b493db" id="signUpBtn"><strong>Sign up</strong></a>`
+  }  
+function mngGalleryBtn() {  
+  mngGalleryHTML += `<a class="button has-text-white" style="background-color: #b493db" id="signUpBtn"><strong>Sign up</strong></a>`
+  }  
+function mngUsersBtn() {  
+  mngUsersHTML += `<a class="button has-text-white" style="background-color: #b493db" id="signUpBtn"><strong>Sign up</strong></a>`
+  }  
+function mngAbtUsBtn() {  
+  mngAboutUsHTML += `<a class="button has-text-white" style="background-color: #b493db" id="signUpBtn"><strong>Sign up</strong></a>`
+  }  
+
