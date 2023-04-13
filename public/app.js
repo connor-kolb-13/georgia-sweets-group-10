@@ -464,6 +464,8 @@ function mngUsersBtn() {
     }
   });
   showmodal(manageuserspage);
+  // Show users
+  show_users();
   hidemodal(dashboardpage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
@@ -946,3 +948,110 @@ r_e("addShopItemForm").addEventListener("submit", (e) => {
         });
     });
 });
+
+// Start Manage Users
+function show_users() {
+  const PAGE_SIZE = 10;
+  let currentPage = 0;
+  let numPages = 0;
+
+  function renderTable(startIndex, numToShow) {
+    db.collection("users")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        let html = "";
+
+        let endIndex =
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
+
+        mydocs.slice(startIndex, endIndex).forEach((user, index) => {
+          html += `
+            <tr>
+              <td>
+                <figure class="image is-1by1 is-small">
+                  <img class="is-rounded" src="${user.data().profile_pic}">
+                </figure>
+              </td>
+              <td class="has-text-left">${user.data().f_name} ${
+            user.data().l_name
+          }</td>
+              <td class="has-text-center">${user.data().email}</td>
+              <td class="has-text-center">${user.data().username}</td>
+              <td class="has-text-center">${
+                user.data().date_account_created
+              }</td>
+              <td class="has-text-center">${user.data().last_login}</td>
+              <td>
+                <div class="buttons has-addons">
+                  <button class="button">Edit</button>
+                  <button class="button is-danger is-selected">Delete</button>
+                </div>  
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById("users_table").innerHTML = html;
+      });
+  }
+
+  function renderPageLinks() {
+    let html = "";
+    for (let i = 0; i < numPages; i++) {
+      html += `
+        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+      `;
+    }
+
+    document.getElementById("manageUsersPageLinks").innerHTML = html;
+  }
+
+  function showPage(pageNum) {
+    let startIndex = pageNum * PAGE_SIZE;
+    renderTable(startIndex, PAGE_SIZE);
+    currentPage = pageNum;
+    updateNavigation();
+  }
+
+  function updateNavigation() {
+    let prevBtn = document.getElementById("fullStandingsPrevPage");
+    let nextBtn = document.getElementById("fullStandingsNextPage");
+
+    if (prevBtn) {
+      prevBtn.disabled = currentPage === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = currentPage === numPages - 1;
+    }
+
+    let pageLinks = document.querySelectorAll("#fullStandingsPageLinks a");
+    pageLinks.forEach((link) => {
+      link.classList.toggle(
+        "is-current",
+        parseInt(link.dataset.page) === currentPage
+      );
+    });
+  }
+
+  db.collection("users")
+    .get()
+    .then((data) => {
+      numPages = Math.ceil(data.docs.length / PAGE_SIZE);
+      renderPageLinks();
+      showPage(0);
+    });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "fullStandingsPrevPage") {
+      showPage(currentPage - 1);
+    } else if (event.target.id === "fullStandingsNextPage") {
+      showPage(currentPage + 1);
+    } else if (event.target.classList.contains("pagination-link")) {
+      showPage(parseInt(event.target.dataset.page));
+    }
+  });
+}
