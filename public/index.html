@@ -364,13 +364,6 @@
 
   <!-- Start of Shop -->
   <div class="container is-hidden" id="shopPage">
-     <div class="container">
-        <div class="section has-background-grey">
-          <div class="buttons">
-            <div class="button" id="addShopItemBtn">Add Item</div>
-          </div>
-        </div>
-      </div>
     <div class="block"></div>
     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem nam quod quia, aliquam sit iste ipsam
       maiores excepturi atque temporibus, laborum adipisci nihil assumenda quisquam nobis veritatis at cumque impedit
@@ -471,24 +464,7 @@
   <!-- Start of Photo Gallery -->
   <div class="container is-hidden gallery" , id="gallerypage">
     <div class=”gallery”>
-      <figure class="gallery__item gallery__item--1">
-        <img src="images/georgiasweetsbowling.jpeg" class="gallery__img" alt="Image 1">
-      </figure>
-      <figure class="gallery__item gallery__item--2">
-        <img src="images/georgiasweetsblm.jpeg" class="gallery__img" alt="Image 2">
-      </figure>
-      <figure class="gallery__item gallery__item--3">
-        <img src="images/georgiasweetsconstruction.jpeg" class="gallery__img" alt="Image 3">
-      </figure>
-      <figure class="gallery__item gallery__item--4">
-        <img src="images/georgiasweetssuperbowl.jpeg" class="gallery__img" alt="Image 4">
-      </figure>
-      <figure class="gallery__item gallery__item--5">
-        <img src="images/georgiasweetsliloandstitch.jpeg" class="gallery__img" alt="Image 5">
-      </figure>
-      <figure class="gallery__item gallery__item--6">
-        <img src="images/georgiasweetsturkey.jpeg" class="gallery__img" alt="Image 6">
-      </figure>
+ 
     </div>
   </div>
   <!-- End of Photo Gallery -->
@@ -562,11 +538,31 @@
     </div>
     <!--End of Manage Shop-->
 
+
+
+
     <!--Start of Manage Gallery-->
     <div class="container is-hidden" id="managegallerypage" style="background-color: #f5f5f5">
-      <a class="button has-text-white" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
+      <a class="button has-text-white mb-4" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
+      <form id="galleryUpdateForm">
+        <div class="field">
+          <label class="label">Gallery Image Upload</label>
+          <div>
+            <input type="file" class="input" id="newGalleryPic"/>
+          </div>
+          <!-- submit button -->
+          <div>
+            <button class="button mt-2" style="background-color: #b493db" id="upload_button">Upload</button>
+            <!-- reset button -->
+            <button class="button ml-3 mt-2" id="resetsignup" style="background-color: whitesmoke">Delete</button>
+        </div>
+      </form>
     </div>
     <!--End of Manage Gallery-->
+
+
+
+
 
     <!--Start of Manage Users-->
     <div class="container is-hidden" id="manageuserspage" style="background-color: #f5f5f5">
