@@ -94,7 +94,7 @@
               <strong>Sign up</strong>
             </a>
             <a class="button has-background-grey-light" id="loginBtn"> Log in </a>
-            <a class="button has-background-grey-light is-hidden" style="background-color: #b493db" id="logOutBtn"> Log Out </a>
+            <a class="button is-hidden" style="background-color: #b493db" id="logOutBtn"> Log Out </a>
           </div>
         </div>
       </div>
@@ -487,9 +487,10 @@
 
   <!-- Start of Admin Dashboard -->
   <div class="container is-hidden" id="dashboardpage">
-    <div class="columns is-multiline">
-      <div class="column is-4">
-        <div class="card productCard">
+    <div class="columns is-flex">
+      <div class="column is-3"></div>
+      <div class="column is-3">
+        <div class="card productCard" style="background-color: #b493db" >
           <div class="card-image">
             <div class = "box">
             <figure class="image is-512x512">
@@ -497,13 +498,13 @@
             </figure>
             </div>
           </div>
-          <div class="card-content">
-            <div class="title is-5" onclick="mngShopBtn()"> <a href="#">Manage Shop</a> </div>
+          <div class="card-content has-text-centered">
+            <div class="title is-5 " onclick="mngShopBtn()"> <a href="#" class="has-text-white">Manage Shop</a> </div>
           </div>
         </div>
       </div>
-      <div class="column is-4">
-        <div class="card productCard">
+      <div class="column is-3">
+        <div class="card productCard" style="background-color: #b493db">
           <div class="card-image">
             <div class = "box">
             <figure class="image is-512x512">
@@ -511,13 +512,17 @@
             </figure>
           </div>
           </div>
-          <div class="card-content">
-            <div class="title is-5" onclick="mngGalleryBtn()"> <a href="#">Manage Gallery</a> </div>
+          <div class="card-content has-text-centered">
+            <div class="title is-5" onclick="mngGalleryBtn()"> <a href="#" class="has-text-white">Manage Gallery</a> </div>
           </div>
         </div>
       </div>
-      <div class="column is-4">
-        <div class="card productCard">
+      <div class="column is-3"></div>
+    </div>
+    <div class="columns is-flex">
+      <div class="column is-3"></div>
+      <div class="column is-3">
+        <div class="card productCard" style="background-color: #b493db">
           <div class="card-image">
             <div class = "box">
             <figure class="image is-512x512">
@@ -525,13 +530,13 @@
             </figure>
           </div>
           </div>
-          <div class="card-content">
-            <div class="title is-5" onclick="mngUsersBtn()"> <a href="#">Manage Users</a> </div>
+          <div class="card-content has-text-centered">
+            <div class="title is-5" onclick="mngUsersBtn()"> <a href="#" class="has-text-white">Manage Users</a> </div>
           </div>
         </div>
       </div>
-      <div class="column is-4">
-        <div class="card productCard">
+      <div class="column is-3">
+        <div class="card productCard" style="background-color: #b493db">
           <div class="card-image">
             <div class = "box">
             <figure class="image is-512x512">
@@ -539,12 +544,12 @@
             </figure>
           </div>
           </div>
-          <div class="card-content">
-            <div class="title is-5" onclick="mngAbtUsBtn()"> <a href="#">Manage About Us</a> </div>
+          <div class="card-content has-text-centered">
+            <div class="title is-5" onclick="mngAbtUsBtn()"> <a href="#" class="has-text-white">Manage About Us</a> </div>
           </div>
         </div>
       </div>
-      
+      <div class="column is-3"></div>
     </div>
   </div>
 
@@ -555,23 +560,26 @@
       <div class="section has-text-centered mt-2 pt-0">
         <div class="subtitle is-3">Manage Shop</div>
         <div class="columns is-flex is-6">
-        <div class="column is-6" style="background-color: #b493db">
-          <div class="subtitle is-4 has-text-white ">Manage Products</div>
+        <div class="column is-6">
+          <div class="card" style="background-color: #b493db">
+            
+          <div class="subtitle is-4 has-text-white mt-2 mb-0">Manage Products</div>
           <hr class="mx-6">
           <div class="buttons is-centered">
             <div class="button" id="addShopItemBtn">Add Product</div>
             <div class="button" id="viewShopProductsBtn">View All Products</div>
           </div>
-        
         </div>
-        <div class="column is-6" style="background-color: #b493db">
-          <div class="subtitle is-4 has-text-white">Manage Orders</div>
-          <hr class="mx-6">
-          <div class="buttons is-centered">
-            <div class="button" id="viewShopOrders">View All Orders</div>
+        </div>
+        <div class="column is-6" >
+          <div class="card" style="background-color: #b493db">
+            <div class="subtitle is-4 has-text-white">Manage Orders</div>
+            <hr class="mx-6">
+            <div class="buttons is-centered">
+              <div class="button" id="viewShopOrders">View All Orders</div>
+            </div>
+            </div>
           </div>
-        </div>
-        
         </div>
         
       </div>
