@@ -1123,4 +1123,6 @@ r_e("editUserModalBg").addEventListener("click", () => {
   r_e("editUserModal").classList.remove("is-active");
 });
 
-function confirmDeleteUser(email) {}
+function confirmDeleteUser(email) {
+  r_e("confirmDeleteUserModal").classList.add("is-active");
+}
