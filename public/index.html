@@ -94,7 +94,8 @@
               <strong>Sign up</strong>
             </a>
             <a class="button has-background-grey-light" id="loginBtn"> Log in </a>
-            <a class="button has-background-grey-light is-hidden" style="background-color: #b493db" id="logOutBtn"> Log Out </a>
+            <a class="button has-background-grey-light is-hidden" style="background-color: #b493db" id="logOutBtn"> Log
+              Out </a>
           </div>
         </div>
       </div>
@@ -170,11 +171,11 @@
             </div>
           </div>
         </div>
-        <!-- Profile Pic -->       
+        <!-- Profile Pic -->
         <div class="field">
           <label class="label">Profile Picture</label>
           <div class="control">
-            <input type="file" class="input" id="profilePic_su"/>
+            <input type="file" class="input" id="profilePic_su" />
           </div>
         </div>
         <div class="container m-0 has-text-centered">
@@ -224,8 +225,8 @@
   </div>
   <!-- End Login Modal -->
 
-   <!-- Start Add Shop Item Modal -->
-   <div class="modal" id="addShopItemModal">
+  <!-- Start Add Shop Item Modal -->
+  <div class="modal" id="addShopItemModal">
     <div class="modal-background" id="addShopItemModalBg"></div>
     <div class="modal-content has-background-white-ter p-4">
       <form id="addShopItemForm">
@@ -237,11 +238,12 @@
             <input class="input" type="text" id="addShopItemName" placeholder="Christmas Cookie Pack" />
           </div>
         </div>
-         <!-- Item Description -->
-         <div class="field">
+        <!-- Item Description -->
+        <div class="field">
           <label class="label">Item Description</label>
           <div class="control">
-            <textarea class="textarea" id="addShopItemDescription" placeholder="Explain what this product all includes here!"></textarea>
+            <textarea class="textarea" id="addShopItemDescription"
+              placeholder="Explain what this product all includes here!"></textarea>
           </div>
         </div>
         <!-- Inventory Count -->
@@ -254,7 +256,7 @@
               </div>
             </div>
           </div>
-        </div>   
+        </div>
         <div class="columns is-flex">
           <div class="column is-4">
             <!-- Regular Price -->
@@ -278,28 +280,28 @@
             <!-- On Sale Checkbox -->
             <label class="checkbox mt-5 pt-4">
               <input type="checkbox" id="addShopItemOnSale">
-                On Sale
+              On Sale
             </label>
           </div>
+        </div>
+        <!-- Main Image -->
+        <div class="field">
+          <label class="label">Main Image</label>
+          <div class="control">
+            <input type="file" class="input" id="addShopItemMainPic" />
           </div>
-          <!-- Main Image -->       
-          <div class="field">
-            <label class="label">Main Image</label>
-            <div class="control">
-              <input type="file" class="input" id="addShopItemMainPic"/>
-            </div>
+        </div>
+        <!-- Supplementary Images -->
+        <div class="field">
+          <label class="label">Supplementary Images</label>
+          <div class="control">
+            <input type="file" class="input" id="addShopItemSupPic1" />
+            <input type="file" class="input" id="addShopItemSupPic2" />
+            <input type="file" class="input" id="addShopItemSupPic3" />
+            <input type="file" class="input" id="addShopItemSupPic4" />
+            <input type="file" class="input" id="addShopItemSupPic5" />
           </div>
-          <!-- Supplementary Images -->
-          <div class="field">
-            <label class="label">Supplementary Images</label>
-            <div class="control">
-              <input type="file" class="input" id="addShopItemSupPic1" />
-              <input type="file" class="input" id="addShopItemSupPic2" />
-              <input type="file" class="input" id="addShopItemSupPic3" />
-              <input type="file" class="input" id="addShopItemSupPic4" />
-              <input type="file" class="input" id="addShopItemSupPic5" />
-            </div>
-          </div>
+        </div>
         <div class="container m-0 has-text-centered">
           <!-- submit button -->
           <button class="button" style="background-color: #b493db">Submit</button>
@@ -364,13 +366,13 @@
 
   <!-- Start of Shop -->
   <div class="container is-hidden" id="shopPage">
-     <div class="container">
-        <div class="section has-background-grey">
-          <div class="buttons">
-            <div class="button" id="addShopItemBtn">Add Item</div>
-          </div>
+    <div class="container">
+      <div class="section has-background-grey">
+        <div class="buttons">
+          <div class="button" id="addShopItemBtn">Add Item</div>
         </div>
       </div>
+    </div>
     <div class="block"></div>
     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem nam quod quia, aliquam sit iste ipsam
       maiores excepturi atque temporibus, laborum adipisci nihil assumenda quisquam nobis veritatis at cumque impedit
@@ -499,10 +501,11 @@
       <div class="column is-4">
         <div class="card productCard">
           <div class="card-image">
-            <div class = "box">
-            <figure class="image is-512x512">
-              <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Placeholder image" onclick="mngShopBtn()">
-            </figure>
+            <div class="box">
+              <figure class="image is-512x512">
+                <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Placeholder image"
+                  onclick="mngShopBtn()">
+              </figure>
             </div>
           </div>
           <div class="card-content">
@@ -513,11 +516,12 @@
       <div class="column is-4">
         <div class="card productCard">
           <div class="card-image">
-            <div class = "box">
-            <figure class="image is-512x512">
-              <img src="https://cdn-icons-png.flaticon.com/512/45/45010.png" alt="Placeholder image" onclick="mngGalleryBtn()">
-            </figure>
-          </div>
+            <div class="box">
+              <figure class="image is-512x512">
+                <img src="https://cdn-icons-png.flaticon.com/512/45/45010.png" alt="Placeholder image"
+                  onclick="mngGalleryBtn()">
+              </figure>
+            </div>
           </div>
           <div class="card-content">
             <div class="title is-5" onclick="mngGalleryBtn()"> <a href="#">Manage Gallery</a> </div>
@@ -527,11 +531,12 @@
       <div class="column is-4">
         <div class="card productCard">
           <div class="card-image">
-            <div class = "box">
-            <figure class="image is-512x512">
-              <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="Placeholder image" onclick="mngUsersBtn()">
-            </figure>
-          </div>
+            <div class="box">
+              <figure class="image is-512x512">
+                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="Placeholder image"
+                  onclick="mngUsersBtn()">
+              </figure>
+            </div>
           </div>
           <div class="card-content">
             <div class="title is-5" onclick="mngUsersBtn()"> <a href="#">Manage Users</a> </div>
@@ -541,45 +546,50 @@
       <div class="column is-4">
         <div class="card productCard">
           <div class="card-image">
-            <div class = "box">
-            <figure class="image is-512x512">
-              <img src="https://cdn-icons-png.flaticon.com/512/8301/8301848.png" alt="Placeholder image" onclick="mngAbtUsBtn()">
-            </figure>
-          </div>
+            <div class="box">
+              <figure class="image is-512x512">
+                <img src="https://cdn-icons-png.flaticon.com/512/8301/8301848.png" alt="Placeholder image"
+                  onclick="mngAbtUsBtn()">
+              </figure>
+            </div>
           </div>
           <div class="card-content">
             <div class="title is-5" onclick="mngAbtUsBtn()"> <a href="#">Manage About Us</a> </div>
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
 
-    <!--Start of Manage Shop -->
-    <div class="container is-hidden" id="manageshoppage" style="background-color: #f5f5f5">
-      <a class="button has-text-white" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
-    </div>
-    <!--End of Manage Shop-->
+  <!--Start of Manage Shop -->
+  <div class="container is-hidden" id="manageshoppage" style="background-color: #f5f5f5">
+    <a class="button has-text-white" style="background-color: #b493db"
+      onclick="backToDashboardBtn()"><strong>Back</strong></a>
+  </div>
+  <!--End of Manage Shop-->
 
-    <!--Start of Manage Gallery-->
-    <div class="container is-hidden" id="managegallerypage" style="background-color: #f5f5f5">
-      <a class="button has-text-white" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
-    </div>
-    <!--End of Manage Gallery-->
+  <!--Start of Manage Gallery-->
+  <div class="container is-hidden" id="managegallerypage" style="background-color: #f5f5f5">
+    <a class="button has-text-white" style="background-color: #b493db"
+      onclick="backToDashboardBtn()"><strong>Back</strong></a>
+  </div>
+  <!--End of Manage Gallery-->
 
-    <!--Start of Manage Users-->
-    <div class="container is-hidden" id="manageuserspage" style="background-color: #f5f5f5">
-      <a class="button has-text-white" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
-    </div>
-    <!--End of Manage Users-->
+  <!--Start of Manage Users-->
+  <div class="container is-hidden" id="manageuserspage" style="background-color: #f5f5f5">
+    <a class="button has-text-white" style="background-color: #b493db"
+      onclick="backToDashboardBtn()"><strong>Back</strong></a>
+  </div>
+  <!--End of Manage Users-->
 
-    <!--Start of Manage About Us-->
-    <div class="container is-hidden" id="manageaboutuspage" style="background-color: #f5f5f5">
-      <a class="button has-text-white" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
-   </div>
-    <!--End of Manage About Us-->
-  
+  <!--Start of Manage About Us-->
+  <div class="container is-hidden" id="manageaboutuspage" style="background-color: #f5f5f5">
+    <a class="button has-text-white" style="background-color: #b493db"
+      onclick="backToDashboardBtn()"><strong>Back</strong></a>
+  </div>
+  <!--End of Manage About Us-->
+
   <!-- End of Admin Dashboard -->
 
   <!-- Start of About Us -->
