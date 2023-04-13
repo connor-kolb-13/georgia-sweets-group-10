@@ -191,7 +191,6 @@
   </div>
   <!-- End Sign Up Modal -->
 
-
   <!-- Start Login Modal -->
   <div class="modal" id="loginModal">
     <div class="modal-background" id="loginModalBg"></div>
@@ -224,6 +223,82 @@
     </div>
   </div>
   <!-- End Login Modal -->
+
+  <!-- Start Edit User Modal -->
+  <div class="modal" id="editUserModal">
+    <div class="modal-background" id="editUserModalBg"></div>
+    <div class="modal-content has-background-grey-light p-4">
+      <h1 class="subtitle has-text-weight-bold is-3">Profile Information</h1>
+      <div class="container has-text-centered mb-4">
+        <!-- <div class="level mb-3">
+          <div class="level-item"> -->
+            <figure class="image is-128x128 m-auto" >
+              <img class="is-rounded" src="#" id="userInfoProfilePic">
+            </figure>
+          <!-- </div> -->
+        <!-- </div> -->
+        
+    </div>
+    <form id="editUserForm">
+      <div class="columns is-flex">
+        <!-- First Name -->
+        <div class="column is-5">
+          <div class="field">
+            <label class="label">First Name</label>
+            <div class="control">
+              <input class="input" type="text" id="f_name_user_info" placeholder="e.g Alex" />
+            </div>
+          </div>
+        </div>
+        <!-- Last Name -->
+        <div class="column is-5">
+          <div class="field">
+            <label class="label">Last Name</label>
+            <div class="control">
+              <input class="input" type="text" id="l_name_user_info" placeholder="e.g Smith" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Username -->
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control">
+          <input class="input" type="text" id="username_user_info" placeholder="e.g bassFisher13" />
+        </div>
+      </div>
+      <!-- Email -->
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="email" id="email_user_info" placeholder="e.g. alexsmith@wisc.edu" />
+        </div>
+      </div>
+      <!-- Acount Type -->
+      <div class="field">
+        <label class="label">Account Type</label>
+        <div class="control">
+          <div class="select">
+            <select id="a_type_user_info">
+              <option>Customer</option>
+              <option>Admin</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="container m-0 has-text-centered">
+        <!-- submit button -->
+        <!-- <div class="control"> -->
+        <button class="button mt-2" style="background-color: #b493db">Submit</button>
+        <!-- </div> -->
+        <!-- reset button -->
+        <button class="button ml-3 mt-2" id="resetsignup" style="background-color: whitesmoke">Reset</button>
+      </div>
+    </form>
+      </div>
+  </div>
+  <!-- End Edit User Modal -->
+
 
   <!-- Start Add Shop Item Modal -->
   <div class="modal" id="addShopItemModal">
@@ -312,6 +387,9 @@
     </div>
   </div>
   <!-- End Add Shop Item Modal -->
+
+
+
 
 
   <!-- End of Modals -->

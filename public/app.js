@@ -986,8 +986,12 @@ function show_users() {
               <td class="has-text-center">${user.data().last_login}</td>
               <td>
                 <div class="buttons has-addons">
-                  <button class="button">Edit</button>
-                  <button class="button is-danger is-selected">Delete</button>
+                  <button class="button" onclick="editUser('${
+                    user.data().email
+                  }')">Edit</button>
+                  <button class="button is-danger is-selected" onclick="confirmDeleteUser('${
+                    user.data().email
+                  }')">Delete</button>
                 </div>  
               </td>
             </tr>
@@ -1055,3 +1059,68 @@ function show_users() {
     }
   });
 }
+
+function editUser(email) {
+  // Get the details and display them
+  get_user_info(auth.currentUser.email, "f_name").then((first) => {
+    get_user_info(auth.currentUser.email, "l_name").then((last) => {
+      get_user_info(auth.currentUser.email, "username").then((username) => {
+        get_user_info(auth.currentUser.email, "a_type").then((account) => {
+          get_user_info(auth.currentUser.email, "profile_pic").then((pic) => {
+            r_e("f_name_user_info").value = first;
+            r_e("l_name_user_info").value = last;
+            r_e("username_user_info").value = username;
+            r_e("email_user_info").value = email;
+            r_e("a_type_user_info").value = account;
+            document.getElementById("userInfoProfilePic").src = pic;
+            r_e("editUserModal").classList.add("is-active");
+          });
+        });
+      });
+    });
+  });
+}
+
+// Update the information if they choose to
+r_e("editUserForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  // find the current user in the users collection of the database
+  let email = r_e("email_user_info").value;
+
+  db.collection("users")
+    .where("email", "==", email)
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      mydocs.forEach((doc) => {
+        // get the new info
+        let newInfo = {
+          a_type: r_e("a_type_user_info").value,
+          email: email,
+          f_name: r_e("f_name_user_info").value,
+          l_name: r_e("l_name_user_info").value,
+          username: r_e("username_user_info").value,
+          date_account_created: doc.data().date_account_created,
+          last_login: doc.data().last_login,
+          profile_pic: doc.data().profile_pic,
+        };
+        // update the data
+        db.collection("users").doc(doc.id).update(newInfo);
+        // Hide the form
+        r_e("editUserModal").classList.remove("is-active");
+        // Show the updated table
+        show_users();
+        // Update message bar
+        configure_message_bar(
+          `${r_e("username_user_info").value} successfully updated!`
+        );
+      });
+    });
+});
+
+// Hide the edit user form
+r_e("editUserModalBg").addEventListener("click", () => {
+  r_e("editUserModal").classList.remove("is-active");
+});
+
+function confirmDeleteUser(email) {}
