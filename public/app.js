@@ -1124,5 +1124,100 @@ r_e("editUserModalBg").addEventListener("click", () => {
 });
 
 function confirmDeleteUser(email) {
+  console.log("hello");
   r_e("confirmDeleteUserModal").classList.add("is-active");
+  console.log(r_e("confirmDeleteUserModal").classList);
+  r_e(
+    "confirmDeleteMessage"
+  ).innerHTML = `Are you sure you want to delete ${email}? WARNING this cannot be undone.`;
+
+  r_e("confirmDeleteUser").addEventListener("click", () => {
+    deleteUserByEmail(email);
+  });
+}
+
+r_e("confirmDeleteModalBg").addEventListener("click", () => {
+  r_e("confirmDeleteUserModal").classList.remove("is-active");
+});
+
+r_e("cancelDeleteUser").addEventListener("click", () => {
+  r_e("confirmDeleteUserModal").classList.remove("is-active");
+});
+
+r_e("confirmDeleteUser").addEventListener("click", () => {});
+
+async function deleteUserByEmail2(email) {
+  try {
+    // Look up the user by email
+    const userQuery = await firebase.auth().getUserByEmail(email);
+
+    console.log("Made it here");
+    if (!userQuery) {
+      console.log("No matching user found.");
+      return;
+    }
+    const userId = userQuery.uid;
+
+    console.log("MAde it here");
+    // Delete the user
+    await auth().deleteUser(userId);
+
+    // Delete the user document from Firestore
+    await db.collection("users").doc(userId).delete();
+
+    // Close the modal
+    r_e("confirmDeleteUserModal").classList.remove("is-active");
+    configure_message_bar("User deleted successfully.");
+  } catch (error) {
+    configure_message_bar("Error deleting user");
+  }
+}
+
+async function deleteUserByEmail(email) {
+  // try {
+  // Look up the user by email
+  // firebase
+  //   .auth()
+  //   .getUserByEmail(email)
+  //   .then((user) => {
+  //     console.log(user);
+  //     if (!userQuery) {
+  //       console.log("No matching user found.");
+  //       return;
+  //     }
+  //     const userId = userQuery.uid;
+
+  console.log("MAde it here");
+  // Delete the user
+
+  // let user = auth.get_user_by_email(email);
+  // console.log(user);
+  admin
+    .auth()
+    .deleteUser(email)
+    .then(() => {
+      console.log("Successfully deleted user");
+    })
+    .catch((error) => {
+      console.log("Error deleting user:", error);
+    });
+
+  // auth()
+  //   .deleteUser(email)
+  //   .then(() => {
+  // Delete the user document from Firestore
+  db.collection("users")
+    .doc(email)
+    .delete()
+    .then(() => {
+      // Close the modal
+      r_e("confirmDeleteUserModal").classList.remove("is-active");
+      configure_message_bar("User deleted successfully.");
+      // show updated user table
+      show_users();
+    });
+  // });
+  // });
+  //   } catch (error) {
+  //     configure_message_bar("Error deleting user");
 }

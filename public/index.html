@@ -292,7 +292,7 @@
         <button class="button mt-2" style="background-color: #b493db">Submit</button>
         <!-- </div> -->
         <!-- reset button -->
-        <button class="button ml-3 mt-2" id="resetsignup" style="background-color: whitesmoke">Reset</button>
+        <button class="button ml-3 mt-2" id="resetUserInfo" style="background-color: whitesmoke">Reset</button>
       </div>
     </form>
       </div>
@@ -301,16 +301,14 @@
 
   <!-- Start Confirm Delete User Modal -->
   <div class="modal" id="confirmDeleteUserModal">
-    <div class="modal-background" id="loginModalBg"></div>
-    <div class="modal-content has-background-white-ter p-4">
-
-
-      <div class="subtitle is-3" id="confirmDeleteMessage"></div>
+    <div class="modal-background" id="confirmDeleteModalBg"></div>
+    <div class="modal-content has-background-white-ter p-4"> 
       <div class="container m-0 has-text-centered">
+        <div class="subtitle is-4 has-text-centered" id="confirmDeleteMessage"></div>
         <!-- submit button -->
-        <button class="button" id="confirmDeleteUser" style="background-color: #b493db">Yes</button>
+        <button class="button is-primary" id="confirmDeleteUser">Yes</button>
         <!-- cancel button -->
-        <button class="button ml-3" id="cancelDeleteUser" style="background-color: whitesmoke">Cancel</button>
+        <button class="button ml-3 is-danger" id="cancelDeleteUser" >Cancel</button>
       </div>
     </div>
   </div>
@@ -397,7 +395,7 @@
           <!-- submit button -->
           <button class="button" style="background-color: #b493db">Submit</button>
           <!-- reset button -->
-          <button class="button ml-3" id="resetlogin" style="background-color: whitesmoke">Reset</button>
+          <button class="button ml-3" id="resetlAddShopItem" style="background-color: whitesmoke">Reset</button>
         </div>
       </form>
     </div>
@@ -801,6 +799,21 @@
   <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
 
+  <script>
+    // Import the firebase-admin library
+    const admin = require("firebase-admin");
+
+    // Initialize the app with the appropriate credentials and settings
+admin.initializeApp({
+  credential: admin.credential.cert({
+    projectId: "georgia-sweets",
+    privateKey: "<PRIVATE_KEY>",
+    clientEmail: "<CLIENT_EMAIL>",
+  }),
+  databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+});
+
+  </script>
 
   <!-- firebase  -->
   <script>
