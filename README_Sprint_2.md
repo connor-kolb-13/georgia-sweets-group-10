@@ -43,7 +43,9 @@ Trent:
 
 
 Mason:
-
+1). Yesterday I talked with the client to make sure her goals were still consistent with our's. I ensures that the progess we were making was what she liked.
+2). Today, I am planning to start writting the JavaScript for uploading images as an admin to reflect the public website available to all to view.
+3). I was looking a bit into uploading images and I am confused on how to create a database and update that through JS. I may need to look back at previous class projects to refresh my memory.
 
 ## April 11th Stand Up
 
@@ -60,9 +62,10 @@ Isaac:
 Trent:
 
 
-
 Mason:
-
+1). Yesterday I finished up allowing the admin to add images to the gallery page, and ensuring that it is added to the gallery_images database.
+2). Today, I am planning to allow the admin to delete images from the database driectly off of the webpage.
+3). I am not facing any challenges at the moment.
 
 # Sprint Review
 
