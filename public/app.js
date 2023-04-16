@@ -1330,14 +1330,12 @@ function load_data(coll, loc, loc2, field, val) {
     // loop through documents array
     documents.forEach((doc) => {
       // console.log(doc.data().title);
-      html += `<div>`;
-      html += `<figure class='has-text-centered'><img src="${
-        doc.data().url
-      }" /></figure>`;
+      html += `<div class="column is-one-third has-text-centered" style="display: flex; justify-content: center; align-items: center;">`;
+      html += `<figure><img src="${doc.data().url}" /></figure>`;
       html += `</div>`;
     });
 
     // show on the div with id indicated location
-    r_e(loc2).innerHTML = html;
+    r_e(loc2).innerHTML = `<div class="columns is-multiline">${html}</div>`;
   });
 }
