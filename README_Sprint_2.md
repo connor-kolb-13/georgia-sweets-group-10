@@ -16,14 +16,6 @@ https://github.com/connor-kolb-13/georgia-sweets-group-10
 
 
 # Burndown Charts
-Day 4:
-![burndown_4_6](https://user-images.githubusercontent.com/93365258/232349250-940b94d3-759f-4e9f-ad61-60b67b469763.PNG)
-
-Day 9:
-![burdown_4_11](https://user-images.githubusercontent.com/93365258/232349267-f9324bb5-9388-46b7-b0d5-5f2377009441.PNG)
-
-Day 14:
-![burndown_4_16](https://user-images.githubusercontent.com/93365258/232349282-93edbe19-add7-43b6-b1d3-df435e4c03df.PNG)
 
 
 # Daily Stand Ups
@@ -47,7 +39,9 @@ Isaac:
 
 
 Trent:
-
+1). Yesterday I began writing the JS for adding images to the gallary page. The image links are to be pulled from Firebase after they are uploaded from the admin dashboard.
+2). Today I plan to contimue working on the code to display images on the gallary page. 
+3). The biggest problem I am facing is that I can't complete the gallary page image display code until the ability to upload the images on the admin dashboard is finislized. 
 
 
 Mason:
@@ -68,7 +62,9 @@ Isaac:
 
 
 Trent:
-
+1). Yesterday I was able to finalize the code to display the already uploaded images on the gallary page. 
+2). Today, I plan to reference our origional protoype to ensure we are staying on the track with the design approved by our customer.
+3). The only minor challenge I am facing is looking into if we are able to allow administrators to delete user accounts. 
 
 Mason:
 1). Yesterday I finished up allowing the admin to add images to the gallery page, and ensuring that it is added to the gallery_images database.
