@@ -1071,7 +1071,9 @@ function show_users() {
               <td class="has-text-center">${user.data().last_login}</td>
               <td>
                 <div class="buttons has-addons">
-                  <button class="button">Edit</button>
+                  <button class="button" onclick="editUser('${
+                    user.data().email
+                  }')">Edit</button>
                   <!-- <button class="button is-danger is-selected">Delete</button> -->
                 </div>  
               </td>
@@ -1143,11 +1145,11 @@ function show_users() {
 
 function editUser(email) {
   // Get the details and display them
-  get_user_info(auth.currentUser.email, "f_name").then((first) => {
-    get_user_info(auth.currentUser.email, "l_name").then((last) => {
-      get_user_info(auth.currentUser.email, "username").then((username) => {
-        get_user_info(auth.currentUser.email, "a_type").then((account) => {
-          get_user_info(auth.currentUser.email, "profile_pic").then((pic) => {
+  get_user_info(email, "f_name").then((first) => {
+    get_user_info(email, "l_name").then((last) => {
+      get_user_info(email, "username").then((username) => {
+        get_user_info(email, "a_type").then((account) => {
+          get_user_info(email, "profile_pic").then((pic) => {
             r_e("f_name_user_info").value = first;
             r_e("l_name_user_info").value = last;
             r_e("username_user_info").value = username;
