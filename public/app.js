@@ -1362,7 +1362,7 @@ function load_data(coll, loc, loc2, field, val) {
             // loop through documents array
             documents.forEach((doc) => {
               console.log(doc.data().url);
-              html += `<h1 class='title'><button class="button is-pulled-right is-danger" onclick="del_doc('recipes', '${doc.id}')">X</button></h1>`;
+              html += `<h1 class='title'><button class="button is-pulled-right is-danger" onclick="del_doc('gallery_images', '${doc.id}')">X</button></h1>`;
               html += `<div class="column is-one-third has-text-centered" style="display: flex; justify-content: center; align-items: center;">`;
               html += `<figure><img src="${doc.data().url}" /></figure>`;
               html += `</div>`;
@@ -1404,4 +1404,18 @@ function load_data(coll, loc, loc2, field, val) {
       }
     });
   });
+}
+
+// delete gallery images for admin only
+function del_doc(coll, id) {
+  db.collection(coll)
+    .doc(id)
+    .delete()
+    .then(() => {
+      // show a message on the message bar
+      configure_message_bar("An image has been deleted!");
+
+      // reload all images
+      load_data("gallery_images", "feed-page", "gallerypage", "users");
+    });
 }
