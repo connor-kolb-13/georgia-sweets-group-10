@@ -1072,7 +1072,7 @@ function show_users() {
               <td>
                 <div class="buttons has-addons">
                   <button class="button">Edit</button>
-                  <button class="button is-danger is-selected">Delete</button>
+                  <!-- <button class="button is-danger is-selected">Delete</button> -->
                 </div>  
               </td>
             </tr>
