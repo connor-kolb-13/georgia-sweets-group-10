@@ -1291,7 +1291,7 @@ function save_data(coll, obj) {
 
       r_e("newGalleryPic").value = "";
 
-      load_data("gallery_images", "feed-page", "gallerypage");
+      load_data("gallery_images", "feed-page", "gallerypage", "users");
     });
 }
 
@@ -1315,9 +1315,7 @@ r_e("upload_button").addEventListener("click", () => {
 });
 
 function load_data(coll, loc, loc2, field, val) {
-  // check if we pass all 5 arguments
   let query = "";
-
   if (field && val) {
     query = db.collection(coll).where(field, "array-contains", val);
   } else {
@@ -1325,12 +1323,12 @@ function load_data(coll, loc, loc2, field, val) {
   }
   query.get().then((res) => {
     let documents = res.docs;
-
     // html reference
     html = "";
 
     // loop through documents array
     documents.forEach((doc) => {
+      console.log(doc.data().url);
       // console.log(doc.data().title);
       html += `<div class="column is-one-third has-text-centered" style="display: flex; justify-content: center; align-items: center;">`;
       html += `<figure><img src="${doc.data().url}" /></figure>`;
@@ -1339,5 +1337,71 @@ function load_data(coll, loc, loc2, field, val) {
 
     // show on the div with id indicated location
     r_e(loc2).innerHTML = `<div class="columns is-multiline">${html}</div>`;
+  });
+
+  // check if we pass all 5 arguments
+  query2 = db.collection("users");
+  query2.get().then((res) => {
+    let documents2 = res.docs;
+    // loop through documents array
+    documents2.forEach((doc) => {
+      if (auth.currentUser.email == doc.data().email) {
+        if (doc.data().a_type == "Admin") {
+          let query = "";
+
+          if (field && val) {
+            query = db.collection(coll).where(field, "array-contains", val);
+          } else {
+            query = db.collection(coll);
+          }
+          query.get().then((res) => {
+            let documents = res.docs;
+            // html reference
+            html = "";
+
+            // loop through documents array
+            documents.forEach((doc) => {
+              console.log(doc.data().url);
+              html += `<h1 class='title'><button class="button is-pulled-right is-danger" onclick="del_doc('recipes', '${doc.id}')">X</button></h1>`;
+              html += `<div class="column is-one-third has-text-centered" style="display: flex; justify-content: center; align-items: center;">`;
+              html += `<figure><img src="${doc.data().url}" /></figure>`;
+              html += `</div>`;
+            });
+
+            // show on the div with id indicated location
+            r_e(
+              loc2
+            ).innerHTML = `<div class="columns is-multiline">${html}</div>`;
+          });
+        } else {
+          let query = "";
+
+          if (field && val) {
+            query = db.collection(coll).where(field, "array-contains", val);
+          } else {
+            query = db.collection(coll);
+          }
+          query.get().then((res) => {
+            let documents = res.docs;
+            // html reference
+            html = "";
+
+            // loop through documents array
+            documents.forEach((doc) => {
+              console.log(doc.data().url);
+              // console.log(doc.data().title);
+              html += `<div class="column is-one-third has-text-centered" style="display: flex; justify-content: center; align-items: center;">`;
+              html += `<figure><img src="${doc.data().url}" /></figure>`;
+              html += `</div>`;
+            });
+
+            // show on the div with id indicated location
+            r_e(
+              loc2
+            ).innerHTML = `<div class="columns is-multiline">${html}</div>`;
+          });
+        }
+      }
+    });
   });
 }
