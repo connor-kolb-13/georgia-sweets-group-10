@@ -1107,7 +1107,124 @@
     <!-- End of About Us-->
 
     <!-- Start of Contat Us -->
-    <div class="container is-hidden" id="conactpage"></div>
+    <div class="container is-hidden" id="conactpage">
+      <div class="columns mb-0">
+        <div class="column is-4">
+          <article class="message is-dark mt-4 mr-3" id="bugReportMessage">
+            <div class="message-header">
+              <p>Please Report Website Bugs Here!</p>
+              <button
+                class="delete"
+                aria-label="delete"
+                id="hideMessageBtn"
+              ></button>
+            </div>
+            <div class="message-body">
+              If you run into any problems while using the site, please let us
+              know by filling out this form. Please include details such as what
+              led to the bug and what happened as a result of the bug. Thank you
+              for your feedback!
+            </div>
+          </article>
+        </div>
+        <div class="column is-4">
+          <div class="container is-vcentered has-text-centered my-6">
+            <form id="contact_us_form">
+              <div class="field">
+                <label class="label has-text-left">Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="contactName"
+                    placeholder="Text input"
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label has-text-left">Email</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                    class="input"
+                    type="email"
+                    id="contactEmail"
+                    placeholder="Email input"
+                  />
+                  <span class="icon is-small is-left m-auto">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                  <span class="icon is-small is-right m-auto">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="field pb-6">
+                <label class="label has-text-left">Subject</label>
+                <div class="control is-pulled-left">
+                  <div class="select is-left">
+                    <select id="contactSubject">
+                      <option>Account</option>
+                      <option>Order</option>
+                      <option>Inquiry</option>
+                      <option>Website Bug</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label is-pulled-left">Message</label>
+                <div class="control">
+                  <textarea
+                    class="textarea"
+                    placeholder="How can we help you?"
+                    id="contactMsg"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Uncomment for terms & conditions agreement -->
+              <!-- <div class="field">
+                  <div class="control">
+                    <label class="checkbox">
+                      <input type="checkbox">
+                      I agree to the <a href="#">terms and conditions</a>
+                    </label>
+                  </div>
+                </div> -->
+
+              <!-- <div class="field">
+                  <div class="control">
+                    <label class="radio">
+                      <input type="radio" name="question">
+                      Yes
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="question">
+                      No
+                    </label>
+                  </div>
+                </div> -->
+
+              <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                  <button class="button is-link">Submit</button>
+                </div>
+                <div class="control">
+                  <button class="button is-link is-light" id="clearContact">
+                    Clear
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="column is-4"></div>
+      </div>
+    </div>
     <!-- End of Contact Us -->
 
     <!-- Start of Report Issue -->

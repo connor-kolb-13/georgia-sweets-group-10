@@ -1341,3 +1341,45 @@ function load_data(coll, loc, loc2, field, val) {
     r_e(loc2).innerHTML = `<div class="columns is-multiline">${html}</div>`;
   });
 }
+
+// Message box on Contact Us Page
+r_e("hideMessageBtn").addEventListener("click", () => {
+  r_e("bugReportMessage").classList.add("is-hidden");
+});
+
+// Contact Us Page
+r_e("contact_us_form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  let name = r_e("contactName").value;
+  let email = r_e("contactEmail").value;
+  let subject = r_e("contactSubject").value;
+  let message = r_e("contactMsg").value;
+
+  let response = {
+    name: name,
+    email: email,
+    subject: subject,
+    message: message,
+    time_submitted: get_current_timestamp(),
+  };
+
+  db.collection("contact_form_responses")
+    .add(response)
+    .then(() => {
+      // show an info message to the user
+      configure_message_bar("A new submission was added!");
+      // Clear the form
+      r_e("contactName").value = "";
+      r_e("contactEmail").value = "";
+      r_e("contactSubject").value = "";
+      r_e("contactMsg").value = "";
+    });
+});
+// Clear the Form
+r_e("clearContact").addEventListener("click", (e) => {
+  e.preventDefault();
+  r_e("contactName").value = "";
+  r_e("contactEmail").value = "";
+  r_e("contactSubject").value = "";
+  r_e("contactMsg").value = "";
+});
