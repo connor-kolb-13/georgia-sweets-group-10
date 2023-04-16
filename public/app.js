@@ -1072,9 +1072,9 @@ function show_users() {
                   <button class="button" onclick="editUser('${
                     user.data().email
                   }')">Edit</button>
-                  <button class="button is-danger is-selected" onclick="confirmDeleteUser('${
-                    user.data().email
-                  }')">Delete</button>
+                <!-- <button class="button is-danger is-selected" onclick="confirmDeleteUser('${
+                  user.data().email
+                }')">Delete</button> --!>
                 </div>  
               </td>
             </tr>
