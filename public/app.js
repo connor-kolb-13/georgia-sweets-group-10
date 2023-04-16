@@ -1285,7 +1285,7 @@ function save_data(coll, obj) {
     .add(obj)
     .then(() => {
       // show a success message to the user
-      configure_message_bar(`${obj.title} has been uploaded!`);
+      configure_message_bar(`image has been uploaded!`);
       // reset the form
       // grab from tag and access the .value and reset it (make it empty string)
 
