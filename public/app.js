@@ -142,8 +142,6 @@ document.querySelector("#gallerybtn").addEventListener("click", () => {
   gallerybtn.classList.add("is-active");
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
-  console.log("sdfdsfsdfsd");
-  load_data("gallery_images", "loc", "gallerypage");
 });
 
 // Public dashboard Page
@@ -466,6 +464,8 @@ function mngUsersBtn() {
     }
   });
   showmodal(manageuserspage);
+  // Show users
+  show_users();
   hidemodal(dashboardpage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
@@ -702,7 +702,11 @@ r_e("resetsignup").addEventListener("click", (e) => {
 // keep track of user authenticaiton status
 auth.onAuthStateChanged((user) => {
   if (user) {
-    showmodal(homepage);
+    r_e("homepage").classList.add("is-active");
+    // Show profile info
+    if (r_e("profileInfo").classList.contains("is-hidden")) {
+      r_e("profileInfo").classList.remove("is-hidden");
+    }
     configure_message_bar(`${user.email} has successfully signed in.`);
     // Hiding Dashboard Tab From Non-Admin Accounts
     get_user_info(auth.currentUser.email, "a_type").then((type) => {
@@ -728,27 +732,44 @@ auth.onAuthStateChanged((user) => {
               let dateTime = get_current_timestamp();
               // update the database
               update_firebase("users", currentuser.id, "last_login", dateTime);
+              // Show name and pic in upper corner
+              get_user_info(auth.currentUser.email, "f_name").then((name) => {
+                get_user_info(auth.currentUser.email, "profile_pic").then(
+                  (pic) => {
+                    document.getElementById("profilePicture").innerHTML = `
+                  <figure class="image is-32x32 m-auto" >
+                      <img class="is-rounded is-clickable" id="profileinfoicon" src="${pic}">
+                  </figure>
+                  
+                  `;
+                    document.getElementById("nameCorner").innerHTML = name;
+                    // Highlight the selected nav element
+                    allPages.forEach((page) => {
+                      if (page.classList.contains("is-active")) {
+                        let temp = page.id.substring(0, 4);
+                        allBtns.forEach((btn) => {
+                          let tempbtn = btn.id.substring(0, 4);
+                          if (tempbtn == temp) {
+                            btn.classList.add("is-active");
+                          }
+                        });
+                      }
+                    });
+                  }
+                );
+              });
             }
           });
         });
-
-      // Highlight the selected nav element
-      allPages.forEach((page) => {
-        if (page.classList.contains("is-active")) {
-          let temp = page.id.substring(0, 4);
-          allBtns.forEach((btn) => {
-            let tempbtn = btn.id.substring(0, 4);
-            if (tempbtn == temp) {
-              btn.classList.add("is-active");
-            }
-          });
-        }
-      });
     });
   } else {
     // User is signed out
     // Hide the dashboard tab
     r_e("dashboardbtn").classList.add("is-hidden");
+    // hide profile info
+    if (!r_e("profileInfo").classList.contains("is-hidden")) {
+      r_e("profileInfo").classList.add("is-hidden");
+    }
     showmodal(homepage);
     // configure_nav_bar(user.email);
     r_e("signUpBtn").classList.remove("is-hidden");
@@ -769,6 +790,68 @@ auth.onAuthStateChanged((user) => {
       }
     });
   }
+});
+
+// show the profile information modal when the user icon is clicked (with info loaded in)
+r_e("profileInfo").addEventListener("click", () => {
+  // Get the details and display them
+  get_user_info(auth.currentUser.email, "f_name").then((first) => {
+    get_user_info(auth.currentUser.email, "l_name").then((last) => {
+      get_user_info(auth.currentUser.email, "username").then((username) => {
+        get_user_info(auth.currentUser.email, "a_type").then((account) => {
+          get_user_info(auth.currentUser.email, "profile_pic").then((pic) => {
+            r_e("f_name_pi").value = first;
+            r_e("l_name_pi").value = last;
+            r_e("username_pi").value = username;
+            r_e("email_pi").value = auth.currentUser.email;
+            r_e("a_type_pi").value = account;
+            document.getElementById("profileInfoProfilePic").src = pic;
+            r_e("profileinformationmodal").classList.add("is-active");
+          });
+        });
+      });
+    });
+  });
+});
+
+// Hide the modal when the background is clicked
+r_e("profileinfomodalbg").addEventListener("click", () => {
+  r_e("profileinformationmodal").classList.remove("is-active");
+});
+
+// Update the information if they choose toprofile
+r_e("profileinfoform").addEventListener("submit", (e) => {
+  e.preventDefault();
+  // find the current user in the users collection of the database
+  let email = auth.currentUser.email;
+
+  db.collection("users")
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      mydocs.forEach((doc) => {
+        if (doc.data().email == email) {
+          // found the right user
+          // get the new info
+          let newInfo = {
+            a_type: r_e("a_type_pi").value,
+            email: auth.currentUser.email,
+            f_name: r_e("f_name_pi").value,
+            l_name: r_e("l_name_pi").value,
+            username: r_e("username_pi").value,
+            date_account_created: doc.data().date_account_created,
+            last_login: doc.data().last_login,
+            profile_pic: doc.data().profile_pic,
+          };
+          // update the data
+          db.collection("users").doc(doc.id).update(newInfo);
+          // Hide the form
+          r_e("profileinformationmodal").classList.remove("is-active");
+          // Show completetion message
+          configure_message_bar("Account successfully upadated!");
+        }
+      });
+    });
 });
 
 // Timestamp function
@@ -949,68 +1032,248 @@ r_e("addShopItemForm").addEventListener("submit", (e) => {
     });
 });
 
-// uploading images to gallery
-// save new data into a collection
-function save_data(coll, obj) {
-  db.collection(coll)
-    .add(obj)
-    .then(() => {
-      // show a success message to the user
-      configure_message_bar(`${obj.title} has been uploaded!`);
-      // reset the form
-      // grab from tag and access the .value and reset it (make it empty string)
+// Start Manage Users
+function show_users() {
+  const PAGE_SIZE = 10;
+  let currentPage = 0;
+  let numPages = 0;
 
-      r_e("newGalleryPic").value = "";
+  function renderTable(startIndex, numToShow) {
+    db.collection("users")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        let html = "";
 
-      load_data("gallery_images", "feed-page", "gallerypage");
+        let endIndex =
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
+
+        mydocs.slice(startIndex, endIndex).forEach((user, index) => {
+          html += `
+            <tr>
+              <td>
+                <figure class="image is-1by1 is-small">
+                  <img class="is-rounded" src="${user.data().profile_pic}">
+                </figure>
+              </td>
+              <td class="has-text-left">${user.data().f_name} ${
+            user.data().l_name
+          }</td>
+              <td class="has-text-center">${user.data().email}</td>
+              <td class="has-text-center">${user.data().username}</td>
+              <td class="has-text-center">${
+                user.data().date_account_created
+              }</td>
+              <td class="has-text-center">${user.data().last_login}</td>
+              <td>
+                <div class="buttons has-addons">
+                  <button class="button" onclick="editUser('${
+                    user.data().email
+                  }')">Edit</button>
+                <!-- <button class="button is-danger is-selected" onclick="confirmDeleteUser('${
+                  user.data().email
+                }')">Delete</button> --!>
+                </div>  
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById("users_table").innerHTML = html;
+      });
+  }
+
+  function renderPageLinks() {
+    let html = "";
+    for (let i = 0; i < numPages; i++) {
+      html += `
+        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+      `;
+    }
+
+    document.getElementById("manageUsersPageLinks").innerHTML = html;
+  }
+
+  function showPage(pageNum) {
+    let startIndex = pageNum * PAGE_SIZE;
+    renderTable(startIndex, PAGE_SIZE);
+    currentPage = pageNum;
+    updateNavigation();
+  }
+
+  function updateNavigation() {
+    let prevBtn = document.getElementById("fullStandingsPrevPage");
+    let nextBtn = document.getElementById("fullStandingsNextPage");
+
+    if (prevBtn) {
+      prevBtn.disabled = currentPage === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = currentPage === numPages - 1;
+    }
+
+    let pageLinks = document.querySelectorAll("#fullStandingsPageLinks a");
+    pageLinks.forEach((link) => {
+      link.classList.toggle(
+        "is-current",
+        parseInt(link.dataset.page) === currentPage
+      );
     });
+  }
+
+  db.collection("users")
+    .get()
+    .then((data) => {
+      numPages = Math.ceil(data.docs.length / PAGE_SIZE);
+      renderPageLinks();
+      showPage(0);
+    });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "fullStandingsPrevPage") {
+      showPage(currentPage - 1);
+    } else if (event.target.id === "fullStandingsNextPage") {
+      showPage(currentPage + 1);
+    } else if (event.target.classList.contains("pagination-link")) {
+      showPage(parseInt(event.target.dataset.page));
+    }
+  });
 }
 
-// admin uploading gallery images
-r_e("upload_button").addEventListener("click", () => {
-  // getting the image ready
-  let file = document.querySelector("#newGalleryPic").files[0];
-  let image = new Date() + "_" + file;
+function editUser(email) {
+  // Get the details and display them
+  get_user_info(auth.currentUser.email, "f_name").then((first) => {
+    get_user_info(auth.currentUser.email, "l_name").then((last) => {
+      get_user_info(auth.currentUser.email, "username").then((username) => {
+        get_user_info(auth.currentUser.email, "a_type").then((account) => {
+          get_user_info(auth.currentUser.email, "profile_pic").then((pic) => {
+            r_e("f_name_user_info").value = first;
+            r_e("l_name_user_info").value = last;
+            r_e("username_user_info").value = username;
+            r_e("email_user_info").value = email;
+            r_e("a_type_user_info").value = account;
+            document.getElementById("userInfoProfilePic").src = pic;
+            r_e("editUserModal").classList.add("is-active");
+          });
+        });
+      });
+    });
+  });
+}
 
-  const task = ref.child(image).put(file);
+// Update the information if they choose to
+r_e("editUserForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  // find the current user in the users collection of the database
+  let email = r_e("email_user_info").value;
 
-  task
-    .then((snapshot) => snapshot.ref.getDownloadURL())
-    .then((url) => {
-      // the url of the image is ready now!
-      // 4. wrap those in an object
-      let galleryImage = { url: url };
-      // 5. send the object to firebase
-      save_data("gallery_images", galleryImage);
+  db.collection("users")
+    .where("email", "==", email)
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      mydocs.forEach((doc) => {
+        // get the new info
+        let newInfo = {
+          a_type: r_e("a_type_user_info").value,
+          email: email,
+          f_name: r_e("f_name_user_info").value,
+          l_name: r_e("l_name_user_info").value,
+          username: r_e("username_user_info").value,
+          date_account_created: doc.data().date_account_created,
+          last_login: doc.data().last_login,
+          profile_pic: doc.data().profile_pic,
+        };
+        // update the data
+        db.collection("users").doc(doc.id).update(newInfo);
+        // Hide the form
+        r_e("editUserModal").classList.remove("is-active");
+        // Show the updated table
+        show_users();
+        // Update message bar
+        configure_message_bar(
+          `${r_e("username_user_info").value} successfully updated!`
+        );
+      });
     });
 });
 
-function load_data(coll, loc, loc2, field, val) {
-  // check if we pass all 5 arguments
-  let query = "";
+// Hide the edit user form
+r_e("editUserModalBg").addEventListener("click", () => {
+  r_e("editUserModal").classList.remove("is-active");
+});
 
-  if (field && val) {
-    query = db.collection(coll).where(field, "array-contains", val);
-  } else {
-    query = db.collection(coll);
-  }
-  query.get().then((res) => {
-    let documents = res.docs;
+function confirmDeleteUser(email) {
+  console.log("hello");
+  r_e("confirmDeleteUserModal").classList.add("is-active");
+  console.log(r_e("confirmDeleteUserModal").classList);
+  r_e(
+    "confirmDeleteMessage"
+  ).innerHTML = `Are you sure you want to delete ${email}? WARNING this cannot be undone.`;
 
-    // html reference
-    html = "";
-
-    // loop through documents array
-    documents.forEach((doc) => {
-      // console.log(doc.data().title);
-      html += `<div>`;
-      html += `<figure class='has-text-centered'><img src="${
-        doc.data().url
-      }" /></figure>`;
-      html += `</div>`;
-    });
-
-    // show on the div with id indicated location
-    r_e(loc2).innerHTML = html;
+  r_e("confirmDeleteUser").addEventListener("click", () => {
+    // Delete the user
+    // Get the currently logged in user
+    var user = firebase.auth().currentUser;
+    console.log(user);
+    // Call the delete method on the user object
+    user
+      .delete()
+      .then(() => {
+        // Hide all the modals
+        r_e("confirmDeleteUserModal").classList.remove("is-active");
+        r_e("profileinformationmodal").classList.remove("is-active");
+        // User account deleted
+        configure_message_bar("Account successfully deleted!");
+        // Hide the profile pic
+        r_e("profileInfo").classList.add("is-hidden");
+      })
+      .catch((error) => {
+        // An error happened
+        configure_message_bar("Fail to delete account.");
+      });
   });
+}
+
+r_e("confirmDeleteModalBg").addEventListener("click", () => {
+  r_e("confirmDeleteUserModal").classList.remove("is-active");
+});
+
+r_e("cancelDeleteUser").addEventListener("click", () => {
+  r_e("confirmDeleteUserModal").classList.remove("is-active");
+});
+
+r_e("deleteUserAccountBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  confirmDeleteUser(auth.currentUser.email);
+});
+
+async function deleteUserByEmail2(email) {
+  try {
+    // Look up the user by email
+    const userQuery = await firebase.auth().getUserByEmail(email);
+
+    console.log("Made it here");
+    if (!userQuery) {
+      console.log("No matching user found.");
+      return;
+    }
+    const userId = userQuery.uid;
+
+    console.log("MAde it here");
+    // Delete the user
+    await auth().deleteUser(userId);
+
+    // Delete the user document from Firestore
+    await db.collection("users").doc(userId).delete();
+
+    // Close the modal
+    r_e("confirmDeleteUserModal").classList.remove("is-active");
+    configure_message_bar("User deleted successfully.");
+  } catch (error) {
+    configure_message_bar("Error deleting user");
+  }
 }
