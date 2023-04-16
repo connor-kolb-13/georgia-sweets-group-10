@@ -1003,32 +1003,38 @@
         onclick="backToDashboardBtn()"
         ><strong>Back</strong></a
       >
-      <form id="galleryUpdateForm">
-        <div class="field">
-          <label class="label">Gallery Image Upload</label>
-          <div>
-            <input type="file" class="input" id="newGalleryPic" />
+
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Gallery</div>
+        <div class="columns is-flex is-6">
+          <div class="column is-"></div>
+          <div class="column is-8" style="background-color: #b493db">
+            <form id="galleryUpdateForm">
+              <div class="field has-text-left">
+                <label class="label is-medium">Gallery Image Upload</label>
+                <div>
+                  <input type="file" class="input" id="newGalleryPic" />
+                </div>
+                <!-- submit button -->
+                <div>
+                  <button class="button mt-2 is-primary" id="upload_button">
+                    Upload
+                  </button>
+                  <!-- reset button -->
+                  <button
+                    class="button ml-3 mt-2"
+                    id="resetgallerypic"
+                    style="background-color: whitesmoke"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
-          <!-- submit button -->
-          <div>
-            <button
-              class="button mt-2"
-              style="background-color: #b493db"
-              id="upload_button"
-            >
-              Upload
-            </button>
-            <!-- reset button -->
-            <button
-              class="button ml-3 mt-2"
-              id="resetgallerypic"
-              style="background-color: whitesmoke"
-            >
-              Delete
-            </button>
-          </div>
+          <div class="column is-"></div>
         </div>
-      </form>
+      </div>
     </div>
     <!--End of Manage Gallery-->
 
@@ -1044,6 +1050,9 @@
         onclick="backToDashboardBtn()"
         ><strong>Back</strong></a
       >
+      <div class="section has-text-centered mt-2 pt-0 mb-0 pb-0">
+        <div class="subtitle is-3">Manage Users</div>
+      </div>
       <table class="table mx-auto is-striped is-fullwidth mb-3 mt-4">
         <thead>
           <!-- Header Row -->
@@ -1085,6 +1094,9 @@
         onclick="backToDashboardBtn()"
         ><strong>Back</strong></a
       >
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage About Us</div>
+      </div>
     </div>
     <!--End of Manage About Us-->
 
