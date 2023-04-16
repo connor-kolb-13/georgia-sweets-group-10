@@ -702,7 +702,11 @@ r_e("resetsignup").addEventListener("click", (e) => {
 // keep track of user authenticaiton status
 auth.onAuthStateChanged((user) => {
   if (user) {
-    showmodal(homepage);
+    r_e("homepage").classList.add("is-active");
+    // Show profile info
+    if (r_e("profileInfo").classList.contains("is-hidden")) {
+      r_e("profileInfo").classList.remove("is-hidden");
+    }
     configure_message_bar(`${user.email} has successfully signed in.`);
     // Hiding Dashboard Tab From Non-Admin Accounts
     get_user_info(auth.currentUser.email, "a_type").then((type) => {
@@ -728,27 +732,44 @@ auth.onAuthStateChanged((user) => {
               let dateTime = get_current_timestamp();
               // update the database
               update_firebase("users", currentuser.id, "last_login", dateTime);
+              // Show name and pic in upper corner
+              get_user_info(auth.currentUser.email, "f_name").then((name) => {
+                get_user_info(auth.currentUser.email, "profile_pic").then(
+                  (pic) => {
+                    document.getElementById("profilePicture").innerHTML = `
+                  <figure class="image is-32x32 m-auto" >
+                      <img class="is-rounded is-clickable" id="profileinfoicon" src="${pic}">
+                  </figure>
+                  
+                  `;
+                    document.getElementById("nameCorner").innerHTML = name;
+                    // Highlight the selected nav element
+                    allPages.forEach((page) => {
+                      if (page.classList.contains("is-active")) {
+                        let temp = page.id.substring(0, 4);
+                        allBtns.forEach((btn) => {
+                          let tempbtn = btn.id.substring(0, 4);
+                          if (tempbtn == temp) {
+                            btn.classList.add("is-active");
+                          }
+                        });
+                      }
+                    });
+                  }
+                );
+              });
             }
           });
         });
-
-      // Highlight the selected nav element
-      allPages.forEach((page) => {
-        if (page.classList.contains("is-active")) {
-          let temp = page.id.substring(0, 4);
-          allBtns.forEach((btn) => {
-            let tempbtn = btn.id.substring(0, 4);
-            if (tempbtn == temp) {
-              btn.classList.add("is-active");
-            }
-          });
-        }
-      });
     });
   } else {
     // User is signed out
     // Hide the dashboard tab
     r_e("dashboardbtn").classList.add("is-hidden");
+    // hide profile info
+    if (!r_e("profileInfo").classList.contains("is-hidden")) {
+      r_e("profileInfo").classList.add("is-hidden");
+    }
     showmodal(homepage);
     // configure_nav_bar(user.email);
     r_e("signUpBtn").classList.remove("is-hidden");
@@ -769,6 +790,68 @@ auth.onAuthStateChanged((user) => {
       }
     });
   }
+});
+
+// show the profile information modal when the user icon is clicked (with info loaded in)
+r_e("profileInfo").addEventListener("click", () => {
+  // Get the details and display them
+  get_user_info(auth.currentUser.email, "f_name").then((first) => {
+    get_user_info(auth.currentUser.email, "l_name").then((last) => {
+      get_user_info(auth.currentUser.email, "username").then((username) => {
+        get_user_info(auth.currentUser.email, "a_type").then((account) => {
+          get_user_info(auth.currentUser.email, "profile_pic").then((pic) => {
+            r_e("f_name_pi").value = first;
+            r_e("l_name_pi").value = last;
+            r_e("username_pi").value = username;
+            r_e("email_pi").value = auth.currentUser.email;
+            r_e("a_type_pi").value = account;
+            document.getElementById("profileInfoProfilePic").src = pic;
+            r_e("profileinformationmodal").classList.add("is-active");
+          });
+        });
+      });
+    });
+  });
+});
+
+// Hide the modal when the background is clicked
+r_e("profileinfomodalbg").addEventListener("click", () => {
+  r_e("profileinformationmodal").classList.remove("is-active");
+});
+
+// Update the information if they choose toprofile
+r_e("profileinfoform").addEventListener("submit", (e) => {
+  e.preventDefault();
+  // find the current user in the users collection of the database
+  let email = auth.currentUser.email;
+
+  db.collection("users")
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      mydocs.forEach((doc) => {
+        if (doc.data().email == email) {
+          // found the right user
+          // get the new info
+          let newInfo = {
+            a_type: r_e("a_type_pi").value,
+            email: auth.currentUser.email,
+            f_name: r_e("f_name_pi").value,
+            l_name: r_e("l_name_pi").value,
+            username: r_e("username_pi").value,
+            date_account_created: doc.data().date_account_created,
+            last_login: doc.data().last_login,
+            profile_pic: doc.data().profile_pic,
+          };
+          // update the data
+          db.collection("users").doc(doc.id).update(newInfo);
+          // Hide the form
+          r_e("profileinformationmodal").classList.remove("is-active");
+          // Show completetion message
+          configure_message_bar("Account successfully upadated!");
+        }
+      });
+    });
 });
 
 // Timestamp function
@@ -1132,7 +1215,26 @@ function confirmDeleteUser(email) {
   ).innerHTML = `Are you sure you want to delete ${email}? WARNING this cannot be undone.`;
 
   r_e("confirmDeleteUser").addEventListener("click", () => {
-    deleteUserByEmail(email);
+    // Delete the user
+    // Get the currently logged in user
+    var user = firebase.auth().currentUser;
+    console.log(user);
+    // Call the delete method on the user object
+    user
+      .delete()
+      .then(() => {
+        // Hide all the modals
+        r_e("confirmDeleteUserModal").classList.remove("is-active");
+        r_e("profileinformationmodal").classList.remove("is-active");
+        // User account deleted
+        configure_message_bar("Account successfully deleted!");
+        // Hide the profile pic
+        r_e("profileInfo").classList.add("is-hidden");
+      })
+      .catch((error) => {
+        // An error happened
+        configure_message_bar("Fail to delete account.");
+      });
   });
 }
 
@@ -1144,7 +1246,10 @@ r_e("cancelDeleteUser").addEventListener("click", () => {
   r_e("confirmDeleteUserModal").classList.remove("is-active");
 });
 
-r_e("confirmDeleteUser").addEventListener("click", () => {});
+r_e("deleteUserAccountBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  confirmDeleteUser(auth.currentUser.email);
+});
 
 async function deleteUserByEmail2(email) {
   try {
@@ -1171,53 +1276,4 @@ async function deleteUserByEmail2(email) {
   } catch (error) {
     configure_message_bar("Error deleting user");
   }
-}
-
-async function deleteUserByEmail(email) {
-  // try {
-  // Look up the user by email
-  // firebase
-  //   .auth()
-  //   .getUserByEmail(email)
-  //   .then((user) => {
-  //     console.log(user);
-  //     if (!userQuery) {
-  //       console.log("No matching user found.");
-  //       return;
-  //     }
-  //     const userId = userQuery.uid;
-
-  console.log("MAde it here");
-  // Delete the user
-
-  // let user = auth.get_user_by_email(email);
-  // console.log(user);
-  admin
-    .auth()
-    .deleteUser(email)
-    .then(() => {
-      console.log("Successfully deleted user");
-    })
-    .catch((error) => {
-      console.log("Error deleting user:", error);
-    });
-
-  // auth()
-  //   .deleteUser(email)
-  //   .then(() => {
-  // Delete the user document from Firestore
-  db.collection("users")
-    .doc(email)
-    .delete()
-    .then(() => {
-      // Close the modal
-      r_e("confirmDeleteUserModal").classList.remove("is-active");
-      configure_message_bar("User deleted successfully.");
-      // show updated user table
-      show_users();
-    });
-  // });
-  // });
-  //   } catch (error) {
-  //     configure_message_bar("Error deleting user");
 }
