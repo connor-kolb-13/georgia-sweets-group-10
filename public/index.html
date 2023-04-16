@@ -734,13 +734,6 @@
 
     <!-- Start of Shop -->
     <div class="container is-hidden" id="shopPage">
-      <div class="container">
-        <div class="section has-background-grey">
-          <div class="buttons">
-            <div class="button" id="addShopItemBtn">Add Item</div>
-          </div>
-        </div>
-      </div>
       <div class="block"></div>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem
@@ -859,57 +852,17 @@
     <!-- Start of Photo Gallery -->
     <div class="container is-hidden gallery" , id="gallerypage">
       <div class="”gallery”">
-        <figure class="gallery__item gallery__item--1">
-          <img
-            src="images/georgiasweetsbowling.jpeg"
-            class="gallery__img"
-            alt="Image 1"
-          />
-        </figure>
-        <figure class="gallery__item gallery__item--2">
-          <img
-            src="images/georgiasweetsblm.jpeg"
-            class="gallery__img"
-            alt="Image 2"
-          />
-        </figure>
-        <figure class="gallery__item gallery__item--3">
-          <img
-            src="images/georgiasweetsconstruction.jpeg"
-            class="gallery__img"
-            alt="Image 3"
-          />
-        </figure>
-        <figure class="gallery__item gallery__item--4">
-          <img
-            src="images/georgiasweetssuperbowl.jpeg"
-            class="gallery__img"
-            alt="Image 4"
-          />
-        </figure>
-        <figure class="gallery__item gallery__item--5">
-          <img
-            src="images/georgiasweetsliloandstitch.jpeg"
-            class="gallery__img"
-            alt="Image 5"
-          />
-        </figure>
-        <figure class="gallery__item gallery__item--6">
-          <img
-            src="images/georgiasweetsturkey.jpeg"
-            class="gallery__img"
-            alt="Image 6"
-          />
-        </figure>
+    
       </div>
     </div>
     <!-- End of Photo Gallery -->
 
     <!-- Start of Admin Dashboard -->
     <div class="container is-hidden" id="dashboardpage">
-      <div class="columns is-multiline">
-        <div class="column is-4">
-          <div class="card productCard">
+      <div class="columns is-flex">
+        <div class="column is-3"></div>
+        <div class="column is-3">
+          <div class="card productCard" style="background-color: #b493db">
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -921,15 +874,15 @@
                 </figure>
               </div>
             </div>
-            <div class="card-content">
+            <div class="card-content has-text-centered">
               <div class="title is-5" onclick="mngShopBtn()">
-                <a href="#">Manage Shop</a>
+                <a href="#" class="has-text-white">Manage Shop</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-4">
-          <div class="card productCard">
+        <div class="column is-3">
+          <div class="card productCard" style="background-color: #b493db">
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -941,15 +894,19 @@
                 </figure>
               </div>
             </div>
-            <div class="card-content">
+            <div class="card-content has-text-centered">
               <div class="title is-5" onclick="mngGalleryBtn()">
-                <a href="#">Manage Gallery</a>
+                <a href="#" class="has-text-white">Manage Gallery</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-4">
-          <div class="card productCard">
+        <div class="column is-3"></div>
+      </div>
+      <div class="columns is-flex">
+        <div class="column is-3"></div>
+        <div class="column is-3">
+          <div class="card productCard" style="background-color: #b493db">
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -961,15 +918,15 @@
                 </figure>
               </div>
             </div>
-            <div class="card-content">
+            <div class="card-content has-text-centered">
               <div class="title is-5" onclick="mngUsersBtn()">
-                <a href="#">Manage Users</a>
+                <a href="#" class="has-text-white">Manage Users</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-4">
-          <div class="card productCard">
+        <div class="column is-3">
+          <div class="card productCard" style="background-color: #b493db">
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -981,15 +938,17 @@
                 </figure>
               </div>
             </div>
-            <div class="card-content">
+            <div class="card-content has-text-centered">
               <div class="title is-5" onclick="mngAbtUsBtn()">
-                <a href="#">Manage About Us</a>
+                <a href="#" class="has-text-white">Manage About Us</a>
               </div>
             </div>
           </div>
         </div>
+        <div class="column is-3"></div>
       </div>
     </div>
+    <!-- End of Admin Dashboard -->
 
     <!--Start of Manage Shop -->
     <div
@@ -998,26 +957,59 @@
       style="background-color: #f5f5f5"
     >
       <a
-        class="button has-text-white"
+        class="button has-text-white mt-2"
         style="background-color: #b493db"
         onclick="backToDashboardBtn()"
         ><strong>Back</strong></a
       >
+      <br />
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Shop</div>
+        <div class="columns is-flex is-6">
+          <div class="column is-6">
+            <div class="card" style="background-color: #b493db">
+              <div class="subtitle is-4 has-text-white mt-2 mb-0">
+                Manage Products
+              </div>
+              <hr class="mx-6" />
+              <div class="buttons is-centered">
+                <div class="button" id="addShopItemBtn">Add Product</div>
+                <div class="button" id="viewShopProductsBtn">
+                  View All Products
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-6">
+            <div class="card" style="background-color: #b493db">
+              <div class="subtitle is-4 has-text-white">Manage Orders</div>
+              <hr class="mx-6" />
+              <div class="buttons is-centered">
+                <div class="button" id="viewShopOrders">View All Orders</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!--End of Manage Shop-->
 
     <!--Start of Manage Gallery-->
-    <div
-      class="container is-hidden"
-      id="managegallerypage"
-      style="background-color: #f5f5f5"
-    >
-      <a
-        class="button has-text-white"
-        style="background-color: #b493db"
-        onclick="backToDashboardBtn()"
-        ><strong>Back</strong></a
-      >
+    <div class="container is-hidden" id="managegallerypage" style="background-color: #f5f5f5">
+      <a class="button has-text-white mb-4" style="background-color: #b493db" onclick="backToDashboardBtn()"><strong>Back</strong></a>
+      <form id="galleryUpdateForm">
+        <div class="field">
+          <label class="label">Gallery Image Upload</label>
+          <div>
+            <input type="file" class="input" id="newGalleryPic"/>
+          </div>
+          <!-- submit button -->
+          <div>
+            <button class="button mt-2" style="background-color: #b493db" id="upload_button">Upload</button>
+            <!-- reset button -->
+            <button class="button ml-3 mt-2" id="resetgallerypic" style="background-color: whitesmoke">Delete</button>
+        </div>
+      </form>
     </div>
     <!--End of Manage Gallery-->
 

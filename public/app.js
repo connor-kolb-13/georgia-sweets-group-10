@@ -142,6 +142,7 @@ document.querySelector("#gallerybtn").addEventListener("click", () => {
   gallerybtn.classList.add("is-active");
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
+  load_data("gallery_images", "loc", "gallerypage");
 });
 
 // Public dashboard Page
@@ -1033,6 +1034,7 @@ r_e("addShopItemForm").addEventListener("submit", (e) => {
 });
 
 // Start Manage Users
+// Start Manage Users
 function show_users() {
   const PAGE_SIZE = 10;
   let currentPage = 0;
@@ -1069,12 +1071,8 @@ function show_users() {
               <td class="has-text-center">${user.data().last_login}</td>
               <td>
                 <div class="buttons has-addons">
-                  <button class="button" onclick="editUser('${
-                    user.data().email
-                  }')">Edit</button>
-                <!-- <button class="button is-danger is-selected" onclick="confirmDeleteUser('${
-                  user.data().email
-                }')">Delete</button> --!>
+                  <button class="button">Edit</button>
+                  <button class="button is-danger is-selected">Delete</button>
                 </div>  
               </td>
             </tr>
@@ -1276,4 +1274,70 @@ async function deleteUserByEmail2(email) {
   } catch (error) {
     configure_message_bar("Error deleting user");
   }
+}
+
+// uploading images to gallery
+// save new data into a collection
+function save_data(coll, obj) {
+  db.collection(coll)
+    .add(obj)
+    .then(() => {
+      // show a success message to the user
+      configure_message_bar(`${obj.title} has been uploaded!`);
+      // reset the form
+      // grab from tag and access the .value and reset it (make it empty string)
+
+      r_e("newGalleryPic").value = "";
+
+      load_data("gallery_images", "feed-page", "gallerypage");
+    });
+}
+
+// admin uploading gallery images
+r_e("upload_button").addEventListener("click", () => {
+  // getting the image ready
+  let file = document.querySelector("#newGalleryPic").files[0];
+  let image = new Date() + "_" + file;
+
+  const task = ref.child(image).put(file);
+
+  task
+    .then((snapshot) => snapshot.ref.getDownloadURL())
+    .then((url) => {
+      // the url of the image is ready now!
+      // 4. wrap those in an object
+      let galleryImage = { url: url };
+      // 5. send the object to firebase
+      save_data("gallery_images", galleryImage);
+    });
+});
+
+function load_data(coll, loc, loc2, field, val) {
+  // check if we pass all 5 arguments
+  let query = "";
+
+  if (field && val) {
+    query = db.collection(coll).where(field, "array-contains", val);
+  } else {
+    query = db.collection(coll);
+  }
+  query.get().then((res) => {
+    let documents = res.docs;
+
+    // html reference
+    html = "";
+
+    // loop through documents array
+    documents.forEach((doc) => {
+      // console.log(doc.data().title);
+      html += `<div>`;
+      html += `<figure class='has-text-centered'><img src="${
+        doc.data().url
+      }" /></figure>`;
+      html += `</div>`;
+    });
+
+    // show on the div with id indicated location
+    r_e(loc2).innerHTML = html;
+  });
 }
