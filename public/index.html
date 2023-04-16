@@ -104,6 +104,22 @@
         </div>
         <!-- End of Navbar Options -->
         <div class="navbar-end">
+          <div class="navbar-item" id="profileInfo">
+            <!-- Code for profile pic and account options -->
+            <figure
+              class="media-center mt-2 signedin mx-2 mt-1"
+              id="profilePicture"
+            >
+              <p class="image is-48x48">
+                <i
+                  class="fa-solid fa-user is-center fa-2x is-clickable"
+                  id="profileinfoicon"
+                ></i>
+              </p>
+            </figure>
+            <p class="is-subtitle is-4 is-clickable" id="nameCorner"></p>
+            <!-- <div class="button mt-1 signedin" id="currentuser"></div> -->
+          </div>
           <div class="navbar-item">
             <div class="buttons">
               <a
@@ -117,7 +133,7 @@
                 Log in
               </a>
               <a
-                class="button is-hidden"
+                class="button has-background-grey-light is-hidden"
                 style="background-color: #b493db"
                 id="logOutBtn"
               >
@@ -891,10 +907,9 @@
 
     <!-- Start of Admin Dashboard -->
     <div class="container is-hidden" id="dashboardpage">
-      <div class="columns is-flex">
-        <div class="column is-3"></div>
-        <div class="column is-3">
-          <div class="card productCard" style="background-color: #b493db">
+      <div class="columns is-multiline">
+        <div class="column is-4">
+          <div class="card productCard">
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -906,15 +921,15 @@
                 </figure>
               </div>
             </div>
-            <div class="card-content has-text-centered">
+            <div class="card-content">
               <div class="title is-5" onclick="mngShopBtn()">
-                <a href="#" class="has-text-white">Manage Shop</a>
+                <a href="#">Manage Shop</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-3">
-          <div class="card productCard" style="background-color: #b493db">
+        <div class="column is-4">
+          <div class="card productCard">
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -926,19 +941,15 @@
                 </figure>
               </div>
             </div>
-            <div class="card-content has-text-centered">
+            <div class="card-content">
               <div class="title is-5" onclick="mngGalleryBtn()">
-                <a href="#" class="has-text-white">Manage Gallery</a>
+                <a href="#">Manage Gallery</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-3"></div>
-      </div>
-      <div class="columns is-flex">
-        <div class="column is-3"></div>
-        <div class="column is-3">
-          <div class="card productCard" style="background-color: #b493db">
+        <div class="column is-4">
+          <div class="card productCard">
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -950,15 +961,15 @@
                 </figure>
               </div>
             </div>
-            <div class="card-content has-text-centered">
+            <div class="card-content">
               <div class="title is-5" onclick="mngUsersBtn()">
-                <a href="#" class="has-text-white">Manage Users</a>
+                <a href="#">Manage Users</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-3">
-          <div class="card productCard" style="background-color: #b493db">
+        <div class="column is-4">
+          <div class="card productCard">
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -970,14 +981,13 @@
                 </figure>
               </div>
             </div>
-            <div class="card-content has-text-centered">
+            <div class="card-content">
               <div class="title is-5" onclick="mngAbtUsBtn()">
-                <a href="#" class="has-text-white">Manage About Us</a>
+                <a href="#">Manage About Us</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-3"></div>
       </div>
     </div>
 
@@ -988,7 +998,7 @@
       style="background-color: #f5f5f5"
     >
       <a
-        class="button has-text-white mt-2"
+        class="button has-text-white"
         style="background-color: #b493db"
         onclick="backToDashboardBtn()"
         ><strong>Back</strong></a
