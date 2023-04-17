@@ -680,6 +680,166 @@
     </div>
     <!-- End Add Shop Item Modal -->
 
+    <!-- Start Edit Contact Us Response Modal  -->
+    <div class="modal" id="contactFormResponseModal">
+      <div class="modal-background" id="contactFormResponseModalBg"></div>
+      <div class="modal-content has-background-grey-light p-4">
+        <h1 class="subtitle has-text-weight-bold is-3">
+          Contact Us Form Response
+        </h1>
+        <form id="contactFormResponseForm">
+          <!-- First Row -->
+          <div class="columns is-flex">
+            <!-- Name -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="contact_us_name"
+                    placeholder="e.g Alex"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Date Submitted -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Date Submitted</label>
+                <div class="control is-disabled">
+                  <input
+                    class="input is-disabled"
+                    type="text"
+                    id="contact_us_date_submitted"
+                    placeholder="e.g Smith"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Second Row -->
+          <div class="columns is-flex">
+            <!-- Email -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="contact_us_email"
+                    placeholder="e.g Smith"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Phone Number -->
+            <div class="column is-5">
+              <div class="field is-disabled">
+                <label class="label">Phone Number</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="contact_us_phone_no"
+                    placeholder="e.g Smith"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Third Row -->
+          <div class="columns is-flex">
+            <div class="column is-5">
+              <!-- Subject -->
+              <div class="field">
+                <label class="label">Subject</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="contact_us_subject">
+                      <option>Account</option>
+                      <option>Order</option>
+                      <option>Inquiry</option>
+                      <option>Website Bug</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Last Name -->
+            <div class="column is-5">
+              <!-- Status -->
+              <div class="field">
+                <label class="label">Status</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="contact_us_status">
+                      <option>NEW</option>
+                      <option>Read</option>
+                      <option>URGENT</option>
+                      <option>Completed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Message -->
+          <div class="field">
+            <label class="label">Message</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                id="contact_us_message"
+                placeholder="Explain what this product all includes here!"
+              ></textarea>
+            </div>
+          </div>
+          <div class="container m-0 has-text-centered">
+            <!-- submit button -->
+            <!-- <div class="control"> -->
+            <button class="button mt-2 is-primary">Submit</button>
+            <!-- </div> -->
+            <!-- reset button -->
+            <button
+              class="button mx-4 mt-2"
+              id="resetContactUsFormResponseModal"
+              style="background-color: whitesmoke"
+            >
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- End Edit Contact Us Response Modal  -->
+
+    <!-- Start Confirm Delete Contact Form Response Modal -->
+    <div class="modal" id="confirmDeleteContactModal">
+      <div class="modal-background" id="confirmDeleteContactModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="container m-0 has-text-centered">
+          <div
+            class="subtitle is-4 has-text-centered"
+            id="confirmDeleteContactMessage"
+          ></div>
+          <!-- submit button -->
+          <button class="button is-primary" id="confirmDeleteContact">
+            Yes
+          </button>
+          <!-- cancel button -->
+          <button class="button ml-3 is-danger" id="cancelDeleteContact">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End Confirm Delete Contact Form Response Modal -->
+
     <!-- End of Modals -->
 
     <!-- Start of Page Div Elements -->
@@ -857,8 +1017,8 @@
     <!-- Start of Admin Dashboard -->
     <div class="container is-hidden" id="dashboardpage">
       <div class="columns is-flex">
-        <div class="column is-3"></div>
-        <div class="column is-3">
+        <div class="column is-one-fifth"></div>
+        <div class="column is-one-fifth">
           <div class="card productCard" style="background-color: #b493db">
             <div class="card-image">
               <div class="box">
@@ -878,7 +1038,7 @@
             </div>
           </div>
         </div>
-        <div class="column is-3">
+        <div class="column is-one-fifth">
           <div class="card productCard" style="background-color: #b493db">
             <div class="card-image">
               <div class="box">
@@ -898,7 +1058,27 @@
             </div>
           </div>
         </div>
-        <div class="column is-3"></div>
+        <div class="column is-one-fifth">
+          <div class="card productCard" style="background-color: #b493db">
+            <div class="card-image">
+              <div class="box">
+                <figure class="image is-512x512">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png"
+                    alt="Placeholder image"
+                    onclick="mngContactBtn()"
+                  />
+                </figure>
+              </div>
+            </div>
+            <div class="card-content has-text-centered">
+              <div class="title is-5" onclick="mngContactBtn()">
+                <a href="#" class="has-text-white">Manage Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-one-fifth"></div>
       </div>
       <div class="columns is-flex">
         <div class="column is-3"></div>
@@ -1100,14 +1280,193 @@
     </div>
     <!--End of Manage About Us-->
 
-    <!-- End of Admin Dashboard -->
+    <!--Start of Manage Contact Us-->
+    <div
+      class="container is-hidden"
+      id="managecontactpage"
+      style="background-color: #f5f5f5"
+    >
+      <a
+        class="button has-text-white"
+        style="background-color: #b493db"
+        onclick="backToDashboardBtn()"
+        ><strong>Back</strong></a
+      >
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Contact Us</div>
+        <table class="table mx-auto is-striped is-fullwidth mb-3 mt-4">
+          <thead>
+            <!-- Header Row -->
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Subject</th>
+              <th>Date Submitted</th>
+              <th>Last Updated</th>
+              <th>Status</th>
+              <th>Message</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="contact_table">
+            <!-- Example Row -->
+            <!-- <tr>
+              <td class="has-text-left">Connor Kolb</td>
+              <td>cwkolb@wisc.edu</td>
+              <td>Account</td>
+              <td>11/1/2023 5:53 PM</td>
+              <td>Unread</td>
+              <td>
+                Lorem ipsum dolor sit amet. Lorem ipsum dolor sit. Lorem ipsum
+                dolor sit, amet consectetur adipisicing elit. Consectetur
+                minima, quasi voluptatum molestiae dolores mollitia odit
+                perferendis voluptatibus dolor, suscipit, ipsam velit quis?
+                Consequuntur, velit quasi quam magnam cum labore, laboriosam
+                officia impedit praesentium error placeat earum nihil, id saepe!
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
+        <div id="manageContactPageLinks"></div>
+      </div>
+    </div>
+    <!--End of Manage Contact Us-->
 
     <!-- Start of About Us -->
     <div class="container is-hidden" id="aboutpage"></div>
     <!-- End of About Us-->
 
     <!-- Start of Contat Us -->
-    <div class="container is-hidden" id="conactpage"></div>
+    <div class="container is-hidden" id="conactpage">
+      <div class="columns mb-0">
+        <div class="column is-4">
+          <article class="message is-dark mt-4 mr-3" id="bugReportMessage">
+            <div class="message-header">
+              <p>Please Report Website Bugs Here!</p>
+              <button
+                class="delete"
+                aria-label="delete"
+                id="hideMessageBtn"
+              ></button>
+            </div>
+            <div class="message-body">
+              If you run into any problems while using the site, please let us
+              know by filling out this form. Please include details such as what
+              led to the bug and what happened as a result of the bug. Thank you
+              for your feedback!
+            </div>
+          </article>
+        </div>
+        <div class="column is-4">
+          <div class="container is-vcentered has-text-centered my-6">
+            <form id="contact_us_form">
+              <div class="field">
+                <label class="label has-text-left">Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="contactName"
+                    placeholder="Text input"
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label has-text-left">Email</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                    class="input"
+                    type="email"
+                    id="contactEmail"
+                    placeholder="Email input"
+                  />
+                  <span class="icon is-small is-left m-auto">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                  <span class="icon is-small is-right m-auto">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label has-text-left">Phone Number</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="contactPhoneNo"
+                    placeholder="608-452-4529"
+                  />
+                </div>
+              </div>
+
+              <div class="field pb-6">
+                <label class="label has-text-left">Subject</label>
+                <div class="control is-pulled-left">
+                  <div class="select is-left">
+                    <select id="contactSubject">
+                      <option>Account</option>
+                      <option>Order</option>
+                      <option>Inquiry</option>
+                      <option>Website Bug</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label is-pulled-left">Message</label>
+                <div class="control">
+                  <textarea
+                    class="textarea"
+                    placeholder="How can we help you?"
+                    id="contactMsg"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Uncomment for terms & conditions agreement -->
+              <!-- <div class="field">
+                  <div class="control">
+                    <label class="checkbox">
+                      <input type="checkbox">
+                      I agree to the <a href="#">terms and conditions</a>
+                    </label>
+                  </div>
+                </div> -->
+
+              <!-- <div class="field">
+                  <div class="control">
+                    <label class="radio">
+                      <input type="radio" name="question">
+                      Yes
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="question">
+                      No
+                    </label>
+                  </div>
+                </div> -->
+
+              <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                  <button class="button is-link">Submit</button>
+                </div>
+                <div class="control">
+                  <button class="button is-link is-light" id="clearContact">
+                    Clear
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="column is-4"></div>
+      </div>
+    </div>
     <!-- End of Contact Us -->
 
     <!-- Start of Report Issue -->
