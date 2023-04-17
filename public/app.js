@@ -47,6 +47,7 @@ let aboutpage = r_e("publicLandingPage");
 let contactpage = r_e("conactpage");
 let reportanissuepage = r_e("reportanissuepage");
 let manageshoppage = r_e("manageshoppage");
+let managecontactpage = r_e("managecontactpage");
 let managegallerypage = r_e("managegallerypage");
 let manageuserspage = r_e("manageuserspage");
 let manageaboutuspage = r_e("manageaboutuspage");
@@ -60,6 +61,7 @@ let = allPages = [
   contactpage,
   reportanissuepage,
   manageshoppage,
+  managecontactpage,
   managegallerypage,
   manageuserspage,
   manageaboutuspage,
@@ -439,6 +441,27 @@ function mngShopBtn() {
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 }
+
+function mngContactBtn() {
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(managecontactpage);
+  // Show responses
+  show_contact_responses();
+  hidemodal(dashboardpage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+}
+
 function mngGalleryBtn() {
   allPages.forEach((page) => {
     if (page.classList.contains("is-active")) {
@@ -1207,9 +1230,9 @@ r_e("editUserModalBg").addEventListener("click", () => {
 });
 
 function confirmDeleteUser(email) {
-  console.log("hello");
+  // console.log("hello");
   r_e("confirmDeleteUserModal").classList.add("is-active");
-  console.log(r_e("confirmDeleteUserModal").classList);
+  // console.log(r_e("confirmDeleteUserModal").classList);
   r_e(
     "confirmDeleteMessage"
   ).innerHTML = `Are you sure you want to delete ${email}? WARNING this cannot be undone.`;
@@ -1218,7 +1241,7 @@ function confirmDeleteUser(email) {
     // Delete the user
     // Get the currently logged in user
     var user = firebase.auth().currentUser;
-    console.log(user);
+    // console.log(user);
     // Call the delete method on the user object
     user
       .delete()
@@ -1256,14 +1279,14 @@ async function deleteUserByEmail2(email) {
     // Look up the user by email
     const userQuery = await firebase.auth().getUserByEmail(email);
 
-    console.log("Made it here");
+    // console.log("Made it here");
     if (!userQuery) {
       console.log("No matching user found.");
       return;
     }
     const userId = userQuery.uid;
 
-    console.log("MAde it here");
+    // console.log("MAde it here");
     // Delete the user
     await auth().deleteUser(userId);
 
@@ -1354,13 +1377,17 @@ r_e("contact_us_form").addEventListener("submit", (e) => {
   let email = r_e("contactEmail").value;
   let subject = r_e("contactSubject").value;
   let message = r_e("contactMsg").value;
+  let phone_no = r_e("contactPhoneNo").value;
 
   let response = {
     name: name,
     email: email,
     subject: subject,
     message: message,
+    phone_no: phone_no,
     time_submitted: get_current_timestamp(),
+    last_updated: "---",
+    status: "NEW",
   };
 
   db.collection("contact_form_responses")
@@ -1372,6 +1399,7 @@ r_e("contact_us_form").addEventListener("submit", (e) => {
       r_e("contactName").value = "";
       r_e("contactEmail").value = "";
       r_e("contactSubject").value = "";
+      r_e("contactPhoneNo").value = "";
       r_e("contactMsg").value = "";
     });
 });
@@ -1381,5 +1409,228 @@ r_e("clearContact").addEventListener("click", (e) => {
   r_e("contactName").value = "";
   r_e("contactEmail").value = "";
   r_e("contactSubject").value = "";
+  r_e("contactPhoneNo").value = "";
   r_e("contactMsg").value = "";
+});
+
+// Display Contact Form Responses
+function show_contact_responses() {
+  const PAGE_SIZE = 10;
+  let currentPage = 0;
+  let numPages = 0;
+
+  function renderTable(startIndex, numToShow) {
+    db.collection("contact_form_responses")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        let html = "";
+
+        let endIndex =
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
+
+        mydocs.slice(startIndex, endIndex).forEach((response, index) => {
+          html += `
+            <tr class="is-clickable is-hoverable" onclick="changeContactStatus('${
+              response.id
+            }')">
+            
+              <td class="has-text-left">${response.data().name}</td>
+  
+              <td class="has-text-left">${response.data().email}</td>
+              <td class="has-text-left">${response.data().subject}</td>
+              <td class="has-text-left">${response.data().time_submitted}</td>
+              <td class="has-text-left">${response.data().last_updated}</td>
+              <td class="has-text-left">${response.data().status}</td>
+              <td class="has-text-left">${response.data().message}</td>
+              <td>
+                <div class="buttons has-addons is-centered">
+                  <button class="button is-small" onclick="editContact('${
+                    response.id
+                  }')"><i class="fas fa-edit"></i></button>
+                  <button class="button is-danger is-small" onclick="deleteContact('${
+                    response.id
+                  }')">X</button>
+                 
+                </div> 
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById("contact_table").innerHTML = html;
+      });
+  }
+
+  function renderPageLinks() {
+    let html = "";
+    for (let i = 0; i < numPages; i++) {
+      html += `
+        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+      `;
+    }
+
+    document.getElementById("manageContactPageLinks").innerHTML = html;
+  }
+
+  function showPage(pageNum) {
+    let startIndex = pageNum * PAGE_SIZE;
+    renderTable(startIndex, PAGE_SIZE);
+    currentPage = pageNum;
+    updateNavigation();
+  }
+
+  function updateNavigation() {
+    let prevBtn = document.getElementById("fullStandingsPrevPage");
+    let nextBtn = document.getElementById("fullStandingsNextPage");
+
+    if (prevBtn) {
+      prevBtn.disabled = currentPage === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = currentPage === numPages - 1;
+    }
+
+    let pageLinks = document.querySelectorAll("#fullStandingsPageLinks a");
+    pageLinks.forEach((link) => {
+      link.classList.toggle(
+        "is-current",
+        parseInt(link.dataset.page) === currentPage
+      );
+    });
+  }
+
+  db.collection("contact_form_responses")
+    .get()
+    .then((data) => {
+      numPages = Math.ceil(data.docs.length / PAGE_SIZE);
+      renderPageLinks();
+      showPage(0);
+    });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "fullStandingsPrevPage") {
+      showPage(currentPage - 1);
+    } else if (event.target.id === "fullStandingsNextPage") {
+      showPage(currentPage + 1);
+    } else if (event.target.classList.contains("pagination-link")) {
+      showPage(parseInt(event.target.dataset.page));
+    }
+  });
+}
+
+// Change the status of contact us form when row is clicked to 'Read'
+function changeContactStatus(id) {
+  update_firebase("contact_form_responses", id, "status", "Read");
+  show_contact_responses();
+}
+
+// Delete a contact us form response
+function deleteContact(id) {
+  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {
+  }
+  r_e("confirmDeleteContactModal").classList.add("is-active");
+  r_e(
+    "confirmDeleteContactMessage"
+  ).innerHTML = `Are you sure you want to delete this response?`;
+  // User selects confirm
+  r_e("confirmDeleteContact").addEventListener("click", () => {
+    // Get a reference to the document
+    var docRef = db.collection("contact_form_responses").doc(id);
+
+    // Delete the document
+    docRef
+      .delete()
+      .then(() => {
+        r_e("confirmDeleteContactModal").classList.remove("is-active");
+        configure_message_bar("Document successfully deleted!");
+        show_contact_responses();
+      })
+      .catch((error) => {
+        configure_message_bar("Error removing document");
+      });
+  });
+}
+
+// Hide the modal when needed
+r_e("confirmDeleteContactModalBg").addEventListener("click", () => {
+  r_e("confirmDeleteContactModal").classList.remove("is-active");
+});
+
+r_e("cancelDeleteContact").addEventListener("click", () => {
+  r_e("confirmDeleteContactModal").classList.remove("is-active");
+});
+
+// Show contact us response in modal
+function editContact(response_id) {
+  r_e("contactFormResponseModal").classList.add("is-active");
+
+  // Get a reference to the document
+  var docRef = db.collection("contact_form_responses").doc(response_id);
+
+  // Retrieve the document
+  docRef
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        // Pre-fill the form with the data
+        r_e("contact_us_name").value = doc.data().name;
+        r_e("contact_us_email").value = doc.data().email;
+        r_e("contact_us_subject").value = doc.data().subject;
+        r_e("contact_us_phone_no").value = doc.data().phone_no;
+        r_e("contact_us_message").value = doc.data().message;
+        r_e("contact_us_status").value = doc.data().status;
+        r_e("contact_us_date_submitted").value = doc.data().time_submitted;
+      } else {
+        // Error Loading the data
+        console.log("No such document!");
+      }
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    });
+
+  // Update the response when submitted
+
+  // Submit the updated contact us information
+  r_e("contactFormResponseForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    db.collection("contact_form_responses")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        mydocs.forEach((doc) => {
+          if (doc.id == response_id) {
+            // found the right user
+            // get the new info
+            let newInfo = {
+              name: r_e("contact_us_name").value,
+              email: r_e("contact_us_email").value,
+              subject: r_e("contact_us_subject").value,
+              phone_no: r_e("contact_us_phone_no").value,
+              status: r_e("contact_us_status").value,
+              username: r_e("username_pi").value,
+              message: r_e("contact_us_message").value,
+              time_submitted: r_e("contact_us_date_submitted").value,
+              last_updated: get_current_timestamp(),
+            };
+            // update the data
+            db.collection("contact_form_responses").doc(doc.id).update(newInfo);
+            // Update the table
+            show_contact_responses();
+            // Hide the form
+            r_e("contactFormResponseModal").classList.remove("is-active");
+            // Show completetion message
+            configure_message_bar("Response successfully upadated!");
+          }
+        });
+      });
+  });
+}
+// Hide contact us modal
+r_e("contactFormResponseModalBg").addEventListener("click", () => {
+  r_e("contactFormResponseModal").classList.remove("is-active");
 });
