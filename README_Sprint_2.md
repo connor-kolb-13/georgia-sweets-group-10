@@ -16,7 +16,14 @@ https://github.com/connor-kolb-13/georgia-sweets-group-10
 
 
 # Burndown Charts
+Day 4:
+![burndown_4_6](https://user-images.githubusercontent.com/93365258/232349250-940b94d3-759f-4e9f-ad61-60b67b469763.PNG)
 
+Day 9:
+![burdown_4_11](https://user-images.githubusercontent.com/93365258/232349267-f9324bb5-9388-46b7-b0d5-5f2377009441.PNG)
+
+Day 14:
+![burndown_4_16](https://user-images.githubusercontent.com/93365258/232349282-93edbe19-add7-43b6-b1d3-df435e4c03df.PNG)
 
 # Daily Stand Ups
 
