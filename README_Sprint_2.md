@@ -99,24 +99,24 @@ Mason:
 # Sprint Review
 
 a. What did you learn from doing our second sprint?
-<p>We learned from the second sprint that encouraging advice from our teammates can be very helpful. An example of this is for the deleting users function for the manage users aspect of the website. This was helpful because after further discussion we recognized that the website would work better and be more secure if we allowed users to only delete their own accounts, compared to the admin being able to deleting all. </p>
+<p>We learned from the second sprint that encouraging advice from our teammates can be very helpful. An example of this is for the deleting users function for the manage users aspect of the website. This was helpful because after further discussion we recognized that the website would work better and be more secure if we allowed users to only delete their own accounts, compared to the admin being able to delete all. </p>
 
 b. What did go well? Why?
-<p>Communication went better this sprint as we were more consistently updating each other in our group chat on where we were at with our tasks along with our stand up meetings. This was very helpful as we knew not to do repetitive work and also when to push and pull so there were no issues on that end.</p>
+<p>Communication went better this sprint as we were more consistently updating each other in our group chat on where we were at with our tasks along with our stand up meetings. This was very helpful as we knew not to do repetitive work and also when to push and pull so there were no issues on that end, as we experienced in our first sprint.</p>
 
 
 c. What didn’t go well? Why not?
-<p>One thing that didn't go well on this sprint was the timing of our tasks. As the semester is winding down, we all have a lot of school work for our classes and work tended to be done in spurts rahter than a very consistent flow of work. This made it difficult sometimes as certain tasks needed to be done after others and we would have to wait to get those tasks done.</p>
+<p>One thing that didn't go well on this sprint was the timing of our tasks. As the semester is winding down, we all have a lot of school work for our classes and work tended to be done in spurts rahter than a very consistent flow of work. This made it difficult sometimes as certain tasks needed to be done after others and we would have to wait to get those tasks done. However, having the Trello board helped pull us slightly back into a good flow when we realized we were falling behind.</p>
 
 
 d. How can you make things better next time?
-<p>This is never completely avoidable because we will all be busy over the next month, however in the future letting others know of our schedule beforehand and help us to lay out the sprint and know when the items will be completed better.</p>
+<p>This is never completely avoidable because we will all be busy over the next month. However, in the future, letting others know of our schedule beforehand will help us to lay out the sprint and know when the items will be completed in a timely manner.</p>
 
 
 e. Are you satisfied with what you already completed?
-<p>We are very satisfied with what we have alrady completed as the page is working as it is supposed to and has a nice design and look to it.</p>
+<p>We are very satisfied with what we have alrady completed as the page is working as it is supposed to, and has a nice design and look to it. The client is also very happy with our progress.</p>
 
 f. Which group was invited? What are your observations/notes? Everybody was present?
-<p>We were all present for these standup meetings. Beyond this Mason we also worked with the client to get consistent feedback throughout the process of the sprint. We observed that this was helpful to figure out if we were on the right track with the client's hopes for this project.</p>
+<p>We were all present for the standup meetings and peer review. For our peer review, group 6 was invited. We also met with this group for the first sprint, and we were very happy with their progress since then. They added firebase to their project, and they also updated styling so the website looked more appealing and sytlistic for the client. Beyond this, Mason also worked with the client to get consistent feedback throughout the process of the sprint. We found this to be helpful to figure out if we were on the right track with the client's hopes for the website.</p>
 
 
