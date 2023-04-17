@@ -11,10 +11,14 @@ https://github.com/connor-kolb-13/georgia-sweets-group-10
 # User Stories
 
 1. As an admin, I want to be able to manage each user's account so that I can help users when they have account issues.
-2. As an admin, I want to be able to manage the contact us form responses so I can reach out to people when they have questions or concerns.
-3. As an admin, I want to be able to upload and delete photos from the photo gallery page so that I can show off my most recent work.
+2. As an admin, I want to be able to upload and delete prodcuts to stay consistent with what I'm currently selling.
+3. As an admin, I want to be able to manage the contact us form responses so I can reach out to people when they have questions or concerns.
+4. As an admin, I want to be able to upload and delete photos from the photo gallery page so that I can show off my most recent work.
+5. As a user, I want to be able to create and update my account information after the account was created.
+6. As an admin, I want to have access to and secure the admin dashboard tab so that general users cannot view it.
 
-# User Stories Task Chart
+# User Stories Tasks Chart
+<img width="630" alt="Screenshot 2023-04-16 at 9 22 02 PM" src="https://user-images.githubusercontent.com/93365258/232362981-9b60a71e-00d0-4afe-8e22-b632da05532a.png">
 
 
 # Burndown Charts
