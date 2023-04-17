@@ -36,7 +36,9 @@ Questions:
 ## April 6th Stand Up
 
 Connor:
-
+1. Yesterday I finsihed up hiding the dashboard tab for non-admins
+2. Today I will begin working on editing users
+3. No issues at this time.
 
 Alex:
 1. Yesterday I worked on creating the user table for the manage users page for admins
@@ -63,7 +65,9 @@ Mason:
 ## April 11th Stand Up
 
 Connor:
-
+1. Yesterday I continued working on the edit users table
+2. Today I will finish up editing and complete deleting of users
+3. Running into some errors with deletion, am going to look into other options for this.
 
 Alex:
 1. Yesterday I helped to finish up the user table with Connor
