@@ -38,7 +38,9 @@ Alex:
 
 Isaac:
 
-
+1. Yesterday, I added functionality to tiles on the dashboard page
+2. Today, I'll be adding individual pages for each of the dashboard tiles
+3. Had some confusion with how to make the pages within pages work but realized it doesn't have to be on the navbar to have its own page.
 
 Trent:
 1). Yesterday I began writing the JS for adding images to the gallary page. The image links are to be pulled from Firebase after they are uploaded from the admin dashboard.
@@ -63,7 +65,9 @@ Alex:
 
 Isaac:
 
-
+1. Yesterday, I added back buttons to each of the dashboard pages and set up the pages for additional functionality
+2. Today, I'll be looking at the Manage About Us page. 
+3. No problems today.
 
 Trent:
 1). Yesterday I was able to finalize the code to display the already uploaded images on the gallary page. 
