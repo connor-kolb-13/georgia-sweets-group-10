@@ -543,6 +543,10 @@ function backToDashboardBtn() {
   menu.classList.toggle("is-active");
 }
 
+function updateAboutUsButton(){
+  let newtext = r_e("aboutustext").value;
+}
+
 // Example of how to use function for reference when working
 // get_user_info(auth.currentUser.email, "full_name").then(
 //   (name) => {
