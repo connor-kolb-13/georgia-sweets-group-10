@@ -29,7 +29,7 @@ let gallerybtn = r_e("gallerybtn");
 let dashboardbtn = r_e("dashboardbtn");
 let aboutbtn = r_e("aboutbtn");
 let contactbtn = r_e("contactbtn");
-let reportanissuebtn = r_e("reportanissuebtn");
+// let reportanissuebtn = r_e("reportanissuebtn");
 
 let = allBtns = [
   homebtn,
@@ -38,7 +38,7 @@ let = allBtns = [
   dashboardbtn,
   aboutbtn,
   contactbtn,
-  reportanissuebtn,
+  // reportanissuebtn,
 ];
 
 let homepage = r_e("homepage");
@@ -215,27 +215,27 @@ document.querySelector("#contactbtn").addEventListener("click", () => {
   menu.classList.toggle("is-active");
 });
 
-// Public report an issue Page
-document.querySelector("#reportanissuebtn").addEventListener("click", () => {
-  // Hide all other pages
-  allPages.forEach((page) => {
-    if (page.classList.contains("is-active")) {
-      hidemodal(page);
-    }
-  });
-  showmodal(reportanissuepage);
-  hidemodal(homepage);
-  // Remove the is-active from the prior page
-  allBtns.forEach((btn) => {
-    if (btn.classList.contains("is-active")) {
-      btn.classList.remove("is-active");
-    }
-  });
-  // Update the Navbar
-  reportanissuebtn.classList.add("is-active");
-  // Hide the menu when burger icon was clicked
-  menu.classList.toggle("is-active");
-});
+// // Public report an issue Page
+// document.querySelector("#reportanissuebtn").addEventListener("click", () => {
+//   // Hide all other pages
+//   allPages.forEach((page) => {
+//     if (page.classList.contains("is-active")) {
+//       hidemodal(page);
+//     }
+//   });
+//   showmodal(reportanissuepage);
+//   hidemodal(homepage);
+//   // Remove the is-active from the prior page
+//   allBtns.forEach((btn) => {
+//     if (btn.classList.contains("is-active")) {
+//       btn.classList.remove("is-active");
+//     }
+//   });
+//   // Update the Navbar
+//   reportanissuebtn.classList.add("is-active");
+//   // Hide the menu when burger icon was clicked
+//   menu.classList.toggle("is-active");
+// });
 
 // Example of how to use function for reference when working
 // get_firebase_data("users", "0G3Om9lyf9coc2wkYQMQ", "f_name").then(

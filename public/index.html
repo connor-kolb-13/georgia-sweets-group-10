@@ -88,19 +88,13 @@
         <div class="navbar-start">
           <!-- Main Elements -->
           <a class="navbar-item" id="homebtn"> Home </a>
-          <a class="navbar-item" id="shopbtn"> Shop </a>
           <a class="navbar-item" id="gallerybtn"> Gallery </a>
-          <a class="navbar-item" id="dashboardbtn"> Dashboard </a>
+          <a class="navbar-item" id="shopbtn"> Shop </a>
+
           <!-- Dropdown -->
-          <div class="navbar-item has-dropdown is-hoverable is-fullwidth">
-            <a class="navbar-link"> More </a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item" id="aboutbtn"> About </a>
-              <a class="navbar-item" id="contactbtn"> Contact </a>
-              <hr class="navbar-divider" />
-              <a class="navbar-item" id="reportanissuebtn"> Report an issue </a>
-            </div>
-          </div>
+          <a class="navbar-item" id="aboutbtn"> About Us </a>
+          <a class="navbar-item" id="contactbtn"> Contact Form </a>
+          <a class="navbar-item" id="dashboardbtn"> Dashboard </a>
         </div>
         <!-- End of Navbar Options -->
         <div class="navbar-end">
@@ -997,7 +991,7 @@
         <div class="column is-7">
           <div class="content">
             <h1>Meet the Owner!</h1>
-            <p>
+            <p class="subtitle is-4 my-1">
               Thank you for checking out my website! Georgia Sweets is a home
               bakery located in Oak Creek, WI that specializes in decorated
               cookies and other sweet treats. I am a proud mom of a little boy
@@ -1005,7 +999,7 @@
               special to me and I’d love to make your next event extra “sweet”!
             </p>
             <br />
-            <p>
+            <p class="subtitle is-4 my-1">
               I launched Georgia Sweets in September of 2022. I was on maternity
               leave, and I had extra time to create the sweets for my son’s
               second birthday. Following the party, I had so many requests for a
@@ -1031,7 +1025,10 @@
       <div class="columns is-flex">
         <div class="column is-one-fifth"></div>
         <div class="column is-one-fifth">
-          <div class="card productCard" style="background-color: #b493db">
+          <div
+            class="card productCard is-clickable"
+            style="background-color: #b493db"
+          >
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -1039,6 +1036,7 @@
                     src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png"
                     alt="Placeholder image"
                     onclick="mngShopBtn()"
+                    class="is-clickable"
                   />
                 </figure>
               </div>
@@ -1051,7 +1049,10 @@
           </div>
         </div>
         <div class="column is-one-fifth">
-          <div class="card productCard" style="background-color: #b493db">
+          <div
+            class="card productCard is-clickable"
+            style="background-color: #b493db"
+          >
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -1059,6 +1060,7 @@
                     src="https://cdn-icons-png.flaticon.com/512/45/45010.png"
                     alt="Placeholder image"
                     onclick="mngGalleryBtn()"
+                    class="is-clickable"
                   />
                 </figure>
               </div>
@@ -1071,7 +1073,10 @@
           </div>
         </div>
         <div class="column is-one-fifth">
-          <div class="card productCard" style="background-color: #b493db">
+          <div
+            class="card productCard is-clickable"
+            style="background-color: #b493db"
+          >
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -1079,6 +1084,7 @@
                     src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png"
                     alt="Placeholder image"
                     onclick="mngContactBtn()"
+                    class="is-clickable"
                   />
                 </figure>
               </div>
@@ -1095,7 +1101,10 @@
       <div class="columns is-flex">
         <div class="column is-3"></div>
         <div class="column is-3">
-          <div class="card productCard" style="background-color: #b493db">
+          <div
+            class="card productCard is-clickable"
+            style="background-color: #b493db"
+          >
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -1103,6 +1112,7 @@
                     src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
                     alt="Placeholder image"
                     onclick="mngUsersBtn()"
+                    class="is-clickable"
                   />
                 </figure>
               </div>
@@ -1115,7 +1125,10 @@
           </div>
         </div>
         <div class="column is-3">
-          <div class="card productCard" style="background-color: #b493db">
+          <div
+            class="card productCard is-clickable"
+            style="background-color: #b493db"
+          >
             <div class="card-image">
               <div class="box">
                 <figure class="image is-512x512">
@@ -1123,6 +1136,7 @@
                     src="https://cdn-icons-png.flaticon.com/512/8301/8301848.png"
                     alt="Placeholder image"
                     onclick="mngAbtUsBtn()"
+                    class="is-clickable"
                   />
                 </figure>
               </div>
