@@ -1436,6 +1436,7 @@ r_e("contact_us_form").addEventListener("submit", (e) => {
   let name = r_e("contactName").value;
   let email = r_e("contactEmail").value;
   let subject = r_e("contactSubject").value;
+  let order_no = r_e("contactOrderNo").value;
   let message = r_e("contactMsg").value;
   let phone_no = r_e("contactPhoneNo").value;
 
@@ -1444,6 +1445,7 @@ r_e("contact_us_form").addEventListener("submit", (e) => {
     email: email,
     subject: subject,
     message: message,
+    order_no: order_no,
     phone_no: phone_no,
     time_submitted: get_current_timestamp(),
     last_updated: "---",
@@ -1459,6 +1461,7 @@ r_e("contact_us_form").addEventListener("submit", (e) => {
       r_e("contactName").value = "";
       r_e("contactEmail").value = "";
       r_e("contactSubject").value = "";
+      r_e("contactOrderNo").value = "";
       r_e("contactPhoneNo").value = "";
       r_e("contactMsg").value = "";
     });
@@ -1469,6 +1472,7 @@ r_e("clearContact").addEventListener("click", (e) => {
   r_e("contactName").value = "";
   r_e("contactEmail").value = "";
   r_e("contactSubject").value = "";
+  r_e("contactOrderNo").value = "";
   r_e("contactPhoneNo").value = "";
   r_e("contactMsg").value = "";
 });
@@ -1502,7 +1506,7 @@ function show_contact_responses() {
               <td class="has-text-left">${response.data().email}</td>
               <td class="has-text-left">${response.data().subject}</td>
               <td class="has-text-left">${response.data().time_submitted}</td>
-              <td class="has-text-left">${response.data().last_updated}</td>
+              <td class="has-text-left">${response.data().order_no}</td>
               <td class="has-text-left">${response.data().status}</td>
               <td class="has-text-left">${response.data().message}</td>
               <td>
@@ -1641,6 +1645,7 @@ function editContact(response_id) {
         r_e("contact_us_email").value = doc.data().email;
         r_e("contact_us_subject").value = doc.data().subject;
         r_e("contact_us_phone_no").value = doc.data().phone_no;
+        r_e("contact_us_order_no").value = doc.data().order_no;
         r_e("contact_us_message").value = doc.data().message;
         r_e("contact_us_status").value = doc.data().status;
         r_e("contact_us_date_submitted").value = doc.data().time_submitted;
@@ -1673,6 +1678,7 @@ function editContact(response_id) {
               phone_no: r_e("contact_us_phone_no").value,
               status: r_e("contact_us_status").value,
               username: r_e("username_pi").value,
+              order_no: r_e("contact_us_order_no").value,
               message: r_e("contact_us_message").value,
               time_submitted: r_e("contact_us_date_submitted").value,
               last_updated: get_current_timestamp(),

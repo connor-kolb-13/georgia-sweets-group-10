@@ -788,6 +788,18 @@
               </div>
             </div>
           </div>
+          <!-- Order Number -->
+          <div class="field">
+            <label class="label">Order Number</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                id="contact_us_order_no"
+                placeholder="3034443433"
+              />
+            </div>
+          </div>
           <!-- Message -->
           <div class="field">
             <label class="label">Message</label>
@@ -1302,7 +1314,7 @@
               <th>Email</th>
               <th>Subject</th>
               <th>Date Submitted</th>
-              <th>Last Updated</th>
+              <th>Order Number</th>
               <th>Status</th>
               <th>Message</th>
               <th>Actions</th>
@@ -1389,7 +1401,7 @@
                   </span>
                 </div>
               </div>
-
+              <!-- Phone Number -->
               <div class="field">
                 <label class="label has-text-left">Phone Number</label>
                 <div class="control">
@@ -1402,17 +1414,38 @@
                 </div>
               </div>
 
-              <div class="field pb-6">
-                <label class="label has-text-left">Subject</label>
-                <div class="control is-pulled-left">
-                  <div class="select is-left">
-                    <select id="contactSubject">
-                      <option>Account</option>
-                      <option>Order</option>
-                      <option>Inquiry</option>
-                      <option>Website Bug</option>
-                      <option>Other</option>
-                    </select>
+              <div class="columns is-flex">
+                <!-- Subject -->
+                <div class="column is-6">
+                  <div class="field pb-4">
+                    <label class="label has-text-left">Subject</label>
+                    <div class="control is-pulled-left">
+                      <div class="select is-left">
+                        <select id="contactSubject">
+                          <option>Account</option>
+                          <option>Order</option>
+                          <option>Inquiry</option>
+                          <option>Website Bug</option>
+                          <option>Other</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Order Number -->
+                <div class="column is-6">
+                  <div class="field pb-4">
+                    <label class="label has-text-left"
+                      >Order Number (optional)</label
+                    >
+                    <div class="control">
+                      <input
+                        class="input"
+                        type="text"
+                        id="contactOrderNo"
+                        placeholder="6084524529"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
