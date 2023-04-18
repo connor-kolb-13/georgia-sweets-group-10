@@ -481,6 +481,7 @@ function mngGalleryBtn() {
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 }
+
 function mngUsersBtn() {
   allPages.forEach((page) => {
     if (page.classList.contains("is-active")) {
@@ -502,6 +503,7 @@ function mngUsersBtn() {
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 }
+
 function mngAbtUsBtn() {
   allPages.forEach((page) => {
     if (page.classList.contains("is-active")) {
@@ -1071,9 +1073,9 @@ function show_users() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((user, index) => {
           html += `
@@ -1331,7 +1333,9 @@ r_e("upload_button").addEventListener("click", () => {
     .then((url) => {
       // the url of the image is ready now!
       // 4. wrap those in an object
-      let galleryImage = { url: url };
+      let galleryImage = {
+        url: url
+      };
       // 5. send the object to firebase
       save_data("gallery_images", galleryImage);
     });
@@ -1346,36 +1350,44 @@ function load_data(coll, loc, loc2, field, val) {
   }
   query.get().then((res) => {
     let documents = res.docs;
+    let user = auth.currentUser;
+    let type = null
     // html reference
     html = "";
 
-    get_user_info(auth.currentUser.email, "a_type").then((type) => {
-      // loop through documents array
-      let count = 0;
-      html += `<div class="columns is-multiline">`;
-      documents.forEach((doc) => {
-        console.log(doc.data().url);
-        // console.log(doc.data().title);
-        html += `<div class="column is-one-third">`;
-        html += `<figure style="position:relative;">`;
-        html += `<img src="${doc.data().url}" />`;
-        // Check if the user is an admin
-        if (type == "Admin") {
-          html += `<button class="button is-pulled-right is-danger" style="position:absolute;top:0;right:0;" onclick="del_doc('gallery_images', '${doc.id}')">X</button>`;
-        }
-        html += `</figure>`;
-        html += `</div>`;
-        // Create a new row after every 3 images
-        count++;
-        if (count % 3 == 0) {
-          html += `</div><div class="columns is-multiline">`;
-        }
+    if (user) { // if a user exists then get the user type
+      get_user_info(auth.currentUser.email, "a_type").then((t) => {
+        type = t
       });
-      html += `</div>`;
+    }
 
-      // show on the div with id indicated location
-      r_e(loc2).innerHTML = html;
+
+    // loop through documents array
+    let count = 0;
+    html += `<div class="columns is-multiline">`;
+    documents.forEach((doc) => {
+      // console.log(doc.data().title);
+      html += `<div class="column is-one-third">`;
+      html += `<figure style="position:relative;">`;
+      html += `<img src="${doc.data().url}" />`;
+      // Check if the user is an admin
+      if (type == "Admin") {
+        html += `<button class="button is-pulled-right is-danger" style="position:absolute;top:0;right:0;" onclick="del_doc('gallery_images', '${doc.id}')">X</button>`;
+      }
+      html += `</figure>`;
+      html += `</div>`;
+      // Create a new row after every 3 images
+      count++;
+      if (count % 3 == 0) {
+        html += `</div><div class="columns is-multiline">`;
+      }
     });
+    html += `</div>`;
+
+    // show on the div with id indicated location
+    r_e(loc2).innerHTML = html;
+
+
   });
 }
 
@@ -1455,9 +1467,9 @@ function show_contact_responses() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((response, index) => {
           html += `
@@ -1558,8 +1570,7 @@ function changeContactStatus(id) {
 
 // Delete a contact us form response
 function deleteContact(id) {
-  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {
-  }
+  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {}
   r_e("confirmDeleteContactModal").classList.add("is-active");
   r_e(
     "confirmDeleteContactMessage"
