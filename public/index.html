@@ -658,7 +658,11 @@
           </div>
           <div class="container m-0 has-text-centered">
             <!-- submit button -->
-            <button class="button" style="background-color: #b493db">
+            <button
+              class="button"
+              style="background-color: #b493db"
+              id="submitAddProduct"
+            >
               Submit
             </button>
             <!-- reset button -->
@@ -1172,7 +1176,7 @@
         <div class="columns is-flex is-6">
           <div class="column is-6">
             <div class="card" style="background-color: #b493db">
-              <div class="subtitle is-4 has-text-white mt-2 mb-0">
+              <div class="subtitle is-4 has-text-white mb-0">
                 Manage Products
               </div>
               <hr class="mx-6" />
@@ -1194,6 +1198,29 @@
             </div>
           </div>
         </div>
+
+        <table
+          class="table mx-auto is-striped is-fullwidth mb-3 mt-4 is-hidden"
+          id="productTable"
+        >
+          <thead>
+            <!-- Header Row -->
+            <tr>
+              <th>Product Image</th>
+              <th>Product ID</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Sale Price</th>
+              <th>On Sale</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="products_table">
+            <!-- Example Row -->
+          </tbody>
+        </table>
+        <div id="manageProductsPageLinks"></div>
       </div>
     </div>
     <!--End of Manage Shop-->

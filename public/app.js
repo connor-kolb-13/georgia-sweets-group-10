@@ -933,6 +933,10 @@ function get_current_timestamp() {
 
 // Shop Page Work
 r_e("addShopItemBtn").addEventListener("click", () => {
+  if (!r_e("productTable").classList.contains("is-hidden")) {
+    r_e("productTable").classList.add("is-hidden");
+    r_e("manageProductsPageLinks").classList.add("is-hidden");
+  }
   r_e("addShopItemModal").classList.add("is-active");
 });
 
@@ -942,6 +946,8 @@ r_e("addShopItemModalBg").addEventListener("click", () => {
 
 // Add the shop item to the database
 r_e("addShopItemForm").addEventListener("submit", (e) => {
+  // Show Loading button
+  r_e("submitAddProduct").classList.add("is-loading");
   // prevent the page from auto-refresh
   e.preventDefault();
   // Get the main picture
@@ -1061,6 +1067,8 @@ r_e("addShopItemForm").addEventListener("submit", (e) => {
         .then(() => {
           // Hide the form
           r_e("addShopItemModal").classList.remove("is-active");
+          // Remove Loading button
+          r_e("submitAddProduct").classList.remove("is-loading");
           // Clear the form
 
           // Display Message
@@ -1712,4 +1720,110 @@ function editContact(response_id) {
 // Hide contact us modal
 r_e("contactFormResponseModalBg").addEventListener("click", () => {
   r_e("contactFormResponseModal").classList.remove("is-active");
+});
+
+// Table of products for admin dashboard
+function show_products() {
+  const PAGE_SIZE = 10;
+  let currentPage = 0;
+  let numPages = 0;
+
+  function renderTable(startIndex, numToShow) {
+    db.collection("products")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        let html = "";
+
+        let endIndex =
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
+
+        mydocs.slice(startIndex, endIndex).forEach((product, index) => {
+          html += `
+            <tr>
+              <td>
+                <figure class="image is-1by1 is-small">
+                  <img class="is-rounded" src="${product.data().main_pic}">
+                </figure>
+              </td>
+              <td class="has-text-left">${product.id}</td>
+              <td class="has-text-left">${product.data().product_name}</td>
+              <td class="has-text-center">${product.data().price}</td>
+              <td class="has-text-center">${product.data().sale_price}</td>
+              <td class="has-text-center">${product.data().on_sale}</td>
+              <td class="has-text-center">${
+                product.data().product_description
+              }</td>
+              <td>
+              
+                <div class="buttons has-addons is-centered">
+                <button class="button is-small" onclick="editProduct('${
+                  product.id
+                }')"><i class="fas fa-edit"></i></button>
+                <button class="button is-danger is-small" onclick="deleteProduct('${
+                  product.id
+                }')">X</button>
+               
+              </div> 
+              
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById("products_table").innerHTML = html;
+      });
+  }
+
+  function renderPageLinks() {
+    let html = "";
+    for (let i = 0; i < numPages; i++) {
+      html += `
+        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+      `;
+    }
+
+    document.getElementById("manageProductsPageLinks").innerHTML = html;
+  }
+
+  function showPage(pageNum) {
+    let startIndex = pageNum * PAGE_SIZE;
+    renderTable(startIndex, PAGE_SIZE);
+    currentPage = pageNum;
+    updateNavigation();
+  }
+
+  function updateNavigation() {
+    let pageLinks = document.querySelectorAll("#manageProductsPageLinks");
+    pageLinks.forEach((link) => {
+      link.classList.toggle(
+        "is-current",
+        parseInt(link.dataset.page) === currentPage
+      );
+    });
+  }
+
+  db.collection("products")
+    .get()
+    .then((data) => {
+      numPages = Math.ceil(data.docs.length / PAGE_SIZE);
+      renderPageLinks();
+      showPage(0);
+    });
+}
+
+// Show the products table
+r_e("viewShopProductsBtn").addEventListener("click", () => {
+  r_e("productTable").classList.remove("is-hidden");
+  r_e("manageProductsPageLinks").classList.remove("is-hidden");
+  show_products();
+});
+
+r_e("viewShopOrders").addEventListener("click", () => {
+  if (!r_e("productTable").classList.contains("is-hidden")) {
+    r_e("productTable").classList.add("is-hidden");
+    r_e("manageProductsPageLinks").classList.add("is-hidden");
+  }
 });
