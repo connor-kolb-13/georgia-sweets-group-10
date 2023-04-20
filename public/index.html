@@ -679,6 +679,28 @@
     </div>
     <!-- End Add Shop Item Modal -->
 
+    <!-- Start Confirm Delete Product Modal -->
+    <div class="modal" id="confirmDeleteProductModal">
+      <div class="modal-background" id="confirmDeleteProductModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="container m-0 has-text-centered">
+          <div
+            class="subtitle is-4 has-text-centered"
+            id="confirmDeleteProductMessage"
+          ></div>
+          <!-- submit button -->
+          <button class="button is-primary" id="confirmDeleteProduct">
+            Yes
+          </button>
+          <!-- cancel button -->
+          <button class="button ml-3 is-danger" id="cancelDeleteProduct">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End Confirm Delete Product Modal -->
+
     <!-- Start Edit Contact Us Response Modal  -->
     <div class="modal" id="contactFormResponseModal">
       <div class="modal-background" id="contactFormResponseModalBg"></div>
@@ -1221,6 +1243,8 @@
           </tbody>
         </table>
         <div id="manageProductsPageLinks"></div>
+        <div id="manageProductsNextPage"></div>
+        <div id="manageProductsPrevPage"></div>
       </div>
     </div>
     <!--End of Manage Shop-->
@@ -1313,6 +1337,8 @@
         </tbody>
       </table>
       <div id="manageUsersPageLinks"></div>
+      <div id="manageUsersNextPage"></div>
+      <div id="manageUsersPrevPage"></div>
     </div>
     <!--End of Manage Users-->
 
@@ -1382,6 +1408,8 @@
           </tbody>
         </table>
         <div id="manageContactPageLinks"></div>
+        <div id="manageContactNextPage"></div>
+        <div id="manageContactPrevPage"></div>
       </div>
     </div>
     <!--End of Manage Contact Us-->

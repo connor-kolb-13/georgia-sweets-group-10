@@ -446,6 +446,11 @@ function mngShopBtn() {
   });
   showmodal(manageshoppage);
   hidemodal(dashboardpage);
+  // Hide the product table if it was showing
+  if (!r_e("productTable").classList.contains("is-hidden")) {
+    r_e("productTable").classList.add("is-hidden");
+    r_e("manageProductsPageLinks").classList.add("is-hidden");
+  }
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
     if (btn.classList.contains("is-active")) {
@@ -1152,8 +1157,8 @@ function show_users() {
   }
 
   function updateNavigation() {
-    let prevBtn = document.getElementById("fullStandingsPrevPage");
-    let nextBtn = document.getElementById("fullStandingsNextPage");
+    let prevBtn = document.getElementById("manageUsersPrevPage");
+    let nextBtn = document.getElementById("manageUsersNextPage");
 
     if (prevBtn) {
       prevBtn.disabled = currentPage === 0;
@@ -1163,12 +1168,15 @@ function show_users() {
       nextBtn.disabled = currentPage === numPages - 1;
     }
 
-    let pageLinks = document.querySelectorAll("#fullStandingsPageLinks a");
+    let pageLinks = document.querySelectorAll("#manageUsersPageLinks a");
     pageLinks.forEach((link) => {
-      link.classList.toggle(
-        "is-current",
-        parseInt(link.dataset.page) === currentPage
-      );
+      if (parseInt(link.dataset.page) === currentPage) {
+        link.classList.add("is-active");
+        link.style.backgroundColor = "#b493db";
+      } else {
+        link.classList.remove("is-active");
+        link.style.backgroundColor = "";
+      }
     });
   }
 
@@ -1181,9 +1189,9 @@ function show_users() {
     });
 
   document.addEventListener("click", (event) => {
-    if (event.target.id === "fullStandingsPrevPage") {
+    if (event.target.id === "manageUsersPrevPage") {
       showPage(currentPage - 1);
-    } else if (event.target.id === "fullStandingsNextPage") {
+    } else if (event.target.id === "manageUsersNextPage") {
       showPage(currentPage + 1);
     } else if (event.target.classList.contains("pagination-link")) {
       showPage(parseInt(event.target.dataset.page));
@@ -1568,8 +1576,8 @@ function show_contact_responses() {
   }
 
   function updateNavigation() {
-    let prevBtn = document.getElementById("fullStandingsPrevPage");
-    let nextBtn = document.getElementById("fullStandingsNextPage");
+    let prevBtn = document.getElementById("manageContactPrevPage");
+    let nextBtn = document.getElementById("manageContactNextPage");
 
     if (prevBtn) {
       prevBtn.disabled = currentPage === 0;
@@ -1579,12 +1587,15 @@ function show_contact_responses() {
       nextBtn.disabled = currentPage === numPages - 1;
     }
 
-    let pageLinks = document.querySelectorAll("#fullStandingsPageLinks a");
+    let pageLinks = document.querySelectorAll("#manageContactPageLinks a");
     pageLinks.forEach((link) => {
-      link.classList.toggle(
-        "is-current",
-        parseInt(link.dataset.page) === currentPage
-      );
+      if (parseInt(link.dataset.page) === currentPage) {
+        link.classList.add("is-active");
+        link.style.backgroundColor = "#b493db";
+      } else {
+        link.classList.remove("is-active");
+        link.style.backgroundColor = "";
+      }
     });
   }
 
@@ -1597,9 +1608,9 @@ function show_contact_responses() {
     });
 
   document.addEventListener("click", (event) => {
-    if (event.target.id === "fullStandingsPrevPage") {
+    if (event.target.id === "manageContactPrevPage") {
       showPage(currentPage - 1);
-    } else if (event.target.id === "fullStandingsNextPage") {
+    } else if (event.target.id === "manageContactNextPage") {
       showPage(currentPage + 1);
     } else if (event.target.classList.contains("pagination-link")) {
       showPage(parseInt(event.target.dataset.page));
@@ -1796,12 +1807,26 @@ function show_products() {
   }
 
   function updateNavigation() {
-    let pageLinks = document.querySelectorAll("#manageProductsPageLinks");
+    let prevBtn = document.getElementById("manageProductsPrevPage");
+    let nextBtn = document.getElementById("manageProductsNextPage");
+
+    if (prevBtn) {
+      prevBtn.disabled = currentPage === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = currentPage === numPages - 1;
+    }
+
+    let pageLinks = document.querySelectorAll("#manageProductsPageLinks a");
     pageLinks.forEach((link) => {
-      link.classList.toggle(
-        "is-current",
-        parseInt(link.dataset.page) === currentPage
-      );
+      if (parseInt(link.dataset.page) === currentPage) {
+        link.classList.add("is-active");
+        link.style.backgroundColor = "#b493db";
+      } else {
+        link.classList.remove("is-active");
+        link.style.backgroundColor = "";
+      }
     });
   }
 
@@ -1812,6 +1837,16 @@ function show_products() {
       renderPageLinks();
       showPage(0);
     });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "manageProductsPrevPage") {
+      showPage(currentPage - 1);
+    } else if (event.target.id === "manageProductsNextPage") {
+      showPage(currentPage + 1);
+    } else if (event.target.classList.contains("pagination-link")) {
+      showPage(parseInt(event.target.dataset.page));
+    }
+  });
 }
 
 // Show the products table
@@ -1822,8 +1857,50 @@ r_e("viewShopProductsBtn").addEventListener("click", () => {
 });
 
 r_e("viewShopOrders").addEventListener("click", () => {
+  // Hide the product table if it was showing
   if (!r_e("productTable").classList.contains("is-hidden")) {
     r_e("productTable").classList.add("is-hidden");
     r_e("manageProductsPageLinks").classList.add("is-hidden");
   }
+});
+
+// Delete the Product
+function deleteProduct(id) {
+  db.collection("products")
+    .doc(id)
+    .get()
+    .then((product) => {
+      r_e("confirmDeleteProductModal").classList.add("is-active");
+      r_e(
+        "confirmDeleteProductMessage"
+      ).innerHTML = `Are you sure you want to delete ${
+        product.data().product_name
+      }? WARNING this cannot be undone`;
+
+      // User selects confirm
+      r_e("confirmDeleteProduct").addEventListener("click", () => {
+        // Get a reference to the document
+        var docRef = db.collection("products").doc(id);
+
+        // Delete the document
+        docRef
+          .delete()
+          .then(() => {
+            r_e("confirmDeleteProductModal").classList.remove("is-active");
+            configure_message_bar("Product successfully deleted!");
+            show_products();
+          })
+          .catch((error) => {
+            configure_message_bar("Error deleting product");
+          });
+      });
+    });
+}
+
+// Hide the Modal When Needed
+r_e("confirmDeleteProductModalBg").addEventListener("click", () => {
+  r_e("confirmDeleteProductModal").classList.remove("is-active");
+});
+r_e("cancelDeleteProduct").addEventListener("click", () => {
+  r_e("confirmDeleteProductModal").classList.remove("is-active");
 });
