@@ -771,40 +771,35 @@ auth.onAuthStateChanged((user) => {
       r_e("logOutBtn").classList.remove("is-hidden");
       // log the login to the user account in the database
       db.collection("users")
+        .where("email", "==", auth.currentUser.email)
         .get()
-        .then((users) => {
-          users.forEach((currentuser) => {
-            if (user.email == currentuser.data().email) {
-              let dateTime = get_current_timestamp();
-              // update the database
-              update_firebase("users", currentuser.id, "last_login", dateTime);
-              // Show name and pic in upper corner
-              get_user_info(auth.currentUser.email, "f_name").then((name) => {
-                get_user_info(auth.currentUser.email, "profile_pic").then(
-                  (pic) => {
-                    document.getElementById("profilePicture").innerHTML = `
+        .then((currentuser) => {
+          let dateTime = get_current_timestamp();
+          // update the database
+          update_firebase("users", currentuser.id, "last_login", dateTime);
+          // Show name and pic in upper corner
+          get_user_info(auth.currentUser.email, "f_name").then((name) => {
+            get_user_info(auth.currentUser.email, "profile_pic").then((pic) => {
+              document.getElementById("profilePicture").innerHTML = `
                   <figure class="image is-64x128 m-auto" >
                       <img class="is-rounded is-clickable my-1 mr-2" id="profileinfoicon" src="${pic}">
                   </figure>
                   
                   `;
-                    document.getElementById("nameCorner").innerHTML = name;
-                    // Highlight the selected nav element
-                    allPages.forEach((page) => {
-                      if (page.classList.contains("is-active")) {
-                        let temp = page.id.substring(0, 4);
-                        allBtns.forEach((btn) => {
-                          let tempbtn = btn.id.substring(0, 4);
-                          if (tempbtn == temp) {
-                            btn.classList.add("is-active");
-                          }
-                        });
-                      }
-                    });
-                  }
-                );
+              document.getElementById("nameCorner").innerHTML = name;
+              // Highlight the selected nav element
+              allPages.forEach((page) => {
+                if (page.classList.contains("is-active")) {
+                  let temp = page.id.substring(0, 4);
+                  allBtns.forEach((btn) => {
+                    let tempbtn = btn.id.substring(0, 4);
+                    if (tempbtn == temp) {
+                      btn.classList.add("is-active");
+                    }
+                  });
+                }
               });
-            }
+            });
           });
         });
     });
