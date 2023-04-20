@@ -94,12 +94,16 @@ document.querySelector("#homebtn").addEventListener("click", () => {
   showmodal(homepage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
+    btn.style.backgroundColor = "";
     if (btn.classList.contains("is-active")) {
       btn.classList.remove("is-active");
     }
   });
   // Update the Navbar
   homebtn.classList.add("is-active");
+
+  homebtn.style.backgroundColor = "#f5f5f5";
+
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 });
@@ -116,12 +120,14 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
   hidemodal(homepage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
+    btn.style.backgroundColor = "";
     if (btn.classList.contains("is-active")) {
       btn.classList.remove("is-active");
     }
   });
   // Update the Navbar
   shopbtn.classList.add("is-active");
+  shopbtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 });
@@ -138,12 +144,14 @@ document.querySelector("#gallerybtn").addEventListener("click", () => {
   hidemodal(homepage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
+    btn.style.backgroundColor = "";
     if (btn.classList.contains("is-active")) {
       btn.classList.remove("is-active");
     }
   });
   // Update the Navbar
   gallerybtn.classList.add("is-active");
+  gallerybtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
   load_data("gallery_images", "loc", "gallerypage");
@@ -161,12 +169,14 @@ document.querySelector("#dashboardbtn").addEventListener("click", () => {
   hidemodal(homepage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
+    btn.style.backgroundColor = "";
     if (btn.classList.contains("is-active")) {
       btn.classList.remove("is-active");
     }
   });
   // Update the Navbar
   dashboardbtn.classList.add("is-active");
+  dashboardbtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 });
@@ -183,12 +193,14 @@ document.querySelector("#aboutbtn").addEventListener("click", () => {
   hidemodal(homepage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
+    btn.style.backgroundColor = "";
     if (btn.classList.contains("is-active")) {
       btn.classList.remove("is-active");
     }
   });
   // Update the Navbar
   aboutbtn.classList.add("is-active");
+  aboutbtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 });
@@ -205,12 +217,14 @@ document.querySelector("#contactbtn").addEventListener("click", () => {
   hidemodal(homepage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
+    btn.style.backgroundColor = "";
     if (btn.classList.contains("is-active")) {
       btn.classList.remove("is-active");
     }
   });
   // Update the Navbar
   contactbtn.classList.add("is-active");
+  contactbtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 });
@@ -729,6 +743,10 @@ r_e("resetsignup").addEventListener("click", (e) => {
 
 // keep track of user authenticaiton status
 auth.onAuthStateChanged((user) => {
+  allBtns.forEach((btn) => {
+    btn.style.backgroundColor = "";
+  });
+  homebtn.style.backgroundColor = "#f5f5f5";
   if (user) {
     r_e("homepage").classList.add("is-active");
     // Show profile info
@@ -765,8 +783,8 @@ auth.onAuthStateChanged((user) => {
                 get_user_info(auth.currentUser.email, "profile_pic").then(
                   (pic) => {
                     document.getElementById("profilePicture").innerHTML = `
-                  <figure class="image is-32x32 m-auto" >
-                      <img class="is-rounded is-clickable" id="profileinfoicon" src="${pic}">
+                  <figure class="image is-64x128 m-auto" >
+                      <img class="is-rounded is-clickable my-1 mr-2" id="profileinfoicon" src="${pic}">
                   </figure>
                   
                   `;
