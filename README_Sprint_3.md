@@ -37,7 +37,7 @@ Questions:
 2. What are you planning to do today?
 3. Any problems are you facing?
 
-## April 6th Stand Up
+## April th Stand Up
 
 Connor:
 1. 
@@ -64,7 +64,7 @@ Mason:
 2. 
 3. 
 
-## April 11th Stand Up
+## April th Stand Up
 
 Connor:
 1. 
