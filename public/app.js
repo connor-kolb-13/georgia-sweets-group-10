@@ -1864,6 +1864,182 @@ r_e("viewShopOrders").addEventListener("click", () => {
   }
 });
 
+// Edit the Product
+function editProduct(id) {
+  r_e("editProductModal").classList.add("is-active");
+  db.collection("products")
+    .doc(id)
+    .get()
+    .then((product) => {
+      r_e("editShopItemName").value = product.data().product_name;
+      r_e("editShopItemDescription").value = product.data().product_description;
+      r_e("editShopItemInventory").value = product.data().current_inventory;
+      r_e("editShopItemRegPrice").value = product.data().price;
+      r_e("editShopItemSalePrice").value = product.data().sale_price;
+      r_e("editShopItemOnSale").checked = product.data().on_sale;
+      r_e("editShopItemDateAdded").value = product.data().date_added;
+      r_e("editShopItemAddedBy").value = product.data().added_by;
+    });
+
+  // Submit the form if they choose to
+  r_e("editProductForm").addEventListener("submit", (e) => {
+    // Show Loading button
+    r_e("submitEditItem").classList.add("is-loading");
+    // prevent the page from auto-refresh
+    e.preventDefault();
+    // Get the main picture
+    let mainPic = r_e("editShopItemMainPic").files[0];
+    let mainImage = new Date() + "_" + mainPic.name;
+    const task = ref.child(mainImage).put(mainPic);
+    let task1 = "";
+    let task2 = "";
+    let task3 = "";
+    let task4 = "";
+    let task5 = "";
+    // Check for supplement pictures
+    if (r_e("editShopItemSupPic1").files[0] != null) {
+      // One Sup Pic Submitted
+      let supPic1 = r_e("editShopItemSupPic1").files[0];
+      let supImage1 = new Date() + "_" + supPic1.name;
+      task1 = ref.child(supImage1).put(supPic1);
+    }
+    if (r_e("editShopItemSupPic2").files[0] != null) {
+      // Two Sup Pic Submitted
+      let supPic2 = r_e("editShopItemSupPic2").files[0];
+      let supImage2 = new Date() + "_" + supPic2.name;
+      task2 = ref.child(supImage2).put(supPic2);
+    }
+    if (r_e("editShopItemSupPic3").files[0] != null) {
+      // Three Sup Pic Submitted
+      let supPic3 = r_e("editShopItemSupPic3").files[0];
+      let supImage3 = new Date() + "_" + supPic3.name;
+      task3 = ref.child(supImage3).put(supPic3);
+    }
+    if (r_e("editShopItemSupPic4").files[0] != null) {
+      // Four Sup Pic Submitted
+      let supPic4 = r_e("editShopItemSupPic4").files[0];
+      let supImage4 = new Date() + "_" + supPic4.name;
+      task4 = ref.child(supImage4).put(supPic4);
+    }
+    if (r_e("editShopItemSupPic5").files[0] != null) {
+      // Five Sup Pic Submitted
+      let supPic5 = r_e("editShopItemSupPic5").files[0];
+      let supImage5 = new Date() + "_" + supPic5.name;
+      task5 = ref.child(supImage5).put(supPic5);
+    }
+    let sup_pics = [];
+
+    for (let index = 1; index < 6; index++) {
+      switch (index) {
+        case 1:
+          if (typeof task1 != "string") {
+            task1
+              .then((snapshot) => snapshot.ref.getDownloadURL())
+              .then((url) => {
+                sup_pics.push(url);
+              });
+          }
+          break;
+        case 2:
+          if (typeof task2 != "string") {
+            task2
+              .then((snapshot) => snapshot.ref.getDownloadURL())
+              .then((url) => {
+                sup_pics.push(url);
+              });
+          }
+          break;
+        case 3:
+          if (typeof task3 != "string") {
+            task3
+              .then((snapshot) => snapshot.ref.getDownloadURL())
+              .then((url) => {
+                sup_pics.push(url);
+              });
+          }
+          break;
+        case 4:
+          if (typeof task4 != "string") {
+            task4
+              .then((snapshot) => snapshot.ref.getDownloadURL())
+              .then((url) => {
+                sup_pics.push(url);
+              });
+          }
+          break;
+        case 5:
+          if (typeof task5 != "string") {
+            task5
+              .then((snapshot) => snapshot.ref.getDownloadURL())
+              .then((url) => {
+                sup_pics.push(url);
+              });
+          }
+          break;
+        default:
+          break;
+      }
+    }
+
+    // Delay to ensure images get retreived and properly updated
+
+    setTimeout(function () {
+      task
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => {
+          // get the information to submit
+          let item = {
+            product_name: r_e("editShopItemName").value,
+            product_description: r_e("editShopItemDescription").value,
+            current_inventory: r_e("editShopItemInventory").value,
+            price: r_e("editShopItemRegPrice").value,
+            sale_price: r_e("editShopItemSalePrice").value,
+            on_sale: r_e("editShopItemOnSale").checked,
+            main_pic: url,
+            date_added: get_current_timestamp(),
+            supplement_pics: sup_pics,
+            added_by: auth.currentUser.email,
+          };
+
+          // update the data
+          db.collection("products").doc(id).update(item);
+
+          // Store the object in the database
+
+          db.collection("products")
+            .add(item)
+            .then(() => {
+              // Remove Loading button
+              r_e("submitEditItem").classList.remove("is-loading");
+              // Clear the form
+
+              // Show updated table
+              show_products();
+              // Hide the form
+              r_e("editProductModal").classList.remove("is-active");
+              // Display Message
+              configure_message_bar(
+                `${item.product_name} successfully updated!`
+              );
+            })
+            .catch((error) => {
+              // Hide the form
+              r_e("editProductModal").classList.remove("is-active");
+              // Remove Loading button
+              r_e("submitEditItem").classList.remove("is-loading");
+              // Display Message
+              configure_message_bar(`Error updating ${item.product_name}`);
+            });
+        });
+    }, 2000);
+  });
+}
+
+// Hide edit product modal
+r_e("editProductModalBg").addEventListener("click", () => {
+  r_e("editProductModal").classList.remove("is-active");
+});
+
 // Delete the Product
 function deleteProduct(id) {
   db.collection("products")

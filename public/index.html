@@ -144,7 +144,8 @@
     <!-- message bar -->
     <div
       id="message_bar"
-      class="is-hidden has-background-warning p-2 has-text-centered"
+      class="is-hidden p-2 has-text-centered has-text-white"
+      style="background-color: #b493db"
     >
       Test
     </div>
@@ -700,6 +701,167 @@
       </div>
     </div>
     <!-- End Confirm Delete Product Modal -->
+
+    <!-- Start Edit Product Modal  -->
+    <div class="modal" id="editProductModal">
+      <div class="modal-background" id="editProductModalBg"></div>
+      <div class="modal-content has-background-grey-light p-4">
+        <h1 class="subtitle has-text-weight-bold is-3">Edit Product Form</h1>
+        <form id="editProductForm">
+          <!-- First Row -->
+          <div class="columns is-flex">
+            <!-- Item Name -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Item Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemName"
+                    placeholder="Christmas Cookie Pack"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Added By -->
+            <div class="column is-6"></div>
+          </div>
+          <!-- Second Row -->
+          <div class="columns is-flex">
+            <!-- Item Name -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Added By</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemAddedBy"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Added By -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Date Added</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemDateAdded"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item Description -->
+          <div class="field">
+            <label class="label">Item Description</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                id="editShopItemDescription"
+                placeholder="Explain what this product all includes here!"
+              ></textarea>
+            </div>
+          </div>
+          <!-- Inventory Count -->
+          <div class="columns is-flex">
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Inventory Count</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="number"
+                    id="editShopItemInventory"
+                    placeholder="100"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-flex">
+            <div class="column is-4">
+              <!-- Regular Price -->
+              <div class="field">
+                <label class="label">Regular Price</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemRegPrice"
+                    placeholder="9.99"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <!-- Sale Price -->
+              <div class="field">
+                <label class="label">Sale Price</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemSalePrice"
+                    placeholder="7.99"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <!-- On Sale Checkbox -->
+              <label class="checkbox mt-5 pt-4">
+                <input type="checkbox" id="editShopItemOnSale" />
+                On Sale
+              </label>
+            </div>
+          </div>
+          <!-- Main Image -->
+          <div class="field">
+            <label class="label">Main Image</label>
+            <div class="control">
+              <input type="file" class="input" id="editShopItemMainPic" />
+            </div>
+          </div>
+          <!-- Supplementary Images -->
+          <div class="field">
+            <label class="label">Supplementary Images</label>
+            <div class="control">
+              <input type="file" class="input" id="editShopItemSupPic1" />
+              <input type="file" class="input" id="editShopItemSupPic2" />
+              <input type="file" class="input" id="editShopItemSupPic3" />
+              <input type="file" class="input" id="editShopItemSupPic4" />
+              <input type="file" class="input" id="editShopItemSupPic5" />
+            </div>
+          </div>
+
+          <div class="container m-0 has-text-centered">
+            <!-- submit button -->
+            <!-- <div class="control"> -->
+            <button class="button mt-2 is-primary" id="submitEditItem">
+              Submit
+            </button>
+            <!-- </div> -->
+            <!-- reset button -->
+            <button
+              class="button mx-4 mt-2"
+              id="resetEditProductModal"
+              style="background-color: whitesmoke"
+            >
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- End Edit Product Modal  -->
 
     <!-- Start Edit Contact Us Response Modal  -->
     <div class="modal" id="contactFormResponseModal">
