@@ -10,11 +10,13 @@ https://github.com/connor-kolb-13/georgia-sweets-group-10
 
 # User Stories
 
-1. 
-2. 
-3. 
-4. 
-5. 
+1. As an admin, I want to manage all orders that have been submitted
+2. As a customer, I want to be able to view all products currently in stock
+3. As a customer, I want to add products to my cart
+4. As a customer, I want to checkout when I have added everything I need to my cart.
+5. As an admin, I want to be able to view and edit all products stored in the database so that I can keep the shop updated.
+6. As an admin, I want to update the about us page without editing the code, so that I can keep the website updated.
+7. As an admin, I want a website that is functional for my use and easily adaptable.
 
 # User Stories Tasks Chart
 
