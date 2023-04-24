@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Georgia Sweets</title>
-    <link rel="icon" href="roundedLogo.png" />
-    <link rel="custom" href="style.css" />
 
-    <!-- update the version number as needed -->
-    <!-- <script defer src="/__/firebase/9.17.1/firebase-app-compat.js"></script> -->
-    <!-- include only the Firebase features as you need -->
-    <!-- <script defer src="/__/firebase/9.17.1/firebase-auth-compat.js"></script>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Georgia Sweets</title>
+  <link rel="icon" href="roundedLogo.png" />
+  <link rel="custom" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+
+  <!-- update the version number as needed -->
+  <!-- <script defer src="/__/firebase/9.17.1/firebase-app-compat.js"></script> -->
+  <!-- include only the Firebase features as you need -->
+  <!-- <script defer src="/__/firebase/9.17.1/firebase-auth-compat.js"></script>
     <script
       defer
       src="/__/firebase/9.17.1/firebase-database-compat.js"
@@ -40,1537 +42,1155 @@
       defer
       src="/__/firebase/9.17.1/firebase-performance-compat.js"
     ></script> -->
-    <!-- 
+  <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
-    <!-- <script defer src="/__/firebase/init.js?useEmulator=true"></script> -->
-    <!-- Bulma CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <!-- Font Awesome CDN -->
-    <script
-      src="https://kit.fontawesome.com/8a80b728dc.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+  <!-- <script defer src="/__/firebase/init.js?useEmulator=true"></script> -->
+  <!-- Bulma CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <!-- Font Awesome CDN -->
+  <script src="https://kit.fontawesome.com/8a80b728dc.js" crossorigin="anonymous"></script>
+</head>
 
-  <body style="background-color: #f5f5f5">
-    <!-- Beginning of Website HTML -->
-    <!-- Beginning of Navbar -->
-    <nav
-      class="navbar is-flex"
-      role="navigation"
-      aria-label="main navigation"
-      style="background-color: #f0e8c0"
-    >
-      <div class="navbar-brand">
-        <a class="navbar-item">
-          <div class="figure is-rounded">
-            <img src="roundedLogo.png" width="50" height="50" />
-          </div>
-        </a>
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-          id="burgerIcon"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-      <div id="navbarBasicExample" class="navbar-menu is-fullwidth">
-        <div class="navbar-start">
-          <!-- Main Elements -->
-          <a class="navbar-item" id="homebtn"> Home </a>
-          <a class="navbar-item" id="gallerybtn"> Gallery </a>
-          <a class="navbar-item" id="shopbtn"> Shop </a>
-
-          <!-- Dropdown -->
-          <a class="navbar-item" id="aboutbtn"> About Us </a>
-          <a class="navbar-item" id="contactbtn"> Contact Form </a>
-          <a class="navbar-item" id="dashboardbtn"> Dashboard </a>
+<body style="background-color: #f5f5f5">
+  <!-- Beginning of Website HTML -->
+  <!-- Beginning of Navbar -->
+  <nav class="navbar is-flex" role="navigation" aria-label="main navigation" style="background-color: #f0e8c0">
+    <div class="navbar-brand">
+      <a class="navbar-item">
+        <div class="figure is-rounded">
+          <img src="roundedLogo.png" width="50" height="50" />
         </div>
-        <!-- End of Navbar Options -->
-        <div class="navbar-end">
-          <div class="navbar-item" id="profileInfo">
-            <!-- Code for profile pic and account options -->
-            <figure
-              class="media-center mt-2 signedin mx-2 mt-1"
-              id="profilePicture"
-            >
-              <p class="image is-48x48">
-                <i
-                  class="fa-solid fa-user is-center fa-2x is-clickable"
-                  id="profileinfoicon"
-                ></i>
-              </p>
-            </figure>
-            <p class="is-subtitle is-4 is-clickable" id="nameCorner"></p>
-            <!-- <div class="button mt-1 signedin" id="currentuser"></div> -->
-          </div>
-          <div class="navbar-item">
-            <div class="buttons">
-              <a
-                class="button has-text-white"
-                style="background-color: #b493db"
-                id="signUpBtn"
-              >
-                <strong>Sign up</strong>
-              </a>
-              <a class="button has-background-grey-light" id="loginBtn">
-                Log in
-              </a>
-              <a
-                class="button is-hidden"
-                style="background-color: #b493db"
-                id="logOutBtn"
-              >
-                Log Out
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <!-- End of Navbar -->
-
-    <!-- message bar -->
-    <div
-      id="message_bar"
-      class="is-hidden p-2 has-text-centered has-text-white"
-      style="background-color: #b493db"
-    >
-      Test
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+        id="burgerIcon">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
     </div>
+    <div id="navbarBasicExample" class="navbar-menu is-fullwidth">
+      <div class="navbar-start">
+        <!-- Main Elements -->
+        <a class="navbar-item" id="homebtn"> Home </a>
+        <a class="navbar-item" id="gallerybtn"> Gallery </a>
+        <a class="navbar-item" id="shopbtn"> Shop </a>
 
-    <!-- Start of Modals -->
-    <!-- Start Sign Up Modal -->
-    <div class="modal" id="signUpModal">
-      <div class="modal-background" id="signUpModalBg"></div>
-      <div class="modal-content has-background-white-ter p-4">
-        <h1 class="subtitle has-text-weight-bold is-3">Sign Up</h1>
-        <form id="signUpForm">
-          <div class="columns is-flex">
-            <!-- First Name -->
-            <div class="column is-5">
-              <div class="field">
-                <label class="label">First Name</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="f_name_su"
-                    placeholder="e.g Alex"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- Last Name -->
-            <div class="column is-5">
-              <div class="field">
-                <label class="label">Last Name</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="l_name_su"
-                    placeholder="e.g Smith"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Username -->
-          <div class="field">
-            <label class="label">Username</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                id="username_su"
-                placeholder="e.g bassFisher13"
-              />
-            </div>
-          </div>
-          <!-- Email -->
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control">
-              <input
-                class="input"
-                type="email"
-                id="email_su"
-                placeholder="e.g. alexsmith@wisc.edu"
-              />
-            </div>
-          </div>
-          <!-- Password -->
-          <div class="field">
-            <label class="label">Password</label>
-            <p class="control has-icons-left">
-              <input
-                class="input"
-                type="password"
-                id="password_su"
-                placeholder="Password"
-              />
-              <span class="icon is-small is-left m-auto">
-                <i class="fas fa-lock"></i>
-              </span>
+        <!-- Dropdown -->
+        <a class="navbar-item" id="aboutbtn"> About Us </a>
+        <a class="navbar-item" id="contactbtn"> Contact Form </a>
+        <a class="navbar-item" id="dashboardbtn"> Dashboard </a>
+      </div>
+      <!-- End of Navbar Options -->
+      <div class="navbar-end">
+        <div class="navbar-item" id="profileInfo">
+          <!-- Code for profile pic and account options -->
+          <figure class="media-center mt-2 signedin mx-2 mt-1" id="profilePicture">
+            <p class="image is-48x48">
+              <i class="fa-solid fa-user is-center fa-2x is-clickable" id="profileinfoicon"></i>
             </p>
-          </div>
-          <!-- Acount Type -->
-          <div class="field">
-            <label class="label">Account Type</label>
-            <div class="control">
-              <div class="select">
-                <select id="a_type_su">
-                  <option>Customer</option>
-                  <option>Admin</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <!-- Profile Pic -->
-          <div class="field">
-            <label class="label">Profile Picture (.jpeg or .jpg only)</label>
-            <div class="control">
-              <input type="file" class="input" id="profilePic_su" />
-            </div>
-          </div>
-          <div class="container m-0 has-text-centered">
-            <!-- submit button -->
-            <!-- <div class="control"> -->
-            <button class="button mt-2" style="background-color: #b493db">
-              Submit
-            </button>
-            <!-- </div> -->
-            <!-- reset button -->
-            <button
-              class="button ml-3 mt-2"
-              id="resetsignup"
-              style="background-color: whitesmoke"
-            >
-              Reset
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <!-- End Sign Up Modal -->
-
-    <!-- Start Login Modal -->
-    <div class="modal" id="loginModal">
-      <div class="modal-background" id="loginModalBg"></div>
-      <div class="modal-content has-background-white-ter p-4">
-        <form id="loginform">
-          <h1 class="subtitle has-text-weight-bold is-3">Login</h1>
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control">
-              <input
-                class="input"
-                type="email"
-                id="loginemail"
-                placeholder="e.g. alexsmith@wisc.edu"
-              />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Password</label>
-            <p class="control has-icons-left">
-              <input
-                class="input"
-                type="password"
-                id="loginpassword"
-                placeholder="Password"
-              />
-              <span class="icon is-small is-left m-auto">
-                <i class="fas fa-lock"></i>
-              </span>
-            </p>
-          </div>
-          <div class="container m-0 has-text-centered">
-            <!-- submit button -->
-            <button class="button" style="background-color: #b493db">
-              Submit
-            </button>
-            <!-- reset button -->
-            <button
-              class="button ml-3"
-              id="resetlogin"
-              style="background-color: whitesmoke"
-            >
-              Reset
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <!-- End Login Modal -->
-
-    <!-- Start Edit User Modal -->
-    <div class="modal" id="editUserModal">
-      <div class="modal-background" id="editUserModalBg"></div>
-      <div class="modal-content has-background-grey-light p-4">
-        <h1 class="subtitle has-text-weight-bold is-3">Profile Information</h1>
-        <div class="container has-text-centered mb-4">
-          <!-- <div class="level mb-3">
-          <div class="level-item"> -->
-          <figure class="image is-128x128 m-auto">
-            <img class="is-rounded" src="#" id="userInfoProfilePic" />
           </figure>
-          <!-- </div> -->
-          <!-- </div> -->
+          <p class="is-subtitle is-4 is-clickable" id="nameCorner"></p>
+          <!-- <div class="button mt-1 signedin" id="currentuser"></div> -->
         </div>
-        <form id="editUserForm">
-          <div class="columns is-flex">
-            <!-- First Name -->
-            <div class="column is-5">
-              <div class="field">
-                <label class="label">First Name</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="f_name_user_info"
-                    placeholder="e.g Alex"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- Last Name -->
-            <div class="column is-5">
-              <div class="field">
-                <label class="label">Last Name</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="l_name_user_info"
-                    placeholder="e.g Smith"
-                  />
-                </div>
-              </div>
-            </div>
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button has-text-white" style="background-color: #b493db" id="signUpBtn">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button has-background-grey-light" id="loginBtn">
+              Log in
+            </a>
+            <a class="button is-hidden" style="background-color: #b493db" id="logOutBtn">
+              Log Out
+            </a>
           </div>
-          <!-- Username -->
-          <div class="field">
-            <label class="label">Username</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                id="username_user_info"
-                placeholder="e.g bassFisher13"
-              />
-            </div>
-          </div>
-          <!-- Email -->
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control">
-              <input
-                class="input"
-                type="email"
-                id="email_user_info"
-                placeholder="e.g. alexsmith@wisc.edu"
-              />
-            </div>
-          </div>
-          <!-- Acount Type -->
-          <div class="field">
-            <label class="label">Account Type</label>
-            <div class="control">
-              <div class="select">
-                <select id="a_type_user_info">
-                  <option>Customer</option>
-                  <option>Admin</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="container m-0 has-text-centered">
-            <!-- submit button -->
-            <!-- <div class="control"> -->
-            <button class="button mt-2" style="background-color: #b493db">
-              Submit
-            </button>
-            <!-- </div> -->
-            <!-- reset button -->
-            <button
-              class="button ml-3 mt-2"
-              id="resetUserInfo"
-              style="background-color: whitesmoke"
-            >
-              Reset
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
-    <!-- End Edit User Modal -->
+  </nav>
+  <!-- End of Navbar -->
 
-    <!-- Start Profile Information Modal -->
-    <div class="modal" id="profileinformationmodal">
-      <div class="modal-background" id="profileinfomodalbg"></div>
-      <div class="modal-content has-background-grey-light p-4">
-        <h1 class="subtitle has-text-weight-bold is-3">Profile Information</h1>
-        <div class="container has-text-centered mb-4">
-          <!-- <div class="level mb-3">
-          <div class="level-item"> -->
-          <figure class="image is-128x128 m-auto">
-            <img class="is-rounded" src="#" id="profileInfoProfilePic" />
-          </figure>
-          <!-- </div> -->
-          <!-- </div> -->
-        </div>
-        <form id="profileinfoform" class="mt-4">
-          <!-- <div class="level mt-3">
-          <div class="level-item"> -->
-          <!-- Profile Pic -->
-          <label class="label">Update Profile Picture</label>
-          <div class="field">
-            <div class="control">
-              <input type="file" class="input" id="profilePic_pi" />
-            </div>
-          </div>
-          <!-- </div>
-        </div> -->
-          <div class="columns is-flex mt-4">
-            <div class="column is-5">
-              <div class="field">
-                <label class="label">First Name</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="f_name_pi"
-                    placeholder="e.g Alex"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column is-5">
-              <div class="field">
-                <label class="label">Last Name</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="l_name_pi"
-                    placeholder="e.g Smith"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Username</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                id="username_pi"
-                placeholder="e.g bassFisher13"
-              />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control is-disabled">
-              <input
-                class="input is-disabled"
-                type="email"
-                id="email_pi"
-                placeholder="e.g. alexsmith@wisc.edu"
-                disabled
-              />
-            </div>
-          </div>
-          <div class="columns is-flex mt-4">
-            <div class="column is-4">
-              <fieldset disabled>
-                <div class="field is-disabled">
-                  <label class="label">Account Type</label>
-                  <div class="control">
-                    <div class="select">
-                      <select id="a_type_pi">
-                        <option>Customer</option>
-                        <option>Admin</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </div>
-          <!-- submit button -->
-          <div class="container m-0 has-text-centered">
+  <!-- message bar -->
+  <div id="message_bar" class="is-hidden p-2 has-text-centered has-text-white" style="background-color: #b493db">
+    Test
+  </div>
+
+  <!-- Start of Modals -->
+  <!-- Start Sign Up Modal -->
+  <div class="modal" id="signUpModal">
+    <div class="modal-background" id="signUpModalBg"></div>
+    <div class="modal-content has-background-white-ter p-4">
+      <h1 class="subtitle has-text-weight-bold is-3">Sign Up</h1>
+      <form id="signUpForm">
+        <div class="columns is-flex">
+          <!-- First Name -->
+          <div class="column is-5">
             <div class="field">
+              <label class="label">First Name</label>
               <div class="control">
-                <button
-                  class="button is-link is-primary"
-                  id="updateProfileInfoBtn"
-                >
-                  Update
-                </button>
-                <button
-                  class="button is-link is-danger"
-                  id="deleteUserAccountBtn"
-                >
-                  Delete Account
-                </button>
+                <input class="input" type="text" id="f_name_su" placeholder="e.g Alex" />
               </div>
             </div>
           </div>
-        </form>
-      </div>
-    </div>
-    <!-- End Profile Information Modal -->
-
-    <!-- Start Confirm Delete User Modal -->
-    <div class="modal" id="confirmDeleteUserModal">
-      <div class="modal-background" id="confirmDeleteModalBg"></div>
-      <div class="modal-content has-background-white-ter p-4">
+          <!-- Last Name -->
+          <div class="column is-5">
+            <div class="field">
+              <label class="label">Last Name</label>
+              <div class="control">
+                <input class="input" type="text" id="l_name_su" placeholder="e.g Smith" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Username -->
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control">
+            <input class="input" type="text" id="username_su" placeholder="e.g bassFisher13" />
+          </div>
+        </div>
+        <!-- Email -->
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" id="email_su" placeholder="e.g. alexsmith@wisc.edu" />
+          </div>
+        </div>
+        <!-- Password -->
+        <div class="field">
+          <label class="label">Password</label>
+          <p class="control has-icons-left">
+            <input class="input" type="password" id="password_su" placeholder="Password" />
+            <span class="icon is-small is-left m-auto">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+        <!-- Acount Type -->
+        <div class="field">
+          <label class="label">Account Type</label>
+          <div class="control">
+            <div class="select">
+              <select id="a_type_su">
+                <option>Customer</option>
+                <option>Admin</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- Profile Pic -->
+        <div class="field">
+          <label class="label">Profile Picture (.jpeg or .jpg only)</label>
+          <div class="control">
+            <input type="file" class="input" id="profilePic_su" />
+          </div>
+        </div>
         <div class="container m-0 has-text-centered">
-          <div
-            class="subtitle is-4 has-text-centered"
-            id="confirmDeleteMessage"
-          ></div>
           <!-- submit button -->
-          <button class="button is-primary" id="confirmDeleteUser">Yes</button>
-          <!-- cancel button -->
-          <button class="button ml-3 is-danger" id="cancelDeleteUser">
-            Cancel
+          <!-- <div class="control"> -->
+          <button class="button mt-2" style="background-color: #b493db">
+            Submit
+          </button>
+          <!-- </div> -->
+          <!-- reset button -->
+          <button class="button ml-3 mt-2" id="resetsignup" style="background-color: whitesmoke">
+            Reset
           </button>
         </div>
-      </div>
+      </form>
     </div>
-    <!-- End Confirm Delete User Modal -->
+  </div>
+  <!-- End Sign Up Modal -->
 
-    <!-- Start Add Shop Item Modal -->
-    <div class="modal" id="addShopItemModal">
-      <div class="modal-background" id="addShopItemModalBg"></div>
-      <div class="modal-content has-background-white-ter p-4">
-        <form id="addShopItemForm">
-          <h1 class="subtitle has-text-weight-bold is-3">Add Shop Item</h1>
-          <!-- Item Name -->
-          <div class="field">
-            <label class="label">Item Name</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                id="addShopItemName"
-                placeholder="Christmas Cookie Pack"
-              />
-            </div>
+  <!-- Start Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-background" id="loginModalBg"></div>
+    <div class="modal-content has-background-white-ter p-4">
+      <form id="loginform">
+        <h1 class="subtitle has-text-weight-bold is-3">Login</h1>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" id="loginemail" placeholder="e.g. alexsmith@wisc.edu" />
           </div>
-          <!-- Item Description -->
-          <div class="field">
-            <label class="label">Item Description</label>
-            <div class="control">
-              <textarea
-                class="textarea"
-                id="addShopItemDescription"
-                placeholder="Explain what this product all includes here!"
-              ></textarea>
-            </div>
-          </div>
-          <!-- Inventory Count -->
-          <div class="columns is-flex">
-            <div class="column is-6">
-              <div class="field">
-                <label class="label">Inventory Count</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="number"
-                    id="addShopItemInventory"
-                    placeholder="100"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="columns is-flex">
-            <div class="column is-4">
-              <!-- Regular Price -->
-              <div class="field">
-                <label class="label">Regular Price</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="addShopItemRegPrice"
-                    placeholder="9.99"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column is-4">
-              <!-- Sale Price -->
-              <div class="field">
-                <label class="label">Sale Price</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="addShopItemSalePrice"
-                    placeholder="7.99"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column is-4">
-              <!-- On Sale Checkbox -->
-              <label class="checkbox mt-5 pt-4">
-                <input type="checkbox" id="addShopItemOnSale" />
-                On Sale
-              </label>
-            </div>
-          </div>
-          <!-- Main Image -->
-          <div class="field">
-            <label class="label">Main Image</label>
-            <div class="control">
-              <input type="file" class="input" id="addShopItemMainPic" />
-            </div>
-          </div>
-          <!-- Supplementary Images -->
-          <div class="field">
-            <label class="label">Supplementary Images</label>
-            <div class="control">
-              <input type="file" class="input" id="addShopItemSupPic1" />
-              <input type="file" class="input" id="addShopItemSupPic2" />
-              <input type="file" class="input" id="addShopItemSupPic3" />
-              <input type="file" class="input" id="addShopItemSupPic4" />
-              <input type="file" class="input" id="addShopItemSupPic5" />
-            </div>
-          </div>
-          <div class="container m-0 has-text-centered">
-            <!-- submit button -->
-            <button
-              class="button"
-              style="background-color: #b493db"
-              id="submitAddProduct"
-            >
-              Submit
-            </button>
-            <!-- reset button -->
-            <button
-              class="button ml-3"
-              id="resetlAddShopItem"
-              style="background-color: whitesmoke"
-            >
-              Reset
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <!-- End Add Shop Item Modal -->
+        </div>
 
-    <!-- Start Confirm Delete Product Modal -->
-    <div class="modal" id="confirmDeleteProductModal">
-      <div class="modal-background" id="confirmDeleteProductModalBg"></div>
-      <div class="modal-content has-background-white-ter p-4">
+        <div class="field">
+          <label class="label">Password</label>
+          <p class="control has-icons-left">
+            <input class="input" type="password" id="loginpassword" placeholder="Password" />
+            <span class="icon is-small is-left m-auto">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
         <div class="container m-0 has-text-centered">
-          <div
-            class="subtitle is-4 has-text-centered"
-            id="confirmDeleteProductMessage"
-          ></div>
           <!-- submit button -->
-          <button class="button is-primary" id="confirmDeleteProduct">
-            Yes
+          <button class="button" style="background-color: #b493db">
+            Submit
           </button>
-          <!-- cancel button -->
-          <button class="button ml-3 is-danger" id="cancelDeleteProduct">
-            Cancel
+          <!-- reset button -->
+          <button class="button ml-3" id="resetlogin" style="background-color: whitesmoke">
+            Reset
           </button>
         </div>
-      </div>
+      </form>
     </div>
-    <!-- End Confirm Delete Product Modal -->
+  </div>
+  <!-- End Login Modal -->
 
-    <!-- Start Edit Product Modal  -->
-    <div class="modal" id="editProductModal">
-      <div class="modal-background" id="editProductModalBg"></div>
-      <div class="modal-content has-background-grey-light p-4">
-        <h1 class="subtitle has-text-weight-bold is-3">Edit Product Form</h1>
-        <form id="editProductForm">
-          <!-- First Row -->
-          <div class="columns is-flex">
-            <!-- Item Name -->
-            <div class="column is-6">
-              <div class="field">
-                <label class="label">Item Name</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="editShopItemName"
-                    placeholder="Christmas Cookie Pack"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- Last Updated -->
-            <div class="column is-6">
-              <div class="field">
-                <label class="label">Last Updated</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="editShopItemLastUpdated"
-                    disabled
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Second Row -->
-          <div class="columns is-flex">
-            <!-- Item Name -->
-            <div class="column is-6">
-              <div class="field">
-                <label class="label">Added By</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="editShopItemAddedBy"
-                    disabled
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- Added By -->
-            <div class="column is-6">
-              <div class="field">
-                <label class="label">Date Added</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="editShopItemDateAdded"
-                    disabled
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item Description -->
-          <div class="field">
-            <label class="label">Item Description</label>
-            <div class="control">
-              <textarea
-                class="textarea"
-                id="editShopItemDescription"
-                placeholder="Explain what this product all includes here!"
-              ></textarea>
-            </div>
-          </div>
-          <!-- Inventory Count -->
-          <div class="columns is-flex">
-            <div class="column is-6">
-              <div class="field">
-                <label class="label">Inventory Count</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="number"
-                    id="editShopItemInventory"
-                    placeholder="100"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="columns is-flex">
-            <div class="column is-4">
-              <!-- Regular Price -->
-              <div class="field">
-                <label class="label">Regular Price</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="editShopItemRegPrice"
-                    placeholder="9.99"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column is-4">
-              <!-- Sale Price -->
-              <div class="field">
-                <label class="label">Sale Price</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="editShopItemSalePrice"
-                    placeholder="7.99"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column is-4">
-              <!-- On Sale Checkbox -->
-              <label class="checkbox mt-5 pt-4">
-                <input type="checkbox" id="editShopItemOnSale" />
-                On Sale
-              </label>
-            </div>
-          </div>
-          <!-- Main Image -->
-          <div class="field">
-            <label class="label">Main Image</label>
-            <div class="control">
-              <input type="file" class="input" id="editShopItemMainPic" />
-            </div>
-          </div>
-          <!-- Supplementary Images -->
-          <div class="field">
-            <label class="label">Supplementary Images</label>
-            <div class="control">
-              <input type="file" class="input" id="editShopItemSupPic1" />
-              <input type="file" class="input" id="editShopItemSupPic2" />
-              <input type="file" class="input" id="editShopItemSupPic3" />
-              <input type="file" class="input" id="editShopItemSupPic4" />
-              <input type="file" class="input" id="editShopItemSupPic5" />
-            </div>
-          </div>
-
-          <div class="container m-0 has-text-centered">
-            <!-- submit button -->
-            <!-- <div class="control"> -->
-            <button class="button mt-2 is-primary" id="submitEditItem">
-              Submit
-            </button>
-            <!-- </div> -->
-            <!-- reset button -->
-            <button
-              class="button mx-4 mt-2"
-              id="resetEditProductModal"
-              style="background-color: whitesmoke"
-            >
-              Reset
-            </button>
-          </div>
-        </form>
+  <!-- Start Edit User Modal -->
+  <div class="modal" id="editUserModal">
+    <div class="modal-background" id="editUserModalBg"></div>
+    <div class="modal-content has-background-grey-light p-4">
+      <h1 class="subtitle has-text-weight-bold is-3">Profile Information</h1>
+      <div class="container has-text-centered mb-4">
+        <!-- <div class="level mb-3">
+          <div class="level-item"> -->
+        <figure class="image is-128x128 m-auto">
+          <img class="is-rounded" src="#" id="userInfoProfilePic" />
+        </figure>
+        <!-- </div> -->
+        <!-- </div> -->
       </div>
-    </div>
-    <!-- End Edit Product Modal  -->
-
-    <!-- Start Edit Contact Us Response Modal  -->
-    <div class="modal" id="contactFormResponseModal">
-      <div class="modal-background" id="contactFormResponseModalBg"></div>
-      <div class="modal-content has-background-grey-light p-4">
-        <h1 class="subtitle has-text-weight-bold is-3">
-          Contact Us Form Response
-        </h1>
-        <form id="contactFormResponseForm">
-          <!-- First Row -->
-          <div class="columns is-flex">
-            <!-- Name -->
-            <div class="column is-5">
-              <div class="field">
-                <label class="label">Name</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="contact_us_name"
-                    placeholder="e.g Alex"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- Date Submitted -->
-            <div class="column is-5">
-              <div class="field">
-                <label class="label">Date Submitted</label>
-                <div class="control is-disabled">
-                  <input
-                    class="input is-disabled"
-                    type="text"
-                    id="contact_us_date_submitted"
-                    placeholder="e.g Smith"
-                    disabled
-                  />
-                </div>
+      <form id="editUserForm">
+        <div class="columns is-flex">
+          <!-- First Name -->
+          <div class="column is-5">
+            <div class="field">
+              <label class="label">First Name</label>
+              <div class="control">
+                <input class="input" type="text" id="f_name_user_info" placeholder="e.g Alex" />
               </div>
             </div>
           </div>
-          <!-- Second Row -->
-          <div class="columns is-flex">
-            <!-- Email -->
-            <div class="column is-5">
-              <div class="field">
-                <label class="label">Email</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="contact_us_email"
-                    placeholder="e.g Smith"
-                  />
-                </div>
+          <!-- Last Name -->
+          <div class="column is-5">
+            <div class="field">
+              <label class="label">Last Name</label>
+              <div class="control">
+                <input class="input" type="text" id="l_name_user_info" placeholder="e.g Smith" />
               </div>
             </div>
-            <!-- Phone Number -->
-            <div class="column is-5">
+          </div>
+        </div>
+        <!-- Username -->
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control">
+            <input class="input" type="text" id="username_user_info" placeholder="e.g bassFisher13" />
+          </div>
+        </div>
+        <!-- Email -->
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" id="email_user_info" placeholder="e.g. alexsmith@wisc.edu" />
+          </div>
+        </div>
+        <!-- Acount Type -->
+        <div class="field">
+          <label class="label">Account Type</label>
+          <div class="control">
+            <div class="select">
+              <select id="a_type_user_info">
+                <option>Customer</option>
+                <option>Admin</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="container m-0 has-text-centered">
+          <!-- submit button -->
+          <!-- <div class="control"> -->
+          <button class="button mt-2" style="background-color: #b493db">
+            Submit
+          </button>
+          <!-- </div> -->
+          <!-- reset button -->
+          <button class="button ml-3 mt-2" id="resetUserInfo" style="background-color: whitesmoke">
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- End Edit User Modal -->
+
+  <!-- Start Profile Information Modal -->
+  <div class="modal" id="profileinformationmodal">
+    <div class="modal-background" id="profileinfomodalbg"></div>
+    <div class="modal-content has-background-grey-light p-4">
+      <h1 class="subtitle has-text-weight-bold is-3">Profile Information</h1>
+      <div class="container has-text-centered mb-4">
+        <!-- <div class="level mb-3">
+          <div class="level-item"> -->
+        <figure class="image is-128x128 m-auto">
+          <img class="is-rounded" src="#" id="profileInfoProfilePic" />
+        </figure>
+        <!-- </div> -->
+        <!-- </div> -->
+      </div>
+      <form id="profileinfoform" class="mt-4">
+        <!-- <div class="level mt-3">
+          <div class="level-item"> -->
+        <!-- Profile Pic -->
+        <label class="label">Update Profile Picture</label>
+        <div class="field">
+          <div class="control">
+            <input type="file" class="input" id="profilePic_pi" />
+          </div>
+        </div>
+        <!-- </div>
+        </div> -->
+        <div class="columns is-flex mt-4">
+          <div class="column is-5">
+            <div class="field">
+              <label class="label">First Name</label>
+              <div class="control">
+                <input class="input" type="text" id="f_name_pi" placeholder="e.g Alex" />
+              </div>
+            </div>
+          </div>
+          <div class="column is-5">
+            <div class="field">
+              <label class="label">Last Name</label>
+              <div class="control">
+                <input class="input" type="text" id="l_name_pi" placeholder="e.g Smith" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control">
+            <input class="input" type="text" id="username_pi" placeholder="e.g bassFisher13" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control is-disabled">
+            <input class="input is-disabled" type="email" id="email_pi" placeholder="e.g. alexsmith@wisc.edu"
+              disabled />
+          </div>
+        </div>
+        <div class="columns is-flex mt-4">
+          <div class="column is-4">
+            <fieldset disabled>
               <div class="field is-disabled">
-                <label class="label">Phone Number</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="contact_us_phone_no"
-                    placeholder="e.g Smith"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Third Row -->
-          <div class="columns is-flex">
-            <div class="column is-5">
-              <!-- Subject -->
-              <div class="field">
-                <label class="label">Subject</label>
+                <label class="label">Account Type</label>
                 <div class="control">
                   <div class="select">
-                    <select id="contact_us_subject">
-                      <option>Account</option>
-                      <option>Order</option>
-                      <option>Inquiry</option>
-                      <option>Website Bug</option>
-                      <option>Other</option>
+                    <select id="a_type_pi">
+                      <option>Customer</option>
+                      <option>Admin</option>
                     </select>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- Last Name -->
-            <div class="column is-5">
-              <!-- Status -->
-              <div class="field">
-                <label class="label">Status</label>
-                <div class="control">
-                  <div class="select">
-                    <select id="contact_us_status">
-                      <option>NEW</option>
-                      <option>Read</option>
-                      <option>URGENT</option>
-                      <option>Completed</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </fieldset>
           </div>
-          <!-- Order Number -->
-          <div class="field">
-            <label class="label">Order Number</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                id="contact_us_order_no"
-                placeholder="3034443433"
-              />
-            </div>
-          </div>
-          <!-- Message -->
-          <div class="field">
-            <label class="label">Message</label>
-            <div class="control">
-              <textarea
-                class="textarea"
-                id="contact_us_message"
-                placeholder="Explain what this product all includes here!"
-              ></textarea>
-            </div>
-          </div>
-          <div class="container m-0 has-text-centered">
-            <!-- submit button -->
-            <!-- <div class="control"> -->
-            <button class="button mt-2 is-primary">Submit</button>
-            <!-- </div> -->
-            <!-- reset button -->
-            <button
-              class="button mx-4 mt-2"
-              id="resetContactUsFormResponseModal"
-              style="background-color: whitesmoke"
-            >
-              Reset
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <!-- End Edit Contact Us Response Modal  -->
-
-    <!-- Start Confirm Delete Contact Form Response Modal -->
-    <div class="modal" id="confirmDeleteContactModal">
-      <div class="modal-background" id="confirmDeleteContactModalBg"></div>
-      <div class="modal-content has-background-white-ter p-4">
+        </div>
+        <!-- submit button -->
         <div class="container m-0 has-text-centered">
-          <div
-            class="subtitle is-4 has-text-centered"
-            id="confirmDeleteContactMessage"
-          ></div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-link is-primary" id="updateProfileInfoBtn">
+                Update
+              </button>
+              <button class="button is-link is-danger" id="deleteUserAccountBtn">
+                Delete Account
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- End Profile Information Modal -->
+
+  <!-- Start Confirm Delete User Modal -->
+  <div class="modal" id="confirmDeleteUserModal">
+    <div class="modal-background" id="confirmDeleteModalBg"></div>
+    <div class="modal-content has-background-white-ter p-4">
+      <div class="container m-0 has-text-centered">
+        <div class="subtitle is-4 has-text-centered" id="confirmDeleteMessage"></div>
+        <!-- submit button -->
+        <button class="button is-primary" id="confirmDeleteUser">Yes</button>
+        <!-- cancel button -->
+        <button class="button ml-3 is-danger" id="cancelDeleteUser">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- End Confirm Delete User Modal -->
+
+  <!-- Start Add Shop Item Modal -->
+  <div class="modal" id="addShopItemModal">
+    <div class="modal-background" id="addShopItemModalBg"></div>
+    <div class="modal-content has-background-white-ter p-4">
+      <form id="addShopItemForm">
+        <h1 class="subtitle has-text-weight-bold is-3">Add Shop Item</h1>
+        <!-- Item Name -->
+        <div class="field">
+          <label class="label">Item Name</label>
+          <div class="control">
+            <input class="input" type="text" id="addShopItemName" placeholder="Christmas Cookie Pack" />
+          </div>
+        </div>
+        <!-- Item Description -->
+        <div class="field">
+          <label class="label">Item Description</label>
+          <div class="control">
+            <textarea class="textarea" id="addShopItemDescription"
+              placeholder="Explain what this product all includes here!"></textarea>
+          </div>
+        </div>
+        <!-- Inventory Count -->
+        <div class="columns is-flex">
+          <div class="column is-6">
+            <div class="field">
+              <label class="label">Inventory Count</label>
+              <div class="control">
+                <input class="input" type="number" id="addShopItemInventory" placeholder="100" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns is-flex">
+          <div class="column is-4">
+            <!-- Regular Price -->
+            <div class="field">
+              <label class="label">Regular Price</label>
+              <div class="control">
+                <input class="input" type="text" id="addShopItemRegPrice" placeholder="9.99" />
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <!-- Sale Price -->
+            <div class="field">
+              <label class="label">Sale Price</label>
+              <div class="control">
+                <input class="input" type="text" id="addShopItemSalePrice" placeholder="7.99" />
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <!-- On Sale Checkbox -->
+            <label class="checkbox mt-5 pt-4">
+              <input type="checkbox" id="addShopItemOnSale" />
+              On Sale
+            </label>
+          </div>
+        </div>
+        <!-- Main Image -->
+        <div class="field">
+          <label class="label">Main Image</label>
+          <div class="control">
+            <input type="file" class="input" id="addShopItemMainPic" />
+          </div>
+        </div>
+        <!-- Supplementary Images -->
+        <div class="field">
+          <label class="label">Supplementary Images</label>
+          <div class="control">
+            <input type="file" class="input" id="addShopItemSupPic1" />
+            <input type="file" class="input" id="addShopItemSupPic2" />
+            <input type="file" class="input" id="addShopItemSupPic3" />
+            <input type="file" class="input" id="addShopItemSupPic4" />
+            <input type="file" class="input" id="addShopItemSupPic5" />
+          </div>
+        </div>
+        <div class="container m-0 has-text-centered">
           <!-- submit button -->
-          <button class="button is-primary" id="confirmDeleteContact">
-            Yes
+          <button class="button" style="background-color: #b493db" id="submitAddProduct">
+            Submit
           </button>
-          <!-- cancel button -->
-          <button class="button ml-3 is-danger" id="cancelDeleteContact">
-            Cancel
+          <!-- reset button -->
+          <button class="button ml-3" id="resetlAddShopItem" style="background-color: whitesmoke">
+            Reset
           </button>
         </div>
+      </form>
+    </div>
+  </div>
+  <!-- End Add Shop Item Modal -->
+
+  <!-- Start Confirm Delete Product Modal -->
+  <div class="modal" id="confirmDeleteProductModal">
+    <div class="modal-background" id="confirmDeleteProductModalBg"></div>
+    <div class="modal-content has-background-white-ter p-4">
+      <div class="container m-0 has-text-centered">
+        <div class="subtitle is-4 has-text-centered" id="confirmDeleteProductMessage"></div>
+        <!-- submit button -->
+        <button class="button is-primary" id="confirmDeleteProduct">
+          Yes
+        </button>
+        <!-- cancel button -->
+        <button class="button ml-3 is-danger" id="cancelDeleteProduct">
+          Cancel
+        </button>
       </div>
     </div>
-    <!-- End Confirm Delete Contact Form Response Modal -->
+  </div>
+  <!-- End Confirm Delete Product Modal -->
 
-    <!-- End of Modals -->
-
-    <!-- Start of Page Div Elements -->
-    <!-- Start of Homepage -->
-    <div class="container" id="homepage" style="background-color: #f5f5f5">
-      <div class="columns is-flex-direction-row my-2">
-        <!-- Image Column -->
-        <div class="column is-5">
-          <figure class="image is-4by5">
-            <img src="homePageImage.PNG" />
-          </figure>
-        </div>
-        <!-- General Description Column -->
-        <div class="column is-7">
-          <div class="content">
-            <h1 class="title is-2">Hello!</h1>
-            <p class="subtitle is-4 my-1">
-              Welcome to Georgia Sweets, a home bakery located in Oak Creek, WI,
-              where every treat is baked with love and attention to detail. Our
-              owner, a proud mom of two and a dedicated law enforcement officer
-              wife, pours her heart and soul into every sweet treat that she
-              creates. From her specialty decorated cookies to other sweet
-              treats, she strives to make your special occasion extra "sweet"!
-            </p>
-            <br />
-            <p class="subtitle is-4 my-0">
-              Georgia Sweets was launched in September of 2022 during the
-              owner's maternity leave. She had extra time to create the perfect
-              treats for her son's second birthday party and following the
-              party, she received many requests for her delicious baked goods.
-              She decided to turn her passion into a business and hasn't looked
-              back since. Each treat she creates is so special to her, and she
-              feels honored every time she is asked to create something for an
-              event.
-            </p>
-            <br />
-            <p class="subtitle is-4 mt-1 mb-0">
-              At Georgia Sweets, we believe that every event deserves a special
-              touch. That's why our owner ensures that the detail in every treat
-              is exactly what you want! Whether it's a birthday party, wedding,
-              or any other special occasion, our bakery is here to provide you
-              with the best baked goods around. We look forward to making your
-              next event extra "sweet" with our delectable treats!
-            </p>
-            <br />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- End of Homepage -->
-
-    <!-- Start of Shop -->
-    <div class="container is-hidden my-3" id="shopPage">
-      <div class="block"></div>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem
-        nam quod quia, aliquam sit iste ipsam maiores excepturi atque
-        temporibus, laborum adipisci nihil assumenda quisquam nobis veritatis at
-        cumque impedit aut consequuntur provident, perferendis neque a? Optio
-        rem aperiam ab laudantium officiis adipisci provident facere nostrum,
-        temporibus ipsa? Esse, consequuntur.
-      </p>
-      <div class="block"></div>
-      <div class="columns">
-        <div class="column is-4">
-          <div class="card productCard">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://bulma.io/images/placeholders/1280x960.png"
-                  alt="Placeholder image"
-                />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="title is-5"><a href="#">Product 1</a></div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus nec iaculis mauris.
-                <br />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="card productCard">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://bulma.io/images/placeholders/1280x960.png"
-                  alt="Placeholder image"
-                />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="title is-5"><a href="#">Product 2</a></div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus nec iaculis mauris.
-                <br />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="card productCard">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://bulma.io/images/placeholders/1280x960.png"
-                  alt="Placeholder image"
-                />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="title is-5"><a href="#">Product 3</a></div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus nec iaculis mauris.
-                <br />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End of Shop -->
-    <!-- Start of About Us -->
-    <div
-      class="container is-hidden"
-      id="publicLandingPage"
-      style="background-color: #f5f5f5"
-    >
-      <div class="columns is-flex-direction-row my-2">
-        <!-- Image Column -->
-        <div class="column is-5">
-          <figure class="image is-4by5">
-            <img src="aboutus_collage.jpg" />
-          </figure>
-        </div>
-        <!-- General Description Column -->
-        <div class="column is-7">
-          <div class="content">
-            <h1>Meet the Owner!</h1>
-            <p class="subtitle is-4 my-1">
-              Thank you for checking out my website! Georgia Sweets is a home
-              bakery located in Oak Creek, WI that specializes in decorated
-              cookies and other sweet treats. I am a proud mom of a little boy
-              and girl and law enforcement officer wife. Each treat I make is so
-              special to me and I’d love to make your next event extra “sweet”!
-            </p>
-            <br />
-            <p class="subtitle is-4 my-1">
-              I launched Georgia Sweets in September of 2022. I was on maternity
-              leave, and I had extra time to create the sweets for my son’s
-              second birthday. Following the party, I had so many requests for a
-              variety of treats that I decided to start a business! I feel
-              honored each time I am asked to create a treat for an event, so I
-              ensure that the detail in every treat is exactly what you want!
-            </p>
-            <br />
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End of About us -->
-
-    <!-- Start of Photo Gallery -->
-    <div class="container is-hidden gallery my-5" , id="gallerypage">
-      <div class="”gallery”"></div>
-    </div>
-    <!-- End of Photo Gallery -->
-
-    <!-- Start of Admin Dashboard -->
-    <div class="container is-hidden my-5" id="dashboardpage">
-      <div class="columns is-flex">
-        <div class="column is-one-fifth"></div>
-        <div class="column is-one-fifth">
-          <div
-            class="card productCard is-clickable"
-            style="background-color: #b493db; border-radius: 0.5rem"
-          >
-            <div class="card-image">
-              <div class="box">
-                <figure class="image is-512x512">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png"
-                    alt="Placeholder image"
-                    onclick="mngShopBtn()"
-                    class="is-clickable"
-                  />
-                </figure>
-              </div>
-            </div>
-            <div class="card-content has-text-centered">
-              <div class="title is-5" onclick="mngShopBtn()">
-                <a href="#" class="has-text-white">Manage Shop</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-fifth">
-          <div
-            class="card productCard is-clickable"
-            style="background-color: #b493db; border-radius: 0.5rem"
-          >
-            <div class="card-image">
-              <div class="box">
-                <figure class="image is-512x512">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/45/45010.png"
-                    alt="Placeholder image"
-                    onclick="mngGalleryBtn()"
-                    class="is-clickable"
-                  />
-                </figure>
-              </div>
-            </div>
-            <div class="card-content has-text-centered">
-              <div class="title is-5" onclick="mngGalleryBtn()">
-                <a href="#" class="has-text-white">Manage Gallery</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-fifth">
-          <div
-            class="card productCard is-clickable"
-            style="background-color: #b493db; border-radius: 0.5rem"
-          >
-            <div class="card-image">
-              <div class="box">
-                <figure class="image is-512x512">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/2934/2934394.png"
-                    alt="Placeholder image"
-                    onclick="mngContactBtn()"
-                    class="is-clickable"
-                  />
-                </figure>
-              </div>
-            </div>
-            <div class="card-content has-text-centered">
-              <div class="title is-5" onclick="mngContactBtn()">
-                <a href="#" class="has-text-white">Manage Contact Us</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-fifth"></div>
-      </div>
-      <div class="columns is-flex">
-        <div class="column is-3"></div>
-        <div class="column is-3">
-          <div
-            class="card productCard is-clickable"
-            style="background-color: #b493db; border-radius: 0.5rem"
-          >
-            <div class="card-image">
-              <div class="box">
-                <figure class="image is-512x512">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
-                    alt="Placeholder image"
-                    onclick="mngUsersBtn()"
-                    class="is-clickable"
-                  />
-                </figure>
-              </div>
-            </div>
-            <div class="card-content has-text-centered">
-              <div class="title is-5" onclick="mngUsersBtn()">
-                <a href="#" class="has-text-white">Manage Users</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-3">
-          <div
-            class="card productCard is-clickable"
-            style="background-color: #b493db; border-radius: 0.5rem"
-          >
-            <div class="card-image">
-              <div class="box">
-                <figure class="image is-512x512">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/8301/8301848.png"
-                    alt="Placeholder image"
-                    onclick="mngAbtUsBtn()"
-                    class="is-clickable"
-                  />
-                </figure>
-              </div>
-            </div>
-            <div class="card-content has-text-centered">
-              <div class="title is-5" onclick="mngAbtUsBtn()">
-                <a href="#" class="has-text-white">Manage About Us</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-3"></div>
-      </div>
-    </div>
-    <!-- End of Admin Dashboard -->
-
-    <!--Start of Manage Shop -->
-    <div
-      class="container is-hidden"
-      id="manageshoppage"
-      style="background-color: #f5f5f5"
-    >
-      <a
-        class="button has-text-white mt-2"
-        style="background-color: #b493db"
-        onclick="backToDashboardBtn()"
-        ><strong>Back</strong></a
-      >
-      <br />
-      <div class="section has-text-centered mt-2 pt-0">
-        <div class="subtitle is-3">Manage Shop</div>
-        <div class="columns is-flex is-6">
+  <!-- Start Edit Product Modal  -->
+  <div class="modal" id="editProductModal">
+    <div class="modal-background" id="editProductModalBg"></div>
+    <div class="modal-content has-background-grey-light p-4">
+      <h1 class="subtitle has-text-weight-bold is-3">Edit Product Form</h1>
+      <form id="editProductForm">
+        <!-- First Row -->
+        <div class="columns is-flex">
+          <!-- Item Name -->
           <div class="column is-6">
-            <div class="card pb-5" style="background-color: #b493db">
-              <div class="card-header is-shadowless">
-                <div class="subtitle is-3 has-text-white mb-0 mt-3 mx-auto">
-                  Manage Products
-                </div>
-              </div>
-              <hr class="mx-6" />
-              <div class="buttons is-centered">
-                <div class="button" id="addShopItemBtn">Add Product</div>
-                <div class="button" id="viewShopProductsBtn">
-                  View All Products
-                </div>
+            <div class="field">
+              <label class="label">Item Name</label>
+              <div class="control">
+                <input class="input" type="text" id="editShopItemName" placeholder="Christmas Cookie Pack" />
               </div>
             </div>
           </div>
+          <!-- Last Updated -->
           <div class="column is-6">
-            <div class="card pb-5" style="background-color: #b493db">
-              <div class="card-header is-shadowless">
-                <div class="subtitle is-3 has-text-white mt-3 mb-0 mx-auto">
-                  Manage Orders
-                </div>
+            <div class="field">
+              <label class="label">Last Updated</label>
+              <div class="control">
+                <input class="input" type="text" id="editShopItemLastUpdated" disabled />
               </div>
-              <hr class="mx-6" />
-              <div class="buttons is-centered">
-                <div class="button" id="viewShopOrders">View All Orders</div>
+            </div>
+          </div>
+        </div>
+        <!-- Second Row -->
+        <div class="columns is-flex">
+          <!-- Item Name -->
+          <div class="column is-6">
+            <div class="field">
+              <label class="label">Added By</label>
+              <div class="control">
+                <input class="input" type="text" id="editShopItemAddedBy" disabled />
+              </div>
+            </div>
+          </div>
+          <!-- Added By -->
+          <div class="column is-6">
+            <div class="field">
+              <label class="label">Date Added</label>
+              <div class="control">
+                <input class="input" type="text" id="editShopItemDateAdded" disabled />
               </div>
             </div>
           </div>
         </div>
 
-        <table
-          class="table mx-auto is-striped is-fullwidth mb-3 mt-4 is-hidden"
-          id="productTable"
-        >
-          <thead>
-            <!-- Header Row -->
-            <tr>
-              <th>Product Image</th>
-              <th>Product ID</th>
-              <th>Product Name</th>
-              <th>Price</th>
-              <th>Sale Price</th>
-              <th>On Sale</th>
-              <th>Description</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="products_table">
-            <!-- Example Row -->
-          </tbody>
-        </table>
-        <div class="mb-3" id="manageProductsPageLinks"></div>
-        <div id="manageProductsNextPage"></div>
-        <div id="manageProductsPrevPage"></div>
-      </div>
+        <!-- Item Description -->
+        <div class="field">
+          <label class="label">Item Description</label>
+          <div class="control">
+            <textarea class="textarea" id="editShopItemDescription"
+              placeholder="Explain what this product all includes here!"></textarea>
+          </div>
+        </div>
+        <!-- Inventory Count -->
+        <div class="columns is-flex">
+          <div class="column is-6">
+            <div class="field">
+              <label class="label">Inventory Count</label>
+              <div class="control">
+                <input class="input" type="number" id="editShopItemInventory" placeholder="100" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns is-flex">
+          <div class="column is-4">
+            <!-- Regular Price -->
+            <div class="field">
+              <label class="label">Regular Price</label>
+              <div class="control">
+                <input class="input" type="text" id="editShopItemRegPrice" placeholder="9.99" />
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <!-- Sale Price -->
+            <div class="field">
+              <label class="label">Sale Price</label>
+              <div class="control">
+                <input class="input" type="text" id="editShopItemSalePrice" placeholder="7.99" />
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <!-- On Sale Checkbox -->
+            <label class="checkbox mt-5 pt-4">
+              <input type="checkbox" id="editShopItemOnSale" />
+              On Sale
+            </label>
+          </div>
+        </div>
+        <!-- Main Image -->
+        <div class="field">
+          <label class="label">Main Image</label>
+          <div class="control">
+            <input type="file" class="input" id="editShopItemMainPic" />
+          </div>
+        </div>
+        <!-- Supplementary Images -->
+        <div class="field">
+          <label class="label">Supplementary Images</label>
+          <div class="control">
+            <input type="file" class="input" id="editShopItemSupPic1" />
+            <input type="file" class="input" id="editShopItemSupPic2" />
+            <input type="file" class="input" id="editShopItemSupPic3" />
+            <input type="file" class="input" id="editShopItemSupPic4" />
+            <input type="file" class="input" id="editShopItemSupPic5" />
+          </div>
+        </div>
+
+        <div class="container m-0 has-text-centered">
+          <!-- submit button -->
+          <!-- <div class="control"> -->
+          <button class="button mt-2 is-primary" id="submitEditItem">
+            Submit
+          </button>
+          <!-- </div> -->
+          <!-- reset button -->
+          <button class="button mx-4 mt-2" id="resetEditProductModal" style="background-color: whitesmoke">
+            Reset
+          </button>
+        </div>
+      </form>
     </div>
-    <!--End of Manage Shop-->
+  </div>
+  <!-- End Edit Product Modal  -->
 
-    <!--Start of Manage Gallery-->
-    <div
-      class="container is-hidden"
-      id="managegallerypage"
-      style="background-color: #f5f5f5"
-    >
-      <a
-        class="button has-text-white mb-4 mt-2"
-        style="background-color: #b493db"
-        onclick="backToDashboardBtn()"
-        ><strong>Back</strong></a
-      >
-
-      <div class="section has-text-centered mt-2 pt-0">
-        <div class="subtitle is-3">Manage Gallery</div>
-        <div class="columns is-flex is-6">
-          <div class="column is-"></div>
-          <div class="column is-8" style="background-color: #b493db">
-            <form id="galleryUpdateForm">
-              <div class="field has-text-left">
-                <label class="label is-medium">Gallery Image Upload</label>
-                <div>
-                  <input type="file" class="input" id="newGalleryPic" />
-                </div>
-                <!-- submit button -->
-                <div>
-                  <button class="button mt-2 is-primary" id="upload_button">
-                    Upload
-                  </button>
-                  <!-- reset button -->
-                  <button
-                    class="button ml-3 mt-2"
-                    id="resetgallerypic"
-                    style="background-color: whitesmoke"
-                  >
-                    Delete
-                  </button>
+  <!-- Start Edit Contact Us Response Modal  -->
+  <div class="modal" id="contactFormResponseModal">
+    <div class="modal-background" id="contactFormResponseModalBg"></div>
+    <div class="modal-content has-background-grey-light p-4">
+      <h1 class="subtitle has-text-weight-bold is-3">
+        Contact Us Form Response
+      </h1>
+      <form id="contactFormResponseForm">
+        <!-- First Row -->
+        <div class="columns is-flex">
+          <!-- Name -->
+          <div class="column is-5">
+            <div class="field">
+              <label class="label">Name</label>
+              <div class="control">
+                <input class="input" type="text" id="contact_us_name" placeholder="e.g Alex" />
+              </div>
+            </div>
+          </div>
+          <!-- Date Submitted -->
+          <div class="column is-5">
+            <div class="field">
+              <label class="label">Date Submitted</label>
+              <div class="control is-disabled">
+                <input class="input is-disabled" type="text" id="contact_us_date_submitted" placeholder="e.g Smith"
+                  disabled />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Second Row -->
+        <div class="columns is-flex">
+          <!-- Email -->
+          <div class="column is-5">
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input class="input" type="text" id="contact_us_email" placeholder="e.g Smith" />
+              </div>
+            </div>
+          </div>
+          <!-- Phone Number -->
+          <div class="column is-5">
+            <div class="field is-disabled">
+              <label class="label">Phone Number</label>
+              <div class="control">
+                <input class="input" type="text" id="contact_us_phone_no" placeholder="e.g Smith" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Third Row -->
+        <div class="columns is-flex">
+          <div class="column is-5">
+            <!-- Subject -->
+            <div class="field">
+              <label class="label">Subject</label>
+              <div class="control">
+                <div class="select">
+                  <select id="contact_us_subject">
+                    <option>Account</option>
+                    <option>Order</option>
+                    <option>Inquiry</option>
+                    <option>Website Bug</option>
+                    <option>Other</option>
+                  </select>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
-          <div class="column is-"></div>
+          <!-- Last Name -->
+          <div class="column is-5">
+            <!-- Status -->
+            <div class="field">
+              <label class="label">Status</label>
+              <div class="control">
+                <div class="select">
+                  <select id="contact_us_status">
+                    <option>NEW</option>
+                    <option>Read</option>
+                    <option>URGENT</option>
+                    <option>Completed</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Order Number -->
+        <div class="field">
+          <label class="label">Order Number</label>
+          <div class="control">
+            <input class="input" type="text" id="contact_us_order_no" placeholder="3034443433" />
+          </div>
+        </div>
+        <!-- Message -->
+        <div class="field">
+          <label class="label">Message</label>
+          <div class="control">
+            <textarea class="textarea" id="contact_us_message"
+              placeholder="Explain what this product all includes here!"></textarea>
+          </div>
+        </div>
+        <div class="container m-0 has-text-centered">
+          <!-- submit button -->
+          <!-- <div class="control"> -->
+          <button class="button mt-2 is-primary">Submit</button>
+          <!-- </div> -->
+          <!-- reset button -->
+          <button class="button mx-4 mt-2" id="resetContactUsFormResponseModal" style="background-color: whitesmoke">
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- End Edit Contact Us Response Modal  -->
+
+  <!-- Start Confirm Delete Contact Form Response Modal -->
+  <div class="modal" id="confirmDeleteContactModal">
+    <div class="modal-background" id="confirmDeleteContactModalBg"></div>
+    <div class="modal-content has-background-white-ter p-4">
+      <div class="container m-0 has-text-centered">
+        <div class="subtitle is-4 has-text-centered" id="confirmDeleteContactMessage"></div>
+        <!-- submit button -->
+        <button class="button is-primary" id="confirmDeleteContact">
+          Yes
+        </button>
+        <!-- cancel button -->
+        <button class="button ml-3 is-danger" id="cancelDeleteContact">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- End Confirm Delete Contact Form Response Modal -->
+
+  <!-- End of Modals -->
+
+  <!-- Start of Page Div Elements -->
+  <!-- Start of Homepage -->
+  <div class="container" id="homepage" style="background-color: #f5f5f5">
+    <div class="columns is-flex-direction-row my-2">
+      <!-- Image Column -->
+      <div class="column is-5">
+        <figure class="image is-4by5">
+          <img src="homePageImage.PNG" />
+        </figure>
+      </div>
+      <!-- General Description Column -->
+      <div class="column is-7">
+        <div class="content">
+          <h1 class="title is-2">Hello!</h1>
+          <p class="subtitle is-4 my-1">
+            Welcome to Georgia Sweets, a home bakery located in Oak Creek, WI,
+            where every treat is baked with love and attention to detail. Our
+            owner, a proud mom of two and a dedicated law enforcement officer
+            wife, pours her heart and soul into every sweet treat that she
+            creates. From her specialty decorated cookies to other sweet
+            treats, she strives to make your special occasion extra "sweet"!
+          </p>
+          <br />
+          <p class="subtitle is-4 my-0">
+            Georgia Sweets was launched in September of 2022 during the
+            owner's maternity leave. She had extra time to create the perfect
+            treats for her son's second birthday party and following the
+            party, she received many requests for her delicious baked goods.
+            She decided to turn her passion into a business and hasn't looked
+            back since. Each treat she creates is so special to her, and she
+            feels honored every time she is asked to create something for an
+            event.
+          </p>
+          <br />
+          <p class="subtitle is-4 mt-1 mb-0">
+            At Georgia Sweets, we believe that every event deserves a special
+            touch. That's why our owner ensures that the detail in every treat
+            is exactly what you want! Whether it's a birthday party, wedding,
+            or any other special occasion, our bakery is here to provide you
+            with the best baked goods around. We look forward to making your
+            next event extra "sweet" with our delectable treats!
+          </p>
+          <br />
         </div>
       </div>
     </div>
-    <!--End of Manage Gallery-->
+  </div>
 
-    <!--Start of Manage Users-->
-    <div
-      class="container is-hidden"
-      id="manageuserspage"
-      style="background-color: #f5f5f5"
-    >
-      <a
-        class="button has-text-white mt-2"
-        style="background-color: #b493db"
-        onclick="backToDashboardBtn()"
-        ><strong>Back</strong></a
-      >
-      <div class="section has-text-centered mt-2 pt-0 mb-0 pb-0">
-        <div class="subtitle is-3">Manage Users</div>
+  <!-- End of Homepage -->
+
+  <!-- Start of Shop -->
+  <div class="container is-hidden my-3" id="shopPage">
+    <div class="block"></div>
+    <p>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem
+      nam quod quia, aliquam sit iste ipsam maiores excepturi atque
+      temporibus, laborum adipisci nihil assumenda quisquam nobis veritatis at
+      cumque impedit aut consequuntur provident, perferendis neque a? Optio
+      rem aperiam ab laudantium officiis adipisci provident facere nostrum,
+      temporibus ipsa? Esse, consequuntur.
+    </p>
+    <div class="block"></div>
+    <div class="columns" id="productCardColumns">
+      <div class="column is-4">
       </div>
+      <div class="column is-4">
+      </div>
+      <div class="column is-4">
+      </div>
+    </div>
+  </div>
+  <!-- End of Shop -->
+  <!-- Start of About Us -->
+  <div class="container is-hidden" id="publicLandingPage" style="background-color: #f5f5f5">
+    <div class="columns is-flex-direction-row my-2">
+      <!-- Image Column -->
+      <div class="column is-5">
+        <figure class="image is-4by5">
+          <img src="aboutus_collage.jpg" />
+        </figure>
+      </div>
+      <!-- General Description Column -->
+      <div class="column is-7">
+        <div class="content">
+          <h1>Meet the Owner!</h1>
+          <p class="subtitle is-4 my-1">
+            Thank you for checking out my website! Georgia Sweets is a home
+            bakery located in Oak Creek, WI that specializes in decorated
+            cookies and other sweet treats. I am a proud mom of a little boy
+            and girl and law enforcement officer wife. Each treat I make is so
+            special to me and I’d love to make your next event extra “sweet”!
+          </p>
+          <br />
+          <p class="subtitle is-4 my-1">
+            I launched Georgia Sweets in September of 2022. I was on maternity
+            leave, and I had extra time to create the sweets for my son’s
+            second birthday. Following the party, I had so many requests for a
+            variety of treats that I decided to start a business! I feel
+            honored each time I am asked to create a treat for an event, so I
+            ensure that the detail in every treat is exactly what you want!
+          </p>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of About us -->
+
+  <!-- Start of Photo Gallery -->
+  <div class="container is-hidden gallery my-5" , id="gallerypage">
+    <div class="”gallery”"></div>
+  </div>
+  <!-- End of Photo Gallery -->
+
+  <!-- Start of Admin Dashboard -->
+  <div class="container is-hidden my-5" id="dashboardpage">
+    <div class="columns is-flex">
+      <div class="column is-one-fifth"></div>
+      <div class="column is-one-fifth">
+        <div class="card productCard is-clickable" style="background-color: #b493db; border-radius: 0.5rem">
+          <div class="card-image">
+            <div class="box">
+              <figure class="image is-512x512">
+                <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Placeholder image"
+                  onclick="mngShopBtn()" class="is-clickable" />
+              </figure>
+            </div>
+          </div>
+          <div class="card-content has-text-centered">
+            <div class="title is-5" onclick="mngShopBtn()">
+              <a href="#" class="has-text-white">Manage Shop</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-fifth">
+        <div class="card productCard is-clickable" style="background-color: #b493db; border-radius: 0.5rem">
+          <div class="card-image">
+            <div class="box">
+              <figure class="image is-512x512">
+                <img src="https://cdn-icons-png.flaticon.com/512/45/45010.png" alt="Placeholder image"
+                  onclick="mngGalleryBtn()" class="is-clickable" />
+              </figure>
+            </div>
+          </div>
+          <div class="card-content has-text-centered">
+            <div class="title is-5" onclick="mngGalleryBtn()">
+              <a href="#" class="has-text-white">Manage Gallery</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-fifth">
+        <div class="card productCard is-clickable" style="background-color: #b493db; border-radius: 0.5rem">
+          <div class="card-image">
+            <div class="box">
+              <figure class="image is-512x512">
+                <img src="https://cdn-icons-png.flaticon.com/512/2934/2934394.png" alt="Placeholder image"
+                  onclick="mngContactBtn()" class="is-clickable" />
+              </figure>
+            </div>
+          </div>
+          <div class="card-content has-text-centered">
+            <div class="title is-5" onclick="mngContactBtn()">
+              <a href="#" class="has-text-white">Manage Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-fifth"></div>
+    </div>
+    <div class="columns is-flex">
+      <div class="column is-3"></div>
+      <div class="column is-3">
+        <div class="card productCard is-clickable" style="background-color: #b493db; border-radius: 0.5rem">
+          <div class="card-image">
+            <div class="box">
+              <figure class="image is-512x512">
+                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="Placeholder image"
+                  onclick="mngUsersBtn()" class="is-clickable" />
+              </figure>
+            </div>
+          </div>
+          <div class="card-content has-text-centered">
+            <div class="title is-5" onclick="mngUsersBtn()">
+              <a href="#" class="has-text-white">Manage Users</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-3">
+        <div class="card productCard is-clickable" style="background-color: #b493db; border-radius: 0.5rem">
+          <div class="card-image">
+            <div class="box">
+              <figure class="image is-512x512">
+                <img src="https://cdn-icons-png.flaticon.com/512/8301/8301848.png" alt="Placeholder image"
+                  onclick="mngAbtUsBtn()" class="is-clickable" />
+              </figure>
+            </div>
+          </div>
+          <div class="card-content has-text-centered">
+            <div class="title is-5" onclick="mngAbtUsBtn()">
+              <a href="#" class="has-text-white">Manage About Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-3"></div>
+    </div>
+  </div>
+  <!-- End of Admin Dashboard -->
+
+  <!--Start of Manage Shop -->
+  <div class="container is-hidden" id="manageshoppage" style="background-color: #f5f5f5">
+    <a class="button has-text-white mt-2" style="background-color: #b493db"
+      onclick="backToDashboardBtn()"><strong>Back</strong></a>
+    <br />
+    <div class="section has-text-centered mt-2 pt-0">
+      <div class="subtitle is-3">Manage Shop</div>
+      <div class="columns is-flex is-6">
+        <div class="column is-6">
+          <div class="card pb-5" style="background-color: #b493db">
+            <div class="card-header is-shadowless">
+              <div class="subtitle is-3 has-text-white mb-0 mt-3 mx-auto">
+                Manage Products
+              </div>
+            </div>
+            <hr class="mx-6" />
+            <div class="buttons is-centered">
+              <div class="button" id="addShopItemBtn">Add Product</div>
+              <div class="button" id="viewShopProductsBtn">
+                View All Products
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="card pb-5" style="background-color: #b493db">
+            <div class="card-header is-shadowless">
+              <div class="subtitle is-3 has-text-white mt-3 mb-0 mx-auto">
+                Manage Orders
+              </div>
+            </div>
+            <hr class="mx-6" />
+            <div class="buttons is-centered">
+              <div class="button" id="viewShopOrders">View All Orders</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <table class="table mx-auto is-striped is-fullwidth mb-3 mt-4 is-hidden" id="productTable">
+        <thead>
+          <!-- Header Row -->
+          <tr>
+            <th>Product Image</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Sale Price</th>
+            <th>On Sale</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="products_table">
+          <!-- Example Row -->
+        </tbody>
+      </table>
+      <div class="mb-3" id="manageProductsPageLinks"></div>
+      <div id="manageProductsNextPage"></div>
+      <div id="manageProductsPrevPage"></div>
+    </div>
+  </div>
+  <!--End of Manage Shop-->
+
+  <!--Start of Manage Gallery-->
+  <div class="container is-hidden" id="managegallerypage" style="background-color: #f5f5f5">
+    <a class="button has-text-white mb-4 mt-2" style="background-color: #b493db"
+      onclick="backToDashboardBtn()"><strong>Back</strong></a>
+
+    <div class="section has-text-centered mt-2 pt-0">
+      <div class="subtitle is-3">Manage Gallery</div>
+      <div class="columns is-flex is-6">
+        <div class="column is-"></div>
+        <div class="column is-8" style="background-color: #b493db">
+          <form id="galleryUpdateForm">
+            <div class="field has-text-left">
+              <label class="label is-medium">Gallery Image Upload</label>
+              <div>
+                <input type="file" class="input" id="newGalleryPic" />
+              </div>
+              <!-- submit button -->
+              <div>
+                <button class="button mt-2 is-primary" id="upload_button">
+                  Upload
+                </button>
+                <!-- reset button -->
+                <button class="button ml-3 mt-2" id="resetgallerypic" style="background-color: whitesmoke">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="column is-"></div>
+      </div>
+    </div>
+  </div>
+  <!--End of Manage Gallery-->
+
+  <!--Start of Manage Users-->
+  <div class="container is-hidden" id="manageuserspage" style="background-color: #f5f5f5">
+    <a class="button has-text-white mt-2" style="background-color: #b493db"
+      onclick="backToDashboardBtn()"><strong>Back</strong></a>
+    <div class="section has-text-centered mt-2 pt-0 mb-0 pb-0">
+      <div class="subtitle is-3">Manage Users</div>
+    </div>
+    <table class="table mx-auto is-striped is-fullwidth mb-3 mt-4">
+      <thead>
+        <!-- Header Row -->
+        <tr>
+          <th>Profile Picture</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Username</th>
+          <th>Date Created</th>
+          <th>Last Login</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="users_table">
+        <!-- Example Row -->
+        <tr>
+          <th>1</th>
+          <th></th>
+          <td class="has-text-left">Connor Kolb</td>
+          <td>38</td>
+          <td>100</td>
+          <td>---</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="mb-3" id="manageUsersPageLinks"></div>
+    <div id="manageUsersNextPage"></div>
+    <div id="manageUsersPrevPage"></div>
+  </div>
+  <!--End of Manage Users-->
+
+  <!--Start of Manage About Us-->
+  <div class="container is-hidden" id="manageaboutuspage" style="background-color: #f5f5f5">
+    <a class="button has-text-white mt-2" style="background-color: #b493db"
+      onclick="backToDashboardBtn()"><strong>Back</strong></a>
+    <div class="section has-text-centered mt-2 pt-0">
+      <div class="subtitle is-3">Manage About Us</div>
+    </div>
+  </div>
+  <!--End of Manage About Us-->
+
+  <!--Start of Manage Contact Us-->
+  <div class="container is-hidden" id="managecontactpage" style="background-color: #f5f5f5">
+    <a class="button has-text-white mt-2" style="background-color: #b493db"
+      onclick="backToDashboardBtn()"><strong>Back</strong></a>
+    <div class="section has-text-centered mt-2 pt-0">
+      <div class="subtitle is-3">Manage Contact Us</div>
       <table class="table mx-auto is-striped is-fullwidth mb-3 mt-4">
         <thead>
           <!-- Header Row -->
           <tr>
-            <th>Profile Picture</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Username</th>
-            <th>Date Created</th>
-            <th>Last Login</th>
+            <th>Subject</th>
+            <th>Date Submitted</th>
+            <th>Order Number</th>
+            <th>Status</th>
+            <th>Message</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody id="users_table">
+        <tbody id="contact_table">
           <!-- Example Row -->
-          <tr>
-            <th>1</th>
-            <th></th>
-            <td class="has-text-left">Connor Kolb</td>
-            <td>38</td>
-            <td>100</td>
-            <td>---</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="mb-3" id="manageUsersPageLinks"></div>
-      <div id="manageUsersNextPage"></div>
-      <div id="manageUsersPrevPage"></div>
-    </div>
-    <!--End of Manage Users-->
-
-    <!--Start of Manage About Us-->
-    <div
-      class="container is-hidden"
-      id="manageaboutuspage"
-      style="background-color: #f5f5f5"
-    >
-      <a
-        class="button has-text-white mt-2"
-        style="background-color: #b493db"
-        onclick="backToDashboardBtn()"
-        ><strong>Back</strong></a
-      >
-      <div class="section has-text-centered mt-2 pt-0">
-        <div class="subtitle is-3">Manage About Us</div>
-      </div>
-    </div>
-    <!--End of Manage About Us-->
-
-    <!--Start of Manage Contact Us-->
-    <div
-      class="container is-hidden"
-      id="managecontactpage"
-      style="background-color: #f5f5f5"
-    >
-      <a
-        class="button has-text-white mt-2"
-        style="background-color: #b493db"
-        onclick="backToDashboardBtn()"
-        ><strong>Back</strong></a
-      >
-      <div class="section has-text-centered mt-2 pt-0">
-        <div class="subtitle is-3">Manage Contact Us</div>
-        <table class="table mx-auto is-striped is-fullwidth mb-3 mt-4">
-          <thead>
-            <!-- Header Row -->
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Subject</th>
-              <th>Date Submitted</th>
-              <th>Order Number</th>
-              <th>Status</th>
-              <th>Message</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="contact_table">
-            <!-- Example Row -->
-            <!-- <tr>
+          <!-- <tr>
               <td class="has-text-left">Connor Kolb</td>
               <td>cwkolb@wisc.edu</td>
               <td>Account</td>
@@ -1585,134 +1205,104 @@
                 officia impedit praesentium error placeat earum nihil, id saepe!
               </td>
             </tr> -->
-          </tbody>
-        </table>
-        <div class="mb-3" id="manageContactPageLinks"></div>
-        <div id="manageContactNextPage"></div>
-        <div id="manageContactPrevPage"></div>
-      </div>
+        </tbody>
+      </table>
+      <div class="mb-3" id="manageContactPageLinks"></div>
+      <div id="manageContactNextPage"></div>
+      <div id="manageContactPrevPage"></div>
     </div>
-    <!--End of Manage Contact Us-->
+  </div>
+  <!--End of Manage Contact Us-->
 
-    <!-- Start of About Us -->
-    <div class="container is-hidden" id="aboutpage"></div>
-    <!-- End of About Us-->
+  <!-- Start of About Us -->
+  <div class="container is-hidden" id="aboutpage"></div>
+  <!-- End of About Us-->
 
-    <!-- Start of Contat Us -->
-    <div class="container is-hidden" id="conactpage">
-      <div class="columns mb-0">
-        <div class="column is-4">
-          <article class="message is-dark mt-4 mr-3" id="bugReportMessage">
-            <div class="message-header">
-              <p>Please Report Website Bugs Here!</p>
-              <button
-                class="delete"
-                aria-label="delete"
-                id="hideMessageBtn"
-              ></button>
+  <!-- Start of Contat Us -->
+  <div class="container is-hidden" id="conactpage">
+    <div class="columns mb-0">
+      <div class="column is-4">
+        <article class="message is-dark mt-4 mr-3" id="bugReportMessage">
+          <div class="message-header">
+            <p>Please Report Website Bugs Here!</p>
+            <button class="delete" aria-label="delete" id="hideMessageBtn"></button>
+          </div>
+          <div class="message-body">
+            If you run into any problems while using the site, please let us
+            know by filling out this form. Please include details such as what
+            led to the bug and what happened as a result of the bug. Thank you
+            for your feedback!
+          </div>
+        </article>
+      </div>
+      <div class="column is-4">
+        <div class="container is-vcentered has-text-centered my-6">
+          <form id="contact_us_form">
+            <div class="field">
+              <label class="label has-text-left">Name</label>
+              <div class="control">
+                <input class="input" type="text" id="contactName" placeholder="Text input" />
+              </div>
             </div>
-            <div class="message-body">
-              If you run into any problems while using the site, please let us
-              know by filling out this form. Please include details such as what
-              led to the bug and what happened as a result of the bug. Thank you
-              for your feedback!
+
+            <div class="field">
+              <label class="label has-text-left">Email</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input" type="email" id="contactEmail" placeholder="Email input" />
+                <span class="icon is-small is-left m-auto">
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right m-auto">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>
+              </div>
             </div>
-          </article>
-        </div>
-        <div class="column is-4">
-          <div class="container is-vcentered has-text-centered my-6">
-            <form id="contact_us_form">
-              <div class="field">
-                <label class="label has-text-left">Name</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="contactName"
-                    placeholder="Text input"
-                  />
-                </div>
+            <!-- Phone Number -->
+            <div class="field">
+              <label class="label has-text-left">Phone Number</label>
+              <div class="control">
+                <input class="input" type="text" id="contactPhoneNo" placeholder="608-452-4529" />
               </div>
+            </div>
 
-              <div class="field">
-                <label class="label has-text-left">Email</label>
-                <div class="control has-icons-left has-icons-right">
-                  <input
-                    class="input"
-                    type="email"
-                    id="contactEmail"
-                    placeholder="Email input"
-                  />
-                  <span class="icon is-small is-left m-auto">
-                    <i class="fas fa-envelope"></i>
-                  </span>
-                  <span class="icon is-small is-right m-auto">
-                    <i class="fas fa-exclamation-triangle"></i>
-                  </span>
-                </div>
-              </div>
-              <!-- Phone Number -->
-              <div class="field">
-                <label class="label has-text-left">Phone Number</label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    id="contactPhoneNo"
-                    placeholder="608-452-4529"
-                  />
-                </div>
-              </div>
-
-              <div class="columns is-flex">
-                <!-- Subject -->
-                <div class="column is-6">
-                  <div class="field pb-4">
-                    <label class="label has-text-left">Subject</label>
-                    <div class="control is-pulled-left">
-                      <div class="select is-left">
-                        <select id="contactSubject">
-                          <option>Account</option>
-                          <option>Order</option>
-                          <option>Inquiry</option>
-                          <option>Website Bug</option>
-                          <option>Other</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Order Number -->
-                <div class="column is-6">
-                  <div class="field pb-4">
-                    <label class="label has-text-left"
-                      >Order Number (optional)</label
-                    >
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        id="contactOrderNo"
-                        placeholder="6084524529"
-                      />
+            <div class="columns is-flex">
+              <!-- Subject -->
+              <div class="column is-6">
+                <div class="field pb-4">
+                  <label class="label has-text-left">Subject</label>
+                  <div class="control is-pulled-left">
+                    <div class="select is-left">
+                      <select id="contactSubject">
+                        <option>Account</option>
+                        <option>Order</option>
+                        <option>Inquiry</option>
+                        <option>Website Bug</option>
+                        <option>Other</option>
+                      </select>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <div class="field">
-                <label class="label is-pulled-left">Message</label>
-                <div class="control">
-                  <textarea
-                    class="textarea"
-                    placeholder="How can we help you?"
-                    id="contactMsg"
-                  ></textarea>
+              <!-- Order Number -->
+              <div class="column is-6">
+                <div class="field pb-4">
+                  <label class="label has-text-left">Order Number (optional)</label>
+                  <div class="control">
+                    <input class="input" type="text" id="contactOrderNo" placeholder="6084524529" />
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <!-- Uncomment for terms & conditions agreement -->
-              <!-- <div class="field">
+            <div class="field">
+              <label class="label is-pulled-left">Message</label>
+              <div class="control">
+                <textarea class="textarea" placeholder="How can we help you?" id="contactMsg"></textarea>
+              </div>
+            </div>
+
+            <!-- Uncomment for terms & conditions agreement -->
+            <!-- <div class="field">
                   <div class="control">
                     <label class="checkbox">
                       <input type="checkbox">
@@ -1721,7 +1311,7 @@
                   </div>
                 </div> -->
 
-              <!-- <div class="field">
+            <!-- <div class="field">
                   <div class="control">
                     <label class="radio">
                       <input type="radio" name="question">
@@ -1734,146 +1324,145 @@
                   </div>
                 </div> -->
 
-              <div class="field is-grouped is-grouped-centered">
-                <div class="control">
-                  <button class="button is-link">Submit</button>
-                </div>
-                <div class="control">
-                  <button class="button is-link is-light" id="clearContact">
-                    Clear
-                  </button>
-                </div>
+            <div class="field is-grouped is-grouped-centered">
+              <div class="control">
+                <button class="button is-link">Submit</button>
               </div>
-            </form>
-          </div>
+              <div class="control">
+                <button class="button is-link is-light" id="clearContact">
+                  Clear
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="column is-4"></div>
       </div>
+      <div class="column is-4"></div>
     </div>
-    <!-- End of Contact Us -->
+  </div>
+  <!-- End of Contact Us -->
 
-    <!-- Start of Report Issue -->
-    <div class="container is-hidden" id="reportanissuepage"></div>
-    <!-- End of Report Issue-->
+  <!-- Start of Report Issue -->
+  <div class="container is-hidden" id="reportanissuepage"></div>
+  <!-- End of Report Issue-->
 
-    <!-- End of Page Div Elements -->
+  <!-- End of Page Div Elements -->
 
-    <!-- Start of footer -->
-    <footer class="footer has-text-light" style="background-color: #f0e8c0">
-      <div class="has-text-centered">
-        <a href="https://www.facebook.com/profile.php?id=100085994048020">
-          <i class="fa-brands fa-facebook fa-3x mx-2" style="color: #b493db"></i
-        ></a>
-        <a href="mailto:alizalewitzke@yahoo.com">
-          <i class="fa-solid fa-envelope fa-3x mx-2" style="color: #b493db"></i
-        ></a>
-        <p class="has-text-centered mt-4 has-text-dark">
-          <span class="has-text-weight-bold">
-            Georgia Sweets Official Website
-          </span>
-          by
-          <a href="#" class="has-text-info">IS 424 - Group 10</a>
-        </p>
-      </div>
-    </footer>
-    <!-- End of Footer -->
-    <!-- End of Website HTML-->
+  <!-- Start of footer -->
+  <footer class="footer has-text-light" style="background-color: #f0e8c0">
+    <div class="has-text-centered">
+      <a href="https://www.facebook.com/profile.php?id=100085994048020">
+        <i class="fa-brands fa-facebook fa-3x mx-2" style="color: #b493db"></i></a>
+      <a href="mailto:alizalewitzke@yahoo.com">
+        <i class="fa-solid fa-envelope fa-3x mx-2" style="color: #b493db"></i></a>
+      <p class="has-text-centered mt-4 has-text-dark">
+        <span class="has-text-weight-bold">
+          Georgia Sweets Official Website
+        </span>
+        by
+        <a href="#" class="has-text-info">IS 424 - Group 10</a>
+      </p>
+    </div>
+  </footer>
+  <!-- End of Footer -->
+  <!-- End of Website HTML-->
 
-    <!-- Start Of Embedded Script -->
-    <script>
-      // document.addEventListener("DOMContentLoaded", function () {
-      //   const loadEl = document.querySelector("#load");
-      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-      // // The Firebase SDK is initialized and available here!
-      //
-      // firebase.auth().onAuthStateChanged(user => { });
-      // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-      // firebase.firestore().doc('/foo/bar').get().then(() => { });
-      // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-      // firebase.messaging().requestPermission().then(() => { });
-      // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-      // firebase.analytics(); // call to activate
-      // firebase.analytics().logEvent('tutorial_completed');
-      // firebase.performance(); // call to activate
-      //
-      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+  <!-- Start Of Embedded Script -->
+  <script>
+    // document.addEventListener("DOMContentLoaded", function () {
+    //   const loadEl = document.querySelector("#load");
+    // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    // // The Firebase SDK is initialized and available here!
+    //
+    // firebase.auth().onAuthStateChanged(user => { });
+    // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+    // firebase.firestore().doc('/foo/bar').get().then(() => { });
+    // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+    // firebase.messaging().requestPermission().then(() => { });
+    // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+    // firebase.analytics(); // call to activate
+    // firebase.analytics().logEvent('tutorial_completed');
+    // firebase.performance(); // call to activate
+    //
+    // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-      //   try {
-      //     let app = firebase.app();
-      //     let features = [
-      //       "auth",
-      //       "database",
-      //       "firestore",
-      //       "functions",
-      //       "messaging",
-      //       "storage",
-      //       "analytics",
-      //       "remoteConfig",
-      //       "performance",
-      //     ].filter((feature) => typeof app[feature] === "function");
-      //     loadEl.textContent = `Firebase SDK loaded with ${features.join(
-      //       ", "
-      //     )}`;
-      //   } catch (e) {
-      //     console.error(e);
-      //     loadEl.textContent =
-      //       "Error loading the Firebase SDK, check the console.";
-      //   }
-      // });
-    </script>
+    //   try {
+    //     let app = firebase.app();
+    //     let features = [
+    //       "auth",
+    //       "database",
+    //       "firestore",
+    //       "functions",
+    //       "messaging",
+    //       "storage",
+    //       "analytics",
+    //       "remoteConfig",
+    //       "performance",
+    //     ].filter((feature) => typeof app[feature] === "function");
+    //     loadEl.textContent = `Firebase SDK loaded with ${features.join(
+    //       ", "
+    //     )}`;
+    //   } catch (e) {
+    //     console.error(e);
+    //     loadEl.textContent =
+    //       "Error loading the Firebase SDK, check the console.";
+    //   }
+    // });
+  </script>
 
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
 
-    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
 
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
 
-    <script>
-      // Import the firebase-admin library
-      //     const { initializeApp } = require('firebase-admin/app');
+  <script>
+    // Import the firebase-admin library
+    //     const { initializeApp } = require('firebase-admin/app');
 
-      //     // Initialize the app with the appropriate credentials and settings
-      // admin.initializeApp({
-      //   credential: admin.credential.cert({
-      //     projectId: "georgia-sweets",
-      //     privateKey: "<PRIVATE_KEY>",
-      //     clientEmail: "<CLIENT_EMAIL>",
-      //   }),
-      //   databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-      // });
-    </script>
+    //     // Initialize the app with the appropriate credentials and settings
+    // admin.initializeApp({
+    //   credential: admin.credential.cert({
+    //     projectId: "georgia-sweets",
+    //     privateKey: "<PRIVATE_KEY>",
+    //     clientEmail: "<CLIENT_EMAIL>",
+    //   }),
+    //   databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+    // });
+  </script>
 
-    <!-- firebase  -->
-    <script>
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyCSZCOXaSU6iOdCFNgxoRG98PbglqtxUuM",
-        authDomain: "georgia-sweets.firebaseapp.com",
-        projectId: "georgia-sweets",
-        storageBucket: "georgia-sweets.appspot.com",
-        messagingSenderId: "343803898703",
-        appId: "1:343803898703:web:23ffe8467cbb3bc5a1733a",
-        measurementId: "G-DY3NL1MG2X",
-      };
+  <!-- firebase  -->
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyCSZCOXaSU6iOdCFNgxoRG98PbglqtxUuM",
+      authDomain: "georgia-sweets.firebaseapp.com",
+      projectId: "georgia-sweets",
+      storageBucket: "georgia-sweets.appspot.com",
+      messagingSenderId: "343803898703",
+      appId: "1:343803898703:web:23ffe8467cbb3bc5a1733a",
+      measurementId: "G-DY3NL1MG2X",
+    };
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      // const analytics = firebase.getAnalytics(app);
-      // define authentication variable
-      let auth = firebase.auth();
-      // define database variable
-      let db = firebase.firestore();
-      // define a storage reference
-      let ref = firebase.storage().ref();
-    </script>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // const analytics = firebase.getAnalytics(app);
+    // define authentication variable
+    let auth = firebase.auth();
+    // define database variable
+    let db = firebase.firestore();
+    // define a storage reference
+    let ref = firebase.storage().ref();
+  </script>
 
-    <!-- Link to JS file -->
-    <script src="app.js"></script>
-  </body>
+  <!-- Link to JS file -->
+  <script src="app.js"></script>
+</body>
+
 </html>

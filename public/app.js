@@ -130,6 +130,59 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
   shopbtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
+
+
+  let pos = 3 // reference number for correct column positioning
+  let tileCols = document.querySelector('#productCardColumns').querySelectorAll('.column')
+
+  // funciton to generate a product card given card data
+  let productCardGen = function (product) {
+    return `<div class="card productCard">
+    <header class="card-header">
+    <p class="card-header-title">
+      ${product.product_name}
+    </p>
+  </header>
+    <div class="card-image">
+      <figure class="image is-4by3">
+        <img src="${product.main_pic}" alt="Placeholder image" />
+      </figure>
+    </div>
+    <div class="card-content m-3">
+      <!-- <div class="title is-5"><a href="#">Product 1</a></div> -->
+      <!-- the id should be the product document id in firebase -->
+      <div class="is-flex is-justify-content-center">
+        <button class="button productDetailsBtn" id="3sv4woo90QFNpTX2Tgbi">Explore</button>
+      </div>
+
+      <div class="content productCardContent mt-3">
+      ${product.product_description}
+        <br />
+      </div>
+    </div>
+  </div>`
+  }
+
+  db.collection("products")
+    .get()
+    .then((data) => {
+      let docs = data.docs;
+      docs.forEach((doc) => {
+        product = doc.data()
+        let col = tileCols[pos % 3]
+        col.innerHTML += productCardGen(product)
+        pos++
+
+
+
+      });
+    });
+
+
+
+
+
+
 });
 
 // Public gallery Page
@@ -1101,9 +1154,9 @@ function show_users() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((user, index) => {
           html += `
@@ -1520,9 +1573,9 @@ function show_contact_responses() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((response, index) => {
           html += `
@@ -1626,8 +1679,7 @@ function changeContactStatus(id) {
 
 // Delete a contact us form response
 function deleteContact(id) {
-  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {
-  }
+  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {}
   r_e("confirmDeleteContactModal").classList.add("is-active");
   r_e(
     "confirmDeleteContactMessage"
@@ -1747,9 +1799,9 @@ function show_products() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((product, index) => {
           html += `
