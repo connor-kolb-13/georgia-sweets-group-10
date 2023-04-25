@@ -446,10 +446,17 @@ function mngShopBtn() {
   });
   showmodal(manageshoppage);
   hidemodal(dashboardpage);
+  // Update Title text
+  r_e("manageShopTableTitle").innerHTML = "";
   // Hide the product table if it was showing
   if (!r_e("productTable").classList.contains("is-hidden")) {
     r_e("productTable").classList.add("is-hidden");
     r_e("manageProductsPageLinks").classList.add("is-hidden");
+  }
+  // Hide the orders table if it was showing
+  if (!r_e("ordersTable").classList.contains("is-hidden")) {
+    r_e("ordersTable").classList.add("is-hidden");
+    r_e("manageOrdersPageLinks").classList.add("is-hidden");
   }
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
@@ -938,11 +945,19 @@ function get_current_timestamp() {
 
 // Shop Page Work
 r_e("addShopItemBtn").addEventListener("click", () => {
+  r_e("addShopItemModal").classList.add("is-active");
+  // Update Title text
+  r_e("manageShopTableTitle").innerHTML = "";
+  // Hide the orders table if it was showing
+  if (!r_e("ordersTable").classList.contains("is-hidden")) {
+    r_e("ordersTable").classList.add("is-hidden");
+    r_e("manageOrdersPageLinks").classList.add("is-hidden");
+  }
+  // Hide the product table if it was showing
   if (!r_e("productTable").classList.contains("is-hidden")) {
     r_e("productTable").classList.add("is-hidden");
     r_e("manageProductsPageLinks").classList.add("is-hidden");
   }
-  r_e("addShopItemModal").classList.add("is-active");
 });
 
 r_e("addShopItemModalBg").addEventListener("click", () => {
@@ -1735,6 +1750,8 @@ r_e("contactFormResponseModalBg").addEventListener("click", () => {
 
 // Table of products for admin dashboard
 function show_products() {
+  // Update Title text
+  r_e("manageShopTableTitle").innerHTML = "Products";
   const PAGE_SIZE = 10;
   let currentPage = 0;
   let numPages = 0;
@@ -1851,18 +1868,27 @@ function show_products() {
 
 // Show the products table
 r_e("viewShopProductsBtn").addEventListener("click", () => {
+  // Hide the orders table if it was showing
+  if (!r_e("ordersTable").classList.contains("is-hidden")) {
+    r_e("ordersTable").classList.add("is-hidden");
+    r_e("manageOrdersPageLinks").classList.add("is-hidden");
+  }
   r_e("productTable").classList.remove("is-hidden");
   r_e("manageProductsPageLinks").classList.remove("is-hidden");
   show_products();
 });
 
 // View the orders in the shop
-r_e("viewShopOrders").addEventListener("click", () => {
+r_e("viewShopOrdersDash").addEventListener("click", () => {
   // Hide the product table if it was showing
   if (!r_e("productTable").classList.contains("is-hidden")) {
     r_e("productTable").classList.add("is-hidden");
     r_e("manageProductsPageLinks").classList.add("is-hidden");
   }
+  // Show the orders table
+  r_e("ordersTable").classList.remove("is-hidden");
+  r_e("manageOrdersPageLinks").classList.remove("is-hidden");
+  show_orders();
 });
 
 // Edit the Product
@@ -2050,3 +2076,130 @@ r_e("confirmDeleteProductModalBg").addEventListener("click", () => {
 r_e("cancelDeleteProduct").addEventListener("click", () => {
   r_e("confirmDeleteProductModal").classList.remove("is-active");
 });
+
+function show_orders() {
+  // Update Title text
+  r_e("manageShopTableTitle").innerHTML = "Orders";
+  const PAGE_SIZE = 10;
+  let currentPage = 0;
+  let numPages = 0;
+
+  function renderTable(startIndex, numToShow) {
+    db.collection("orders")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        let html = "";
+
+        let endIndex =
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
+
+        mydocs.slice(startIndex, endIndex).forEach((order, index) => {
+          let total_price = 0;
+          let total_products = 0;
+
+          for (let i = 0; i <= order.data().product_ids.length - 1; i++) {
+            total_price +=
+              parseInt(order.data().product_prices[i]) *
+              parseInt(order.data().product_quantities[i]);
+            total_products += parseInt(order.data().product_quantities[i]);
+          }
+
+          html += `
+            <tr>         
+              <td class="has-text-left">${order.id}</td>
+              <td class="has-text-left">${order.data().user_email}</td>
+              <td class="has-text-left">${order.data().order_status}</td>
+              <td class="has-text-center">${order.data().submitted_date}</td>
+              <td class="has-text-center">${
+                order.data().requested_completion_date
+              }</td>
+              <td class="has-text-center">${total_products}</td>
+              <td class="has-text-center">$${total_price}</td>
+              <td class="has-text-center" style="max-height: 3em; overflow: hidden; text-overflow: ellipsis;">${
+                order.data().additional_details
+              }</td>
+
+              <td>
+              
+                <div class="buttons has-addons is-centered">
+                <button class="button is-small" onclick="editOrder('${
+                  order.id
+                }')"><i class="fas fa-edit"></i></button>
+                <button class="button is-danger is-small" onclick="deleteOrder('${
+                  order.id
+                }')">X</button>
+               
+              </div> 
+              
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById("orders_table").innerHTML = html;
+      });
+  }
+
+  function renderPageLinks() {
+    let html = "";
+    for (let i = 0; i < numPages; i++) {
+      html += `
+        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+      `;
+    }
+
+    document.getElementById("manageOrdersPageLinks").innerHTML = html;
+  }
+
+  function showPage(pageNum) {
+    let startIndex = pageNum * PAGE_SIZE;
+    renderTable(startIndex, PAGE_SIZE);
+    currentPage = pageNum;
+    updateNavigation();
+  }
+
+  function updateNavigation() {
+    let prevBtn = document.getElementById("manageOrdersPrevPage");
+    let nextBtn = document.getElementById("manageOrdersNextPage");
+
+    if (prevBtn) {
+      prevBtn.disabled = currentPage === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = currentPage === numPages - 1;
+    }
+
+    let pageLinks = document.querySelectorAll("#manageOrdersPageLinks a");
+    pageLinks.forEach((link) => {
+      if (parseInt(link.dataset.page) === currentPage) {
+        link.classList.add("is-active");
+        link.style.backgroundColor = "#b493db";
+      } else {
+        link.classList.remove("is-active");
+        link.style.backgroundColor = "";
+      }
+    });
+  }
+
+  db.collection("orders")
+    .get()
+    .then((data) => {
+      numPages = Math.ceil(data.docs.length / PAGE_SIZE);
+      renderPageLinks();
+      showPage(0);
+    });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "manageOrdersPrevPage") {
+      showPage(currentPage - 1);
+    } else if (event.target.id === "manageOrdersNextPage") {
+      showPage(currentPage + 1);
+    } else if (event.target.classList.contains("pagination-link")) {
+      showPage(parseInt(event.target.dataset.page));
+    }
+  });
+}

@@ -1395,12 +1395,18 @@
               </div>
               <hr class="mx-6" />
               <div class="buttons is-centered">
-                <div class="button" id="viewShopOrders">View All Orders</div>
+                <div class="button" id="viewShopOrdersDash">
+                  View All Orders
+                </div>
               </div>
             </div>
           </div>
         </div>
-
+        <!-- Table Title -->
+        <div class="section has-text-centered my-0 pt-2 pb-1">
+          <div class="subtitle is-4" id="manageShopTableTitle"></div>
+        </div>
+        <!-- Start Manage Products Table -->
         <table
           class="table mx-auto is-striped is-fullwidth mb-3 mt-4 is-hidden"
           id="productTable"
@@ -1425,6 +1431,35 @@
         <div class="mb-3" id="manageProductsPageLinks"></div>
         <div id="manageProductsNextPage"></div>
         <div id="manageProductsPrevPage"></div>
+        <!-- End Manage Products Table -->
+        <!-- Start Manage Orders Table -->
+
+        <table
+          class="table mx-auto is-striped is-fullwidth mb-3 mt-4 is-hidden"
+          id="ordersTable"
+        >
+          <thead>
+            <!-- Header Row -->
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Date Placed</th>
+              <th>Requested Date</th>
+              <th>Total Products</th>
+              <th>Total Price</th>
+              <th>Additional Details</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="orders_table">
+            <!-- Example Row -->
+          </tbody>
+        </table>
+        <div class="mb-3" id="manageOrdersPageLinks"></div>
+        <div id="manageOrdersNextPage"></div>
+        <div id="manageOrdersPrevPage"></div>
+        <!-- End Manage Orders Table -->
       </div>
     </div>
     <!--End of Manage Shop-->
