@@ -130,6 +130,65 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
   shopbtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
+
+  let pos = 3; // reference number for correct column positioning
+  let tileCols = document
+    .querySelector("#productCardColumns")
+    .querySelectorAll(".column");
+
+  // funciton to generate a product card given card data
+  let productCardGen = function (doc) {
+    let product = doc.data()
+    return `<div class="card productCard"">
+    <header class="card-header">
+    <p class="card-header-title">
+      ${product.product_name}
+    </p>
+  </header>
+    <div class="card-image">
+      <figure class="image is-4by3">
+        <img src="${product.main_pic}" alt="Placeholder image" />
+      </figure>
+    </div>
+    <div class="card-content m-3">
+      <!-- <div class="title is-5"><a href="#">Product 1</a></div> -->
+      <!-- the id should be the product document id in firebase -->
+      <div class="is-flex is-justify-content-center">
+        <button class="button productDetailsBtn" id="${doc.id}">Explore</button>
+      </div>
+
+      <div class="content productCardContent mt-3">
+      ${product.product_description}
+        <br />
+      </div>
+    </div>
+  </div>`
+  }
+
+  let productModalGen = function (doc) {
+    console.log(doc.data())
+  }
+
+  // display all products from the db, generate a modal with additional information
+  db.collection("products")
+    .get()
+    .then((data) => {
+      let docs = data.docs;
+      docs.forEach((doc) => {
+        let col = tileCols[pos % 3]
+        col.innerHTML += productCardGen(doc)
+        pos++
+      });
+
+      let productBtns = document.querySelectorAll(".productDetailsBtn");
+      productBtns.forEach(prod => {
+        prod.addEventListener('click', () => {
+          db.collection('products').doc(prod.id).get()
+            .then(doc => {
+              productModalGen(doc)
+            })
+        });
+      });
 });
 
 // Public gallery Page
@@ -154,6 +213,7 @@ document.querySelector("#gallerybtn").addEventListener("click", () => {
   gallerybtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
+
   load_data("gallery_images", "loc", "gallerypage");
 });
 
@@ -2141,7 +2201,7 @@ function show_orders() {
 
         document.getElementById("orders_table").innerHTML = html;
       });
-  }
+    }
 
   function renderPageLinks() {
     let html = "";
