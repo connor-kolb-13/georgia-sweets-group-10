@@ -428,6 +428,48 @@
   </div>
   <!-- End Confirm Delete User Modal -->
 
+  <!-- Start Product Modal -->
+  <div class="modal" id="productModal">
+    <div class="modal-background" id="addShopItemModalBg"></div>
+    <div class="modal-content has-background-white-ter p-4">
+      <form id="addCartForm">
+        <!-- Item Name -->
+        <div class="title has-text-weight-bold is-3" id="productModalName">Product Name</div>
+        <div class="title has-text-weight-bold is-6 mb-0">Description</div>
+        <p id="productModalDescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ipsa ratione
+          quos odit veritatis
+          necessitatibus debitis delectus aperiam. Quis dicta tenetur aliquam itaque nulla beatae, rem odit dolore
+          eligendi nostrum?</p>
+
+        <!-- Quantity -->
+        <div class="columns is-flex">
+          <div class="column is-6">
+            <div class="field mt-1">
+              <label class="label">Order Quantity</label>
+              <div class="control">
+                <input class="input" type="number" placeholder="100" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Image -->
+
+        <div class="container m-0 has-text-centered">
+          <!-- submit button -->
+          <button class="button" style="background-color: #b493db" id="addCartBtn">
+            Add to Cart
+          </button>
+          <!-- reset button -->
+          <button class="button ml-3" id="resetProductBtn" style="background-color: whitesmoke">
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- End Product Modal -->
+
   <!-- Start Add Shop Item Modal -->
   <div class="modal" id="addShopItemModal">
     <div class="modal-background" id="addShopItemModalBg"></div>
