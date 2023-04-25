@@ -138,7 +138,7 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
 
   // funciton to generate a product card given card data
   let productCardGen = function (doc) {
-    let product = doc.data()
+    let product = doc.data();
     return `<div class="card productCard"">
     <header class="card-header">
     <p class="card-header-title">
@@ -153,8 +153,9 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
     <div class="card-content m-3">
       <!-- <div class="title is-5"><a href="#">Product 1</a></div> -->
       <!-- the id should be the product document id in firebase -->
-      <div class="is-flex is-justify-content-center">
+      <div class="buttons is-justify-content-center">
         <button class="button productDetailsBtn" id="${doc.id}">Explore</button>
+        <button class="button" onclick="addToCart('${doc.id}')">Add to Cart</button>
       </div>
 
       <div class="content productCardContent mt-3">
@@ -162,17 +163,17 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
         <br />
       </div>
     </div>
-  </div>`
-  }
+  </div>`;
+  };
 
   let productModalGen = function (doc) {
-    product = doc.data()
-    console.log(product)
+    product = doc.data();
+    console.log(product);
     // fill in the modal with the correct information
 
     // display the modal
     // add listeners for cart functionality
-  }
+  };
 
   // display all products from the db, generate a modal with additional information
   db.collection("products")
@@ -180,31 +181,29 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
     .then((data) => {
       let docs = data.docs;
       docs.forEach((doc) => {
-        let col = tileCols[pos % 3]
-        col.innerHTML += productCardGen(doc)
-        pos++
+        let col = tileCols[pos % 3];
+        col.innerHTML += productCardGen(doc);
+        pos++;
       });
 
       let productBtns = document.querySelectorAll(".productDetailsBtn");
-      productBtns.forEach(prod => {
-        prod.addEventListener('click', () => {
-          db.collection('products').doc(prod.id).get()
-            .then(doc => {
-              productModalGen(doc)
-            })
+      productBtns.forEach((prod) => {
+        prod.addEventListener("click", () => {
+          db.collection("products")
+            .doc(prod.id)
+            .get()
+            .then((doc) => {
+              productModalGen(doc);
+            });
         });
       });
-
-
     });
-
-
-
-
-
-
-
 });
+
+// Add products to cart
+function addToCart(id) {
+  // Alex work here
+}
 
 // Public gallery Page
 document.querySelector("#gallerybtn").addEventListener("click", () => {
@@ -1191,9 +1190,9 @@ function show_users() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((user, index) => {
           html += `
@@ -1610,9 +1609,9 @@ function show_contact_responses() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((response, index) => {
           html += `
@@ -1716,7 +1715,8 @@ function changeContactStatus(id) {
 
 // Delete a contact us form response
 function deleteContact(id) {
-  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {}
+  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {
+  }
   r_e("confirmDeleteContactModal").classList.add("is-active");
   r_e(
     "confirmDeleteContactMessage"
@@ -1838,9 +1838,9 @@ function show_products() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((product, index) => {
           html += `
@@ -2166,9 +2166,9 @@ function show_orders() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((order, index) => {
           let total_price = 0;
