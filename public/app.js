@@ -166,7 +166,12 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
   }
 
   let productModalGen = function (doc) {
-    console.log(doc.data())
+    product = doc.data()
+    console.log(product)
+    // fill in the modal with the correct information
+
+    // display the modal
+    // add listeners for cart functionality
   }
 
   // display all products from the db, generate a modal with additional information
@@ -189,6 +194,16 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
             })
         });
       });
+
+
+    });
+
+
+
+
+
+
+
 });
 
 // Public gallery Page
@@ -213,7 +228,6 @@ document.querySelector("#gallerybtn").addEventListener("click", () => {
   gallerybtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
-
   load_data("gallery_images", "loc", "gallerypage");
 });
 
@@ -1018,6 +1032,7 @@ r_e("addShopItemBtn").addEventListener("click", () => {
     r_e("productTable").classList.add("is-hidden");
     r_e("manageProductsPageLinks").classList.add("is-hidden");
   }
+  r_e("addShopItemModal").classList.add("is-active");
 });
 
 r_e("addShopItemModalBg").addEventListener("click", () => {
@@ -1176,9 +1191,9 @@ function show_users() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((user, index) => {
           html += `
@@ -1595,9 +1610,9 @@ function show_contact_responses() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((response, index) => {
           html += `
@@ -1701,8 +1716,7 @@ function changeContactStatus(id) {
 
 // Delete a contact us form response
 function deleteContact(id) {
-  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {
-  }
+  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {}
   r_e("confirmDeleteContactModal").classList.add("is-active");
   r_e(
     "confirmDeleteContactMessage"
@@ -1824,9 +1838,9 @@ function show_products() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((product, index) => {
           html += `
@@ -2152,9 +2166,9 @@ function show_orders() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((order, index) => {
           let total_price = 0;
@@ -2201,7 +2215,7 @@ function show_orders() {
 
         document.getElementById("orders_table").innerHTML = html;
       });
-    }
+  }
 
   function renderPageLinks() {
     let html = "";
