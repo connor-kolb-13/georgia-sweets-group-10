@@ -138,7 +138,7 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
 
   // funciton to generate a product card given card data
   let productCardGen = function (doc) {
-    let product = doc.data()
+    let product = doc.data();
     return `<div class="card productCard"">
     <header class="card-header">
     <p class="card-header-title">
@@ -162,8 +162,8 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
         <br />
       </div>
     </div>
-  </div>`
-  }
+  </div>`;
+  };
 
   let clearProductModal = function () {
     r_e('viewProductModal').classList.remove('is-active')
@@ -306,25 +306,44 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
     .then((data) => {
       let docs = data.docs;
       docs.forEach((doc) => {
-        let col = tileCols[pos % 3]
-        col.innerHTML += productCardGen(doc)
-        pos++
+        let col = tileCols[pos % 3];
+        col.innerHTML += productCardGen(doc);
+        pos++;
       });
 
       let productBtns = document.querySelectorAll(".productDetailsBtn");
-      productBtns.forEach(prod => {
-        prod.addEventListener('click', () => {
-          db.collection('products').doc(prod.id).get()
-            .then(doc => {
-              productModalGen(doc)
-            })
+      productBtns.forEach((prod) => {
+        prod.addEventListener("click", () => {
+          db.collection("products")
+            .doc(prod.id)
+            .get()
+            .then((doc) => {
+              productModalGen(doc);
+            });
         });
       });
-
-
     });
+});
 
+// Add products to cart
+function addToCart(id) {
+  // Alex work here
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
 
+}
+
+// Shopping cart js
+r_e("shoppingCartBtn").addEventListener("click", () => {
+  r_e("shoppingCartModal").classList.add("is-active");
+});
+
+// when the user clicks on the backgorund, hide the modal
+r_e("shoppingCartModalBg").addEventListener("click", () => {
+  r_e("shoppingCartModal").classList.remove("is-active");
 });
 
 
