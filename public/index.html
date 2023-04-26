@@ -7,6 +7,7 @@
   <title>Georgia Sweets</title>
   <link rel="icon" href="roundedLogo.png" />
   <link rel="custom" href="style.css" />
+  <link rel="stylesheet" href="style.css" />
 
   <!-- update the version number as needed -->
   <!-- <script defer src="/__/firebase/9.17.1/firebase-app-compat.js"></script> -->
@@ -426,6 +427,80 @@
     </div>
   </div>
   <!-- End Confirm Delete User Modal -->
+
+  <!-- Start View Product Modal -->
+  <div class="modal" id="viewProductModal">
+    <div class="modal-background" id="viewProductModalBg"></div>
+    <div class="modal-content has-background-white-ter p-4">
+      <div class="title is-3 has-text-weight-bold" id="viewProductModalName">Product Name</div>
+      <div class="subtitle is-6 mt-1" id="viewProductModalDescription">Lorem ipsum dolor sit amet consectetur
+        adipisicing
+        elit.
+        Consequatur modi necessitatibus eveniet distinctio tenetur quae corporis, aliquid ducimus est adipisci quod
+        laboriosam minus sapiente deleniti recusandae, voluptate expedita fugiat. Tenetur.</div>
+      <div class="columns is-flex">
+        <div class="column">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Current Inventory</p>
+              <p class="title" id="viewProductModalInventory">3,456</p>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Unit Price</p>
+              <p class="title" id="viewProductModalPrice">$4</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <form id="viewProductForm">
+        <!-- Item Description -->
+        <!-- Item Name -->
+        <div class="field">
+          <div class="columns p-5">
+            <div class="column">
+              <div class="field has-addons">
+                <p class="control">
+                  <input class="input" type="text" id="viewProductQuantity" placeholder="30">
+                </p>
+                <p class="control">
+                  <a class="button is-info" id="viewProductQtyBtn">
+                    View Quantity
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="column">
+              <div class="box p-2 has-text-weight-light has-text-centered has-text-red" id="viewProductQuantityView">
+                enter
+                quantity
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-grouped is-grouped-centered">
+          <p class="control">
+            <button class="button is-primary" id="viewProductAddCartBtn" disabled>
+              Add to Cart
+            </button>
+          </p>
+        </div>
+    </div>
+
+  </div>
+  <!-- Inventory Count -->
+  </form>
+  </div>
+  </div>
+
+
+  <!-- End Product Modal -->
+
+
 
   <!-- Start Add Shop Item Modal -->
   <div class="modal" id="addShopItemModal">

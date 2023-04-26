@@ -154,7 +154,7 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
       <!-- <div class="title is-5"><a href="#">Product 1</a></div> -->
       <!-- the id should be the product document id in firebase -->
       <div class="is-flex is-justify-content-center">
-        <button class="button productDetailsBtn" id="${doc.id}">Explore</button>
+        <button class="button productDetailsBtn" id="${doc.id}">Add to Cart</button>
       </div>
 
       <div class="content productCardContent mt-3">
@@ -165,14 +165,140 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
   </div>`
   }
 
+  let clearProductModal = function () {
+    r_e('viewProductModal').classList.remove('is-active')
+    r_e('viewProductQuantityView').classList.remove('has-text-danger', 'has-text-black')
+    r_e('viewProductQuantityView').innerHTML = 'enter quantity'
+    r_e('viewProductQuantity').value = ''
+
+    r_e('viewProductModalName').innerHTML = ''
+    r_e('viewProductModalDescription').innerHTML = ''
+    r_e('viewProductModalInventory').innerHTML = ''
+    r_e('viewProductModalPrice').innerHTML = ''
+
+    r_e('viewProductAddCartBtn').setAttribute('disabled', true)
+    r_e('viewProductAddCartBtn').classList.remove('is-loading')
+  }
+
+  let editCart = function (doc, qty, orderPrice) {
+    let product = doc.data()
+    // create or edit a users cart 
+    let email = auth.currentUser.email
+
+    db.collection("orders")
+      .where('user_email', '==', email)
+      .where('order_status', '==', 'CART')
+      .get()
+      .then((data) => {
+        if (data.docs.length == 1) { // if the user already has a CART order then update it
+          let order = data.docs[0].data()
+          if (order.product_ids.includes(doc.id.toString())) {
+            let productIndex = order.product_ids.indexOf(doc.id);
+            order.product_quantities[productIndex] += qty
+            db.collection('orders').doc(data.docs[0].id)
+              .update({
+                product_quantities: order.product_quantities
+              })
+              .then()
+          } else {
+            // update arrays
+            order.product_prices.push(orderPrice)
+            order.product_quantities.push(qty)
+            order.product_ids.push(doc.id)
+
+            db.collection('orders').doc(data.docs[0].id)
+              .update({
+                product_prices: order.product_prices,
+                product_quantities: order.product_quantities,
+                product_ids: order.product_ids,
+              })
+          }
+
+        } else { // if the user does not have a CART order then create one
+          db.collection('orders').add({
+            user_email: email,
+            product_prices: [product.price],
+            product_quantities: [qty],
+            product_ids: [doc.id],
+            order_status: 'CART'
+          })
+        }
+
+        // adding to cart completed
+      }).then(() => {
+        clearProductModal()
+        configure_message_bar(`Product added to cart`)
+      })
+
+
+  }
+
   let productModalGen = function (doc) {
     product = doc.data()
-    console.log(product)
+    quantity = null
+    currentDoc = doc
+    price = product.price
+    let sale = product.on_sale
+
+    if (sale) {
+      price = product.sale_price
+      r_e('viewProductModalPrice').classList.add('has-text-primary')
+    } else {
+      r_e('viewProductModalPrice').classList.remove('has-text-primary')
+    }
+
     // fill in the modal with the correct information
+    r_e('viewProductModalName').innerHTML = product.product_name
+    r_e('viewProductModalDescription').innerHTML = product.product_description
+    r_e('viewProductModalInventory').innerHTML = product.current_inventory
+    r_e('viewProductModalPrice').innerHTML = `$${price}`
+
+    // inner modal functionality
+
+    r_e('viewProductModalBg').addEventListener('click', () => {
+      clearProductModal()
+    })
+    r_e('viewProductQtyBtn').addEventListener('click', () => {
+      requestedQty = r_e('viewProductQuantity').value;
+
+      // check if requestedQty is not blank, an integer, and less than products.current_inventory
+      if (auth.currentUser) {
+
+
+        if (requestedQty !== '' && Number.isInteger(Number(requestedQty)) && Number(requestedQty) < product.current_inventory) {
+          r_e('viewProductQuantityView').classList.remove('has-text-grey', 'has-text-danger')
+          r_e('viewProductQuantityView').classList.add('has-text-black')
+          r_e('viewProductQuantityView').innerHTML =
+            `<span class="has-text-weight-medium has-text-info">${requestedQty}</span> item(s) totaling <span class="has-text-weight-medium has-text-info">$${(requestedQty * price).toFixed(2)}</span>`;
+          r_e('viewProductAddCartBtn').removeAttribute('disabled')
+          quantity = parseInt(requestedQty)
+        } else {
+          r_e('viewProductQuantityView').classList.remove('has-text-grey')
+          r_e('viewProductQuantityView').classList.add('has-text-danger')
+          r_e('viewProductQuantityView').innerHTML = 'Invalid Quantity'
+          r_e('viewProductAddCartBtn').setAttribute('disabled', true)
+          quantity = null
+        }
+      } else {
+        r_e('viewProductQuantityView').classList.remove('has-text-grey')
+        r_e('viewProductQuantityView').classList.add('has-text-danger')
+        r_e('viewProductQuantityView').innerHTML = 'Login to order'
+      }
+    });
+
+
+
 
     // display the modal
-    // add listeners for cart functionality
+    r_e('viewProductModal').classList.add('is-active')
   }
+
+  r_e('viewProductAddCartBtn').addEventListener('click', () => {
+    editCart(currentDoc, quantity, price)
+    r_e('viewProductAddCartBtn').setAttribute('disabled', true)
+    r_e('viewProductAddCartBtn').classList.add('is-loading')
+
+  })
 
   // display all products from the db, generate a modal with additional information
   db.collection("products")
@@ -199,12 +325,8 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
     });
 
 
-
-
-
-
-
 });
+
 
 // Public gallery Page
 document.querySelector("#gallerybtn").addEventListener("click", () => {
