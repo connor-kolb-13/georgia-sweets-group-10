@@ -300,6 +300,13 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
 
   })
 
+  // clear all card columns
+  r_e('productCardColumns').querySelectorAll('.column').forEach((col) => {
+    col.innerHTML = ''
+  })
+
+
+
   // display all products from the db, generate a modal with additional information
   db.collection("products")
     .get()
