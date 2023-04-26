@@ -359,6 +359,7 @@ r_e("shoppingCartBtn").addEventListener("click", () => {
           let products = cart.product_ids
           let prices = cart.product_prices
           let quantities = cart.product_quantities
+          let totalCost = 0
           for (let i = 0; i < products.length; i++) {
             get_firebase_data('products', products[i], 'product_name').then((productName) => {
               r_e('cartTable').innerHTML +=
@@ -368,13 +369,22 @@ r_e("shoppingCartBtn").addEventListener("click", () => {
                 <td>${quantities[i]}</td>
                 <td><button class="button is-small is-danger cartDeleteBtn" id="${i}">Remove</button></td>
               </tr>`
-              r_e('cartTotalCost').innerHTML = `$${sum(prices)}`
-              r_e('cartTotalQuantity').innerHTML = sum(quantities)
+              totalCost = totalCost + (prices[i] * quantities[i])
+              r_e('cartTotalCost').innerHTML = `$${totalCost}`
 
             })
           }
 
+
+
+          r_e('cartTotalQuantity').innerHTML = sum(quantities)
+
           r_e('cartTable').addEventListener('click', (event) => {
+
+            let lessCost = (parseInt(prices[i]) * parseInt(quantities[i]))
+
+
+
             prices.splice(event.target.id, 1)
             products.splice(event.target.id, 1)
             quantities.splice(event.target.id, 1)
@@ -385,11 +395,12 @@ r_e("shoppingCartBtn").addEventListener("click", () => {
                 product_ids: products,
               }).then(() => {
                 event.target.closest('tr').remove();
-
-                r_e('cartTotalCost').innerHTML = `$${sum(prices)}`
+                totalCost = totalCost - lessCost
+                if (isNaN(totalCost) || totalCost < 0) {
+                  totalCost = 0;
+                }
+                r_e('cartTotalCost').innerHTML = `$${totalCost}`
                 r_e('cartTotalQuantity').innerHTML = sum(quantities)
-
-
               })
             }
           });
