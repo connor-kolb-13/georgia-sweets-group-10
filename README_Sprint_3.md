@@ -19,6 +19,7 @@ https://github.com/connor-kolb-13/georgia-sweets-group-10
 7. As an admin, I want a website that is functional for my use and easily adaptable.
 
 # User Stories Tasks Chart
+<img width="639" alt="Screenshot 2023-04-26 at 1 15 26 PM" src="https://user-images.githubusercontent.com/93365258/234666549-fbd4e47d-e93f-4621-a6bc-e7b61bbfcfc0.png">
 
 
 
