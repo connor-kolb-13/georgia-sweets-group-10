@@ -166,146 +166,153 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
   };
 
   let clearProductModal = function () {
-    r_e('viewProductModal').classList.remove('is-active')
-    r_e('viewProductQuantityView').classList.remove('has-text-danger', 'has-text-black')
-    r_e('viewProductQuantityView').innerHTML = 'enter quantity'
-    r_e('viewProductQuantity').value = ''
+    r_e("viewProductModal").classList.remove("is-active");
+    r_e("viewProductQuantityView").classList.remove(
+      "has-text-danger",
+      "has-text-black"
+    );
+    r_e("viewProductQuantityView").innerHTML = "enter quantity";
+    r_e("viewProductQuantity").value = "";
 
-    r_e('viewProductModalName').innerHTML = ''
-    r_e('viewProductModalDescription').innerHTML = ''
-    r_e('viewProductModalInventory').innerHTML = ''
-    r_e('viewProductModalPrice').innerHTML = ''
+    r_e("viewProductModalName").innerHTML = "";
+    r_e("viewProductModalDescription").innerHTML = "";
+    r_e("viewProductModalInventory").innerHTML = "";
+    r_e("viewProductModalPrice").innerHTML = "";
 
-    r_e('viewProductAddCartBtn').setAttribute('disabled', true)
-    r_e('viewProductAddCartBtn').classList.remove('is-loading')
-  }
+    r_e("viewProductAddCartBtn").setAttribute("disabled", true);
+    r_e("viewProductAddCartBtn").classList.remove("is-loading");
+  };
 
   let editCart = function (doc, qty, orderPrice) {
-    let product = doc.data()
-    // create or edit a users cart 
-    let email = auth.currentUser.email
+    let product = doc.data();
+    // create or edit a users cart
+    let email = auth.currentUser.email;
 
     db.collection("orders")
-      .where('user_email', '==', email)
-      .where('order_status', '==', 'CART')
+      .where("user_email", "==", email)
+      .where("order_status", "==", "CART")
       .get()
       .then((data) => {
-        if (data.docs.length == 1) { // if the user already has a CART order then update it
-          let order = data.docs[0].data()
+        if (data.docs.length == 1) {
+          // if the user already has a CART order then update it
+          let order = data.docs[0].data();
           if (order.product_ids.includes(doc.id.toString())) {
             let productIndex = order.product_ids.indexOf(doc.id);
-            order.product_quantities[productIndex] += qty
-            db.collection('orders').doc(data.docs[0].id)
+            order.product_quantities[productIndex] += qty;
+            db.collection("orders")
+              .doc(data.docs[0].id)
               .update({
-                product_quantities: order.product_quantities
+                product_quantities: order.product_quantities,
               })
-              .then()
+              .then();
           } else {
             // update arrays
-            order.product_prices.push(orderPrice)
-            order.product_quantities.push(qty)
-            order.product_ids.push(doc.id)
+            order.product_prices.push(orderPrice);
+            order.product_quantities.push(qty);
+            order.product_ids.push(doc.id);
 
-            db.collection('orders').doc(data.docs[0].id)
-              .update({
-                product_prices: order.product_prices,
-                product_quantities: order.product_quantities,
-                product_ids: order.product_ids,
-              })
+            db.collection("orders").doc(data.docs[0].id).update({
+              product_prices: order.product_prices,
+              product_quantities: order.product_quantities,
+              product_ids: order.product_ids,
+            });
           }
-
-        } else { // if the user does not have a CART order then create one
-          db.collection('orders').add({
+        } else {
+          // if the user does not have a CART order then create one
+          db.collection("orders").add({
             user_email: email,
             product_prices: [product.price],
             product_quantities: [qty],
             product_ids: [doc.id],
-            order_status: 'CART'
-          })
+            order_status: "CART",
+          });
         }
 
         // adding to cart completed
-      }).then(() => {
-        clearProductModal()
-        configure_message_bar(`Product added to cart`)
       })
-
-
-  }
+      .then(() => {
+        clearProductModal();
+        configure_message_bar(`Product added to cart`);
+      });
+  };
 
   let productModalGen = function (doc) {
-    product = doc.data()
-    quantity = null
-    currentDoc = doc
-    price = product.price
-    let sale = product.on_sale
+    product = doc.data();
+    quantity = null;
+    currentDoc = doc;
+    price = product.price;
+    let sale = product.on_sale;
 
     if (sale) {
-      price = product.sale_price
-      r_e('viewProductModalPrice').classList.add('has-text-primary')
+      price = product.sale_price;
+      r_e("viewProductModalPrice").classList.add("has-text-primary");
     } else {
-      r_e('viewProductModalPrice').classList.remove('has-text-primary')
+      r_e("viewProductModalPrice").classList.remove("has-text-primary");
     }
 
     // fill in the modal with the correct information
-    r_e('viewProductModalName').innerHTML = product.product_name
-    r_e('viewProductModalDescription').innerHTML = product.product_description
-    r_e('viewProductModalInventory').innerHTML = product.current_inventory
-    r_e('viewProductModalPrice').innerHTML = `$${price}`
+    r_e("viewProductModalName").innerHTML = product.product_name;
+    r_e("viewProductModalDescription").innerHTML = product.product_description;
+    r_e("viewProductModalInventory").innerHTML = product.current_inventory;
+    r_e("viewProductModalPrice").innerHTML = `$${price}`;
 
     // inner modal functionality
 
-    r_e('viewProductModalBg').addEventListener('click', () => {
-      clearProductModal()
-    })
-    r_e('viewProductQtyBtn').addEventListener('click', () => {
-      requestedQty = r_e('viewProductQuantity').value;
+    r_e("viewProductModalBg").addEventListener("click", () => {
+      clearProductModal();
+    });
+    r_e("viewProductQtyBtn").addEventListener("click", () => {
+      requestedQty = r_e("viewProductQuantity").value;
 
       // check if requestedQty is not blank, an integer, and less than products.current_inventory
       if (auth.currentUser) {
-
-
-        if (requestedQty !== '' && Number.isInteger(Number(requestedQty)) && Number(requestedQty) < product.current_inventory) {
-          r_e('viewProductQuantityView').classList.remove('has-text-grey', 'has-text-danger')
-          r_e('viewProductQuantityView').classList.add('has-text-black')
-          r_e('viewProductQuantityView').innerHTML =
-            `<span class="has-text-weight-medium has-text-info">${requestedQty}</span> item(s) totaling <span class="has-text-weight-medium has-text-info">$${(requestedQty * price).toFixed(2)}</span>`;
-          r_e('viewProductAddCartBtn').removeAttribute('disabled')
-          quantity = parseInt(requestedQty)
+        if (
+          requestedQty !== "" &&
+          Number.isInteger(Number(requestedQty)) &&
+          Number(requestedQty) < product.current_inventory
+        ) {
+          r_e("viewProductQuantityView").classList.remove(
+            "has-text-grey",
+            "has-text-danger"
+          );
+          r_e("viewProductQuantityView").classList.add("has-text-black");
+          r_e(
+            "viewProductQuantityView"
+          ).innerHTML = `<span class="has-text-weight-medium has-text-info">${requestedQty}</span> item(s) totaling <span class="has-text-weight-medium has-text-info">$${(
+            requestedQty * price
+          ).toFixed(2)}</span>`;
+          r_e("viewProductAddCartBtn").removeAttribute("disabled");
+          quantity = parseInt(requestedQty);
         } else {
-          r_e('viewProductQuantityView').classList.remove('has-text-grey')
-          r_e('viewProductQuantityView').classList.add('has-text-danger')
-          r_e('viewProductQuantityView').innerHTML = 'Invalid Quantity'
-          r_e('viewProductAddCartBtn').setAttribute('disabled', true)
-          quantity = null
+          r_e("viewProductQuantityView").classList.remove("has-text-grey");
+          r_e("viewProductQuantityView").classList.add("has-text-danger");
+          r_e("viewProductQuantityView").innerHTML = "Invalid Quantity";
+          r_e("viewProductAddCartBtn").setAttribute("disabled", true);
+          quantity = null;
         }
       } else {
-        r_e('viewProductQuantityView').classList.remove('has-text-grey')
-        r_e('viewProductQuantityView').classList.add('has-text-danger')
-        r_e('viewProductQuantityView').innerHTML = 'Sign in to order'
+        r_e("viewProductQuantityView").classList.remove("has-text-grey");
+        r_e("viewProductQuantityView").classList.add("has-text-danger");
+        r_e("viewProductQuantityView").innerHTML = "Sign in to order";
       }
     });
 
-
-
-
     // display the modal
-    r_e('viewProductModal').classList.add('is-active')
-  }
+    r_e("viewProductModal").classList.add("is-active");
+  };
 
-  r_e('viewProductAddCartBtn').addEventListener('click', () => {
-    editCart(currentDoc, quantity, price)
-    r_e('viewProductAddCartBtn').setAttribute('disabled', true)
-    r_e('viewProductAddCartBtn').classList.add('is-loading')
-
-  })
+  r_e("viewProductAddCartBtn").addEventListener("click", () => {
+    editCart(currentDoc, quantity, price);
+    r_e("viewProductAddCartBtn").setAttribute("disabled", true);
+    r_e("viewProductAddCartBtn").classList.add("is-loading");
+  });
 
   // clear all card columns
-  r_e('productCardColumns').querySelectorAll('.column').forEach((col) => {
-    col.innerHTML = ''
-  })
-
-
+  r_e("productCardColumns")
+    .querySelectorAll(".column")
+    .forEach((col) => {
+      col.innerHTML = "";
+    });
 
   // display all products from the db, generate a modal with additional information
   db.collection("products")
@@ -340,105 +347,90 @@ function addToCart(id) {
       hidemodal(page);
     }
   });
-
 }
 
-// Shopping cart 
+// Shopping cart
 
 let sum = function (numbers) {
   return numbers.reduce((accumulator, currentValue) => {
     return parseInt(accumulator) + parseInt(currentValue);
   }, 0);
-}
+};
 
 r_e("shoppingCartBtn").addEventListener("click", () => {
-  let currentUser = auth.currentUser
+  let currentUser = auth.currentUser;
   if (currentUser) {
     r_e("shoppingCartModal").classList.add("is-active");
 
-    db.collection('orders')
-      .where('user_email', '==', currentUser.email)
-      .where('order_status', '==', 'CART')
+    db.collection("orders")
+      .where("user_email", "==", currentUser.email)
+      .where("order_status", "==", "CART")
       .get()
       .then((data) => {
         if (data.docs.length == 1) {
-          let cart = data.docs[0].data()
-          let products = cart.product_ids
-          let prices = cart.product_prices
-          let quantities = cart.product_quantities
-          let totalCost = 0
+          let cart = data.docs[0].data();
+          let products = cart.product_ids;
+          let prices = cart.product_prices;
+          let quantities = cart.product_quantities;
+          let totalCost = 0;
           for (let i = 0; i < products.length; i++) {
-            get_firebase_data('products', products[i], 'product_name').then((productName) => {
-              r_e('cartTable').innerHTML +=
-                `<tr>
+            get_firebase_data("products", products[i], "product_name").then(
+              (productName) => {
+                r_e("cartTable").innerHTML += `<tr>
                 <td>${productName}</td>
                 <td>${prices[i]}</td>
                 <td>${quantities[i]}</td>
                 <td><button class="button is-small is-danger cartDeleteBtn" id="${i}">Remove</button></td>
-              </tr>`
-              totalCost = totalCost + (prices[i] * quantities[i])
-              r_e('cartTotalCost').innerHTML = `$${totalCost}`
-
-            })
+              </tr>`;
+                totalCost = totalCost + prices[i] * quantities[i];
+                r_e("cartTotalCost").innerHTML = `$${totalCost}`;
+              }
+            );
           }
 
+          r_e("cartTotalQuantity").innerHTML = sum(quantities);
 
+          r_e("cartTable").addEventListener("click", (event) => {
+            let lessCost = parseInt(prices[i]) * parseInt(quantities[i]);
 
-          r_e('cartTotalQuantity').innerHTML = sum(quantities)
-
-          r_e('cartTable').addEventListener('click', (event) => {
-
-            let lessCost = (parseInt(prices[i]) * parseInt(quantities[i]))
-
-
-
-            prices.splice(event.target.id, 1)
-            products.splice(event.target.id, 1)
-            quantities.splice(event.target.id, 1)
-            if (event.target.classList.contains('cartDeleteBtn')) {
-              db.collection('orders').doc(data.docs[0].id).update({
-                product_prices: prices,
-                product_quantities: quantities,
-                product_ids: products,
-              }).then(() => {
-                event.target.closest('tr').remove();
-                totalCost = totalCost - lessCost
-                if (isNaN(totalCost) || totalCost < 0) {
-                  totalCost = 0;
-                }
-                r_e('cartTotalCost').innerHTML = `$${totalCost}`
-                r_e('cartTotalQuantity').innerHTML = sum(quantities)
-              })
+            prices.splice(event.target.id, 1);
+            products.splice(event.target.id, 1);
+            quantities.splice(event.target.id, 1);
+            if (event.target.classList.contains("cartDeleteBtn")) {
+              db.collection("orders")
+                .doc(data.docs[0].id)
+                .update({
+                  product_prices: prices,
+                  product_quantities: quantities,
+                  product_ids: products,
+                })
+                .then(() => {
+                  event.target.closest("tr").remove();
+                  totalCost = totalCost - lessCost;
+                  if (isNaN(totalCost) || totalCost < 0) {
+                    totalCost = 0;
+                  }
+                  r_e("cartTotalCost").innerHTML = `$${totalCost}`;
+                  r_e("cartTotalQuantity").innerHTML = sum(quantities);
+                });
             }
           });
-
-
-
-
         } else {
           // nothing in the cart
         }
-
-      })
-
-
-
-
+      });
   } else {
-    configure_message_bar('You must be signed in to access the cart')
+    configure_message_bar("You must be signed in to access the cart");
   }
-
 });
 
 // when the user clicks on the backgorund, hide the modal
 r_e("shoppingCartModalBg").addEventListener("click", () => {
   r_e("shoppingCartModal").classList.remove("is-active");
-  r_e("cartTotalCost").innerHTML = '$0'
-  r_e("cartTotalQuantity").innerHTML = '0'
-  r_e('cartTable').innerHTML = ''
-
+  r_e("cartTotalCost").innerHTML = "$0";
+  r_e("cartTotalQuantity").innerHTML = "0";
+  r_e("cartTable").innerHTML = "";
 });
-
 
 // Public gallery Page
 document.querySelector("#gallerybtn").addEventListener("click", () => {
@@ -1425,9 +1417,9 @@ function show_users() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((user, index) => {
           html += `
@@ -1844,9 +1836,9 @@ function show_contact_responses() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((response, index) => {
           html += `
@@ -1950,7 +1942,8 @@ function changeContactStatus(id) {
 
 // Delete a contact us form response
 function deleteContact(id) {
-  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {}
+  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {
+  }
   r_e("confirmDeleteContactModal").classList.add("is-active");
   r_e(
     "confirmDeleteContactMessage"
@@ -2072,9 +2065,9 @@ function show_products() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((product, index) => {
           html += `
@@ -2400,9 +2393,9 @@ function show_orders() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((order, index) => {
           let total_price = 0;
@@ -2511,3 +2504,12 @@ function show_orders() {
     }
   });
 }
+
+r_e("submitOrderbtn").addEventListener("click", () => {
+  db.collection("orders")
+    .doc(data.docs[0].id)
+    .update({
+      order_status: "Order Placed",
+    })
+    .then();
+});
