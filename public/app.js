@@ -2504,12 +2504,3 @@ function show_orders() {
     }
   });
 }
-
-r_e("submitOrderbtn").addEventListener("click", () => {
-  db.collection("orders")
-    .doc(data.docs[0].id)
-    .update({
-      order_status: "Order Placed",
-    })
-    .then();
-});
