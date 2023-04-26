@@ -599,7 +599,40 @@
   <div class="modal" id="shoppingCartModal">
     <div class="modal-background" id="shoppingCartModalBg"></div>
     <div class="modal-content has-background-white-ter p-4">
-      <div class="container m-0 has-text-centered">
+      <div class="box">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Total Cost</p>
+                <p class="title" id="cartTotalCost">$0</p>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Total Quantity</p>
+                <p class="title" id="cartTotalQuantity">0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <table class="table is-fullwidth">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="cartTable">
+
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

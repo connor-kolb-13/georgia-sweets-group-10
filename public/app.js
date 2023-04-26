@@ -282,7 +282,7 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
       } else {
         r_e('viewProductQuantityView').classList.remove('has-text-grey')
         r_e('viewProductQuantityView').classList.add('has-text-danger')
-        r_e('viewProductQuantityView').innerHTML = 'Login to order'
+        r_e('viewProductQuantityView').innerHTML = 'Sign in to order'
       }
     });
 
@@ -336,14 +336,89 @@ function addToCart(id) {
 
 }
 
-// Shopping cart js
+// Shopping cart 
+
+let sum = function (numbers) {
+  return numbers.reduce((accumulator, currentValue) => {
+    return parseInt(accumulator) + parseInt(currentValue);
+  }, 0);
+}
+
 r_e("shoppingCartBtn").addEventListener("click", () => {
-  r_e("shoppingCartModal").classList.add("is-active");
+  let currentUser = auth.currentUser
+  if (currentUser) {
+    r_e("shoppingCartModal").classList.add("is-active");
+
+    db.collection('orders')
+      .where('user_email', '==', currentUser.email)
+      .where('order_status', '==', 'CART')
+      .get()
+      .then((data) => {
+        if (data.docs.length == 1) {
+          let cart = data.docs[0].data()
+          let products = cart.product_ids
+          let prices = cart.product_prices
+          let quantities = cart.product_quantities
+          for (let i = 0; i < products.length; i++) {
+            get_firebase_data('products', products[i], 'product_name').then((productName) => {
+              r_e('cartTable').innerHTML +=
+                `<tr>
+                <td>${productName}</td>
+                <td>${prices[i]}</td>
+                <td>${quantities[i]}</td>
+                <td><button class="button is-small is-danger cartDeleteBtn" id="${i}">Remove</button></td>
+              </tr>`
+              r_e('cartTotalCost').innerHTML = `$${sum(prices)}`
+              r_e('cartTotalQuantity').innerHTML = sum(quantities)
+
+            })
+          }
+
+          r_e('cartTable').addEventListener('click', (event) => {
+            prices.splice(event.target.id, 1)
+            products.splice(event.target.id, 1)
+            quantities.splice(event.target.id, 1)
+            if (event.target.classList.contains('cartDeleteBtn')) {
+              db.collection('orders').doc(data.docs[0].id).update({
+                product_prices: prices,
+                product_quantities: quantities,
+                product_ids: products,
+              }).then(() => {
+                event.target.closest('tr').remove();
+
+                r_e('cartTotalCost').innerHTML = `$${sum(prices)}`
+                r_e('cartTotalQuantity').innerHTML = sum(quantities)
+
+
+              })
+            }
+          });
+
+
+
+
+        } else {
+          // nothing in the cart
+        }
+
+      })
+
+
+
+
+  } else {
+    configure_message_bar('You must be signed in to access the cart')
+  }
+
 });
 
 // when the user clicks on the backgorund, hide the modal
 r_e("shoppingCartModalBg").addEventListener("click", () => {
   r_e("shoppingCartModal").classList.remove("is-active");
+  r_e("cartTotalCost").innerHTML = '$0'
+  r_e("cartTotalQuantity").innerHTML = '0'
+  r_e('cartTable').innerHTML = ''
+
 });
 
 
@@ -649,7 +724,7 @@ function configure_message_bar(msg) {
   setTimeout(() => {
     r_e("message_bar").classList.add("is-hidden");
     r_e("message_bar").innerHTML = "";
-  }, 2000);
+  }, 3000);
 }
 
 //Dashboard JS
