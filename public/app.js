@@ -2766,9 +2766,7 @@ r_e("editOrderForm").addEventListener("submit", (e) => {
   let city = r_e("editOrderDeliveryCity").value;
   let state = r_e("editOrderDeliveryState").value;
   let zip = r_e("editOrderDeliveryZip").value;
-
   let orderId = r_e("editOrderID").value;
-  console.log(orderId);
   db.collection("orders")
     .doc(orderId)
     .update({
@@ -2792,4 +2790,37 @@ r_e("editOrderForm").addEventListener("submit", (e) => {
   r_e("editOrderModal").classList.remove("is-active");
   // Show confirmation message
   configure_message_bar("Order successfully updated!");
+});
+
+function deleteOrder(id) {
+  console.log("Delete Order with the id - ", id);
+
+  r_e("confirmDeleteOrderModal").classList.add("is-active");
+  r_e(
+    "confirmDeleteOrderMessage"
+  ).innerHTML = `Are you sure you want to delete the order with the ID - ${id}? WARNING this cannot be undone`;
+  // User selects confirm
+  r_e("confirmDeleteOrder").addEventListener("click", () => {
+    // Get a reference to the document
+    var docRef = db.collection("orders").doc(id);
+    // Delete the document
+    docRef
+      .delete()
+      .then(() => {
+        r_e("confirmDeleteOrderModal").classList.remove("is-active");
+        configure_message_bar("Order successfully deleted!");
+        show_orders();
+      })
+      .catch((error) => {
+        configure_message_bar("Error deleting order");
+      });
+  });
+}
+
+// Hide the Modal When Needed
+r_e("confirmDeleteOrderModalBg").addEventListener("click", () => {
+  r_e("confirmDeleteOrderModal").classList.remove("is-active");
+});
+r_e("cancelDeleteOrder").addEventListener("click", () => {
+  r_e("confirmDeleteOrderModal").classList.remove("is-active");
 });
