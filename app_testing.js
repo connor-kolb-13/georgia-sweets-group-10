@@ -24,9 +24,9 @@ async function go() {
   await page.type("#email_su", "testyjacqy123@test.com");
   await page.type("#password_su", "testy1234!");
   await page.click("#a_type_su");
-  //   must select an image
+  //   must select an image in 25 seconds and wait
   await page.click("#profilePic_su");
-  await new Promise((r) => setTimeout(r, 10000));
+  await new Promise((r) => setTimeout(r, 25000));
   await page.click(
     "#signUpForm > div.container.m-0.has-text-centered > button:nth-child(1)"
   );
