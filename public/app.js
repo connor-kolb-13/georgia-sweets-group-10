@@ -2513,3 +2513,283 @@ r_e("submitOrderbtn").addEventListener("click", () => {
     })
     .then();
 });
+
+// Delete Products
+function deleteProductEditOrder(
+  orderId,
+  productId,
+  productIndex,
+  price,
+  quantity,
+  totalCost
+) {
+  db.collection("orders")
+    .doc(orderId)
+    .get()
+    .then((doc) => {
+      // Create new arrays that exclude the element at productIndex
+      const productPrices = doc
+        .data()
+        .product_prices.filter((_, i) => i !== productIndex);
+      const productQuantities = doc
+        .data()
+        .product_quantities.filter((_, i) => i !== productIndex);
+      const productIds = doc
+        .data()
+        .product_ids.filter((_, i) => i !== productIndex);
+
+      // Update the Firestore document with the new arrays
+      return db.collection("orders").doc(orderId).update({
+        product_prices: productPrices,
+        product_quantities: productQuantities,
+        product_ids: productIds,
+      });
+    })
+    .then(() => {
+      // Remove row from table
+      const row = document.getElementById(`row-${productIndex}`);
+      if (row) {
+        row.remove();
+      }
+
+      totalCost = totalCost - price * quantity;
+
+      let quantities = 0;
+      db.collection("orders")
+        .doc(orderId)
+        .get()
+        .then((order) => {
+          order.data().product_quantities.forEach((quantity) => {
+            quantities += quantity;
+          });
+
+          if (isNaN(totalCost) || totalCost < 0) {
+            totalCost = 0;
+          }
+          r_e("editOrderTotalCost").innerHTML = `$${totalCost}`;
+          r_e("editOrderTotalQuantity").innerHTML = quantities;
+        });
+    })
+    .catch((error) => {
+      console.error("Error deleting product from order:", error);
+    });
+}
+
+// Add products to the order if requested
+function addItemtoOrderAdmin() {
+  r_e("addItemAdminModal").classList.add("is-active");
+  show_products_admin();
+}
+
+r_e("addItemAdminModalBg").addEventListener("click", () => {
+  r_e("addItemAdminModal").classList.remove("is-active");
+});
+
+// Edit the Order
+function editOrder(id) {
+  r_e("editOrderModal").classList.add("is-active");
+  r_e("editOrderTable").innerHTML = "";
+  db.collection("orders")
+    .doc(id)
+    .get()
+    .then((order) => {
+      r_e("editOrderID").value = order.id;
+      r_e("editOrderEmail").value = order.data().user_email;
+      r_e("editOrderDatePlaced").value = order.data().date_placed;
+      r_e("editOrderDateRequested").value =
+        order.data().requested_completion_date;
+      r_e("editOrderStatus").value = order.data().order_status;
+
+      r_e("editOrderPayment").value = order.data().payment_method;
+      r_e("editOrderDelivery").value = order.data().delivery;
+      r_e("editOrderDeliveryName").value = order.data().delivery_info.name;
+      r_e("editOrderDeliveryAdress1").value =
+        order.data().delivery_info.street_address1;
+      r_e("editOrderDeliveryAdress2").value =
+        order.data().delivery_info.street_address2;
+      r_e("editOrderDeliveryCity").value = order.data().delivery_info.city;
+      r_e("editOrderDeliveryState").value = order.data().delivery_info.state;
+      r_e("editOrderDeliveryZip").value = order.data().delivery_info.zip_code;
+
+      // Show the Products
+      if (order.data().product_ids.length >= 1) {
+        let products = order.data().product_ids;
+        let prices = order.data().product_prices;
+        let quantities = order.data().product_quantities;
+        let totalCost = 0;
+
+        for (let i = 0; i < products.length; i++) {
+          get_firebase_data("products", products[i], "product_name").then(
+            (productName) => {
+              const productId = products[i];
+              const price = prices[i];
+              const quantity = quantities[i];
+              totalCost = totalCost + price * quantity;
+              const row = `<tr id="row-${i}">
+                <td>${productName}</td>
+                <td>${price}</td>
+                <td>${quantity}</td>
+                <td><button class="button is-small is-danger" onclick="deleteProductEditOrder('${order.id}', '${productId}', ${i}, ${price}, ${quantity}, ${totalCost})" id="${i}">Remove</button></td>
+              </tr>`;
+
+              r_e("editOrderTable").insertAdjacentHTML("beforeend", row);
+
+              r_e("editOrderTotalCost").innerHTML = `$${totalCost}`;
+            }
+          );
+        }
+
+        r_e("editOrderTotalQuantity").innerHTML = sum(quantities);
+      } else {
+        // nothing in the cart
+      }
+    });
+
+  // Submit the form if they choose to
+  r_e("editProductForm").addEventListener("submit", (e) => {
+    // Show Loading button
+    r_e("submitEditItem").classList.add("is-loading");
+    // prevent the page from auto-refresh
+    e.preventDefault();
+  });
+}
+
+r_e("editOrderModalBg").addEventListener("click", () => {
+  r_e("editOrderModal").classList.remove("is-active");
+});
+
+// Table of products for admin to add to an order
+function show_products_admin() {
+  db.collection("products")
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
+
+      mydocs.forEach((product) => {
+        html += `
+            <tr>
+              <td>
+                <figure class="image is-1by1 is-small">
+                  <img class="is-rounded is-small" src="${
+                    product.data().main_pic
+                  }">
+                </figure>
+              </td>
+              <td class="has-text-left">${product.data().product_name}</td>
+              <td class="has-text-centered">${product.data().price}</td>
+              <td class="has-text-centered">
+                <div class="button is-small is-primary onclick="add_item_to_order_admin(${
+                  product.id
+                })""><i class="fa fa-plus has-text-white" aria-hidden="true" onclick="add_item_to_order_admin('${
+          product.id
+        }')"></i></div>
+              </td>
+            </tr>
+          `;
+      });
+
+      document.getElementById("add_products_table").innerHTML = html;
+    });
+}
+
+// Add an item to the order (admin)
+function add_item_to_order_admin(productId) {
+  let orderId = r_e("editOrderID").value;
+  // Get the product and order
+  db.collection("products")
+    .doc(productId)
+    .get()
+    .then((product) => {
+      db.collection("orders")
+        .doc(orderId)
+        .get()
+        .then((order) => {
+          // Get and update the order
+          let product_ids = order.data().product_ids;
+          let product_prices = order.data().product_prices;
+          let product_quantities = order.data().product_quantities;
+          product_ids.push(product.id);
+          product_prices.push(product.data().price);
+          product_quantities.push(1);
+          db.collection("orders").doc(orderId).update({
+            product_prices: product_prices,
+            product_quantities: product_quantities,
+            product_ids: product_ids,
+          });
+          // Add the product in the modal
+          get_firebase_data("products", product.id, "product_name").then(
+            (productName) => {
+              const productId = product.id;
+              const price = product.data().price;
+              const quantity = 1;
+              let totalCost = r_e("editOrderTotalCost").innerHTML;
+              totalCost = totalCost.replace(/\$/g, "");
+              totalCost = parseInt(totalCost);
+              totalCost = totalCost + price * quantity;
+              const row = `<tr id="row-${i}">
+                  <td>${productName}</td>
+                  <td>${price}</td>
+                  <td>${quantity}</td>
+                  <td><button class="button is-small is-danger" onclick="deleteProductEditOrder('${order.id}', '${productId}', ${i}, ${price}, ${quantity}, ${totalCost})" id="${i}">Remove</button></td>
+                </tr>`;
+
+              r_e("editOrderTable").insertAdjacentHTML("beforeend", row);
+
+              r_e("editOrderTotalCost").innerHTML = `$${totalCost}`;
+            }
+          );
+          let quantities = parseInt(r_e("editOrderTotalQuantity").innerHTML);
+          r_e("editOrderTotalQuantity").innerHTML = quantities + 1;
+        });
+    });
+  r_e("addItemAdminModal").classList.remove("is-active");
+}
+
+// Close the add item to an order modal
+r_e("close_add_item_admin").addEventListener("click", () => {
+  r_e("addItemAdminModal").classList.remove("is-active");
+});
+
+// Submit Editing the Order
+r_e("editOrderForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  // Get items that might need updating
+  let email = r_e("editOrderEmail").value;
+  let requested_completion = r_e("editOrderDateRequested").value;
+  let status = r_e("editOrderStatus").value;
+  let payment = r_e("editOrderPayment").value;
+  let delivery = r_e("editOrderDelivery").value;
+  let name = r_e("editOrderDeliveryName").value;
+  let address1 = r_e("editOrderDeliveryAdress1").value;
+  let address2 = r_e("editOrderDeliveryAdress2").value;
+  let city = r_e("editOrderDeliveryCity").value;
+  let state = r_e("editOrderDeliveryState").value;
+  let zip = r_e("editOrderDeliveryZip").value;
+
+  let orderId = r_e("editOrderID").value;
+  console.log(orderId);
+  db.collection("orders")
+    .doc(orderId)
+    .update({
+      delivery_info: {
+        city: city,
+        name: name,
+        state: state,
+        street_address1: address1,
+        street_address2: address2,
+        zip_code: zip,
+      },
+      delivery: delivery,
+      payment: payment,
+      order_status: status,
+      requested_completion_date: requested_completion,
+      user_email: email,
+    });
+  // Update the orders table
+  show_orders();
+  // close the modal
+  r_e("editOrderModal").classList.remove("is-active");
+  // Show confirmation message
+  configure_message_bar("Order successfully updated!");
+});
