@@ -424,6 +424,19 @@ r_e("shoppingCartBtn").addEventListener("click", () => {
   }
 });
 
+
+// Checkout
+r_e("checkoutBtn").addEventListener("click", () => {
+  r_e("shoppingCartModal").classList.remove("is-active");
+  r_e("checkoutModal").classList.add("is-active");
+});
+
+// when the user clicks on the backgorund, hide the modal
+r_e("checkoutModalBg").addEventListener("click", () => {
+  r_e("checkoutModal").classList.remove("is-active");
+});
+
+
 // when the user clicks on the backgorund, hide the modal
 r_e("shoppingCartModalBg").addEventListener("click", () => {
   r_e("shoppingCartModal").classList.remove("is-active");
@@ -1417,9 +1430,9 @@ function show_users() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((user, index) => {
           html += `
@@ -1836,9 +1849,9 @@ function show_contact_responses() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((response, index) => {
           html += `
@@ -1942,8 +1955,7 @@ function changeContactStatus(id) {
 
 // Delete a contact us form response
 function deleteContact(id) {
-  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {
-  }
+  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {}
   r_e("confirmDeleteContactModal").classList.add("is-active");
   r_e(
     "confirmDeleteContactMessage"
@@ -2065,9 +2077,9 @@ function show_products() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((product, index) => {
           html += `
@@ -2393,9 +2405,9 @@ function show_orders() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((order, index) => {
           let total_price = 0;
