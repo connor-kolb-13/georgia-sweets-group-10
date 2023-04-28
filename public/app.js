@@ -1072,6 +1072,10 @@ auth.onAuthStateChanged((user) => {
       r_e("profileInfo").classList.remove("is-hidden");
     }
     configure_message_bar(`${user.email} has successfully signed in.`);
+    // Show orders button if hidden
+    if (r_e("showCustomerOrders").classList.contains("is-hidden")) {
+      r_e("showCustomerOrders").classList.remove("is-hidden");
+    }
     // Hiding Dashboard Tab From Non-Admin Accounts
     get_user_info(auth.currentUser.email, "a_type").then((type) => {
       // console.log(type);
@@ -1130,6 +1134,8 @@ auth.onAuthStateChanged((user) => {
       r_e("profileInfo").classList.add("is-hidden");
     }
     showmodal(homepage);
+    // Hide the view orders button
+    r_e("showCustomerOrders").classList.add("is-hidden");
     // configure_nav_bar(user.email);
     r_e("signUpBtn").classList.remove("is-hidden");
     r_e("loginBtn").classList.remove("is-hidden");
@@ -2790,13 +2796,15 @@ r_e("editOrderForm").addEventListener("submit", (e) => {
       requested_completion_date: requested_completion,
       user_email: email,
       additional_details: additional_details,
+    })
+    .then(() => {
+      // close the modal
+      r_e("editOrderModal").classList.remove("is-active");
+      // Show confirmation message
+      configure_message_bar("Order successfully updated!");
+      // Update the orders table
+      show_orders();
     });
-  // Update the orders table
-  show_orders();
-  // close the modal
-  r_e("editOrderModal").classList.remove("is-active");
-  // Show confirmation message
-  configure_message_bar("Order successfully updated!");
 });
 
 function deleteOrder(id) {
@@ -3095,4 +3103,10 @@ r_e("editOrderCustomerForm").addEventListener("submit", (e) => {
   r_e("editOrderCustomerModal").classList.remove("is-active");
   // Show confirmation message
   configure_message_bar("Order successfully updated!");
+});
+
+// Back to the shop from customer orders page
+r_e("backToShopBtn").addEventListener("click", () => {
+  r_e("customerOrdersPage").classList.add("is-hidden");
+  r_e("shopPage").classList.remove("is-hidden");
 });
