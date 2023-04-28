@@ -253,7 +253,11 @@
           <div class="container m-0 has-text-centered">
             <!-- submit button -->
             <!-- <div class="control"> -->
-            <button class="button mt-2" style="background-color: #b493db">
+            <button
+              class="button mt-2"
+              style="background-color: #b493db"
+              id="submitSignUP"
+            >
               Submit
             </button>
             <!-- </div> -->
@@ -1315,9 +1319,14 @@
             <!-- Delivery -->
             <div class="column is-6">
               <div class="field">
-                <label class="label">Delivery (true/false)</label>
+                <label class="label">Delivery</label>
                 <div class="control">
-                  <input class="input" type="text" id="editOrderDelivery" />
+                  <div class="select">
+                    <select id="editOrderDelivery">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1444,7 +1453,16 @@
               </div>
             </div>
           </div>
-
+          <!-- Additional Details -->
+          <div class="field">
+            <label class="label">Additional Details</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                id="editOrderAdditionalDetails"
+              ></textarea>
+            </div>
+          </div>
           <div class="container m-0 has-text-centered">
             <!-- submit button -->
             <!-- <div class="control"> -->
@@ -1455,7 +1473,7 @@
         </form>
       </div>
     </div>
-    <!-- End Edit Product Modal  -->
+    <!-- End Edit Order Modal  -->
 
     <!-- Start Confirm Delete Order Modal -->
     <div class="modal" id="confirmDeleteOrderModal">
@@ -1511,6 +1529,392 @@
     </div>
     <!-- End  Add Item to Order (Admin) Modal  -->
 
+    <!-- Start Edit Order (Customer) Modal  -->
+    <div class="modal" id="editOrderCustomerModal">
+      <div class="modal-background" id="editOrderCustomerModalBg"></div>
+      <div class="modal-content has-background-grey-light p-4">
+        <h1 class="subtitle has-text-weight-bold is-3">Edit Order Form</h1>
+        <form id="editOrderCustomerForm">
+          <!-- First Row -->
+          <div class="columns is-flex">
+            <!-- Order ID -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Order ID</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerID"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Email -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="email"
+                    id="editOrderCustomerEmail"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Second Row -->
+          <div class="columns is-flex">
+            <!-- Date Placed -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Date Placed</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDatePlaced"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Status -->
+            <div class="column is-4">
+              <div class="field">
+                <label class="label">Status</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerStatus" disabled>
+                      <option>CART</option>
+                      <option>NEW</option>
+                      <option>In Progress</option>
+                      <option>Shippped</option>
+                      <option>Completed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Requested Date -->
+          <div class="label is-medium">Requested Completion Date</div>
+          <div class="columns is-flex">
+            <!-- Month -->
+            <div class="column is-1"></div>
+            <div class="column is-2">
+              <div class="field">
+                <label class="label">Month</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerMonth">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                      <option>10</option>
+                      <option>11</option>
+                      <option>12</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Day -->
+            <div class="column is-2">
+              <div class="field">
+                <label class="label">Day</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerDay">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                      <option>10</option>
+                      <option>11</option>
+                      <option>12</option>
+                      <option>13</option>
+                      <option>14</option>
+                      <option>15</option>
+                      <option>16</option>
+                      <option>17</option>
+                      <option>18</option>
+                      <option>19</option>
+                      <option>20</option>
+                      <option>21</option>
+                      <option>22</option>
+                      <option>23</option>
+                      <option>24</option>
+                      <option>25</option>
+                      <option>26</option>
+                      <option>27</option>
+                      <option>28</option>
+                      <option>29</option>
+                      <option>30</option>
+                      <option>31</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Year -->
+            <div class="column is-3">
+              <div class="field">
+                <label class="label">Year</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerYear">
+                      <option>2023</option>
+                      <option>2024</option>
+                      <option>2025</option>
+                      <option>2026</option>
+                      <option>2027</option>
+                      <option>2028</option>
+                      <option>2029</option>
+                      <option>2030</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-3"></div>
+          </div>
+          <div class="box">
+            <table class="table is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody id="editOrderCustomerTable"></tbody>
+            </table>
+          </div>
+          <div class="box">
+            <div class="columns">
+              <div class="column has-text-centered">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Total Cost</p>
+                    <p class="title" id="editOrderCustomerTotalCost">$0</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Total Quantity</p>
+                    <p class="title" id="editOrderCustomerTotalQuantity">0</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <label class="label is-large my-2 py-2">Payment & Delivery</label>
+
+          <div class="columns is-flex">
+            <!-- Payment -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Payment</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerPayment">
+                      <option>Venmo</option>
+                      <option>Cash</option>
+                      <option>Check</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Delivery -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Delivery</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerDelivery">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Delivery Info -->
+          <div class="columns is-flex">
+            <!-- Name -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDeliveryName"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Street Address 1 -->
+            <div class="column is-7">
+              <div class="field">
+                <label class="label">Street Adress (1)</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDeliveryAdress1"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-flex">
+            <!-- Street Adress 2 -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Street Adress (2)</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDeliveryAdress2"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- City  -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">City</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDeliveryCity"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-flex">
+            <!-- State  -->
+            <div class="column is-3">
+              <div class="field">
+                <label class="label">State</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerDeliveryState">
+                      <option>AL</option>
+                      <option>AK</option>
+                      <option>AZ</option>
+                      <option>AR</option>
+                      <option>CA</option>
+                      <option>CO</option>
+                      <option>CT</option>
+                      <option>DE</option>
+                      <option>FL</option>
+                      <option>GA</option>
+                      <option>HI</option>
+                      <option>ID</option>
+                      <option>IL</option>
+                      <option>IN</option>
+                      <option>IA</option>
+                      <option>KS</option>
+                      <option>KY</option>
+                      <option>LA</option>
+                      <option>ME</option>
+                      <option>MD</option>
+                      <option>MA</option>
+                      <option>MI</option>
+                      <option>MN</option>
+                      <option>MS</option>
+                      <option>MO</option>
+                      <option>MT</option>
+                      <option>NE</option>
+                      <option>NV</option>
+                      <option>NH</option>
+                      <option>NJ</option>
+                      <option>NM</option>
+                      <option>NY</option>
+                      <option>NC</option>
+                      <option>ND</option>
+                      <option>OH</option>
+                      <option>OK</option>
+                      <option>OR</option>
+                      <option>PA</option>
+                      <option>RI</option>
+                      <option>SC</option>
+                      <option>SD</option>
+                      <option>TN</option>
+                      <option>TX</option>
+                      <option>UT</option>
+                      <option>VT</option>
+                      <option>VA</option>
+                      <option>WA</option>
+                      <option>WV</option>
+                      <option>WI</option>
+                      <option>WY</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Zip Code  -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Zip Code</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDeliveryZip"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Additional Details -->
+          <div class="field">
+            <label class="label">Additional Details</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                id="editOrderCustomerAdditionalDetails"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="container m-0 has-text-centered">
+            <!-- submit button -->
+            <!-- <div class="control"> -->
+            <button class="button mt-2 is-primary" id="submitEditOrderCustomer">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- End Edit Order (Customer) Modal  -->
+
     <!-- End of Modals -->
 
     <!-- Start of Page Div Elements -->
@@ -1564,18 +1968,27 @@
     <!-- End of Homepage -->
 
     <!-- Start of Shop -->
-
     <div class="container is-hidden my-3" id="shopPage">
-      <div class="block"></div>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem
-        nam quod quia, aliquam sit iste ipsam maiores excepturi atque
-        temporibus, laborum adipisci nihil assumenda quisquam nobis veritatis at
-        cumque impedit aut consequuntur provident, perferendis neque a? Optio
-        rem aperiam ab laudantium officiis adipisci provident facere nostrum,
-        temporibus ipsa? Esse, consequuntur.
-      </p>
-      <div class="block"></div>
+      <div class="columns is-flex">
+        <div class="column is-9">
+          <p>
+            Indulge in delectable treats baked with love and attention to detail
+            at Georgia Sweets! Our home bakery specializes in creating delicious
+            treats for any occasion, from specialty decorated cookies to other
+            sweet delights. Let us make your event extra "sweet" with our
+            passion for baking.
+          </p>
+        </div>
+        <div class="column is-3 has-text-right">
+          <div
+            class="button is-medium has-text-white"
+            style="background-color: #b493db"
+            id="showCustomerOrders"
+          >
+            Past & Current Orders
+          </div>
+        </div>
+      </div>
       <div class="columns" id="productCardColumns">
         <div class="column is-4"></div>
         <div class="column is-4"></div>
@@ -1583,6 +1996,44 @@
       </div>
     </div>
     <!-- End of Shop -->
+
+    <!-- Start of Customer's Orders Page -->
+    <div class="container is-hidden my-3" id="customerOrdersPage">
+      <div class="section has-text-centered">
+        <div class="subtitle is-3" id="customerOrdersPageTitle">
+          Bucky Badger's Orders
+        </div>
+        <!-- Start Manage Orders Table -->
+        <table
+          class="table mx-auto is-striped is-fullwidth mb-3 mt-4"
+          id="ordersTableCustomer"
+        >
+          <thead>
+            <!-- Header Row -->
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Date Placed</th>
+              <th>Requested Date</th>
+              <th>Total Products</th>
+              <th>Total Price</th>
+              <th>Delivery</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="orders_table_customer">
+            <!-- Example Row -->
+          </tbody>
+        </table>
+        <div class="mb-3" id="manageOrdersCustomerPageLinks"></div>
+        <div id="manageOrdersCustomerNextPage"></div>
+        <div id="manageOrdersCustomerPrevPage"></div>
+        <!-- End Manage Orders Table -->
+      </div>
+    </div>
+    <!-- End of Customer's Orders Page -->
+
     <!-- Start of About Us -->
     <div
       class="container is-hidden"
@@ -1841,7 +2292,6 @@
         <div id="manageProductsPrevPage"></div>
         <!-- End Manage Products Table -->
         <!-- Start Manage Orders Table -->
-
         <table
           class="table mx-auto is-striped is-fullwidth mb-3 mt-4 is-hidden"
           id="ordersTable"
@@ -1856,7 +2306,7 @@
               <th>Requested Date</th>
               <th>Total Products</th>
               <th>Total Price</th>
-              <th>Additional Details</th>
+              <th>Delivery</th>
               <th>Actions</th>
             </tr>
           </thead>

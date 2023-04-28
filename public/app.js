@@ -53,6 +53,7 @@ let managecontactpage = r_e("managecontactpage");
 let managegallerypage = r_e("managegallerypage");
 let manageuserspage = r_e("manageuserspage");
 let manageaboutuspage = r_e("manageaboutuspage");
+let customerorderspage = r_e("customerOrdersPage");
 
 let = allPages = [
   homepage,
@@ -67,6 +68,7 @@ let = allPages = [
   managegallerypage,
   manageuserspage,
   manageaboutuspage,
+  customerorderspage,
 ];
 
 function showmodal(mymodal) {
@@ -952,6 +954,8 @@ r_e("signUpModalBg").addEventListener("click", () => {
 r_e("signUpForm").addEventListener("submit", (e) => {
   // prevent the page from auto-refresh
   e.preventDefault();
+  // Show loading button
+  r_e("submitSignUP").classList.add("is-loading");
   // Get the profile pic
   let profilePic = r_e("profilePic_su").files[0];
   let profileImage = new Date() + "_" + profilePic.name;
@@ -1018,6 +1022,8 @@ r_e("signUpForm").addEventListener("submit", (e) => {
                 hidemodal(page);
               }
             });
+            // Stop loading button
+            r_e("submitSignUP").classList.remove("is-loading");
             showmodal(homepage);
           })
           .catch((error) => {
@@ -2419,9 +2425,7 @@ function show_orders() {
               }</td>
               <td class="has-text-center">${total_products}</td>
               <td class="has-text-center">$${total_price}</td>
-              <td class="has-text-center" style="max-height: 3em; overflow: hidden; text-overflow: ellipsis;">${
-                order.data().additional_details
-              }</td>
+              <td class="has-text-center">${order.data().delivery}</td>
 
               <td>
               
@@ -2596,6 +2600,7 @@ function editOrder(id) {
       r_e("editOrderID").value = order.id;
       r_e("editOrderEmail").value = order.data().user_email;
       r_e("editOrderDatePlaced").value = order.data().date_placed;
+      r_e("editOrderAdditionalDetails").value = order.data().additional_details;
       r_e("editOrderDateRequested").value =
         order.data().requested_completion_date;
       r_e("editOrderStatus").value = order.data().order_status;
@@ -2766,6 +2771,7 @@ r_e("editOrderForm").addEventListener("submit", (e) => {
   let city = r_e("editOrderDeliveryCity").value;
   let state = r_e("editOrderDeliveryState").value;
   let zip = r_e("editOrderDeliveryZip").value;
+  let additional_details = r_e("editOrderAdditionalDetails").value;
   let orderId = r_e("editOrderID").value;
   db.collection("orders")
     .doc(orderId)
@@ -2783,6 +2789,7 @@ r_e("editOrderForm").addEventListener("submit", (e) => {
       order_status: status,
       requested_completion_date: requested_completion,
       user_email: email,
+      additional_details: additional_details,
     });
   // Update the orders table
   show_orders();
@@ -2823,4 +2830,269 @@ r_e("confirmDeleteOrderModalBg").addEventListener("click", () => {
 });
 r_e("cancelDeleteOrder").addEventListener("click", () => {
   r_e("confirmDeleteOrderModal").classList.remove("is-active");
+});
+
+// Show the Customers Orders
+r_e("showCustomerOrders").addEventListener("click", () => {
+  // Hide the shop page
+  shoppage.classList.add("is-hidden");
+  // Show the customer's orders
+  r_e("customerOrdersPage").classList.remove("is-hidden");
+  r_e("customerOrdersPage").classList.add("is-active");
+  show_orders_customer();
+});
+
+function show_orders_customer() {
+  get_user_info(auth.currentUser.email, "full_name").then((name) => {
+    r_e("customerOrdersPageTitle").innerHTML = `${name}'s Orders`;
+  });
+
+  const PAGE_SIZE = 10;
+  let currentPage = 0;
+  let numPages = 0;
+
+  function renderTable(startIndex, numToShow) {
+    db.collection("orders")
+      .where("user_email", "==", auth.currentUser.email)
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        let html = "";
+
+        let endIndex =
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
+
+        mydocs.slice(startIndex, endIndex).forEach((order, index) => {
+          let total_price = 0;
+          let total_products = 0;
+
+          for (let i = 0; i <= order.data().product_ids.length - 1; i++) {
+            total_price +=
+              parseInt(order.data().product_prices[i]) *
+              parseInt(order.data().product_quantities[i]);
+            total_products += parseInt(order.data().product_quantities[i]);
+          }
+
+          html += `
+            <tr>         
+              <td class="has-text-left">${order.id}</td>
+              <td class="has-text-left">${order.data().user_email}</td>
+              <td class="has-text-left">${order.data().order_status}</td>
+              <td class="has-text-center">${order.data().submitted_date}</td>
+              <td class="has-text-center">${
+                order.data().requested_completion_date
+              }</td>
+              <td class="has-text-center">${total_products}</td>
+              <td class="has-text-center">$${total_price}</td>
+              <td class="has-text-center" style="max-height: 3em; overflow: hidden; text-overflow: ellipsis;">${
+                order.data().delivery
+              }</td>
+              <td>
+                <div class="buttons has-addons is-centered">
+                  <button class="button is-small" onclick="editOrder('${
+                    order.id
+                  }')"><i class="fas fa-edit"></i></button>               
+                </div> 
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById("orders_table_customer").innerHTML = html;
+      });
+  }
+
+  function renderPageLinks() {
+    let html = "";
+    for (let i = 0; i < numPages; i++) {
+      html += `
+        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+      `;
+    }
+
+    r_e("manageOrdersCustomerPageLinks").innerHTML = html;
+  }
+
+  function showPage(pageNum) {
+    let startIndex = pageNum * PAGE_SIZE;
+    renderTable(startIndex, PAGE_SIZE);
+    currentPage = pageNum;
+    updateNavigation();
+  }
+
+  function updateNavigation() {
+    let prevBtn = document.getElementById("manageOrdersCustomerPrevPage");
+    let nextBtn = document.getElementById("manageOrdersCustomerNextPage");
+
+    if (prevBtn) {
+      prevBtn.disabled = currentPage === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = currentPage === numPages - 1;
+    }
+
+    let pageLinks = document.querySelectorAll(
+      "#manageOrdersCustomerPageLinks a"
+    );
+    pageLinks.forEach((link) => {
+      if (parseInt(link.dataset.page) === currentPage) {
+        link.classList.add("is-active");
+        link.style.backgroundColor = "#b493db";
+      } else {
+        link.classList.remove("is-active");
+        link.style.backgroundColor = "";
+      }
+    });
+  }
+
+  db.collection("orders")
+    .where("user_email", "==", auth.currentUser.email)
+    .get()
+    .then((data) => {
+      numPages = Math.ceil(data.docs.length / PAGE_SIZE);
+      renderPageLinks();
+      showPage(0);
+    });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "manageOrdersCustomerPrevPage") {
+      showPage(currentPage - 1);
+    } else if (event.target.id === "manageOrdersCustomerNextPage") {
+      showPage(currentPage + 1);
+    } else if (event.target.classList.contains("pagination-link")) {
+      showPage(parseInt(event.target.dataset.page));
+    }
+  });
+}
+
+// Edit the Order (Customer)
+function editOrder(id) {
+  r_e("editOrderCustomerModal").classList.add("is-active");
+  r_e("editOrderCustomerTable").innerHTML = "";
+  db.collection("orders")
+    .doc(id)
+    .get()
+    .then((order) => {
+      r_e("editOrderCustomerID").value = order.id;
+      r_e("editOrderCustomerEmail").value = order.data().user_email;
+      r_e("editOrderCustomerDatePlaced").value = order.data().date_placed;
+
+      let date = order.data().requested_completion_date;
+      date = date.split("/");
+      r_e("editOrderCustomerMonth").value = date[0];
+      r_e("editOrderCustomerDay").value = date[1];
+      r_e("editOrderCustomerYear").value = date[2];
+
+      r_e("editOrderCustomerStatus").value = order.data().order_status;
+      r_e("editOrderCustomerAdditionalDetails").value =
+        order.data().additional_details;
+      r_e("editOrderCustomerPayment").value = order.data().payment_method;
+      r_e("editOrderCustomerDelivery").value = order.data().delivery;
+      r_e("editOrderCustomerDeliveryName").value =
+        order.data().delivery_info.name;
+      r_e("editOrderCustomerDeliveryAdress1").value =
+        order.data().delivery_info.street_address1;
+      r_e("editOrderCustomerDeliveryAdress2").value =
+        order.data().delivery_info.street_address2;
+      r_e("editOrderCustomerDeliveryCity").value =
+        order.data().delivery_info.city;
+      r_e("editOrderCustomerDeliveryState").value =
+        order.data().delivery_info.state;
+      r_e("editOrderCustomerDeliveryZip").value =
+        order.data().delivery_info.zip_code;
+
+      // Show the Products
+      if (order.data().product_ids.length >= 1) {
+        let products = order.data().product_ids;
+        let prices = order.data().product_prices;
+        let quantities = order.data().product_quantities;
+        let totalCost = 0;
+
+        for (let i = 0; i < products.length; i++) {
+          get_firebase_data("products", products[i], "product_name").then(
+            (productName) => {
+              const productId = products[i];
+              const price = prices[i];
+              const quantity = quantities[i];
+              totalCost = totalCost + price * quantity;
+              const row = `<tr id="row-${i}">
+                <td>${productName}</td>
+                <td>$${price}</td>
+                <td>${quantity}</td>
+              </tr>`;
+
+              r_e("editOrderCustomerTable").insertAdjacentHTML(
+                "beforeend",
+                row
+              );
+
+              r_e("editOrderCustomerTotalCost").innerHTML = `$${totalCost}`;
+            }
+          );
+        }
+
+        r_e("editOrderCustomerTotalQuantity").innerHTML = sum(quantities);
+      } else {
+        // nothing in the cart
+      }
+    });
+
+  // Submit the form if they choose to
+  r_e("editProductForm").addEventListener("submit", (e) => {
+    // Show Loading button
+    r_e("submitEditItem").classList.add("is-loading");
+    // prevent the page from auto-refresh
+    e.preventDefault();
+  });
+}
+
+r_e("editOrderCustomerModalBg").addEventListener("click", () => {
+  r_e("editOrderCustomerModal").classList.remove("is-active");
+});
+
+// Submit Editing the Order
+r_e("editOrderCustomerForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  // Get items that might need updating
+  let temp_date = [];
+  temp_date.push(r_e("editOrderCustomerMonth").value);
+  temp_date.push(r_e("editOrderCustomerDay").value);
+  temp_date.push(r_e("editOrderCustomerYear").value);
+  temp_date = temp_date.join("/");
+  let requested_completion = temp_date;
+  let payment = r_e("editOrderCustomerPayment").value;
+  let delivery = r_e("editOrderCustomerDelivery").value;
+  let name = r_e("editOrderCustomerDeliveryName").value;
+  let address1 = r_e("editOrderCustomerDeliveryAdress1").value;
+  let address2 = r_e("editOrderCustomerDeliveryAdress2").value;
+  let city = r_e("editOrderCustomerDeliveryCity").value;
+  let state = r_e("editOrderCustomerDeliveryState").value;
+  let zip = r_e("editOrderCustomerDeliveryZip").value;
+  let additional_details = r_e("editOrderCustomerAdditionalDetails").value;
+  let orderId = r_e("editOrderCustomerID").value;
+  db.collection("orders")
+    .doc(orderId)
+    .update({
+      delivery_info: {
+        city: city,
+        name: name,
+        state: state,
+        street_address1: address1,
+        street_address2: address2,
+        zip_code: zip,
+      },
+      delivery: delivery,
+      payment: payment,
+      requested_completion_date: requested_completion,
+      additional_details: additional_details,
+    });
+  // Update the orders table
+  show_orders_customer();
+  // close the modal
+  r_e("editOrderCustomerModal").classList.remove("is-active");
+  // Show confirmation message
+  configure_message_bar("Order successfully updated!");
 });
