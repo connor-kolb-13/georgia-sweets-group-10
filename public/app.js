@@ -358,10 +358,10 @@ let sum = function (numbers) {
 };
 
 r_e("shoppingCartBtn").addEventListener("click", () => {
+  r_e("cartTable").innerHTML = "";
   let currentUser = auth.currentUser;
   if (currentUser) {
     r_e("shoppingCartModal").classList.add("is-active");
-
     db.collection("orders")
       .where("user_email", "==", currentUser.email)
       .where("order_status", "==", "CART")
@@ -424,18 +424,46 @@ r_e("shoppingCartBtn").addEventListener("click", () => {
   }
 });
 
-
 // Checkout
 r_e("checkoutBtn").addEventListener("click", () => {
+  r_e("checkoutTable").innerHTML = "";
   r_e("shoppingCartModal").classList.remove("is-active");
   r_e("checkoutModal").classList.add("is-active");
+  db.collection("orders")
+    .where("user_email", "==", auth.currentUser.email)
+    .where("order_status", "==", "CART")
+    .get()
+    .then((data) => {
+      if (data.docs.length == 1) {
+        let cart = data.docs[0].data();
+        let products = cart.product_ids;
+        let prices = cart.product_prices;
+        let quantities = cart.product_quantities;
+        let totalCost = 0;
+        for (let i = 0; i < products.length; i++) {
+          get_firebase_data("products", products[i], "product_name").then(
+            (productName) => {
+              r_e("checkoutTable").innerHTML += `<tr>
+            <td>${productName}</td>
+            <td>${prices[i]}</td>
+            <td>${quantities[i]}</td>
+          </tr>`;
+              totalCost = totalCost + prices[i] * quantities[i];
+              r_e("checkoutTotalCost").innerHTML = `$${totalCost}`;
+            }
+          );
+        }
+        r_e("checkoutTotalQuantity").innerHTML = sum(quantities);
+      } else {
+        // nothing in the cart
+      }
+    });
 });
 
 // when the user clicks on the backgorund, hide the modal
 r_e("checkoutModalBg").addEventListener("click", () => {
   r_e("checkoutModal").classList.remove("is-active");
 });
-
 
 // when the user clicks on the backgorund, hide the modal
 r_e("shoppingCartModalBg").addEventListener("click", () => {
@@ -1430,9 +1458,9 @@ function show_users() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((user, index) => {
           html += `
@@ -1849,9 +1877,9 @@ function show_contact_responses() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((response, index) => {
           html += `
@@ -1955,7 +1983,8 @@ function changeContactStatus(id) {
 
 // Delete a contact us form response
 function deleteContact(id) {
-  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {}
+  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {
+  }
   r_e("confirmDeleteContactModal").classList.add("is-active");
   r_e(
     "confirmDeleteContactMessage"
@@ -2077,9 +2106,9 @@ function show_products() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((product, index) => {
           html += `
@@ -2405,9 +2434,9 @@ function show_orders() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((order, index) => {
           let total_price = 0;
