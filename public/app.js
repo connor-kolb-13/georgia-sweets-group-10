@@ -435,25 +435,28 @@ r_e("checkoutBtn").addEventListener("click", () => {
     .get()
     .then((data) => {
       if (data.docs.length == 1) {
-        let cart = data.docs[0].data();
-        let products = cart.product_ids;
-        let prices = cart.product_prices;
-        let quantities = cart.product_quantities;
-        let totalCost = 0;
-        for (let i = 0; i < products.length; i++) {
-          get_firebase_data("products", products[i], "product_name").then(
-            (productName) => {
-              r_e("checkoutTable").innerHTML += `<tr>
-            <td>${productName}</td>
-            <td>${prices[i]}</td>
-            <td>${quantities[i]}</td>
-          </tr>`;
-              totalCost = totalCost + prices[i] * quantities[i];
-              r_e("checkoutTotalCost").innerHTML = `$${totalCost}`;
-            }
-          );
-        }
-        r_e("checkoutTotalQuantity").innerHTML = sum(quantities);
+        get_user_info(auth.currentUser.email, "full_name").then((name) => {
+          r_e("name_checkout").value = name;
+          let cart = data.docs[0].data();
+          let products = cart.product_ids;
+          let prices = cart.product_prices;
+          let quantities = cart.product_quantities;
+          let totalCost = 0;
+          for (let i = 0; i < products.length; i++) {
+            get_firebase_data("products", products[i], "product_name").then(
+              (productName) => {
+                r_e("checkoutTable").innerHTML += `<tr>
+              <td>${productName}</td>
+              <td>${prices[i]}</td>
+              <td>${quantities[i]}</td>
+            </tr>`;
+                totalCost = totalCost + prices[i] * quantities[i];
+                r_e("checkoutTotalCost").innerHTML = `$${totalCost}`;
+              }
+            );
+          }
+          r_e("checkoutTotalQuantity").innerHTML = sum(quantities);
+        });
       } else {
         // nothing in the cart
       }
@@ -2419,6 +2422,7 @@ r_e("cancelDeleteProduct").addEventListener("click", () => {
   r_e("confirmDeleteProductModal").classList.remove("is-active");
 });
 
+// Show orders on the admin dashboard
 function show_orders() {
   // Update Title text
   r_e("manageShopTableTitle").innerHTML = "Orders";
@@ -2545,3 +2549,67 @@ function show_orders() {
     }
   });
 }
+
+// Modal for confirming order
+r_e("showConfirmOrderModalBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  r_e("confirmOrderMessage").innerHTML = "Please confirm your order";
+  r_e("confirmOrderModal").classList.add("is-active");
+});
+r_e("confirmOrderModalBg").addEventListener("click", () => {
+  r_e("confirmOrderModal").classList.remove("is-active");
+});
+r_e("cancelPlaceOrder").addEventListener("click", () => {
+  r_e("confirmOrderModal").classList.remove("is-active");
+});
+
+// Submit the Order (Customer)
+r_e("confirmPlaceOrder").addEventListener("click", () => {
+  // Get items that might need updating
+  let temp_date = [];
+  temp_date.push(r_e("month_requested_checkout").value);
+  temp_date.push(r_e("day_requested_checkout").value);
+  temp_date.push(r_e("year_requested_checkout").value);
+  temp_date = temp_date.join("/");
+  let requested_completion = temp_date;
+  let payment = r_e("payment_checkout").value;
+  let delivery = r_e("delivery_checkout").value;
+  let name = r_e("name_checkout").value;
+  let address1 = r_e("address1_checkout").value;
+  let address2 = r_e("address2_checkout").value;
+  let city = r_e("city_checkout").value;
+  let state = r_e("state_checkout").value;
+  let zip = r_e("zipCode_checkout").value;
+  let additional_details = r_e("additional_notes_checkout").value;
+
+  db.collection("orders")
+    .where("order_status", "==", "CART")
+    .where("user_email", "==", auth.currentUser.email)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        doc.ref.update({
+          delivery_info: {
+            city: city,
+            name: name,
+            state: state,
+            street_address1: address1,
+            street_address2: address2,
+            zip_code: zip,
+          },
+          delivery: delivery,
+          payment_method: payment,
+          order_status: "NEW",
+          date_placed: get_date(),
+          requested_completion_date: requested_completion,
+          additional_details: additional_details,
+          payment_status: "Unpaid",
+        });
+      });
+    });
+
+  // close the modal
+  r_e("checkoutModal").classList.remove("is-active");
+  // Show confirmation message
+  configure_message_bar("Order successfully submitted!");
+});
