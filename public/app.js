@@ -2610,6 +2610,7 @@ r_e("confirmPlaceOrder").addEventListener("click", () => {
 
   // close the modal
   r_e("checkoutModal").classList.remove("is-active");
+  r_e("confirmOrderModal").classList.remove("is-active");
   // Show confirmation message
   configure_message_bar("Order successfully submitted!");
 });
