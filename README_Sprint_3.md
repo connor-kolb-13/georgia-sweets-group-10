@@ -58,9 +58,9 @@ Isaac:
 3. 
 
 Trent:
-1. 
-2. 
-3. 
+1. Yesterday I began writeing code to generate product tiles from the products stored in firebase
+2. Today I plan to complete the product display code and begin the code for generating the product modals.
+3. I am not running into any issues at this moment.
 
 Mason:
 1. Yesterday I worked on transferring the user stories into actionable tasks that group members can pick up and work on throughout the sprint.
@@ -85,9 +85,9 @@ Isaac:
 3. 
 
 Trent:
-1. 
-2. 
-3. 
+1. Yesterday I completed the product card generation code along with the product modals.
+2. Today plan to start and complete adding the ability to add products to a users cart.
+3. Having some minor issues with how different account types effect the product cart process. 
 
 Mason:
 1. Yesterday I set up a meeting with the client as well as tested different functionalities worked on by my group members.
