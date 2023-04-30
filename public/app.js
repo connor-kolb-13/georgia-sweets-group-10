@@ -2767,6 +2767,7 @@ function editOrder(id) {
 }
 
 r_e("editOrderModalBg").addEventListener("click", () => {
+  show_orders();
   r_e("editOrderModal").classList.remove("is-active");
 });
 
@@ -2821,9 +2822,21 @@ function add_item_to_order_admin(productId) {
           let product_ids = order.data().product_ids;
           let product_prices = order.data().product_prices;
           let product_quantities = order.data().product_quantities;
-          product_ids.push(product.id);
-          product_prices.push(product.data().price);
-          product_quantities.push(1);
+
+          let productIndex = product_ids.indexOf(productId);
+
+          if (productIndex !== -1) {
+            product_quantities[productIndex] += 1;
+            let rowToRemove = document.getElementById(`row-${productIndex}`);
+            if (rowToRemove) {
+              rowToRemove.remove();
+            }
+          } else {
+            product_ids.push(productId);
+            product_prices.push(product.data().price);
+            product_quantities.push(1);
+          }
+
           db.collection("orders").doc(orderId).update({
             product_prices: product_prices,
             product_quantities: product_quantities,
@@ -2834,16 +2847,16 @@ function add_item_to_order_admin(productId) {
             (productName) => {
               const productId = product.id;
               const price = product.data().price;
-              const quantity = 1;
+              const quantity = product_quantities[productIndex];
               let totalCost = r_e("editOrderTotalCost").innerHTML;
               totalCost = totalCost.replace(/\$/g, "");
               totalCost = parseInt(totalCost);
               totalCost = totalCost + price * quantity;
-              const row = `<tr id="row-${i}">
+              const row = `<tr id="row-${productIndex}">
                   <td>${productName}</td>
                   <td>${price}</td>
                   <td>${quantity}</td>
-                  <td><button class="button is-small is-danger" onclick="deleteProductEditOrder('${order.id}', '${productId}', ${i}, ${price}, ${quantity}, ${totalCost})" id="${i}">Remove</button></td>
+                  <td><button class="button is-small is-danger" onclick="deleteProductEditOrder('${order.id}', '${productId}', ${productIndex}, ${price}, ${quantity}, ${totalCost})" id="${productIndex}">Remove</button></td>
                 </tr>`;
 
               r_e("editOrderTable").insertAdjacentHTML("beforeend", row);
@@ -3000,7 +3013,7 @@ function show_orders_customer() {
               }</td>
               <td>
                 <div class="buttons has-addons is-centered">
-                  <button class="button is-small" onclick="editOrder('${
+                  <button class="button is-small" onclick="editOrderCustomer('${
                     order.id
                   }')"><i class="fas fa-edit"></i></button>               
                 </div> 
@@ -3078,7 +3091,7 @@ function show_orders_customer() {
 }
 
 // Edit the Order (Customer)
-function editOrder(id) {
+function editOrderCustomer(id) {
   r_e("editOrderCustomerModal").classList.add("is-active");
   r_e("editOrderCustomerTable").innerHTML = "";
   db.collection("orders")
