@@ -805,12 +805,350 @@
             <tbody id="cartTable"></tbody>
           </table>
         </div>
-        <button class="button is-center" id="submitOrderbtn">
-          Submit Order
-        </button>
+        <button class="button is-center" id="checkoutBtn">Checkout</button>
       </div>
     </div>
     <!-- End Shopping Cart Modal -->
+
+    <!-- Start Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+      <div class="modal-background" id="checkoutModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="columns is-flex">
+          <div class="column is-8 has-text-centered">
+            <h1 class="subtitle has-text-weight-bold is-3 my-6">Checkout</h1>
+          </div>
+          <div class="column is-4">
+            <div class="figure is-rounded">
+              <img src="roundedLogo.png" width="125" height="125" />
+            </div>
+          </div>
+        </div>
+        <!-- Total Cost & Items -->
+        <div class="box">
+          <div class="columns">
+            <div class="column has-text-centered">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Total Cost</p>
+                  <p class="title" id="checkoutTotalCost">$0</p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Total Quantity</p>
+                  <p class="title" id="checkoutTotalQuantity">0</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Product Summary -->
+        <div class="box">
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody id="checkoutTable"></tbody>
+          </table>
+        </div>
+        <form id="checkoutForm">
+          <div class="columns is-flex">
+            <div class="column is-8">
+              <!-- Name -->
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="name_checkout"
+                    placeholder="e.g Alex Smith"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <!-- Delivery -->
+              <div class="field">
+                <label class="label">Delivery?</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="delivery_checkout">
+                      <option>Yes</option>
+                      <option id="noDeliveryOrder">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="label is-medium" id="deliveryTitleConfirmOrder">
+            Delivery Info (leave blank for pickup)
+          </div>
+          <!-- First Row -->
+          <div class="columns is-flex">
+            <!-- Street Adress Line 1 -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Street Address 1</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="address1_checkout"
+                    placeholder="e.g 123 Main Street"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Street Adress Line 2 -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Street Address 2</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="address2_checkout"
+                    placeholder="Apt #13"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Second Row -->
+          <div class="columns is-flex">
+            <!-- City -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">City</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="city_checkout"
+                    placeholder="Madison"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- State -->
+            <div class="column is-2">
+              <div class="field">
+                <label class="label">State</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="state_checkout">
+                      <option>AL</option>
+                      <option>AK</option>
+                      <option>AZ</option>
+                      <option>AR</option>
+                      <option>CA</option>
+                      <option>CO</option>
+                      <option>CT</option>
+                      <option>DE</option>
+                      <option>FL</option>
+                      <option>GA</option>
+                      <option>HI</option>
+                      <option>ID</option>
+                      <option>IL</option>
+                      <option>IN</option>
+                      <option>IA</option>
+                      <option>KS</option>
+                      <option>KY</option>
+                      <option>LA</option>
+                      <option>ME</option>
+                      <option>MD</option>
+                      <option>MA</option>
+                      <option>MI</option>
+                      <option>MN</option>
+                      <option>MS</option>
+                      <option>MO</option>
+                      <option>MT</option>
+                      <option>NE</option>
+                      <option>NV</option>
+                      <option>NH</option>
+                      <option>NJ</option>
+                      <option>NM</option>
+                      <option>NY</option>
+                      <option>NC</option>
+                      <option>ND</option>
+                      <option>OH</option>
+                      <option>OK</option>
+                      <option>OR</option>
+                      <option>PA</option>
+                      <option>RI</option>
+                      <option>SC</option>
+                      <option>SD</option>
+                      <option>TN</option>
+                      <option>TX</option>
+                      <option>UT</option>
+                      <option>VT</option>
+                      <option>VA</option>
+                      <option>WA</option>
+                      <option>WV</option>
+                      <option>WI</option>
+                      <option>WY</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Zipcode -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Zip Code</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="zipCode_checkout"
+                    placeholder="e.g 12345"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-flex">
+            <!-- Payment -->
+            <div class="column is-3">
+              <div class="field">
+                <label class="label">Payment Type</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="payment_checkout">
+                      <option>Cash</option>
+                      <option>Venmo</option>
+                      <option>Check</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Month -->
+            <div class="column is-9">
+              <label class="label">Requested Delviery (Pickup) Date</label>
+              <div class="level">
+                <div class="level-item">
+                  <div class="field">
+                    <div class="control">
+                      <div class="select">
+                        <select id="month_requested_checkout">
+                          <option value="">Month</option>
+                          <option value="1">January</option>
+                          <option value="2">February</option>
+                          <option value="3">March</option>
+                          <option value="4">April</option>
+                          <option value="5">May</option>
+                          <option value="6">June</option>
+                          <option value="7">July</option>
+                          <option value="8">August</option>
+                          <option value="9">September</option>
+                          <option value="10">October</option>
+                          <option value="11">November</option>
+                          <option value="12">December</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Day -->
+                <div class="level-item">
+                  <div class="field">
+                    <div class="control">
+                      <div class="select">
+                        <select id="day_requested_checkout">
+                          <option value="">Day</option>
+                          <script>
+                            for (let i = 1; i <= 31; i++) {
+                              document.write(
+                                `<option value="${i}">${i}</option>`
+                              );
+                            }
+                          </script>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Year -->
+                <div class="level-item">
+                  <div class="field">
+                    <div class="control">
+                      <div class="select">
+                        <select id="year_requested_checkout">
+                          <option value="">Year</option>
+                          <script>
+                            for (let i = 2023; i <= 2040; i++) {
+                              document.write(
+                                `<option value="${i}">${i}</option>`
+                              );
+                            }
+                          </script>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label mt-3">Additional Notes</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                placeholder="Place any additional notes here"
+                id="additional_notes_checkout"
+              ></textarea>
+            </div>
+          </div>
+          <div class="container m-0 has-text-centered">
+            <!-- submit button -->
+            <!-- <div class="control"> -->
+            <button
+              class="button mt-2"
+              style="background-color: #b493db"
+              id="showConfirmOrderModalBtn"
+            >
+              Submit
+            </button>
+            <!-- </div> -->
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- End Checkout Modal -->
+
+    <!-- Start Confirm Order Modal -->
+    <div class="modal" id="confirmOrderModal">
+      <div class="modal-background" id="confirmOrderModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="container m-0 has-text-centered">
+          <div
+            class="subtitle is-4 has-text-centered"
+            id="confirmOrderMessage"
+          ></div>
+          <!-- submit button -->
+          <button class="button is-primary" id="confirmPlaceOrder">
+            Confirm
+          </button>
+          <!-- cancel button -->
+          <button class="button ml-3 is-danger" id="cancelPlaceOrder">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End Confirm Order Modal -->
 
     <!-- Start Confirm Delete Product Modal -->
     <div class="modal" id="confirmDeleteProductModal">
