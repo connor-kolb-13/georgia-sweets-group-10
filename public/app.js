@@ -156,7 +156,7 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
       <!-- <div class="title is-5"><a href="#">Product 1</a></div> -->
       <!-- the id should be the product document id in firebase -->
       <div class="is-flex is-justify-content-center">
-        <button class="button productDetailsBtn" id="${doc.id}">Add to Cart</button>
+        <button class="button productDetailsBtn has-text-white has-text-weight-bold" style="background-color: #b493db" id="${doc.id}">Add to Cart</button>
       </div>
 
       <div class="content productCardContent mt-3">
