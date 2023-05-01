@@ -92,6 +92,7 @@ document.querySelector("#homebtn").addEventListener("click", () => {
     }
   });
   showmodal(homepage);
+  showHomePage();
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
     if (btn.classList.contains("is-active")) {
@@ -103,6 +104,50 @@ document.querySelector("#homebtn").addEventListener("click", () => {
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 });
+
+function showHomePage(){
+  let p1 = ""
+  let p2 = ""
+  let img = ""
+  let html = ""
+  new Promise((res, rej) => {
+    db.collection("site_static")
+      .where("ref", "==", "home")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        p1 = mydocs[0].data().paragraph1
+        p2 = mydocs[0].data().paragraph2
+        p3 = mydocs[0].data().paragraph3
+        img = mydocs[0].data().img_url
+
+        html+=`<div class="column is-5">
+        <figure class="image is-4by5">
+          <img src="${img}"/>
+        </figure>
+      </div>
+      <!-- General Description Column -->
+      <div class="column is-7">
+        <div class="content">
+          <h1 class="title is-2">Hello!</h1>
+          <p class="subtitle is-4 my-1">
+            "${p1}"
+          </p>
+          <br />
+          <p class="subtitle is-4 my-0">
+            "${p2}"
+          </p>
+          <br />
+          <p class="subtitle is-4 mt-1 mb-0">
+            "${p3}"
+          </p>
+          <br />
+        </div>
+      </div>`
+        r_e("homepagehtml").innerHTML=html;
+      })
+    })
+}
 
 // Public shop Page
 document.querySelector("#shopbtn").addEventListener("click", () => {
@@ -180,6 +225,7 @@ document.querySelector("#aboutbtn").addEventListener("click", () => {
     }
   });
   showmodal(aboutpage);
+  showAboutUs();
   hidemodal(homepage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
@@ -192,6 +238,47 @@ document.querySelector("#aboutbtn").addEventListener("click", () => {
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 });
+
+//Pulling about us page data from firebase
+function showAboutUs(){
+  let p1 = ""
+  let p2 = ""
+  let img = ""
+  let html = ""
+  new Promise((res, rej) => {
+    db.collection("site_static")
+      .where("ref", "==", "abt_us")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        p1 = mydocs[0].data().paragraph1
+        p2 = mydocs[0].data().paragraph2
+        img = mydocs[0].data().img_url
+
+        html+=`<div class="columns is-flex-direction-row my-2">
+            <div class="column is-5">
+              <figure class="image is-4by5">
+                <img src="${img}" />
+              </figure>
+            </div>
+            <div class="column is-7">
+              <div class="content">
+                <h1>Meet the Owner!</h1>
+                <p class="subtitle is-4 my-1">
+                  "${p1}"
+                </p>
+                <br />
+                <p class="subtitle is-4 my-1">
+                  "${p2}"
+                </p>
+                <br />
+              </div>
+            </div>
+          </div>`;
+          r_e("aboutushtml").innerHTML=html;
+      })
+    })
+}
 
 // Public contact Page
 document.querySelector("#contactbtn").addEventListener("click", () => {
@@ -513,6 +600,7 @@ function mngAbtUsBtn() {
     }
   });
   showmodal(manageaboutuspage);
+  showMngAboutUs();
   hidemodal(dashboardpage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
@@ -524,6 +612,81 @@ function mngAbtUsBtn() {
   dashboardbtn.classList.add("is-active");
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
+}
+
+function showMngAboutUs(){
+  let hp1 = ""
+  let hp2 = ""
+  let hp3 = ""
+  let ap1 = ""
+  let ap2 = ""
+  let html = ""
+  new Promise((res, rej) => {
+    db.collection("site_static")
+      .where("ref", "==", "home")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        hp1 = mydocs[0].data().paragraph1
+        hp2 = mydocs[0].data().paragraph2
+        hp3 = mydocs[0].data().paragraph3
+        html+= `<div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Home Page First Paragraph</div>
+        <div class="field">
+          <textarea class="textarea" placeholder="Input new text for the first paragraph of the home page!" rows = "10" id="hometextbox">${hp1}</textarea>
+          <br>
+          <button class="button has-text-white" style="background-color: #b493db" onclick="updateHomep1Button()"><strong>Update Home Page</strong></button>
+        </div>
+      </div>
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Home Page Second Paragraph</div>
+        <div class="field">
+          <textarea class="textarea" placeholder="Input new text for the second paragraph of the home page!" rows = "10" id="hometextbox2">${hp2}</textarea>
+          <br>
+          <button class="button has-text-white" style="background-color: #b493db" onclick="updateHomep2Button()"><strong>Update Home Page</strong></button>
+        </div>
+      </div>
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Home Page Third Paragraph</div>
+        <div class="field">
+          <textarea class="textarea" placeholder="Input new text for the third paragraph of the home page!" rows = "10" id="hometextbox3">${hp3}</textarea>
+          <br>
+          <button class="button has-text-white" style="background-color: #b493db" onclick="updateHomep3Button()"><strong>Update Home Page</strong></button>
+        </div>
+      </div>`
+      })
+    })
+  new Promise((res, rej) => {
+    db.collection("site_static")
+      .where("ref", "==", "abt_us")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        ap1 = mydocs[0].data().paragraph1
+        ap2 = mydocs[0].data().paragraph2
+        html+=`<div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage About Us First Paragraph</div>
+        <div class="field">
+          <textarea class="textarea" placeholder="Input new text for the first paragraph of the about us page!" rows = "10" id="aboutustextbox">${ap1}</textarea>
+          <br>
+          <button class="button has-text-white" style="background-color: #b493db" onclick="updateAboutUsp1Button()"><strong>Update About Us Page</strong></button>
+        </div>
+      </div>
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage About Us Second Paragraph</div>
+        <div class="field">
+          <textarea class="textarea" placeholder="Input new text for the second paragraph of the about us page!" rows = "10" id="aboutustextbox2">${ap2}</textarea>
+          <br>
+          <button class="button has-text-white" style="background-color: #b493db" onclick="updateAboutUsp2Button()"><strong>Update About Us Page</strong></button>
+        </div>
+      </div>`
+        
+
+
+        r_e("mngabtpagewrp").innerHTML=html
+      })
+    })
+  
 }
 
 function backToDashboardBtn() {
@@ -543,8 +706,29 @@ function backToDashboardBtn() {
   menu.classList.toggle("is-active");
 }
 
-function updateAboutUsButton(){
-  let newtext = r_e("aboutustext").value;
+function updateHomep1Button(){
+  let newtext = r_e("hometextbox").value;
+  update_firebase("site_static", "home", "paragraph1", newtext)
+}
+
+function updateHomep2Button(){
+  let newtext = r_e("hometextbox2").value;
+  update_firebase("site_static", "home", "paragraph2", newtext)
+}
+
+function updateHomep3Button(){
+  let newtext = r_e("hometextbox3").value;
+  update_firebase("site_static", "home", "paragraph3", newtext)
+}
+
+function updateAboutUsp1Button(){
+  let newtext = r_e("aboutustextbox").value;
+  update_firebase("site_static", "about_us", "paragraph1", newtext)
+}
+
+function updateAboutUsp2Button(){
+  let newtext = r_e("aboutustextbox2").value;
+  update_firebase("site_static", "about_us", "paragraph2", newtext)
 }
 
 // Example of how to use function for reference when working
