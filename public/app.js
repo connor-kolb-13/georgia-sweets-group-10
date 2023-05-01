@@ -111,23 +111,23 @@ document.querySelector("#homebtn").addEventListener("click", () => {
   menu.classList.toggle("is-active");
 });
 
-function showHomePage(){
-  let p1 = ""
-  let p2 = ""
-  let img = ""
-  let html = ""
+function showHomePage() {
+  let p1 = "";
+  let p2 = "";
+  let img = "";
+  let html = "";
   new Promise((res, rej) => {
     db.collection("site_static")
       .where("ref", "==", "home")
       .get()
       .then((data) => {
         let mydocs = data.docs;
-        p1 = mydocs[0].data().paragraph1
-        p2 = mydocs[0].data().paragraph2
-        p3 = mydocs[0].data().paragraph3
-        img = mydocs[0].data().img_url
+        p1 = mydocs[0].data().paragraph1;
+        p2 = mydocs[0].data().paragraph2;
+        p3 = mydocs[0].data().paragraph3;
+        img = mydocs[0].data().img_url;
 
-        html+=`<div class="column is-5">
+        html += `<div class="column is-5">
         <figure class="image is-4by5">
           <img src="${img}"/>
         </figure>
@@ -149,10 +149,10 @@ function showHomePage(){
           </p>
           <br />
         </div>
-      </div>`
-        r_e("homepagehtml").innerHTML=html;
-      })
-    })
+      </div>`;
+        r_e("homepagehtml").innerHTML = html;
+      });
+  });
 }
 
 // Public shop Page
@@ -598,22 +598,22 @@ document.querySelector("#aboutbtn").addEventListener("click", () => {
 });
 
 //Pulling about us page data from firebase
-function showAboutUs(){
-  let p1 = ""
-  let p2 = ""
-  let img = ""
-  let html = ""
+function showAboutUs() {
+  let p1 = "";
+  let p2 = "";
+  let img = "";
+  let html = "";
   new Promise((res, rej) => {
     db.collection("site_static")
       .where("ref", "==", "abt_us")
       .get()
       .then((data) => {
         let mydocs = data.docs;
-        p1 = mydocs[0].data().paragraph1
-        p2 = mydocs[0].data().paragraph2
-        img = mydocs[0].data().img_url
+        p1 = mydocs[0].data().paragraph1;
+        p2 = mydocs[0].data().paragraph2;
+        img = mydocs[0].data().img_url;
 
-        html+=`<div class="columns is-flex-direction-row my-2">
+        html += `<div class="columns is-flex-direction-row my-2">
             <div class="column is-5">
               <figure class="image is-4by5">
                 <img src="${img}" />
@@ -633,9 +633,9 @@ function showAboutUs(){
               </div>
             </div>
           </div>`;
-          r_e("aboutushtml").innerHTML=html;
-      })
-    })
+        r_e("aboutushtml").innerHTML = html;
+      });
+  });
 }
 
 // Public contact Page
@@ -986,23 +986,23 @@ function mngAbtUsBtn() {
   menu.classList.toggle("is-active");
 }
 
-function showMngAboutUs(){
-  let hp1 = ""
-  let hp2 = ""
-  let hp3 = ""
-  let ap1 = ""
-  let ap2 = ""
-  let html = ""
+function showMngAboutUs() {
+  let hp1 = "";
+  let hp2 = "";
+  let hp3 = "";
+  let ap1 = "";
+  let ap2 = "";
+  let html = "";
   new Promise((res, rej) => {
     db.collection("site_static")
       .where("ref", "==", "home")
       .get()
       .then((data) => {
         let mydocs = data.docs;
-        hp1 = mydocs[0].data().paragraph1
-        hp2 = mydocs[0].data().paragraph2
-        hp3 = mydocs[0].data().paragraph3
-        html+= `<div class="section has-text-centered mt-2 pt-0">
+        hp1 = mydocs[0].data().paragraph1;
+        hp2 = mydocs[0].data().paragraph2;
+        hp3 = mydocs[0].data().paragraph3;
+        html += `<div class="section has-text-centered mt-2 pt-0">
         <div class="subtitle is-3">Manage Home Page First Paragraph</div>
         <div class="field">
           <textarea class="textarea" placeholder="Input new text for the first paragraph of the home page!" rows = "10" id="hometextbox">${hp1}</textarea>
@@ -1025,18 +1025,18 @@ function showMngAboutUs(){
           <br>
           <button class="button has-text-white" style="background-color: #b493db" onclick="updateHomep3Button()"><strong>Update Home Page</strong></button>
         </div>
-      </div>`
-      })
-    })
+      </div>`;
+      });
+  });
   new Promise((res, rej) => {
     db.collection("site_static")
       .where("ref", "==", "abt_us")
       .get()
       .then((data) => {
         let mydocs = data.docs;
-        ap1 = mydocs[0].data().paragraph1
-        ap2 = mydocs[0].data().paragraph2
-        html+=`<div class="section has-text-centered mt-2 pt-0">
+        ap1 = mydocs[0].data().paragraph1;
+        ap2 = mydocs[0].data().paragraph2;
+        html += `<div class="section has-text-centered mt-2 pt-0">
         <div class="subtitle is-3">Manage About Us First Paragraph</div>
         <div class="field">
           <textarea class="textarea" placeholder="Input new text for the first paragraph of the about us page!" rows = "10" id="aboutustextbox">${ap1}</textarea>
@@ -1051,14 +1051,11 @@ function showMngAboutUs(){
           <br>
           <button class="button has-text-white" style="background-color: #b493db" onclick="updateAboutUsp2Button()"><strong>Update About Us Page</strong></button>
         </div>
-      </div>`
-        
+      </div>`;
 
-
-        r_e("mngabtpagewrp").innerHTML=html
-      })
-    })
-  
+        r_e("mngabtpagewrp").innerHTML = html;
+      });
+  });
 }
 
 function backToDashboardBtn() {
@@ -1078,29 +1075,29 @@ function backToDashboardBtn() {
   menu.classList.toggle("is-active");
 }
 
-function updateHomep1Button(){
+function updateHomep1Button() {
   let newtext = r_e("hometextbox").value;
-  update_firebase("site_static", "home", "paragraph1", newtext)
+  update_firebase("site_static", "home", "paragraph1", newtext);
 }
 
-function updateHomep2Button(){
+function updateHomep2Button() {
   let newtext = r_e("hometextbox2").value;
-  update_firebase("site_static", "home", "paragraph2", newtext)
+  update_firebase("site_static", "home", "paragraph2", newtext);
 }
 
-function updateHomep3Button(){
+function updateHomep3Button() {
   let newtext = r_e("hometextbox3").value;
-  update_firebase("site_static", "home", "paragraph3", newtext)
+  update_firebase("site_static", "home", "paragraph3", newtext);
 }
 
-function updateAboutUsp1Button(){
+function updateAboutUsp1Button() {
   let newtext = r_e("aboutustextbox").value;
-  update_firebase("site_static", "about_us", "paragraph1", newtext)
+  update_firebase("site_static", "about_us", "paragraph1", newtext);
 }
 
-function updateAboutUsp2Button(){
+function updateAboutUsp2Button() {
   let newtext = r_e("aboutustextbox2").value;
-  update_firebase("site_static", "about_us", "paragraph2", newtext)
+  update_firebase("site_static", "about_us", "paragraph2", newtext);
 }
 
 // Example of how to use function for reference when working
@@ -2666,7 +2663,7 @@ function show_orders() {
               <td class="has-text-left">${order.id}</td>
               <td class="has-text-left">${order.data().user_email}</td>
               <td class="has-text-left">${order.data().order_status}</td>
-              <td class="has-text-center">${order.data().submitted_date}</td>
+              <td class="has-text-center">${order.data().date_placed}</td>
               <td class="has-text-center">${
                 order.data().requested_completion_date
               }</td>
@@ -3199,7 +3196,7 @@ function show_orders_customer() {
               <td class="has-text-left">${order.id}</td>
               <td class="has-text-left">${order.data().user_email}</td>
               <td class="has-text-left">${order.data().order_status}</td>
-              <td class="has-text-center">${order.data().submitted_date}</td>
+              <td class="has-text-center">${order.data().date_placed}</td>
               <td class="has-text-center">${
                 order.data().requested_completion_date
               }</td>
