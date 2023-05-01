@@ -55,9 +55,9 @@ Alex:
 3. I am not running into any issues at this moment.
 
 Isaac:
-1. 
-2. 
-3. 
+1. Yesterday I planned out the design for the manage about us page
+2. Today I changed it to the Manage Home/About Us Page
+3. No issues!
 
 Trent:
 1. Yesterday I began writeing code to generate product tiles from the products stored in firebase
@@ -82,9 +82,9 @@ Alex:
 3. I am not running into any issues at this moment.
 
 Isaac:
-1. 
-2. 
-3. 
+1. Yesterday I started working on the JavaScript for the Manage Home/About Us page
+2. Today I finished the JS for the Manage Home/About Us Page
+3. Still no issues at this time.
 
 Trent:
 1. Yesterday I completed the product card generation code along with the product modals.
