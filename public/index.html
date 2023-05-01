@@ -100,12 +100,15 @@
         </div>
         <!-- End of Navbar Options -->
         <div class="navbar-end">
-          <div class="navbar-item" id="profileInfo">
-            <!-- Code for profile pic and account options -->
-            <figure
-              class="media-center mt-2 signedin mx-2 mt-1"
-              id="profilePicture"
-            >
+          <!-- Shopping Cart -->
+          <i
+            class="fa-solid is-center fa-2x is-clickable fa-shopping-cart my-auto mr-3"
+            id="shoppingCartBtn"
+            style="color: #b493db"
+          ></i>
+          <!-- Code for profile pic and account options -->
+          <div class="navbar-item my-auto" id="profileInfo">
+            <figure class="media-center signedin mx-2" id="profilePicture">
               <p class="image is-48x48">
                 <i
                   class="fa-solid fa-user is-center fa-2x is-clickable"
@@ -125,20 +128,20 @@
               >
                 <strong>Sign up</strong>
               </a>
-              <a class="button has-background-grey-light" id="loginBtn">
+              <a
+                class="button has-text-white has-text-weight-bold"
+                style="background-color: #b493db"
+                id="loginBtn"
+              >
                 Log in
               </a>
               <a
-                class="button is-hidden"
+                class="button is-hidden has-text-white has-text-weight-bold"
                 style="background-color: #b493db"
                 id="logOutBtn"
               >
                 Log Out
               </a>
-              <i
-                class="fa-solid is-center fa-2x is-clickable fa-shopping-cart"
-                id="shoppingCartBtn"
-              ></i>
             </div>
           </div>
         </div>
@@ -2318,12 +2321,22 @@
           </div>
         </div>
         <div class="column is-3 has-text-right">
-          <div
-            class="button has-text-white mt-4 has-text-weight-bold"
-            style="background-color: #b493db"
-            id="showCustomerOrders"
-          >
-            View Past & Current Orders
+          <div class="buttons has-addons ml-5 pl-5">
+            <div
+              class="button mt-4"
+              style="background-color: #b493db"
+              onclick="showCustomerOrders()"
+            >
+              <i class="fa-solid fa-eye has-text-white"></i>
+            </div>
+            <div
+              class="button has-text-white mt-4 has-text-weight-bold"
+              style="background-color: #b493db"
+              id="showCustomerOrders"
+              onclick="showCustomerOrders()"
+            >
+              My Orders
+            </div>
           </div>
         </div>
       </div>

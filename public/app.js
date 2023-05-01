@@ -1120,6 +1120,10 @@ auth.onAuthStateChanged((user) => {
     if (r_e("showCustomerOrders").classList.contains("is-hidden")) {
       r_e("showCustomerOrders").classList.remove("is-hidden");
     }
+    // Show shopping cart if hidden
+    if (r_e("shoppingCartBtn").classList.contains("is-hidden")) {
+      r_e("shoppingCartBtn").classList.remove("is-hidden");
+    }
     // Hiding Dashboard Tab From Non-Admin Accounts
     get_user_info(auth.currentUser.email, "a_type").then((type) => {
       // console.log(type);
@@ -1176,6 +1180,10 @@ auth.onAuthStateChanged((user) => {
     // hide profile info
     if (!r_e("profileInfo").classList.contains("is-hidden")) {
       r_e("profileInfo").classList.add("is-hidden");
+    }
+    // Hide shopping cart if visible
+    if (!r_e("shoppingCartBtn").classList.contains("is-hidden")) {
+      r_e("shoppingCartBtn").classList.add("is-hidden");
     }
     showmodal(homepage);
     // Hide the view orders button
@@ -1514,7 +1522,7 @@ function show_users() {
     let html = "";
     for (let i = 0; i < numPages; i++) {
       html += `
-        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+        <a class="pagination-link has-text-white" data-page="${i}">${i + 1}</a>
       `;
     }
 
@@ -1933,7 +1941,7 @@ function show_contact_responses() {
     let html = "";
     for (let i = 0; i < numPages; i++) {
       html += `
-        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+        <a class="pagination-link has-text-white" data-page="${i}">${i + 1}</a>
       `;
     }
 
@@ -2166,7 +2174,7 @@ function show_products() {
     let html = "";
     for (let i = 0; i < numPages; i++) {
       html += `
-        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+        <a class="pagination-link has-text-white" data-page="${i}">${i + 1}</a>
       `;
     }
 
@@ -2503,7 +2511,7 @@ function show_orders() {
     let html = "";
     for (let i = 0; i < numPages; i++) {
       html += `
-        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+        <a class="pagination-link has-text-white" data-page="${i}">${i + 1}</a>
       `;
     }
 
@@ -2954,15 +2962,15 @@ r_e("cancelDeleteOrder").addEventListener("click", () => {
   r_e("confirmDeleteOrderModal").classList.remove("is-active");
 });
 
-// Show the Customers Orders
-r_e("showCustomerOrders").addEventListener("click", () => {
+// Function called on click of eye icon or text button
+function showCustomerOrders() {
   // Hide the shop page
   shoppage.classList.add("is-hidden");
   // Show the customer's orders
   r_e("customerOrdersPage").classList.remove("is-hidden");
   r_e("customerOrdersPage").classList.add("is-active");
   show_orders_customer();
-});
+}
 
 function show_orders_customer() {
   get_user_info(auth.currentUser.email, "full_name").then((name) => {
@@ -2976,6 +2984,7 @@ function show_orders_customer() {
   function renderTable(startIndex, numToShow) {
     db.collection("orders")
       .where("user_email", "==", auth.currentUser.email)
+      .where("order_status", "!=", "CART")
       .get()
       .then((data) => {
         let mydocs = data.docs;
@@ -3030,7 +3039,7 @@ function show_orders_customer() {
     let html = "";
     for (let i = 0; i < numPages; i++) {
       html += `
-        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+        <a class="pagination-link has-text-white" data-page="${i}">${i + 1}</a>
       `;
     }
 
