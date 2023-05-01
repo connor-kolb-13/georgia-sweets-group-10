@@ -43,9 +43,9 @@ Questions:
 ## April 19th Stand Up
 
 Connor:
-1. 
-2. 
-3. 
+1. Yesterday I worked on admin's ability to manage orders
+2. Today I hope to complete the ability to update/delete orders
+3. No issues at this time.
 
 Alex:
 1. Yesterday I worked on planning out the shopping cart functionality 
@@ -70,9 +70,9 @@ Mason:
 ## April 26th Stand Up
 
 Connor:
-1. 
-2. 
-3. 
+1. Yesterday I worked on the submission of orders from the shop
+2. Today I will finish that up, and make styling & formatting adjustments accross the site
+3. I am not running into any issues at this time.
 
 Alex:
 1. Yesterday I worked on the shopping cart modal
