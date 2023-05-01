@@ -2301,7 +2301,7 @@
     <!-- Start of Page Div Elements -->
     <!-- Start of Homepage -->
     <div class="container" id="homepage" style="background-color: #f5f5f5">
-      <div class="columns is-flex-direction-row my-2">
+      <div class="columns is-flex-direction-row my-2" id="homepagehtml">
         <!-- Image Column -->
         <div class="column is-5">
           <figure class="image is-4by5">
@@ -2438,7 +2438,7 @@
       id="publicLandingPage"
       style="background-color: #f5f5f5"
     >
-      <div class="columns is-flex-direction-row my-2">
+      <div class="columns is-flex-direction-row my-2" id="aboutushtml">
         <!-- Image Column -->
         <div class="column is-5">
           <figure class="image is-4by5">
@@ -2601,7 +2601,7 @@
             </div>
             <div class="card-content has-text-centered">
               <div class="title is-5" onclick="mngAbtUsBtn()">
-                <a href="#" class="has-text-white">Manage About Us</a>
+                <a href="#" class="has-text-white">Manage Home/About Us</a>
               </div>
             </div>
           </div>
@@ -2825,8 +2825,47 @@
         onclick="backToDashboardBtn()"
         ><strong>Back</strong></a
       >
-      <div class="section has-text-centered mt-2 pt-0">
-        <div class="subtitle is-3">Manage About Us</div>
+      <div id="mngabtpagewrp">
+        <div class="section has-text-centered mt-2 pt-0">
+          <div class="subtitle is-3">Manage Home Page First Paragraph</div>
+          <div class="field">
+            <textarea class="textarea" placeholder="Input new text for the first paragraph of the home page!" rows = "10" id="hometextbox"></textarea>
+            <br>
+            <button class="button has-text-white" style="background-color: #b493db" onclick="updateHomep1Button()"><strong>Update Home Page</strong></button>
+          </div>
+        </div>
+        <div class="section has-text-centered mt-2 pt-0">
+          <div class="subtitle is-3">Manage Home Page Second Paragraph</div>
+          <div class="field">
+            <textarea class="textarea" placeholder="Input new text for the second paragraph of the home page!" rows = "10" id="hometextbox2"></textarea>
+            <br>
+            <button class="button has-text-white" style="background-color: #b493db" onclick="updateHomep2Button()"><strong>Update Home Page</strong></button>
+          </div>
+        </div>
+        <div class="section has-text-centered mt-2 pt-0">
+          <div class="subtitle is-3">Manage Home Page Third Paragraph</div>
+          <div class="field">
+            <textarea class="textarea" placeholder="Input new text for the third paragraph of the home page!" rows = "10" id="hometextbox3"></textarea>
+            <br>
+            <button class="button has-text-white" style="background-color: #b493db" onclick="updateHomep3Button()"><strong>Update Home Page</strong></button>
+          </div>
+        </div>
+        <div class="section has-text-centered mt-2 pt-0">
+          <div class="subtitle is-3">Manage About Us First Paragraph</div>
+          <div class="field">
+            <textarea class="textarea" placeholder="Input new text for the first paragraph of the about us page!" rows = "10" id="aboutustextbox"></textarea>
+            <br>
+            <button class="button has-text-white" style="background-color: #b493db" onclick="updateAboutUsp1Button()"><strong>Update About Us Page</strong></button>
+          </div>
+        </div>
+        <div class="section has-text-centered mt-2 pt-0">
+          <div class="subtitle is-3">Manage About Us Second Paragraph</div>
+          <div class="field">
+            <textarea class="textarea" placeholder="Input new text for the second paragraph of the about us page!" rows = "10" id="aboutustextbox2"></textarea>
+            <br>
+            <button class="button has-text-white" style="background-color: #b493db" onclick="updateAboutUsp2Button()"><strong>Update About Us Page</strong></button>
+          </div>
+        </div>
       </div>
     </div>
     <!--End of Manage About Us-->
@@ -3162,6 +3201,48 @@
       let db = firebase.firestore();
       // define a storage reference
       let ref = firebase.storage().ref();
+
+      let p1 = ""
+        let p2 = ""
+        let img = ""
+        let html = ""
+        new Promise((res, rej) => {
+          db.collection("site_static")
+            .where("ref", "==", "home")
+            .get()
+            .then((data) => {
+              let mydocs = data.docs;
+              p1 = mydocs[0].data().paragraph1
+              p2 = mydocs[0].data().paragraph2
+              p3 = mydocs[0].data().paragraph3
+              img = mydocs[0].data().img_url
+      
+              html+=`<div class="column is-5">
+              <figure class="image is-4by5">
+                <img src="${img}"/>
+              </figure>
+            </div>
+            <!-- General Description Column -->
+            <div class="column is-7">
+              <div class="content">
+                <h1 class="title is-2">Hello!</h1>
+                <p class="subtitle is-4 my-1">
+                  "${p1}"
+                </p>
+                <br />
+                <p class="subtitle is-4 my-0">
+                  "${p2}"
+                </p>
+                <br />
+                <p class="subtitle is-4 mt-1 mb-0">
+                  "${p3}"
+                </p>
+                <br />
+              </div>
+            </div>`
+              r_e("homepagehtml").innerHTML=html;
+            })
+          })
     </script>
 
     <!-- Link to JS file -->
