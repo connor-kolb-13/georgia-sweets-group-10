@@ -48,9 +48,9 @@ Connor:
 3. 
 
 Alex:
-1. 
-2. 
-3. 
+1. Yesterday I worked on planning out the shopping cart functionality 
+2. Today I worked on adding in the shopping cart and the accompanying cart modal
+3. I am not running into any issues at this moment.
 
 Isaac:
 1. 
@@ -75,9 +75,9 @@ Connor:
 3. 
 
 Alex:
-1. 
-2. 
-3. 
+1. Yesterday I worked on the shopping cart modal
+2. Today I worked on adding the functionality for the checkout button, and creating the checkout modal
+3. I am not running into any issues at this moment.
 
 Isaac:
 1. 
@@ -96,23 +96,23 @@ Mason:
 
 # Sprint Review
 
-a. What did you learn from doing our second sprint?
-<p> </p>
+a. What did you learn from doing our third sprint?
+<p>During the third sprint we learned more about working with Firestore and connecting it to the js for our project. We did this the most often during this sprint as we had to use Firestore to connect to the most crucial part of our project, the placing and tracking of orders.</p>
 
 b. What did go well? Why?
-<p></p>
+<p>During this sprint our communication was the best it had been throughout the entire project. We were very consistently in communciation during this sprint and had a very active groupchat where everyone in our group participated. We asked each other for suggestions within this group chat a lot over the course of this sprint which was helpful in allowing us to create the best possible product and bounce ideas off one another.</p>
 
 
 c. What didn’t go well? Why not?
-<p></p>
+<p>During this sprint there were a couple issues regarding the aspect of the admin being able to add orders to the cart. This was difficult as we had a hard time locating the source of the problem, as the issue occured for some and not for others.</p>
 
 
 d. How can you make things better next time?
-<p></p>
+<p>Errors like these are bound to happen when taking on large projects like this. We looked to solve this problem with constant communication and review of each others code. Getting another pair of eyes on this helped us to see where the issue was and in the future we would continue to do code reviews to try to solve any issues like this that may arise. </p>
 
 
 e. Are you satisfied with what you already completed?
-<p></p>
+<p>We are very satisfied with what we have already completed for the project, as we believe that fine tuning it over time has really allowed us to create the best possible product for our client. The client is also very satisfied with what we have completed which was very important to us.</p>
 
 f. Which group was invited? What are your observations/notes? Everybody was present?
-<p></p>
+<p>We were all present for the sprint stand ups. We observed that we had a lighter load on this sprint and worked well together to finish out this project for the client. Mason was also in pretty consistent communication with his sister, the client, throughout this sprint to gain feedback and insight.</p>
