@@ -230,10 +230,10 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
     r_e("viewProductAddCartBtn").classList.remove("is-loading");
   };
 
-  let editCart = function (doc, qty, orderPrice) {
+  editCart = function (doc, qty, orderPrice) {
     let product = doc.data();
     // create or edit a users cart
-    let email = auth.currentUser.email;
+    let email = firebase.auth().currentUser.email;
 
     db.collection("orders")
       .where("user_email", "==", email)
@@ -312,7 +312,7 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
       requestedQty = r_e("viewProductQuantity").value;
 
       // check if requestedQty is not blank, an integer, and less than products.current_inventory
-      if (auth.currentUser) {
+      if (firebase.auth().currentUser) {
         if (
           requestedQty !== "" &&
           Number.isInteger(Number(requestedQty)) &&
@@ -348,11 +348,7 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
     r_e("viewProductModal").classList.add("is-active");
   };
 
-  r_e("viewProductAddCartBtn").addEventListener("click", () => {
-    editCart(currentDoc, quantity, price);
-    r_e("viewProductAddCartBtn").setAttribute("disabled", true);
-    r_e("viewProductAddCartBtn").classList.add("is-loading");
-  });
+
 
   // clear all card columns
   r_e("productCardColumns")
@@ -386,6 +382,12 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
     });
 });
 
+r_e("viewProductAddCartBtn").addEventListener("click", () => {
+  editCart(currentDoc, quantity, price);
+  r_e("viewProductAddCartBtn").setAttribute("disabled", true);
+  r_e("viewProductAddCartBtn").classList.add("is-loading");
+});
+
 // Add products to cart
 function addToCart(id) {
   // Alex work here
@@ -406,7 +408,7 @@ let sum = function (numbers) {
 
 r_e("shoppingCartBtn").addEventListener("click", () => {
   r_e("cartTable").innerHTML = "";
-  let currentUser = auth.currentUser;
+  let currentUser = firebase.auth().currentUser;
   if (currentUser) {
     r_e("shoppingCartModal").classList.add("is-active");
     db.collection("orders")
@@ -414,6 +416,7 @@ r_e("shoppingCartBtn").addEventListener("click", () => {
       .where("order_status", "==", "CART")
       .get()
       .then((data) => {
+        console.log(data.docs)
         if (data.docs.length == 1) {
           let cart = data.docs[0].data();
           let products = cart.product_ids;
@@ -463,7 +466,7 @@ r_e("shoppingCartBtn").addEventListener("click", () => {
             }
           });
         } else {
-          // nothing in the cart
+
         }
       });
   } else {
@@ -477,12 +480,12 @@ r_e("checkoutBtn").addEventListener("click", () => {
   r_e("shoppingCartModal").classList.remove("is-active");
   r_e("checkoutModal").classList.add("is-active");
   db.collection("orders")
-    .where("user_email", "==", auth.currentUser.email)
+    .where("user_email", "==", firebase.auth().currentUser.email)
     .where("order_status", "==", "CART")
     .get()
     .then((data) => {
       if (data.docs.length == 1) {
-        get_user_info(auth.currentUser.email, "full_name").then((name) => {
+        get_user_info(firebase.auth().currentUser.email, "full_name").then((name) => {
           r_e("name_checkout").value = name;
           let cart = data.docs[0].data();
           let products = cart.product_ids;
@@ -1101,7 +1104,7 @@ function updateAboutUsp2Button() {
 }
 
 // Example of how to use function for reference when working
-// get_user_info(auth.currentUser.email, "full_name").then(
+// get_user_info(firebase.auth().currentUser.email, "full_name").then(
 //   (name) => {
 // console.log(name);    would log the full name (First Last) of the current user
 //   }
@@ -1216,7 +1219,7 @@ r_e("signUpForm").addEventListener("submit", (e) => {
       // send these to firebase
       auth.createUserWithEmailAndPassword(email, password).then((user) => {
         // console.log("user created");
-        configure_message_bar(`Welcome ${auth.currentUser.email}`);
+        configure_message_bar(`Welcome ${firebase.auth().currentUser.email}`);
         // reset the form
         document.querySelector("#signUpForm").reset();
         // close (hide) the modal
@@ -1236,7 +1239,7 @@ r_e("signUpForm").addEventListener("submit", (e) => {
             //       <i class="fa-solid fa-user is-center fa-2x"></i>
             //     </p>
             //   </figure>
-            //   <div class="button mt-1">${auth.currentUser.email}</div>
+            //   <div class="button mt-1">${firebase.auth().currentUser.email}</div>
             // </div>
             // `;
             // User is signed in
@@ -1310,7 +1313,7 @@ auth.onAuthStateChanged((user) => {
       r_e("shoppingCartBtn").classList.remove("is-hidden");
     }
     // Hiding Dashboard Tab From Non-Admin Accounts
-    get_user_info(auth.currentUser.email, "a_type").then((type) => {
+    get_user_info(firebase.auth().currentUser.email, "a_type").then((type) => {
       // console.log(type);
       if (type == "Customer") {
         // Hide the dashboard tab
@@ -1326,15 +1329,15 @@ auth.onAuthStateChanged((user) => {
       r_e("logOutBtn").classList.remove("is-hidden");
       // log the login to the user account in the database
       db.collection("users")
-        .where("email", "==", auth.currentUser.email)
+        .where("email", "==", firebase.auth().currentUser.email)
         .get()
         .then((currentuser) => {
           let dateTime = get_current_timestamp();
           // update the database
           update_firebase("users", currentuser.id, "last_login", dateTime);
           // Show name and pic in upper corner
-          get_user_info(auth.currentUser.email, "f_name").then((name) => {
-            get_user_info(auth.currentUser.email, "profile_pic").then((pic) => {
+          get_user_info(firebase.auth().currentUser.email, "f_name").then((name) => {
+            get_user_info(firebase.auth().currentUser.email, "profile_pic").then((pic) => {
               document.getElementById("profilePicture").innerHTML = `
                   <figure class="image is-64x128 m-auto" >
                       <img class="is-rounded is-clickable my-1 mr-2" id="profileinfoicon" src="${pic}">
@@ -1397,15 +1400,15 @@ auth.onAuthStateChanged((user) => {
 // show the profile information modal when the user icon is clicked (with info loaded in)
 r_e("profileInfo").addEventListener("click", () => {
   // Get the details and display them
-  get_user_info(auth.currentUser.email, "f_name").then((first) => {
-    get_user_info(auth.currentUser.email, "l_name").then((last) => {
-      get_user_info(auth.currentUser.email, "username").then((username) => {
-        get_user_info(auth.currentUser.email, "a_type").then((account) => {
-          get_user_info(auth.currentUser.email, "profile_pic").then((pic) => {
+  get_user_info(firebase.auth().currentUser.email, "f_name").then((first) => {
+    get_user_info(firebase.auth().currentUser.email, "l_name").then((last) => {
+      get_user_info(firebase.auth().currentUser.email, "username").then((username) => {
+        get_user_info(firebase.auth().currentUser.email, "a_type").then((account) => {
+          get_user_info(firebase.auth().currentUser.email, "profile_pic").then((pic) => {
             r_e("f_name_pi").value = first;
             r_e("l_name_pi").value = last;
             r_e("username_pi").value = username;
-            r_e("email_pi").value = auth.currentUser.email;
+            r_e("email_pi").value = firebase.auth().currentUser.email;
             r_e("a_type_pi").value = account;
             document.getElementById("profileInfoProfilePic").src = pic;
             r_e("profileinformationmodal").classList.add("is-active");
@@ -1425,7 +1428,7 @@ r_e("profileinfomodalbg").addEventListener("click", () => {
 r_e("profileinfoform").addEventListener("submit", (e) => {
   e.preventDefault();
   // find the current user in the users collection of the database
-  let email = auth.currentUser.email;
+  let email = firebase.auth().currentUser.email;
 
   db.collection("users")
     .get()
@@ -1437,7 +1440,7 @@ r_e("profileinfoform").addEventListener("submit", (e) => {
           // get the new info
           let newInfo = {
             a_type: r_e("a_type_pi").value,
-            email: auth.currentUser.email,
+            email: firebase.auth().currentUser.email,
             f_name: r_e("f_name_pi").value,
             l_name: r_e("l_name_pi").value,
             username: r_e("username_pi").value,
@@ -1628,7 +1631,7 @@ r_e("addShopItemForm").addEventListener("submit", (e) => {
         main_pic: url,
         date_added: get_current_timestamp(),
         supplement_pics: sup_pics,
-        added_by: auth.currentUser.email,
+        added_by: firebase.auth().currentUser.email,
       };
 
       // Store the object in the database
@@ -1666,9 +1669,9 @@ function show_users() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((user, index) => {
           html += `
@@ -1838,7 +1841,7 @@ function confirmDeleteUser(email) {
   r_e("confirmDeleteUser").addEventListener("click", () => {
     // Delete the user
     // Get the currently logged in user
-    var user = auth.currentUser;
+    var user = firebase.auth().currentUser;
     // console.log(user);
     // Call the delete method on the user object
     user
@@ -1869,7 +1872,7 @@ r_e("cancelDeleteUser").addEventListener("click", () => {
 
 r_e("deleteUserAccountBtn").addEventListener("click", (e) => {
   e.preventDefault();
-  confirmDeleteUser(auth.currentUser.email);
+  confirmDeleteUser(firebase.auth().currentUser.email);
 });
 
 async function deleteUserByEmail2(email) {
@@ -1946,13 +1949,13 @@ function load_data(coll, loc, loc2, field, val) {
   }
   query.get().then((res) => {
     let documents = res.docs;
-    let user = auth.currentUser;
+    let user = firebase.auth().currentUser;
     let type = null;
     // html reference
     html = "";
 
     if (user) {
-      get_user_info(auth.currentUser.email, "a_type").then((type) => {
+      get_user_info(firebase.auth().currentUser.email, "a_type").then((type) => {
         // if a user exists then get the user type
 
         // loop through documents array
@@ -2085,9 +2088,9 @@ function show_contact_responses() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((response, index) => {
           html += `
@@ -2191,8 +2194,7 @@ function changeContactStatus(id) {
 
 // Delete a contact us form response
 function deleteContact(id) {
-  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {
-  }
+  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {}
   r_e("confirmDeleteContactModal").classList.add("is-active");
   r_e(
     "confirmDeleteContactMessage"
@@ -2314,9 +2316,9 @@ function show_products() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((product, index) => {
           html += `
@@ -2517,7 +2519,7 @@ function editProduct(id) {
               on_sale: r_e("editShopItemOnSale").checked,
               date_added: r_e("editShopItemDateAdded").value,
               last_updated: get_current_timestamp(),
-              added_by: auth.currentUser.email,
+              added_by: firebase.auth().currentUser.email,
             };
 
             if (url) {
@@ -2554,7 +2556,7 @@ function editProduct(id) {
           on_sale: r_e("editShopItemOnSale").checked,
           date_added: r_e("editShopItemDateAdded").value,
           last_updated: get_current_timestamp(),
-          added_by: auth.currentUser.email,
+          added_by: firebase.auth().currentUser.email,
         };
 
         if (sup_pics.length > 0) {
@@ -2643,9 +2645,9 @@ function show_orders() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((order, index) => {
           let total_price = 0;
@@ -2787,7 +2789,7 @@ r_e("confirmPlaceOrder").addEventListener("click", () => {
 
   db.collection("orders")
     .where("order_status", "==", "CART")
-    .where("user_email", "==", auth.currentUser.email)
+    .where("user_email", "==", firebase.auth().currentUser.email)
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -3158,7 +3160,7 @@ function showCustomerOrders() {
 }
 
 function show_orders_customer() {
-  get_user_info(auth.currentUser.email, "full_name").then((name) => {
+  get_user_info(firebase.auth().currentUser.email, "full_name").then((name) => {
     r_e("customerOrdersPageTitle").innerHTML = `${name}'s Orders`;
   });
 
@@ -3168,7 +3170,7 @@ function show_orders_customer() {
 
   function renderTable(startIndex, numToShow) {
     db.collection("orders")
-      .where("user_email", "==", auth.currentUser.email)
+      .where("user_email", "==", firebase.auth().currentUser.email)
       .where("order_status", "!=", "CART")
       .get()
       .then((data) => {
@@ -3176,9 +3178,9 @@ function show_orders_customer() {
         let html = "";
 
         let endIndex =
-          numToShow > 0
-            ? Math.min(startIndex + numToShow, mydocs.length)
-            : mydocs.length;
+          numToShow > 0 ?
+          Math.min(startIndex + numToShow, mydocs.length) :
+          mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((order, index) => {
           let total_price = 0;
@@ -3265,7 +3267,7 @@ function show_orders_customer() {
   }
 
   db.collection("orders")
-    .where("user_email", "==", auth.currentUser.email)
+    .where("user_email", "==", firebase.auth().currentUser.email)
     .get()
     .then((data) => {
       numPages = Math.ceil(data.docs.length / PAGE_SIZE);
