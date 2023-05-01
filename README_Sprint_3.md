@@ -30,6 +30,8 @@ Day 4:
 Day 9:
 
 Day 14:
+![burdown_4_30](https://user-images.githubusercontent.com/93365258/235401664-93274772-dbc6-42f7-8e5f-8b2db282ca4c.PNG)
+
 
 
 # Daily Stand Ups
