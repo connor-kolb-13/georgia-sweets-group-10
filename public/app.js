@@ -348,8 +348,6 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
     r_e("viewProductModal").classList.add("is-active");
   };
 
-
-
   // clear all card columns
   r_e("productCardColumns")
     .querySelectorAll(".column")
@@ -416,7 +414,7 @@ r_e("shoppingCartBtn").addEventListener("click", () => {
       .where("order_status", "==", "CART")
       .get()
       .then((data) => {
-        console.log(data.docs)
+        console.log(data.docs);
         if (data.docs.length == 1) {
           let cart = data.docs[0].data();
           let products = cart.product_ids;
@@ -466,7 +464,6 @@ r_e("shoppingCartBtn").addEventListener("click", () => {
             }
           });
         } else {
-
         }
       });
   } else {
@@ -485,28 +482,30 @@ r_e("checkoutBtn").addEventListener("click", () => {
     .get()
     .then((data) => {
       if (data.docs.length == 1) {
-        get_user_info(firebase.auth().currentUser.email, "full_name").then((name) => {
-          r_e("name_checkout").value = name;
-          let cart = data.docs[0].data();
-          let products = cart.product_ids;
-          let prices = cart.product_prices;
-          let quantities = cart.product_quantities;
-          let totalCost = 0;
-          for (let i = 0; i < products.length; i++) {
-            get_firebase_data("products", products[i], "product_name").then(
-              (productName) => {
-                r_e("checkoutTable").innerHTML += `<tr>
+        get_user_info(firebase.auth().currentUser.email, "full_name").then(
+          (name) => {
+            r_e("name_checkout").value = name;
+            let cart = data.docs[0].data();
+            let products = cart.product_ids;
+            let prices = cart.product_prices;
+            let quantities = cart.product_quantities;
+            let totalCost = 0;
+            for (let i = 0; i < products.length; i++) {
+              get_firebase_data("products", products[i], "product_name").then(
+                (productName) => {
+                  r_e("checkoutTable").innerHTML += `<tr>
               <td>${productName}</td>
               <td>${prices[i]}</td>
               <td>${quantities[i]}</td>
             </tr>`;
-                totalCost = totalCost + prices[i] * quantities[i];
-                r_e("checkoutTotalCost").innerHTML = `$${totalCost}`;
-              }
-            );
+                  totalCost = totalCost + prices[i] * quantities[i];
+                  r_e("checkoutTotalCost").innerHTML = `$${totalCost}`;
+                }
+              );
+            }
+            r_e("checkoutTotalQuantity").innerHTML = sum(quantities);
           }
-          r_e("checkoutTotalQuantity").innerHTML = sum(quantities);
-        });
+        );
       } else {
         // nothing in the cart
       }
@@ -1336,29 +1335,34 @@ auth.onAuthStateChanged((user) => {
           // update the database
           update_firebase("users", currentuser.id, "last_login", dateTime);
           // Show name and pic in upper corner
-          get_user_info(firebase.auth().currentUser.email, "f_name").then((name) => {
-            get_user_info(firebase.auth().currentUser.email, "profile_pic").then((pic) => {
-              document.getElementById("profilePicture").innerHTML = `
+          get_user_info(firebase.auth().currentUser.email, "f_name").then(
+            (name) => {
+              get_user_info(
+                firebase.auth().currentUser.email,
+                "profile_pic"
+              ).then((pic) => {
+                document.getElementById("profilePicture").innerHTML = `
                   <figure class="image is-64x128 m-auto" >
                       <img class="is-rounded is-clickable my-1 mr-2" id="profileinfoicon" src="${pic}">
                   </figure>
                   
                   `;
-              document.getElementById("nameCorner").innerHTML = name;
-              // Highlight the selected nav element
-              allPages.forEach((page) => {
-                if (page.classList.contains("is-active")) {
-                  let temp = page.id.substring(0, 4);
-                  allBtns.forEach((btn) => {
-                    let tempbtn = btn.id.substring(0, 4);
-                    if (tempbtn == temp) {
-                      btn.classList.add("is-active");
-                    }
-                  });
-                }
+                document.getElementById("nameCorner").innerHTML = name;
+                // Highlight the selected nav element
+                allPages.forEach((page) => {
+                  if (page.classList.contains("is-active")) {
+                    let temp = page.id.substring(0, 4);
+                    allBtns.forEach((btn) => {
+                      let tempbtn = btn.id.substring(0, 4);
+                      if (tempbtn == temp) {
+                        btn.classList.add("is-active");
+                      }
+                    });
+                  }
+                });
               });
-            });
-          });
+            }
+          );
         });
     });
   } else {
@@ -1402,19 +1406,26 @@ r_e("profileInfo").addEventListener("click", () => {
   // Get the details and display them
   get_user_info(firebase.auth().currentUser.email, "f_name").then((first) => {
     get_user_info(firebase.auth().currentUser.email, "l_name").then((last) => {
-      get_user_info(firebase.auth().currentUser.email, "username").then((username) => {
-        get_user_info(firebase.auth().currentUser.email, "a_type").then((account) => {
-          get_user_info(firebase.auth().currentUser.email, "profile_pic").then((pic) => {
-            r_e("f_name_pi").value = first;
-            r_e("l_name_pi").value = last;
-            r_e("username_pi").value = username;
-            r_e("email_pi").value = firebase.auth().currentUser.email;
-            r_e("a_type_pi").value = account;
-            document.getElementById("profileInfoProfilePic").src = pic;
-            r_e("profileinformationmodal").classList.add("is-active");
-          });
-        });
-      });
+      get_user_info(firebase.auth().currentUser.email, "username").then(
+        (username) => {
+          get_user_info(firebase.auth().currentUser.email, "a_type").then(
+            (account) => {
+              get_user_info(
+                firebase.auth().currentUser.email,
+                "profile_pic"
+              ).then((pic) => {
+                r_e("f_name_pi").value = first;
+                r_e("l_name_pi").value = last;
+                r_e("username_pi").value = username;
+                r_e("email_pi").value = firebase.auth().currentUser.email;
+                r_e("a_type_pi").value = account;
+                document.getElementById("profileInfoProfilePic").src = pic;
+                r_e("profileinformationmodal").classList.add("is-active");
+              });
+            }
+          );
+        }
+      );
     });
   });
 });
@@ -1669,9 +1680,9 @@ function show_users() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((user, index) => {
           html += `
@@ -1955,34 +1966,36 @@ function load_data(coll, loc, loc2, field, val) {
     html = "";
 
     if (user) {
-      get_user_info(firebase.auth().currentUser.email, "a_type").then((type) => {
-        // if a user exists then get the user type
+      get_user_info(firebase.auth().currentUser.email, "a_type").then(
+        (type) => {
+          // if a user exists then get the user type
 
-        // loop through documents array
-        let count = 0;
-        html += `<div class="columns is-multiline">`;
-        documents.forEach((doc) => {
-          // console.log(doc.data().title);
-          html += `<div class="column is-one-third">`;
-          html += `<figure style="position:relative;">`;
-          html += `<img src="${doc.data().url}" />`;
-          // Check if the user is an admin
-          if (type == "Admin") {
-            html += `<button class="button is-pulled-right is-danger" style="position:absolute;top:0;right:0;" onclick="del_doc('gallery_images', '${doc.id}')">X</button>`;
-          }
-          html += `</figure>`;
+          // loop through documents array
+          let count = 0;
+          html += `<div class="columns is-multiline">`;
+          documents.forEach((doc) => {
+            // console.log(doc.data().title);
+            html += `<div class="column is-one-third">`;
+            html += `<figure style="position:relative;">`;
+            html += `<img src="${doc.data().url}" />`;
+            // Check if the user is an admin
+            if (type == "Admin") {
+              html += `<button class="button is-pulled-right is-danger" style="position:absolute;top:0;right:0;" onclick="del_doc('gallery_images', '${doc.id}')">X</button>`;
+            }
+            html += `</figure>`;
+            html += `</div>`;
+            // Create a new row after every 3 images
+            count++;
+            if (count % 3 == 0) {
+              html += `</div><div class="columns is-multiline">`;
+            }
+          });
           html += `</div>`;
-          // Create a new row after every 3 images
-          count++;
-          if (count % 3 == 0) {
-            html += `</div><div class="columns is-multiline">`;
-          }
-        });
-        html += `</div>`;
 
-        // show on the div with id indicated location
-        r_e(loc2).innerHTML = html;
-      });
+          // show on the div with id indicated location
+          r_e(loc2).innerHTML = html;
+        }
+      );
     } else {
       // User is logged out, show general layout
       let count = 0;
@@ -2088,9 +2101,9 @@ function show_contact_responses() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((response, index) => {
           html += `
@@ -2194,7 +2207,8 @@ function changeContactStatus(id) {
 
 // Delete a contact us form response
 function deleteContact(id) {
-  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {}
+  if (r_e("confirmDeleteContactModal").classList.contains("is-hidden")) {
+  }
   r_e("confirmDeleteContactModal").classList.add("is-active");
   r_e(
     "confirmDeleteContactMessage"
@@ -2316,9 +2330,9 @@ function show_products() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((product, index) => {
           html += `
@@ -2459,129 +2473,130 @@ function editProduct(id) {
       r_e("editShopItemOnSale").checked = product.data().on_sale;
       r_e("editShopItemDateAdded").value = product.data().date_added;
       r_e("editShopItemAddedBy").value = product.data().added_by;
+      r_e("editShopItemId").value = product.id;
     });
-
-  // Submit the form if they choose to
-  r_e("editProductForm").addEventListener("submit", (e) => {
-    // Show Loading button
-    r_e("submitEditItem").classList.add("is-loading");
-    // prevent the page from auto-refresh
-    e.preventDefault();
-
-    // Get the main picture
-    let mainPic = r_e("editShopItemMainPic").files[0];
-    let task = "";
-
-    if (mainPic) {
-      let mainImage = new Date() + "_" + mainPic.name;
-      task = ref.child(mainImage).put(mainPic);
-    }
-
-    // Check for supplement pictures
-    let task1 = "";
-    let task2 = "";
-    let task3 = "";
-    let task4 = "";
-    let task5 = "";
-    let sup_pics = [];
-
-    for (let index = 1; index < 6; index++) {
-      let supPic = r_e(`editShopItemSupPic${index}`).files[0];
-
-      if (supPic) {
-        let supImage = new Date() + "_" + supPic.name;
-        let taskName = `task${index}`;
-        let taskObject = ref.child(supImage).put(supPic);
-
-        eval(`${taskName} = taskObject`);
-
-        taskObject
-          .then((snapshot) => snapshot.ref.getDownloadURL())
-          .then((url) => {
-            sup_pics.push(url);
-          });
-      }
-    }
-
-    // Delay to ensure images get retrieved and properly updated
-    setTimeout(function () {
-      if (typeof task != "string") {
-        task
-          .then((snapshot) => snapshot.ref.getDownloadURL())
-          .then((url) => {
-            // get the information to submit
-            let item = {
-              product_name: r_e("editShopItemName").value,
-              product_description: r_e("editShopItemDescription").value,
-              current_inventory: r_e("editShopItemInventory").value,
-              price: r_e("editShopItemRegPrice").value,
-              sale_price: r_e("editShopItemSalePrice").value,
-              on_sale: r_e("editShopItemOnSale").checked,
-              date_added: r_e("editShopItemDateAdded").value,
-              last_updated: get_current_timestamp(),
-              added_by: firebase.auth().currentUser.email,
-            };
-
-            if (url) {
-              item.main_pic = url;
-            }
-
-            if (sup_pics.length > 0) {
-              item.supplement_pics = sup_pics;
-            }
-
-            // update the data
-            db.collection("products")
-              .doc(id)
-              .update(item)
-              .then(() => {
-                // Show updated table
-                show_products();
-                // Stop loading button
-                r_e("submitEditItem").classList.remove("is-loading");
-                // Hide the modal
-                r_e("editProductModal").classList.remove("is-active");
-                configure_message_bar(
-                  `${item.product_name} was successfully updated!`
-                );
-              });
-          });
-      } else {
-        let item = {
-          product_name: r_e("editShopItemName").value,
-          product_description: r_e("editShopItemDescription").value,
-          current_inventory: r_e("editShopItemInventory").value,
-          price: r_e("editShopItemRegPrice").value,
-          sale_price: r_e("editShopItemSalePrice").value,
-          on_sale: r_e("editShopItemOnSale").checked,
-          date_added: r_e("editShopItemDateAdded").value,
-          last_updated: get_current_timestamp(),
-          added_by: firebase.auth().currentUser.email,
-        };
-
-        if (sup_pics.length > 0) {
-          item.supplement_pics = sup_pics;
-        }
-
-        // update the data
-        db.collection("products")
-          .doc(id)
-          .update(item)
-          .then(() => {
-            // Show updated table
-            show_products();
-            // Stop loading button
-            r_e("submitEditItem").classList.remove("is-loading");
-            // Hide the modal
-            r_e("editProductModal").classList.remove("is-active");
-            configure_message_bar(
-              `${item.product_name} was successfully updated!`
-            );
-          });
-      }
-    }, 2000);
-  });
 }
+
+// Submit the form if they choose to
+r_e("editProductForm").addEventListener("submit", (e) => {
+  // Show Loading button
+  r_e("submitEditItem").classList.add("is-loading");
+  // prevent the page from auto-refresh
+  e.preventDefault();
+
+  // Get the main picture
+  let mainPic = r_e("editShopItemMainPic").files[0];
+  let task = "";
+
+  if (mainPic) {
+    let mainImage = new Date() + "_" + mainPic.name;
+    task = ref.child(mainImage).put(mainPic);
+  }
+
+  // Check for supplement pictures
+  let task1 = "";
+  let task2 = "";
+  let task3 = "";
+  let task4 = "";
+  let task5 = "";
+  let sup_pics = [];
+
+  for (let index = 1; index < 6; index++) {
+    let supPic = r_e(`editShopItemSupPic${index}`).files[0];
+
+    if (supPic) {
+      let supImage = new Date() + "_" + supPic.name;
+      let taskName = `task${index}`;
+      let taskObject = ref.child(supImage).put(supPic);
+
+      eval(`${taskName} = taskObject`);
+
+      taskObject
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => {
+          sup_pics.push(url);
+        });
+    }
+  }
+
+  // Delay to ensure images get retrieved and properly updated
+  setTimeout(function () {
+    if (typeof task != "string") {
+      task
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => {
+          // get the information to submit
+          let item = {
+            product_name: r_e("editShopItemName").value,
+            product_description: r_e("editShopItemDescription").value,
+            current_inventory: r_e("editShopItemInventory").value,
+            price: r_e("editShopItemRegPrice").value,
+            sale_price: r_e("editShopItemSalePrice").value,
+            on_sale: r_e("editShopItemOnSale").checked,
+            date_added: r_e("editShopItemDateAdded").value,
+            last_updated: get_current_timestamp(),
+            added_by: firebase.auth().currentUser.email,
+          };
+
+          if (url) {
+            item.main_pic = url;
+          }
+
+          if (sup_pics.length > 0) {
+            item.supplement_pics = sup_pics;
+          }
+
+          // update the data
+          db.collection("products")
+            .doc(r_e("editShopItemId").value)
+            .update(item)
+            .then(() => {
+              // Show updated table
+              show_products();
+              // Stop loading button
+              r_e("submitEditItem").classList.remove("is-loading");
+              // Hide the modal
+              r_e("editProductModal").classList.remove("is-active");
+              configure_message_bar(
+                `${item.product_name} was successfully updated!`
+              );
+            });
+        });
+    } else {
+      let item = {
+        product_name: r_e("editShopItemName").value,
+        product_description: r_e("editShopItemDescription").value,
+        current_inventory: r_e("editShopItemInventory").value,
+        price: r_e("editShopItemRegPrice").value,
+        sale_price: r_e("editShopItemSalePrice").value,
+        on_sale: r_e("editShopItemOnSale").checked,
+        date_added: r_e("editShopItemDateAdded").value,
+        last_updated: get_current_timestamp(),
+        added_by: firebase.auth().currentUser.email,
+      };
+
+      if (sup_pics.length > 0) {
+        item.supplement_pics = sup_pics;
+      }
+
+      // update the data
+      db.collection("products")
+        .doc(r_e("editShopItemId").value)
+        .update(item)
+        .then(() => {
+          // Show updated table
+          show_products();
+          // Stop loading button
+          r_e("submitEditItem").classList.remove("is-loading");
+          // Hide the modal
+          r_e("editProductModal").classList.remove("is-active");
+          configure_message_bar(
+            `${item.product_name} was successfully updated!`
+          );
+        });
+    }
+  }, 2000);
+});
 
 // Hide edit product modal
 r_e("editProductModalBg").addEventListener("click", () => {
@@ -2645,9 +2660,9 @@ function show_orders() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((order, index) => {
           let total_price = 0;
@@ -2952,13 +2967,13 @@ function editOrder(id) {
       }
     });
 
-  // Submit the form if they choose to
-  r_e("editProductForm").addEventListener("submit", (e) => {
-    // Show Loading button
-    r_e("submitEditItem").classList.add("is-loading");
-    // prevent the page from auto-refresh
-    e.preventDefault();
-  });
+  // // Submit the form if they choose to
+  // r_e("editProductForm").addEventListener("submit", (e) => {
+  //   // Show Loading button
+  //   r_e("submitEditItem").classList.add("is-loading");
+  //   // prevent the page from auto-refresh
+  //   e.preventDefault();
+  // });
 }
 
 r_e("editOrderModalBg").addEventListener("click", () => {
@@ -3178,9 +3193,9 @@ function show_orders_customer() {
         let html = "";
 
         let endIndex =
-          numToShow > 0 ?
-          Math.min(startIndex + numToShow, mydocs.length) :
-          mydocs.length;
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
 
         mydocs.slice(startIndex, endIndex).forEach((order, index) => {
           let total_price = 0;
@@ -3358,13 +3373,13 @@ function editOrderCustomer(id) {
       }
     });
 
-  // Submit the form if they choose to
-  r_e("editProductForm").addEventListener("submit", (e) => {
-    // Show Loading button
-    r_e("submitEditItem").classList.add("is-loading");
-    // prevent the page from auto-refresh
-    e.preventDefault();
-  });
+  // // Submit the form if they choose to
+  // r_e("editProductForm").addEventListener("submit", (e) => {
+  //   // Show Loading button
+  //   r_e("submitEditItem").classList.add("is-loading");
+  //   // prevent the page from auto-refresh
+  //   e.preventDefault();
+  // });
 }
 
 r_e("editOrderCustomerModalBg").addEventListener("click", () => {
