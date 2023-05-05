@@ -114,6 +114,7 @@ document.querySelector("#homebtn").addEventListener("click", () => {
 function showHomePage() {
   let p1 = "";
   let p2 = "";
+  let p3 = "";
   let img = "";
   let html = "";
   new Promise((res, rej) => {
@@ -129,24 +130,17 @@ function showHomePage() {
 
         html += `<div class="column is-5">
         <figure class="image is-4by5">
-          <img src="${img}"/>
+          <img src=${img}/>
         </figure>
       </div>
-      <!-- General Description Column -->
       <div class="column is-7">
         <div class="content">
           <h1 class="title is-2">Hello!</h1>
-          <p class="subtitle is-4 my-1">
-            "${p1}"
-          </p>
+          <p class="subtitle is-4 my-1">${p1}</p>
           <br />
-          <p class="subtitle is-4 my-0">
-            "${p2}"
-          </p>
+          <p class="subtitle is-4 my-0">${p2}</p>
           <br />
-          <p class="subtitle is-4 mt-1 mb-0">
-            "${p3}"
-          </p>
+          <p class="subtitle is-4 mt-1 mb-0">${p3}</p>
           <br />
         </div>
       </div>`;
@@ -618,19 +612,15 @@ function showAboutUs() {
         html += `<div class="columns is-flex-direction-row my-2">
             <div class="column is-5">
               <figure class="image is-4by5">
-                <img src="${img}" />
+                <img src=${img}/>
               </figure>
             </div>
             <div class="column is-7">
               <div class="content">
                 <h1>Meet the Owner!</h1>
-                <p class="subtitle is-4 my-1">
-                  "${p1}"
-                </p>
+                <p class="subtitle is-4 my-1">${p1}</p>
                 <br />
-                <p class="subtitle is-4 my-1">
-                  "${p2}"
-                </p>
+                <p class="subtitle is-4 my-1">${p2}</p>
                 <br />
               </div>
             </div>
@@ -1365,6 +1355,7 @@ auth.onAuthStateChanged((user) => {
           );
         });
     });
+    showHomePage();
   } else {
     // User is signed out
     // Hide the dashboard tab
@@ -1398,6 +1389,7 @@ auth.onAuthStateChanged((user) => {
         });
       }
     });
+    showHomePage()
   }
 });
 

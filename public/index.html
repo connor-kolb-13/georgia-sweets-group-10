@@ -3326,47 +3326,48 @@
       // define a storage reference
       let ref = firebase.storage().ref();
 
-      let p1 = "";
-      let p2 = "";
-      let img = "";
-      let html = "";
-      new Promise((res, rej) => {
-        db.collection("site_static")
-          .where("ref", "==", "home")
-          .get()
-          .then((data) => {
-            let mydocs = data.docs;
-            p1 = mydocs[0].data().paragraph1;
-            p2 = mydocs[0].data().paragraph2;
-            p3 = mydocs[0].data().paragraph3;
-            img = mydocs[0].data().img_url;
+      // let p1 = "";
+      // let p2 = "";
+      // let p3 = "";
+      // let img = "";
+      // let html = "";
+      // new Promise((res, rej) => {
+      //   db.collection("site_static")
+      //     .where("ref", "==", "home")
+      //     .get()
+      //     .then((data) => {
+      //       let mydocs = data.docs;
+      //       p1 = mydocs[0].data().paragraph1;
+      //       p2 = mydocs[0].data().paragraph2;
+      //       p3 = mydocs[0].data().paragraph3;
+      //       img = mydocs[0].data().img_url;
 
-            html += `<div class="column is-5">
-              <figure class="image is-4by5">
-                <img src="${img}"/>
-              </figure>
-            </div>
-            <!-- General Description Column -->
-            <div class="column is-7">
-              <div class="content">
-                <h1 class="title is-2">Hello!</h1>
-                <p class="subtitle is-4 my-1">
-                  "${p1}"
-                </p>
-                <br />
-                <p class="subtitle is-4 my-0">
-                  "${p2}"
-                </p>
-                <br />
-                <p class="subtitle is-4 mt-1 mb-0">
-                  "${p3}"
-                </p>
-                <br />
-              </div>
-            </div>`;
-            r_e("homepagehtml").innerHTML = html;
-          });
-      });
+      //       html += `<div class="column is-5">
+      //         <figure class="image is-4by5">
+      //           <img src="${img}"/>
+      //         </figure>
+      //       </div>
+      //       <!-- General Description Column -->
+      //       <div class="column is-7">
+      //         <div class="content">
+      //           <h1 class="title is-2">Hello!</h1>
+      //           <p class="subtitle is-4 my-1">
+      //             "${p1}"
+      //           </p>
+      //           <br />
+      //           <p class="subtitle is-4 my-0">
+      //             "${p2}"
+      //           </p>
+      //           <br />
+      //           <p class="subtitle is-4 mt-1 mb-0">
+      //             "${p3}"
+      //           </p>
+      //           <br />
+      //         </div>
+      //       </div>`;
+      //       r_e("homepagehtml").innerHTML = html;
+      //     });
+      // });
     </script>
 
     <!-- Link to JS file -->
