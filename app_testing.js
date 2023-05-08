@@ -28,10 +28,12 @@ async function go() {
   await page.click("#profilePic_su");
   await new Promise((r) => setTimeout(r, 25000));
   await page.click("#submitSignUP");
-
+  await new Promise((r) => setTimeout(r, 15000));
   // test ordering feature
   await page.click("#shopbtn");
+  await new Promise((r) => setTimeout(r, 5000));
   await page.click("#508foqBTSFyvOSXdM1BZ");
+  await new Promise((r) => setTimeout(r, 5000));
   await page.type("#viewProductQuantity", "12");
   await page.click("#viewProductQtyBtn");
   await page.click("#viewProductAddCartBtn");
@@ -53,6 +55,8 @@ async function go() {
   await page.click("#confirmPlaceOrder");
   // close burger since window is smaller
   await page.click("#burgerIcon");
+  // check and make sure order went through
+  await new Promise((r) => setTimeout(r, 6000));
 }
 
 // call the go() function
