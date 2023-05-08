@@ -408,7 +408,7 @@ r_e("shoppingCartBtn").addEventListener("click", () => {
       .where("order_status", "==", "CART")
       .get()
       .then((data) => {
-        console.log(data.docs);
+        // console.log(data.docs);
         if (data.docs.length == 1) {
           let cart = data.docs[0].data();
           let products = cart.product_ids;
@@ -1248,7 +1248,7 @@ r_e("signUpForm").addEventListener("submit", (e) => {
             showmodal(homepage);
           })
           .catch((error) => {
-            console.error("Error adding user: ", error);
+            configure_message_bar("Error adding user: ", error);
           });
       });
     });
@@ -1389,7 +1389,7 @@ auth.onAuthStateChanged((user) => {
         });
       }
     });
-    showHomePage()
+    showHomePage();
   }
 });
 
@@ -1885,7 +1885,7 @@ async function deleteUserByEmail2(email) {
 
     // console.log("Made it here");
     if (!userQuery) {
-      console.log("No matching user found.");
+      configure_message_bar("No matching user found.");
       return;
     }
     const userId = userQuery.uid;
@@ -2256,11 +2256,11 @@ function editContact(response_id) {
         r_e("contact_us_date_submitted").value = doc.data().time_submitted;
       } else {
         // Error Loading the data
-        console.log("No such document!");
+        configure_message_bar("No such document!");
       }
     })
     .catch((error) => {
-      console.log("Error getting document:", error);
+      configure_message_bar("Error getting document:", error);
     });
 
   // Update the response when submitted
@@ -2884,7 +2884,7 @@ function deleteProductEditOrder(
         });
     })
     .catch((error) => {
-      console.error("Error deleting product from order:", error);
+      configure_message_bar("Error deleting product from order:", error);
     });
 }
 
@@ -3124,7 +3124,7 @@ r_e("editOrderForm").addEventListener("submit", (e) => {
 });
 
 function deleteOrder(id) {
-  console.log("Delete Order with the id - ", id);
+  // console.log("Delete Order with the id - ", id);
 
   r_e("confirmDeleteOrderModal").classList.add("is-active");
   r_e(
