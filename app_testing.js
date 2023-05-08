@@ -28,6 +28,31 @@ async function go() {
   await page.click("#profilePic_su");
   await new Promise((r) => setTimeout(r, 25000));
   await page.click("#submitSignUP");
+
+  // test ordering feature
+  await page.click("#shopbtn");
+  await page.click("#508foqBTSFyvOSXdM1BZ");
+  await page.type("#viewProductQuantity", "12");
+  await page.click("#viewProductQtyBtn");
+  await page.click("#viewProductAddCartBtn");
+  await page.click("#burgerIcon");
+  await page.click("#shoppingCartBtn");
+  await page.click("#checkoutBtn");
+  await page.type("#address1_checkout", "505 College Ave");
+  await page.type("#address2_checkout", "Apt #2");
+  await page.type("#city_checkout", "Madison");
+  await page.click("#state_checkout");
+  // select correct state
+  await new Promise((r) => setTimeout(r, 10000));
+  await page.type("#zipCode_checkout", "53703");
+  await page.type(
+    "#additional_notes_checkout",
+    "Thank you so much! This is a test!!!"
+  );
+  await page.click("#showConfirmOrderModalBtn");
+  await page.click("#confirmPlaceOrder");
+  // close burger since window is smaller
+  await page.click("#burgerIcon");
 }
 
 // call the go() function
