@@ -1192,7 +1192,7 @@ r_e("signUpForm").addEventListener("submit", (e) => {
         l_name: r_e("l_name_su").value,
         username: r_e("username_su").value,
         email: r_e("email_su").value,
-        a_type: r_e("a_type_su").value,
+        a_type: "Customer",
         date_account_created: get_date(),
         profile_pic: url,
       };
