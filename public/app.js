@@ -1179,7 +1179,7 @@ r_e("signUpForm").addEventListener("submit", (e) => {
   r_e("submitSignUP").classList.add("is-loading");
   // Get the profile pic
   let profilePic = r_e("profilePic_su").files[0];
-  let profileImage = new Date() + "_" + profilePic.name;
+  let profileImage = new Date() + "_";
   const task = ref.child(profileImage).put(profilePic);
   task
     .then((snapshot) => snapshot.ref.getDownloadURL())
