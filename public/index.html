@@ -6,6 +6,7 @@
     <title>Georgia Sweets</title>
     <link rel="icon" href="roundedLogo.png" />
     <link rel="custom" href="style.css" />
+    <link rel="stylesheet" href="style.css" />
 
     <!-- update the version number as needed -->
     <!-- <script defer src="/__/firebase/9.17.1/firebase-app-compat.js"></script> -->
@@ -88,23 +89,62 @@
       <div id="navbarBasicExample" class="navbar-menu is-fullwidth">
         <div class="navbar-start">
           <!-- Main Elements -->
-          <a class="navbar-item" id="homebtn"> Home </a>
-          <a class="navbar-item" id="gallerybtn"> Gallery </a>
-          <a class="navbar-item" id="shopbtn"> Shop </a>
+          <a
+            class="navbar-item has-text-weight-bold"
+            style="color: #b493db; font-family: Optima, sans-serif"
+            id="homebtn"
+          >
+            Home
+          </a>
+          <a
+            class="navbar-item has-text-weight-bold"
+            style="color: #b493db; font-family: Optima, sans-serif"
+            id="gallerybtn"
+          >
+            Gallery
+          </a>
+          <a
+            class="navbar-item has-text-weight-bold"
+            style="color: #b493db; font-family: Optima, sans-serif"
+            id="shopbtn"
+          >
+            Shop
+          </a>
 
           <!-- Dropdown -->
-          <a class="navbar-item" id="aboutbtn"> About Us </a>
-          <a class="navbar-item" id="contactbtn"> Contact Form </a>
-          <a class="navbar-item" id="dashboardbtn"> Dashboard </a>
+          <a
+            class="navbar-item has-text-weight-bold"
+            style="color: #b493db; font-family: Optima, sans-serif"
+            id="aboutbtn"
+          >
+            About Us
+          </a>
+          <a
+            class="navbar-item has-text-weight-bold"
+            style="color: #b493db; font-family: Optima, sans-serif"
+            id="contactbtn"
+          >
+            Contact Form
+          </a>
+          <a
+            class="navbar-item has-text-weight-bold"
+            style="color: #b493db; font-family: Optima, sans-serif"
+            id="dashboardbtn"
+          >
+            Dashboard
+          </a>
         </div>
         <!-- End of Navbar Options -->
         <div class="navbar-end">
-          <div class="navbar-item" id="profileInfo">
-            <!-- Code for profile pic and account options -->
-            <figure
-              class="media-center mt-2 signedin mx-2 mt-1"
-              id="profilePicture"
-            >
+          <!-- Shopping Cart -->
+          <i
+            class="fa-solid is-center fa-2x is-clickable fa-shopping-cart my-auto mr-3"
+            id="shoppingCartBtn"
+            style="color: #b493db"
+          ></i>
+          <!-- Code for profile pic and account options -->
+          <div class="navbar-item my-auto" id="profileInfo">
+            <figure class="media-center signedin mx-2" id="profilePicture">
               <p class="image is-48x48">
                 <i
                   class="fa-solid fa-user is-center fa-2x is-clickable"
@@ -112,7 +152,11 @@
                 ></i>
               </p>
             </figure>
-            <p class="is-subtitle is-4 is-clickable" id="nameCorner"></p>
+            <p
+              class="is-subtitle is-4 is-clickable has-text-weight-bold"
+              style="color: #b493db; font-family: Optima, sans-serif"
+              id="nameCorner"
+            ></p>
             <!-- <div class="button mt-1 signedin" id="currentuser"></div> -->
           </div>
           <div class="navbar-item">
@@ -124,11 +168,15 @@
               >
                 <strong>Sign up</strong>
               </a>
-              <a class="button has-background-grey-light" id="loginBtn">
+              <a
+                class="button has-text-white has-text-weight-bold"
+                style="background-color: #b493db"
+                id="loginBtn"
+              >
                 Log in
               </a>
               <a
-                class="button is-hidden"
+                class="button is-hidden has-text-white has-text-weight-bold"
                 style="background-color: #b493db"
                 id="logOutBtn"
               >
@@ -144,7 +192,8 @@
     <!-- message bar -->
     <div
       id="message_bar"
-      class="is-hidden has-background-warning p-2 has-text-centered"
+      class="is-hidden p-2 has-text-centered has-text-white"
+      style="background-color: #b493db"
     >
       Test
     </div>
@@ -227,7 +276,9 @@
           </div>
           <!-- Profile Pic -->
           <div class="field">
-            <label class="label">Profile Picture (.jpeg or .jpg only)</label>
+            <label class="label"
+              >Profile Picture (optional: .jpeg or .jpg only)</label
+            >
             <div class="control">
               <input type="file" class="input" id="profilePic_su" />
             </div>
@@ -235,15 +286,18 @@
           <div class="container m-0 has-text-centered">
             <!-- submit button -->
             <!-- <div class="control"> -->
-            <button class="button mt-2" style="background-color: #b493db">
+            <button
+              class="button mt-2 has-text-white has-text-weight-bold"
+              style="background-color: #b493db"
+              id="submitSignUP"
+            >
               Submit
             </button>
             <!-- </div> -->
             <!-- reset button -->
             <button
-              class="button ml-3 mt-2"
+              class="button ml-3 mt-2 has-text-white has-text-weight-bold has-background-danger"
               id="resetsignup"
-              style="background-color: whitesmoke"
             >
               Reset
             </button>
@@ -287,12 +341,15 @@
           </div>
           <div class="container m-0 has-text-centered">
             <!-- submit button -->
-            <button class="button" style="background-color: #b493db">
+            <button
+              class="button has-text-white has-text-weight-bold"
+              style="background-color: #b493db"
+            >
               Submit
             </button>
             <!-- reset button -->
             <button
-              class="button ml-3"
+              class="button ml-3 has-background-danger has-text-white has-text-weight-bold"
               id="resetlogin"
               style="background-color: whitesmoke"
             >
@@ -388,15 +445,19 @@
           <div class="container m-0 has-text-centered">
             <!-- submit button -->
             <!-- <div class="control"> -->
-            <button class="button mt-2" style="background-color: #b493db">
+
+            <button
+              class="button has-text-white mt-2 has-text-weight-bold"
+              style="background-color: #b493db"
+            >
               Submit
             </button>
             <!-- </div> -->
             <!-- reset button -->
             <button
-              class="button ml-3 mt-2"
+              class="button ml-3 mt-2 has-background-danger has-text-white has-text-weight-bold"
               id="resetUserInfo"
-              style="background-color: whitesmoke"
+              style="background-color: b493db"
             >
               Reset
             </button>
@@ -505,13 +566,13 @@
             <div class="field">
               <div class="control">
                 <button
-                  class="button is-link is-primary"
+                  class="button is-link has-background-primary has-text-white has-text-weight-bold"
                   id="updateProfileInfoBtn"
                 >
                   Update
                 </button>
                 <button
-                  class="button is-link is-danger"
+                  class="button is-link is-danger has-text-white has-text-weight-bold"
                   id="deleteUserAccountBtn"
                 >
                   Delete Account
@@ -534,15 +595,102 @@
             id="confirmDeleteMessage"
           ></div>
           <!-- submit button -->
-          <button class="button is-primary" id="confirmDeleteUser">Yes</button>
+          <button
+            class="button is-primary has-text-white has-text-weight-bold"
+            id="confirmDeleteUser"
+          >
+            Yes
+          </button>
           <!-- cancel button -->
-          <button class="button ml-3 is-danger" id="cancelDeleteUser">
+          <button
+            class="button ml-3 is-danger has-text-weight-bold has-text-white"
+            id="cancelDeleteUser"
+          >
             Cancel
           </button>
         </div>
       </div>
     </div>
     <!-- End Confirm Delete User Modal -->
+
+    <!-- Start View Product Modal -->
+    <div class="modal" id="viewProductModal">
+      <div class="modal-background" id="viewProductModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="title is-3 has-text-weight-bold" id="viewProductModalName">
+          Product Name
+        </div>
+        <div class="subtitle is-6 mt-1" id="viewProductModalDescription">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
+          modi necessitatibus eveniet distinctio tenetur quae corporis, aliquid
+          ducimus est adipisci quod laboriosam minus sapiente deleniti
+          recusandae, voluptate expedita fugiat. Tenetur.
+        </div>
+        <div class="columns is-flex">
+          <div class="column">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Current Inventory</p>
+                <p class="title" id="viewProductModalInventory">3,456</p>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Unit Price</p>
+                <p class="title" id="viewProductModalPrice">$4</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form id="viewProductForm">
+          <!-- Item Description -->
+          <!-- Item Name -->
+          <div class="field">
+            <div class="columns p-5">
+              <div class="column">
+                <div class="field has-addons">
+                  <p class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      id="viewProductQuantity"
+                      placeholder="30"
+                    />
+                  </p>
+                  <p class="control">
+                    <a class="button is-info" id="viewProductQtyBtn">
+                      View Quantity
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div class="column">
+                <div
+                  class="box p-2 has-text-weight-light has-text-centered has-text-red"
+                  id="viewProductQuantityView"
+                >
+                  enter quantity
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="field is-grouped is-grouped-centered">
+          <p class="control">
+            <button
+              class="button is-primary"
+              id="viewProductAddCartBtn"
+              disabled
+            >
+              Confirm
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Inventory Count -->
 
     <!-- Start Add Shop Item Modal -->
     <div class="modal" id="addShopItemModal">
@@ -646,14 +794,17 @@
           </div>
           <div class="container m-0 has-text-centered">
             <!-- submit button -->
-            <button class="button" style="background-color: #b493db">
+            <button
+              class="button has-text-weight-bold has-text-white"
+              style="background-color: #b493db"
+              id="submitAddProduct"
+            >
               Submit
             </button>
             <!-- reset button -->
             <button
-              class="button ml-3"
+              class="button ml-3 has-background-danger has-text-white has-text-weight-bold"
               id="resetlAddShopItem"
-              style="background-color: whitesmoke"
             >
               Reset
             </button>
@@ -662,6 +813,609 @@
       </div>
     </div>
     <!-- End Add Shop Item Modal -->
+
+    <!-- Start Shopping Cart Modal -->
+    <div class="modal" id="shoppingCartModal">
+      <div class="modal-background" id="shoppingCartModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="box">
+          <div class="columns">
+            <div class="column has-text-centered">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Total Cost</p>
+                  <p class="title" id="cartTotalCost">$0</p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Total Quantity</p>
+                  <p class="title" id="cartTotalQuantity">0</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="cartTable"></tbody>
+          </table>
+        </div>
+        <button
+          class="button is-center has-text-weight-bold has-text-white"
+          style="background-color: #b493db"
+          id="checkoutBtn"
+        >
+          Checkout
+        </button>
+      </div>
+    </div>
+    <!-- End Shopping Cart Modal -->
+
+    <!-- Start Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+      <div class="modal-background" id="checkoutModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="columns is-flex">
+          <div class="column is-8 has-text-centered">
+            <h1 class="subtitle has-text-weight-bold is-3 my-6">Checkout</h1>
+          </div>
+          <div class="column is-4">
+            <div class="figure is-rounded">
+              <img src="roundedLogo.png" width="125" height="125" />
+            </div>
+          </div>
+        </div>
+        <!-- Total Cost & Items -->
+        <div class="box">
+          <div class="columns">
+            <div class="column has-text-centered">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Total Cost</p>
+                  <p class="title" id="checkoutTotalCost">$0</p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Total Quantity</p>
+                  <p class="title" id="checkoutTotalQuantity">0</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Product Summary -->
+        <div class="box">
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody id="checkoutTable"></tbody>
+          </table>
+        </div>
+        <form id="checkoutForm">
+          <div class="columns is-flex">
+            <div class="column is-8">
+              <!-- Name -->
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="name_checkout"
+                    placeholder="e.g Alex Smith"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <!-- Delivery -->
+              <div class="field">
+                <label class="label">Delivery?</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="delivery_checkout">
+                      <option>Yes</option>
+                      <option id="noDeliveryOrder">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="label is-medium" id="deliveryTitleConfirmOrder">
+            Delivery Info (leave blank for pickup)
+          </div>
+          <!-- First Row -->
+          <div class="columns is-flex">
+            <!-- Street Adress Line 1 -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Street Address 1</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="address1_checkout"
+                    placeholder="e.g 123 Main Street"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Street Adress Line 2 -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Street Address 2</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="address2_checkout"
+                    placeholder="Apt #13"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Second Row -->
+          <div class="columns is-flex">
+            <!-- City -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">City</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="city_checkout"
+                    placeholder="Madison"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- State -->
+            <div class="column is-2">
+              <div class="field">
+                <label class="label">State</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="state_checkout">
+                      <option>AL</option>
+                      <option>AK</option>
+                      <option>AZ</option>
+                      <option>AR</option>
+                      <option>CA</option>
+                      <option>CO</option>
+                      <option>CT</option>
+                      <option>DE</option>
+                      <option>FL</option>
+                      <option>GA</option>
+                      <option>HI</option>
+                      <option>ID</option>
+                      <option>IL</option>
+                      <option>IN</option>
+                      <option>IA</option>
+                      <option>KS</option>
+                      <option>KY</option>
+                      <option>LA</option>
+                      <option>ME</option>
+                      <option>MD</option>
+                      <option>MA</option>
+                      <option>MI</option>
+                      <option>MN</option>
+                      <option>MS</option>
+                      <option>MO</option>
+                      <option>MT</option>
+                      <option>NE</option>
+                      <option>NV</option>
+                      <option>NH</option>
+                      <option>NJ</option>
+                      <option>NM</option>
+                      <option>NY</option>
+                      <option>NC</option>
+                      <option>ND</option>
+                      <option>OH</option>
+                      <option>OK</option>
+                      <option>OR</option>
+                      <option>PA</option>
+                      <option>RI</option>
+                      <option>SC</option>
+                      <option>SD</option>
+                      <option>TN</option>
+                      <option>TX</option>
+                      <option>UT</option>
+                      <option>VT</option>
+                      <option>VA</option>
+                      <option>WA</option>
+                      <option>WV</option>
+                      <option>WI</option>
+                      <option>WY</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Zipcode -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Zip Code</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="zipCode_checkout"
+                    placeholder="e.g 12345"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-flex">
+            <!-- Payment -->
+            <div class="column is-3">
+              <div class="field">
+                <label class="label">Payment Type</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="payment_checkout">
+                      <option>Cash</option>
+                      <option>Venmo</option>
+                      <option>Check</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Month -->
+            <div class="column is-9">
+              <label class="label">Requested Delviery (Pickup) Date</label>
+              <div class="level">
+                <div class="level-item">
+                  <div class="field">
+                    <div class="control">
+                      <div class="select">
+                        <select id="month_requested_checkout">
+                          <option value="">Month</option>
+                          <option value="1">January</option>
+                          <option value="2">February</option>
+                          <option value="3">March</option>
+                          <option value="4">April</option>
+                          <option value="5">May</option>
+                          <option value="6">June</option>
+                          <option value="7">July</option>
+                          <option value="8">August</option>
+                          <option value="9">September</option>
+                          <option value="10">October</option>
+                          <option value="11">November</option>
+                          <option value="12">December</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Day -->
+                <div class="level-item">
+                  <div class="field">
+                    <div class="control">
+                      <div class="select">
+                        <select id="day_requested_checkout">
+                          <option value="">Day</option>
+                          <script>
+                            for (let i = 1; i <= 31; i++) {
+                              document.write(
+                                `<option value="${i}">${i}</option>`
+                              );
+                            }
+                          </script>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Year -->
+                <div class="level-item">
+                  <div class="field">
+                    <div class="control">
+                      <div class="select">
+                        <select id="year_requested_checkout">
+                          <option value="">Year</option>
+                          <script>
+                            for (let i = 2023; i <= 2040; i++) {
+                              document.write(
+                                `<option value="${i}">${i}</option>`
+                              );
+                            }
+                          </script>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label mt-3">Additional Notes</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                placeholder="Place any additional notes here"
+                id="additional_notes_checkout"
+              ></textarea>
+            </div>
+          </div>
+          <div class="container m-0 has-text-centered">
+            <!-- submit button -->
+            <!-- <div class="control"> -->
+            <button
+              class="button mt-2 has-text-white has-text-weight-bold"
+              style="background-color: #b493db"
+              id="showConfirmOrderModalBtn"
+            >
+              Submit
+            </button>
+            <!-- </div> -->
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- End Checkout Modal -->
+
+    <!-- Start Confirm Order Modal -->
+    <div class="modal" id="confirmOrderModal">
+      <div class="modal-background" id="confirmOrderModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="container m-0 has-text-centered">
+          <div
+            class="subtitle is-4 has-text-centered"
+            id="confirmOrderMessage"
+          ></div>
+          <!-- submit button -->
+          <button
+            class="button is-primary has-text-white has-text-weight-bold"
+            id="confirmPlaceOrder"
+          >
+            Confirm
+          </button>
+          <!-- cancel button -->
+          <button
+            class="button ml-3 is-danger has-text-weight-bold has-text-white"
+            id="cancelPlaceOrder"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End Confirm Order Modal -->
+
+    <!-- Start Confirm Delete Product Modal -->
+    <div class="modal" id="confirmDeleteProductModal">
+      <div class="modal-background" id="confirmDeleteProductModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="container m-0 has-text-centered">
+          <div
+            class="subtitle is-4 has-text-centered"
+            id="confirmDeleteProductMessage"
+          ></div>
+          <!-- submit button -->
+          <button
+            class="button is-primary has-text-white has-text-weight-bold"
+            id="confirmDeleteProduct"
+          >
+            Yes
+          </button>
+          <!-- cancel button -->
+          <button
+            class="button ml-3 is-danger has-text-white has-text-weight-bold"
+            id="cancelDeleteProduct"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End Confirm Delete Product Modal -->
+
+    <!-- Start Edit Product Modal  -->
+    <div class="modal" id="editProductModal">
+      <div class="modal-background" id="editProductModalBg"></div>
+      <div class="modal-content has-background-grey-light p-4">
+        <h1 class="subtitle has-text-weight-bold is-3">Edit Product Form</h1>
+        <form id="editProductForm">
+          <!-- First Row -->
+          <div class="columns is-flex">
+            <!-- Item Name -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Item Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemName"
+                    placeholder="Christmas Cookie Pack"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Last Updated -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Last Updated</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemLastUpdated"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Second Row -->
+          <div class="columns is-flex">
+            <!-- Item Name -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Added By</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemAddedBy"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Added By -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Date Added</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemDateAdded"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item Description -->
+          <div class="field">
+            <label class="label">Item Description</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                id="editShopItemDescription"
+                placeholder="Explain what this product all includes here!"
+              ></textarea>
+            </div>
+          </div>
+          <!-- Inventory Count -->
+          <div class="columns is-flex">
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Inventory Count</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="number"
+                    id="editShopItemInventory"
+                    placeholder="100"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-flex">
+            <div class="column is-4">
+              <!-- Regular Price -->
+              <div class="field">
+                <label class="label">Regular Price</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemRegPrice"
+                    placeholder="9.99"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <!-- Sale Price -->
+              <div class="field">
+                <label class="label">Sale Price</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editShopItemSalePrice"
+                    placeholder="7.99"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-4">
+              <!-- On Sale Checkbox -->
+              <label class="checkbox mt-5 pt-4">
+                <input type="checkbox" id="editShopItemOnSale" />
+                On Sale
+              </label>
+            </div>
+          </div>
+          <!-- Main Image -->
+          <div class="field">
+            <label class="label">Main Image</label>
+            <div class="control">
+              <input type="file" class="input" id="editShopItemMainPic" />
+            </div>
+          </div>
+          <!-- Supplementary Images -->
+          <div class="field">
+            <label class="label">Supplementary Images</label>
+            <div class="control">
+              <input type="file" class="input" id="editShopItemSupPic1" />
+              <input type="file" class="input" id="editShopItemSupPic2" />
+              <input type="file" class="input" id="editShopItemSupPic3" />
+              <input type="file" class="input" id="editShopItemSupPic4" />
+              <input type="file" class="input" id="editShopItemSupPic5" />
+            </div>
+          </div>
+          <!-- Product ID -->
+          <div class="field">
+            <label class="label">Product ID</label>
+            <div class="control">
+              <input class="input" type="text" id="editShopItemId" disabled />
+            </div>
+          </div>
+
+          <div class="container m-0 has-text-centered">
+            <!-- submit button -->
+            <!-- <div class="control"> -->
+            <button
+              class="button mt-2 is-primary has-text-white has-text-weight-bold"
+              id="submitEditItem"
+            >
+              Submit
+            </button>
+            <!-- </div> -->
+            <!-- reset button -->
+            <button
+              class="button mx-4 mt-2 has-text-white has-text-weight-bold has-background-danger"
+              id="resetEditProductModal"
+            >
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- End Edit Product Modal  -->
 
     <!-- Start Edit Contact Us Response Modal  -->
     <div class="modal" id="contactFormResponseModal">
@@ -797,13 +1551,16 @@
           <div class="container m-0 has-text-centered">
             <!-- submit button -->
             <!-- <div class="control"> -->
-            <button class="button mt-2 is-primary">Submit</button>
+            <button
+              class="button mt-2 is-primary has-text-white has-text-weight-bold"
+            >
+              Submit
+            </button>
             <!-- </div> -->
             <!-- reset button -->
             <button
-              class="button mx-4 mt-2"
+              class="button mx-4 mt-2 has-background-danger has-text-white has-text-weight-bold"
               id="resetContactUsFormResponseModal"
-              style="background-color: whitesmoke"
             >
               Reset
             </button>
@@ -823,11 +1580,17 @@
             id="confirmDeleteContactMessage"
           ></div>
           <!-- submit button -->
-          <button class="button is-primary" id="confirmDeleteContact">
+          <button
+            class="button is-primary has has-text-white has-text-weight-bold"
+            id="confirmDeleteContact"
+          >
             Yes
           </button>
           <!-- cancel button -->
-          <button class="button ml-3 is-danger" id="cancelDeleteContact">
+          <button
+            class="button ml-3 is-danger has-text-weight-bold has-text-white"
+            id="cancelDeleteContact"
+          >
             Cancel
           </button>
         </div>
@@ -835,12 +1598,763 @@
     </div>
     <!-- End Confirm Delete Contact Form Response Modal -->
 
+    <!-- Start Edit Order Modal  -->
+    <div class="modal" id="editOrderModal">
+      <div class="modal-background" id="editOrderModalBg"></div>
+      <div class="modal-content has-background-grey-light p-4">
+        <h1 class="subtitle has-text-weight-bold is-3">Edit Order Form</h1>
+        <form id="editOrderForm">
+          <!-- First Row -->
+          <div class="columns is-flex">
+            <!-- Order ID -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Order ID</label>
+                <div class="control">
+                  <input class="input" type="text" id="editOrderID" disabled />
+                </div>
+              </div>
+            </div>
+            <!-- Email -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input class="input" type="email" id="editOrderEmail" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Second Row -->
+          <div class="columns is-flex">
+            <!-- Date Placed -->
+            <div class="column is-4">
+              <div class="field">
+                <label class="label">Date Placed</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderDatePlaced"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Date Requested -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Requested Delivery/Pickup</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderDateRequested"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Status -->
+            <div class="column is-3">
+              <div class="field">
+                <label class="label">Status</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderStatus">
+                      <option>CART</option>
+                      <option>NEW</option>
+                      <option>In Progress</option>
+                      <option>Shippped</option>
+                      <option>Completed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box">
+            <table class="table is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Action</th>
+                  <th>
+                    <div
+                      class="button is-primary is-small"
+                      onclick="addItemtoOrderAdmin()"
+                    >
+                      <i
+                        class="fa fa-cart-plus has-text-white"
+                        aria-hidden="true"
+                        onclick="addItemtoOrderAdmin()"
+                      ></i>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="editOrderTable"></tbody>
+            </table>
+          </div>
+          <div class="box">
+            <div class="columns">
+              <div class="column has-text-centered">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Total Cost</p>
+                    <p class="title" id="editOrderTotalCost">$0</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Total Quantity</p>
+                    <p class="title" id="editOrderTotalQuantity">0</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <label class="label is-large my-2 py-2">Payment & Delivery</label>
+
+          <div class="columns is-flex">
+            <!-- Payment -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Payment</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderPayment">
+                      <option>Venmo</option>
+                      <option>Cash</option>
+                      <option>Check</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Delivery -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Delivery</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderDelivery">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Delivery Info -->
+          <div class="columns is-flex">
+            <!-- Name -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input class="input" type="text" id="editOrderDeliveryName" />
+                </div>
+              </div>
+            </div>
+            <!-- Street Address 1 -->
+            <div class="column is-7">
+              <div class="field">
+                <label class="label">Street Adress (1)</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderDeliveryAdress1"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-flex">
+            <!-- Street Adress 2 -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Street Adress (2)</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderDeliveryAdress2"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- City  -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">City</label>
+                <div class="control">
+                  <input class="input" type="text" id="editOrderDeliveryCity" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-flex">
+            <!-- State  -->
+            <div class="column is-3">
+              <div class="field">
+                <label class="label">State</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderDeliveryState">
+                      <option>AL</option>
+                      <option>AK</option>
+                      <option>AZ</option>
+                      <option>AR</option>
+                      <option>CA</option>
+                      <option>CO</option>
+                      <option>CT</option>
+                      <option>DE</option>
+                      <option>FL</option>
+                      <option>GA</option>
+                      <option>HI</option>
+                      <option>ID</option>
+                      <option>IL</option>
+                      <option>IN</option>
+                      <option>IA</option>
+                      <option>KS</option>
+                      <option>KY</option>
+                      <option>LA</option>
+                      <option>ME</option>
+                      <option>MD</option>
+                      <option>MA</option>
+                      <option>MI</option>
+                      <option>MN</option>
+                      <option>MS</option>
+                      <option>MO</option>
+                      <option>MT</option>
+                      <option>NE</option>
+                      <option>NV</option>
+                      <option>NH</option>
+                      <option>NJ</option>
+                      <option>NM</option>
+                      <option>NY</option>
+                      <option>NC</option>
+                      <option>ND</option>
+                      <option>OH</option>
+                      <option>OK</option>
+                      <option>OR</option>
+                      <option>PA</option>
+                      <option>RI</option>
+                      <option>SC</option>
+                      <option>SD</option>
+                      <option>TN</option>
+                      <option>TX</option>
+                      <option>UT</option>
+                      <option>VT</option>
+                      <option>VA</option>
+                      <option>WA</option>
+                      <option>WV</option>
+                      <option>WI</option>
+                      <option>WY</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Zip Code  -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Zip Code</label>
+                <div class="control">
+                  <input class="input" type="text" id="editOrderDeliveryZip" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Additional Details -->
+          <div class="field">
+            <label class="label">Additional Details</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                id="editOrderAdditionalDetails"
+              ></textarea>
+            </div>
+          </div>
+          <div class="container m-0 has-text-centered">
+            <!-- submit button -->
+            <!-- <div class="control"> -->
+            <button
+              class="button mt-2 is-primary has-text-white has-text-weight-bold"
+              id="submitEditOrder"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- End Edit Order Modal  -->
+
+    <!-- Start Confirm Delete Order Modal -->
+    <div class="modal" id="confirmDeleteOrderModal">
+      <div class="modal-background" id="confirmDeleteOrderModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="container m-0 has-text-centered">
+          <div
+            class="subtitle is-4 has-text-centered"
+            id="confirmDeleteOrderMessage"
+          ></div>
+          <!-- submit button -->
+          <button
+            class="button is-primary has-text-white has-text-weight-bold"
+            id="confirmDeleteOrder"
+          >
+            Yes
+          </button>
+          <!-- cancel button -->
+          <button
+            class="button ml-3 is-danger has-text-white has-text-weight-bold"
+            id="cancelDeleteOrder"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End Confirm Delete Order Modal -->
+
+    <!-- Start Add Item to Order (Admin) Modal -->
+    <div class="modal" id="addItemAdminModal">
+      <div class="modal-background" id="addItemAdminModalBg"></div>
+      <div class="modal-content has-background-white-ter p-4">
+        <div class="section has-text-centered my-0 py-1">
+          <div class="subtitle is-4">Products</div>
+        </div>
+        <table
+          class="table mx-auto is-striped is-fullwidth mb-3 mt-4"
+          id="add_productTable"
+        >
+          <thead>
+            <!-- Header Row -->
+            <tr>
+              <th class="has-text-centered">Product Image</th>
+              <th>Product Name</th>
+              <th class="has-text-centered">Price</th>
+              <th class="has-text-centered">Add to Order</th>
+            </tr>
+          </thead>
+          <tbody id="add_products_table"></tbody>
+        </table>
+        <div class="container has-text-centered">
+          <button
+            class="button is-center has-background-danger has-text-white has-text-weight-bold"
+            id="close_add_item_admin"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End  Add Item to Order (Admin) Modal  -->
+
+    <!-- Start Edit Order (Customer) Modal  -->
+    <div class="modal" id="editOrderCustomerModal">
+      <div class="modal-background" id="editOrderCustomerModalBg"></div>
+      <div class="modal-content has-background-grey-light p-4">
+        <h1 class="subtitle has-text-weight-bold is-3">Edit Order Form</h1>
+        <form id="editOrderCustomerForm">
+          <!-- First Row -->
+          <div class="columns is-flex">
+            <!-- Order ID -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Order ID</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerID"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Email -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="email"
+                    id="editOrderCustomerEmail"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Second Row -->
+          <div class="columns is-flex">
+            <!-- Date Placed -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Date Placed</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDatePlaced"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Status -->
+            <div class="column is-4">
+              <div class="field">
+                <label class="label">Status</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerStatus" disabled>
+                      <option>CART</option>
+                      <option>NEW</option>
+                      <option>In Progress</option>
+                      <option>Shippped</option>
+                      <option>Completed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Requested Date -->
+          <div class="label is-medium">Requested Completion Date</div>
+          <div class="columns is-flex">
+            <!-- Month -->
+            <div class="column is-1"></div>
+            <div class="column is-2">
+              <div class="field">
+                <label class="label">Month</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerMonth">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                      <option>10</option>
+                      <option>11</option>
+                      <option>12</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Day -->
+            <div class="column is-2">
+              <div class="field">
+                <label class="label">Day</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerDay">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                      <option>10</option>
+                      <option>11</option>
+                      <option>12</option>
+                      <option>13</option>
+                      <option>14</option>
+                      <option>15</option>
+                      <option>16</option>
+                      <option>17</option>
+                      <option>18</option>
+                      <option>19</option>
+                      <option>20</option>
+                      <option>21</option>
+                      <option>22</option>
+                      <option>23</option>
+                      <option>24</option>
+                      <option>25</option>
+                      <option>26</option>
+                      <option>27</option>
+                      <option>28</option>
+                      <option>29</option>
+                      <option>30</option>
+                      <option>31</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Year -->
+            <div class="column is-3">
+              <div class="field">
+                <label class="label">Year</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerYear">
+                      <option>2023</option>
+                      <option>2024</option>
+                      <option>2025</option>
+                      <option>2026</option>
+                      <option>2027</option>
+                      <option>2028</option>
+                      <option>2029</option>
+                      <option>2030</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-3"></div>
+          </div>
+          <div class="box">
+            <table class="table is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody id="editOrderCustomerTable"></tbody>
+            </table>
+          </div>
+          <div class="box">
+            <div class="columns">
+              <div class="column has-text-centered">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Total Cost</p>
+                    <p class="title" id="editOrderCustomerTotalCost">$0</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Total Quantity</p>
+                    <p class="title" id="editOrderCustomerTotalQuantity">0</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <label class="label is-large my-2 py-2">Payment & Delivery</label>
+
+          <div class="columns is-flex">
+            <!-- Payment -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Payment</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerPayment">
+                      <option>Venmo</option>
+                      <option>Cash</option>
+                      <option>Check</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Delivery -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Delivery</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerDelivery">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Delivery Info -->
+          <div class="columns is-flex">
+            <!-- Name -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDeliveryName"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Street Address 1 -->
+            <div class="column is-7">
+              <div class="field">
+                <label class="label">Street Adress (1)</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDeliveryAdress1"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-flex">
+            <!-- Street Adress 2 -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">Street Adress (2)</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDeliveryAdress2"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- City  -->
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">City</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDeliveryCity"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-flex">
+            <!-- State  -->
+            <div class="column is-3">
+              <div class="field">
+                <label class="label">State</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="editOrderCustomerDeliveryState">
+                      <option>AL</option>
+                      <option>AK</option>
+                      <option>AZ</option>
+                      <option>AR</option>
+                      <option>CA</option>
+                      <option>CO</option>
+                      <option>CT</option>
+                      <option>DE</option>
+                      <option>FL</option>
+                      <option>GA</option>
+                      <option>HI</option>
+                      <option>ID</option>
+                      <option>IL</option>
+                      <option>IN</option>
+                      <option>IA</option>
+                      <option>KS</option>
+                      <option>KY</option>
+                      <option>LA</option>
+                      <option>ME</option>
+                      <option>MD</option>
+                      <option>MA</option>
+                      <option>MI</option>
+                      <option>MN</option>
+                      <option>MS</option>
+                      <option>MO</option>
+                      <option>MT</option>
+                      <option>NE</option>
+                      <option>NV</option>
+                      <option>NH</option>
+                      <option>NJ</option>
+                      <option>NM</option>
+                      <option>NY</option>
+                      <option>NC</option>
+                      <option>ND</option>
+                      <option>OH</option>
+                      <option>OK</option>
+                      <option>OR</option>
+                      <option>PA</option>
+                      <option>RI</option>
+                      <option>SC</option>
+                      <option>SD</option>
+                      <option>TN</option>
+                      <option>TX</option>
+                      <option>UT</option>
+                      <option>VT</option>
+                      <option>VA</option>
+                      <option>WA</option>
+                      <option>WV</option>
+                      <option>WI</option>
+                      <option>WY</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Zip Code  -->
+            <div class="column is-5">
+              <div class="field">
+                <label class="label">Zip Code</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="editOrderCustomerDeliveryZip"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Additional Details -->
+          <div class="field">
+            <label class="label">Additional Details</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                id="editOrderCustomerAdditionalDetails"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="container m-0 has-text-centered">
+            <!-- submit button -->
+            <!-- <div class="control"> -->
+            <button
+              class="button mt-2 is-primary has-text-white has-text-weight-bold"
+              id="submitEditOrderCustomer"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- End Edit Order (Customer) Modal  -->
+
     <!-- End of Modals -->
 
     <!-- Start of Page Div Elements -->
+
     <!-- Start of Homepage -->
     <div class="container" id="homepage" style="background-color: #f5f5f5">
-      <div class="columns is-flex-direction-row my-2">
+      <div class="columns is-flex-direction-row my-2" id="homepagehtml">
         <!-- Image Column -->
         <div class="column is-5">
           <figure class="image is-4by5">
@@ -884,92 +2398,98 @@
         </div>
       </div>
     </div>
-
     <!-- End of Homepage -->
 
     <!-- Start of Shop -->
     <div class="container is-hidden my-3" id="shopPage">
-      <div class="block"></div>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem
-        nam quod quia, aliquam sit iste ipsam maiores excepturi atque
-        temporibus, laborum adipisci nihil assumenda quisquam nobis veritatis at
-        cumque impedit aut consequuntur provident, perferendis neque a? Optio
-        rem aperiam ab laudantium officiis adipisci provident facere nostrum,
-        temporibus ipsa? Esse, consequuntur.
-      </p>
-      <div class="block"></div>
-      <div class="columns">
-        <div class="column is-4">
-          <div class="card productCard">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://bulma.io/images/placeholders/1280x960.png"
-                  alt="Placeholder image"
-                />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="title is-5"><a href="#">Product 1</a></div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus nec iaculis mauris.
-                <br />
-              </div>
-            </div>
+      <div class="columns is-flex">
+        <div class="column is-9">
+          <div class="subtitle is-5 my-2">
+            Indulge in delectable treats baked with love and attention to detail
+            at Georgia Sweets! Our home bakery specializes in creating delicious
+            treats for any occasion, from specialty decorated cookies to other
+            sweet delights. Let us make your event extra "sweet" with our
+            passion for baking.
           </div>
         </div>
-        <div class="column is-4">
-          <div class="card productCard">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://bulma.io/images/placeholders/1280x960.png"
-                  alt="Placeholder image"
-                />
-              </figure>
+        <div class="column is-3 has-text-right">
+          <div class="buttons has-addons ml-5 pl-5" id="showCustomerOrders">
+            <div
+              class="button mt-4"
+              style="background-color: #b493db"
+              onclick="showCustomerOrders()"
+            >
+              <i class="fa-solid fa-eye has-text-white"></i>
             </div>
-            <div class="card-content">
-              <div class="title is-5"><a href="#">Product 2</a></div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus nec iaculis mauris.
-                <br />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="card productCard">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://bulma.io/images/placeholders/1280x960.png"
-                  alt="Placeholder image"
-                />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="title is-5"><a href="#">Product 3</a></div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus nec iaculis mauris.
-                <br />
-              </div>
+            <div
+              class="button has-text-white mt-4 has-text-weight-bold"
+              style="background-color: #b493db"
+              onclick="showCustomerOrders()"
+            >
+              My Orders
             </div>
           </div>
         </div>
       </div>
+      <div class="columns" id="productCardColumns">
+        <div class="column is-4"></div>
+        <div class="column is-4"></div>
+        <div class="column is-4"></div>
+      </div>
     </div>
     <!-- End of Shop -->
+
+    <!-- Start of Customer's Orders Page -->
+    <div class="container is-hidden my-3" id="customerOrdersPage">
+      <div class="section has-text-centered">
+        <div
+          class="button mt-0 has-text-white has-text-weight-bold is-pulled-left"
+          style="background-color: #b493db"
+          id="backToShopBtn"
+        >
+          Back
+        </div>
+        <div class="subtitle is-3" id="customerOrdersPageTitle">
+          Bucky Badger's Orders
+        </div>
+        <!-- Start Manage Orders Table -->
+        <table
+          class="table mx-auto is-striped is-fullwidth mb-3 mt-4"
+          id="ordersTableCustomer"
+        >
+          <thead>
+            <!-- Header Row -->
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Date Placed</th>
+              <th>Requested Date</th>
+              <th>Total Products</th>
+              <th>Total Price</th>
+              <th>Delivery</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="orders_table_customer">
+            <!-- Example Row -->
+          </tbody>
+        </table>
+        <div class="mb-3" id="manageOrdersCustomerPageLinks"></div>
+        <div id="manageOrdersCustomerNextPage"></div>
+        <div id="manageOrdersCustomerPrevPage"></div>
+        <!-- End Manage Orders Table -->
+      </div>
+    </div>
+    <!-- End of Customer's Orders Page -->
+
     <!-- Start of About Us -->
     <div
       class="container is-hidden"
       id="publicLandingPage"
       style="background-color: #f5f5f5"
     >
-      <div class="columns is-flex-direction-row my-2">
+      <div class="columns is-flex-direction-row my-2" id="aboutushtml">
         <!-- Image Column -->
         <div class="column is-5">
           <figure class="image is-4by5">
@@ -1016,7 +2536,7 @@
         <div class="column is-one-fifth">
           <div
             class="card productCard is-clickable"
-            style="background-color: #b493db"
+            style="background-color: #b493db; border-radius: 0.5rem"
           >
             <div class="card-image">
               <div class="box">
@@ -1040,7 +2560,7 @@
         <div class="column is-one-fifth">
           <div
             class="card productCard is-clickable"
-            style="background-color: #b493db"
+            style="background-color: #b493db; border-radius: 0.5rem"
           >
             <div class="card-image">
               <div class="box">
@@ -1064,7 +2584,7 @@
         <div class="column is-one-fifth">
           <div
             class="card productCard is-clickable"
-            style="background-color: #b493db"
+            style="background-color: #b493db; border-radius: 0.5rem"
           >
             <div class="card-image">
               <div class="box">
@@ -1092,7 +2612,7 @@
         <div class="column is-3">
           <div
             class="card productCard is-clickable"
-            style="background-color: #b493db"
+            style="background-color: #b493db; border-radius: 0.5rem"
           >
             <div class="card-image">
               <div class="box">
@@ -1116,7 +2636,7 @@
         <div class="column is-3">
           <div
             class="card productCard is-clickable"
-            style="background-color: #b493db"
+            style="background-color: #b493db; border-radius: 0.5rem"
           >
             <div class="card-image">
               <div class="box">
@@ -1132,7 +2652,7 @@
             </div>
             <div class="card-content has-text-centered">
               <div class="title is-5" onclick="mngAbtUsBtn()">
-                <a href="#" class="has-text-white">Manage About Us</a>
+                <a href="#" class="has-text-white">Manage Home/About Us</a>
               </div>
             </div>
           </div>
@@ -1159,9 +2679,11 @@
         <div class="subtitle is-3">Manage Shop</div>
         <div class="columns is-flex is-6">
           <div class="column is-6">
-            <div class="card" style="background-color: #b493db">
-              <div class="subtitle is-4 has-text-white mt-2 mb-0">
-                Manage Products
+            <div class="card pb-5" style="background-color: #b493db">
+              <div class="card-header is-shadowless">
+                <div class="subtitle is-3 has-text-white mb-0 mt-3 mx-auto">
+                  Manage Products
+                </div>
               </div>
               <hr class="mx-6" />
               <div class="buttons is-centered">
@@ -1173,15 +2695,78 @@
             </div>
           </div>
           <div class="column is-6">
-            <div class="card" style="background-color: #b493db">
-              <div class="subtitle is-4 has-text-white">Manage Orders</div>
+            <div class="card pb-5" style="background-color: #b493db">
+              <div class="card-header is-shadowless">
+                <div class="subtitle is-3 has-text-white mt-3 mb-0 mx-auto">
+                  Manage Orders
+                </div>
+              </div>
               <hr class="mx-6" />
               <div class="buttons is-centered">
-                <div class="button" id="viewShopOrders">View All Orders</div>
+                <div class="button" id="viewShopOrdersDash">
+                  View All Orders
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- Table Title -->
+        <div class="section has-text-centered my-0 pt-2 pb-1">
+          <div class="subtitle is-4" id="manageShopTableTitle"></div>
+        </div>
+        <!-- Start Manage Products Table -->
+        <table
+          class="table mx-auto is-striped is-fullwidth mb-3 mt-4 is-hidden"
+          id="productTable"
+        >
+          <thead>
+            <!-- Header Row -->
+            <tr>
+              <th>Product Image</th>
+              <th>Product ID</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Sale Price</th>
+              <th>On Sale</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="products_table">
+            <!-- Example Row -->
+          </tbody>
+        </table>
+        <div class="mb-3" id="manageProductsPageLinks"></div>
+        <div id="manageProductsNextPage"></div>
+        <div id="manageProductsPrevPage"></div>
+        <!-- End Manage Products Table -->
+        <!-- Start Manage Orders Table -->
+        <table
+          class="table mx-auto is-striped is-fullwidth mb-3 mt-4 is-hidden"
+          id="ordersTable"
+        >
+          <thead>
+            <!-- Header Row -->
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Date Placed</th>
+              <th>Requested Date</th>
+              <th>Total Products</th>
+              <th>Total Price</th>
+              <th>Delivery</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="orders_table">
+            <!-- Example Row -->
+          </tbody>
+        </table>
+        <div class="mb-3" id="manageOrdersPageLinks"></div>
+        <div id="manageOrdersNextPage"></div>
+        <div id="manageOrdersPrevPage"></div>
+        <!-- End Manage Orders Table -->
       </div>
     </div>
     <!--End of Manage Shop-->
@@ -1193,7 +2778,7 @@
       style="background-color: #f5f5f5"
     >
       <a
-        class="button has-text-white mb-4"
+        class="button has-text-white mb-4 mt-2"
         style="background-color: #b493db"
         onclick="backToDashboardBtn()"
         ><strong>Back</strong></a
@@ -1240,7 +2825,7 @@
       style="background-color: #f5f5f5"
     >
       <a
-        class="button has-text-white"
+        class="button has-text-white mt-2"
         style="background-color: #b493db"
         onclick="backToDashboardBtn()"
         ><strong>Back</strong></a
@@ -1273,7 +2858,9 @@
           </tr>
         </tbody>
       </table>
-      <div id="manageUsersPageLinks"></div>
+      <div class="mb-3" id="manageUsersPageLinks"></div>
+      <div id="manageUsersNextPage"></div>
+      <div id="manageUsersPrevPage"></div>
     </div>
     <!--End of Manage Users-->
 
@@ -1284,13 +2871,107 @@
       style="background-color: #f5f5f5"
     >
       <a
-        class="button has-text-white"
+        class="button has-text-white mt-2"
         style="background-color: #b493db"
         onclick="backToDashboardBtn()"
         ><strong>Back</strong></a
       >
-      <div class="section has-text-centered mt-2 pt-0">
-        <div class="subtitle is-3">Manage About Us</div>
+      <div id="mngabtpagewrp">
+        <div class="section has-text-centered mt-2 pt-0">
+          <div class="subtitle is-3">Manage Home Page First Paragraph</div>
+          <div class="field">
+            <textarea
+              class="textarea"
+              placeholder="Input new text for the first paragraph of the home page!"
+              rows="10"
+              id="hometextbox"
+            ></textarea>
+            <br />
+            <button
+              class="button has-text-white"
+              style="background-color: #b493db"
+              onclick="updateHomep1Button()"
+            >
+              <strong>Update Home Page</strong>
+            </button>
+          </div>
+        </div>
+        <div class="section has-text-centered mt-2 pt-0">
+          <div class="subtitle is-3">Manage Home Page Second Paragraph</div>
+          <div class="field">
+            <textarea
+              class="textarea"
+              placeholder="Input new text for the second paragraph of the home page!"
+              rows="10"
+              id="hometextbox2"
+            ></textarea>
+            <br />
+            <button
+              class="button has-text-white"
+              style="background-color: #b493db"
+              onclick="updateHomep2Button()"
+            >
+              <strong>Update Home Page</strong>
+            </button>
+          </div>
+        </div>
+        <div class="section has-text-centered mt-2 pt-0">
+          <div class="subtitle is-3">Manage Home Page Third Paragraph</div>
+          <div class="field">
+            <textarea
+              class="textarea"
+              placeholder="Input new text for the third paragraph of the home page!"
+              rows="10"
+              id="hometextbox3"
+            ></textarea>
+            <br />
+            <button
+              class="button has-text-white"
+              style="background-color: #b493db"
+              onclick="updateHomep3Button()"
+            >
+              <strong>Update Home Page</strong>
+            </button>
+          </div>
+        </div>
+        <div class="section has-text-centered mt-2 pt-0">
+          <div class="subtitle is-3">Manage About Us First Paragraph</div>
+          <div class="field">
+            <textarea
+              class="textarea"
+              placeholder="Input new text for the first paragraph of the about us page!"
+              rows="10"
+              id="aboutustextbox"
+            ></textarea>
+            <br />
+            <button
+              class="button has-text-white"
+              style="background-color: #b493db"
+              onclick="updateAboutUsp1Button()"
+            >
+              <strong>Update About Us Page</strong>
+            </button>
+          </div>
+        </div>
+        <div class="section has-text-centered mt-2 pt-0">
+          <div class="subtitle is-3">Manage About Us Second Paragraph</div>
+          <div class="field">
+            <textarea
+              class="textarea"
+              placeholder="Input new text for the second paragraph of the about us page!"
+              rows="10"
+              id="aboutustextbox2"
+            ></textarea>
+            <br />
+            <button
+              class="button has-text-white"
+              style="background-color: #b493db"
+              onclick="updateAboutUsp2Button()"
+            >
+              <strong>Update About Us Page</strong>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <!--End of Manage About Us-->
@@ -1302,7 +2983,7 @@
       style="background-color: #f5f5f5"
     >
       <a
-        class="button has-text-white"
+        class="button has-text-white mt-2"
         style="background-color: #b493db"
         onclick="backToDashboardBtn()"
         ><strong>Back</strong></a
@@ -1342,7 +3023,9 @@
             </tr> -->
           </tbody>
         </table>
-        <div id="manageContactPageLinks"></div>
+        <div class="mb-3" id="manageContactPageLinks"></div>
+        <div id="manageContactNextPage"></div>
+        <div id="manageContactPrevPage"></div>
       </div>
     </div>
     <!--End of Manage Contact Us-->
@@ -1489,10 +3172,18 @@
 
               <div class="field is-grouped is-grouped-centered">
                 <div class="control">
-                  <button class="button is-link">Submit</button>
+                  <button
+                    class="button is-link has-text-white has-text-weight-bold"
+                    style="background-color: #b493db"
+                  >
+                    Submit
+                  </button>
                 </div>
                 <div class="control">
-                  <button class="button is-link is-light" id="clearContact">
+                  <button
+                    class="button has-background-danger has-text-white has-text-weight-bold"
+                    id="clearContact"
+                  >
                     Clear
                   </button>
                 </div>
@@ -1524,8 +3215,6 @@
           <span class="has-text-weight-bold">
             Georgia Sweets Official Website
           </span>
-          by
-          <a href="#" class="has-text-info">IS 424 - Group 10</a>
         </p>
       </div>
     </footer>
@@ -1624,6 +3313,49 @@
       let db = firebase.firestore();
       // define a storage reference
       let ref = firebase.storage().ref();
+
+      // let p1 = "";
+      // let p2 = "";
+      // let p3 = "";
+      // let img = "";
+      // let html = "";
+      // new Promise((res, rej) => {
+      //   db.collection("site_static")
+      //     .where("ref", "==", "home")
+      //     .get()
+      //     .then((data) => {
+      //       let mydocs = data.docs;
+      //       p1 = mydocs[0].data().paragraph1;
+      //       p2 = mydocs[0].data().paragraph2;
+      //       p3 = mydocs[0].data().paragraph3;
+      //       img = mydocs[0].data().img_url;
+
+      //       html += `<div class="column is-5">
+      //         <figure class="image is-4by5">
+      //           <img src="${img}"/>
+      //         </figure>
+      //       </div>
+      //       <!-- General Description Column -->
+      //       <div class="column is-7">
+      //         <div class="content">
+      //           <h1 class="title is-2">Hello!</h1>
+      //           <p class="subtitle is-4 my-1">
+      //             "${p1}"
+      //           </p>
+      //           <br />
+      //           <p class="subtitle is-4 my-0">
+      //             "${p2}"
+      //           </p>
+      //           <br />
+      //           <p class="subtitle is-4 mt-1 mb-0">
+      //             "${p3}"
+      //           </p>
+      //           <br />
+      //         </div>
+      //       </div>`;
+      //       r_e("homepagehtml").innerHTML = html;
+      //     });
+      // });
     </script>
 
     <!-- Link to JS file -->

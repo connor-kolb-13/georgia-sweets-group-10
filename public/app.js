@@ -53,6 +53,7 @@ let managecontactpage = r_e("managecontactpage");
 let managegallerypage = r_e("managegallerypage");
 let manageuserspage = r_e("manageuserspage");
 let manageaboutuspage = r_e("manageaboutuspage");
+let customerorderspage = r_e("customerOrdersPage");
 
 let = allPages = [
   homepage,
@@ -67,6 +68,7 @@ let = allPages = [
   managegallerypage,
   manageuserspage,
   manageaboutuspage,
+  customerorderspage,
 ];
 
 function showmodal(mymodal) {
@@ -92,6 +94,7 @@ document.querySelector("#homebtn").addEventListener("click", () => {
     }
   });
   showmodal(homepage);
+  showHomePage();
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
     btn.style.backgroundColor = "";
@@ -107,6 +110,44 @@ document.querySelector("#homebtn").addEventListener("click", () => {
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 });
+
+function showHomePage() {
+  let p1 = "";
+  let p2 = "";
+  let p3 = "";
+  let img = "";
+  let html = "";
+  new Promise((res, rej) => {
+    db.collection("site_static")
+      .where("ref", "==", "home")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        p1 = mydocs[0].data().paragraph1;
+        p2 = mydocs[0].data().paragraph2;
+        p3 = mydocs[0].data().paragraph3;
+        img = mydocs[0].data().img_url;
+
+        html += `<div class="column is-5">
+        <figure class="image is-4by5">
+          <img src=${img}/>
+        </figure>
+      </div>
+      <div class="column is-7">
+        <div class="content">
+          <h1 class="title is-2">Hello!</h1>
+          <p class="subtitle is-4 my-1">${p1}</p>
+          <br />
+          <p class="subtitle is-4 my-0">${p2}</p>
+          <br />
+          <p class="subtitle is-4 mt-1 mb-0">${p3}</p>
+          <br />
+        </div>
+      </div>`;
+        r_e("homepagehtml").innerHTML = html;
+      });
+  });
+}
 
 // Public shop Page
 document.querySelector("#shopbtn").addEventListener("click", () => {
@@ -130,6 +171,352 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
   shopbtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
+
+  let pos = 3; // reference number for correct column positioning
+  let tileCols = document
+    .querySelector("#productCardColumns")
+    .querySelectorAll(".column");
+
+  // funciton to generate a product card given card data
+  let productCardGen = function (doc) {
+    let product = doc.data();
+    return `<div class="card productCard"">
+    <header class="card-header">
+    <p class="card-header-title">
+      ${product.product_name}
+    </p>
+  </header>
+    <div class="card-image">
+      <figure class="image is-4by3">
+        <img src="${product.main_pic}" alt="Placeholder image" />
+      </figure>
+    </div>
+    <div class="card-content m-3">
+      <!-- <div class="title is-5"><a href="#">Product 1</a></div> -->
+      <!-- the id should be the product document id in firebase -->
+      <div class="is-flex is-justify-content-center">
+        <button class="button productDetailsBtn has-text-white has-text-weight-bold" style="background-color: #b493db" id="${doc.id}">Add to Cart</button>
+      </div>
+
+      <div class="content productCardContent mt-3">
+      ${product.product_description}
+        <br />
+      </div>
+    </div>
+  </div>`;
+  };
+
+  let clearProductModal = function () {
+    r_e("viewProductModal").classList.remove("is-active");
+    r_e("viewProductQuantityView").classList.remove(
+      "has-text-danger",
+      "has-text-black"
+    );
+    r_e("viewProductQuantityView").innerHTML = "enter quantity";
+    r_e("viewProductQuantity").value = "";
+
+    r_e("viewProductModalName").innerHTML = "";
+    r_e("viewProductModalDescription").innerHTML = "";
+    r_e("viewProductModalInventory").innerHTML = "";
+    r_e("viewProductModalPrice").innerHTML = "";
+
+    r_e("viewProductAddCartBtn").setAttribute("disabled", true);
+    r_e("viewProductAddCartBtn").classList.remove("is-loading");
+  };
+
+  editCart = function (doc, qty, orderPrice) {
+    let product = doc.data();
+    // create or edit a users cart
+    let email = firebase.auth().currentUser.email;
+
+    db.collection("orders")
+      .where("user_email", "==", email)
+      .where("order_status", "==", "CART")
+      .get()
+      .then((data) => {
+        if (data.docs.length == 1) {
+          // if the user already has a CART order then update it
+          let order = data.docs[0].data();
+          if (order.product_ids.includes(doc.id.toString())) {
+            let productIndex = order.product_ids.indexOf(doc.id);
+            order.product_quantities[productIndex] += qty;
+            db.collection("orders")
+              .doc(data.docs[0].id)
+              .update({
+                product_quantities: order.product_quantities,
+              })
+              .then();
+          } else {
+            // update arrays
+            order.product_prices.push(orderPrice);
+            order.product_quantities.push(qty);
+            order.product_ids.push(doc.id);
+
+            db.collection("orders").doc(data.docs[0].id).update({
+              product_prices: order.product_prices,
+              product_quantities: order.product_quantities,
+              product_ids: order.product_ids,
+            });
+          }
+        } else {
+          // if the user does not have a CART order then create one
+          db.collection("orders").add({
+            user_email: email,
+            product_prices: [product.price],
+            product_quantities: [qty],
+            product_ids: [doc.id],
+            order_status: "CART",
+          });
+        }
+
+        // adding to cart completed
+      })
+      .then(() => {
+        clearProductModal();
+        configure_message_bar(`Product added to cart`);
+      });
+  };
+
+  let productModalGen = function (doc) {
+    product = doc.data();
+    quantity = null;
+    currentDoc = doc;
+    price = product.price;
+    let sale = product.on_sale;
+
+    if (sale) {
+      price = product.sale_price;
+      r_e("viewProductModalPrice").classList.add("has-text-primary");
+    } else {
+      r_e("viewProductModalPrice").classList.remove("has-text-primary");
+    }
+
+    // fill in the modal with the correct information
+    r_e("viewProductModalName").innerHTML = product.product_name;
+    r_e("viewProductModalDescription").innerHTML = product.product_description;
+    r_e("viewProductModalInventory").innerHTML = product.current_inventory;
+    r_e("viewProductModalPrice").innerHTML = `$${price}`;
+
+    // inner modal functionality
+
+    r_e("viewProductModalBg").addEventListener("click", () => {
+      clearProductModal();
+    });
+    r_e("viewProductQtyBtn").addEventListener("click", () => {
+      requestedQty = r_e("viewProductQuantity").value;
+
+      // check if requestedQty is not blank, an integer, and less than products.current_inventory
+      if (firebase.auth().currentUser) {
+        if (
+          requestedQty !== "" &&
+          Number.isInteger(Number(requestedQty)) &&
+          Number(requestedQty) < product.current_inventory
+        ) {
+          r_e("viewProductQuantityView").classList.remove(
+            "has-text-grey",
+            "has-text-danger"
+          );
+          r_e("viewProductQuantityView").classList.add("has-text-black");
+          r_e(
+            "viewProductQuantityView"
+          ).innerHTML = `<span class="has-text-weight-medium has-text-info">${requestedQty}</span> item(s) totaling <span class="has-text-weight-medium has-text-info">$${(
+            requestedQty * price
+          ).toFixed(2)}</span>`;
+          r_e("viewProductAddCartBtn").removeAttribute("disabled");
+          quantity = parseInt(requestedQty);
+        } else {
+          r_e("viewProductQuantityView").classList.remove("has-text-grey");
+          r_e("viewProductQuantityView").classList.add("has-text-danger");
+          r_e("viewProductQuantityView").innerHTML = "Invalid Quantity";
+          r_e("viewProductAddCartBtn").setAttribute("disabled", true);
+          quantity = null;
+        }
+      } else {
+        r_e("viewProductQuantityView").classList.remove("has-text-grey");
+        r_e("viewProductQuantityView").classList.add("has-text-danger");
+        r_e("viewProductQuantityView").innerHTML = "Sign in to order";
+      }
+    });
+
+    // display the modal
+    r_e("viewProductModal").classList.add("is-active");
+  };
+
+  // clear all card columns
+  r_e("productCardColumns")
+    .querySelectorAll(".column")
+    .forEach((col) => {
+      col.innerHTML = "";
+    });
+
+  // display all products from the db, generate a modal with additional information
+  db.collection("products")
+    .get()
+    .then((data) => {
+      let docs = data.docs;
+      docs.forEach((doc) => {
+        let col = tileCols[pos % 3];
+        col.innerHTML += productCardGen(doc);
+        pos++;
+      });
+
+      let productBtns = document.querySelectorAll(".productDetailsBtn");
+      productBtns.forEach((prod) => {
+        prod.addEventListener("click", () => {
+          db.collection("products")
+            .doc(prod.id)
+            .get()
+            .then((doc) => {
+              productModalGen(doc);
+            });
+        });
+      });
+    });
+});
+
+r_e("viewProductAddCartBtn").addEventListener("click", () => {
+  editCart(currentDoc, quantity, price);
+  r_e("viewProductAddCartBtn").setAttribute("disabled", true);
+  r_e("viewProductAddCartBtn").classList.add("is-loading");
+});
+
+// Add products to cart
+function addToCart(id) {
+  // Alex work here
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+}
+
+// Shopping cart
+
+let sum = function (numbers) {
+  return numbers.reduce((accumulator, currentValue) => {
+    return parseInt(accumulator) + parseInt(currentValue);
+  }, 0);
+};
+
+r_e("shoppingCartBtn").addEventListener("click", () => {
+  r_e("cartTable").innerHTML = "";
+  let currentUser = firebase.auth().currentUser;
+  if (currentUser) {
+    r_e("shoppingCartModal").classList.add("is-active");
+    db.collection("orders")
+      .where("user_email", "==", currentUser.email)
+      .where("order_status", "==", "CART")
+      .get()
+      .then((data) => {
+        // console.log(data.docs);
+        if (data.docs.length == 1) {
+          let cart = data.docs[0].data();
+          let products = cart.product_ids;
+          let prices = cart.product_prices;
+          let quantities = cart.product_quantities;
+          let totalCost = 0;
+          for (let i = 0; i < products.length; i++) {
+            get_firebase_data("products", products[i], "product_name").then(
+              (productName) => {
+                r_e("cartTable").innerHTML += `<tr>
+                <td>${productName}</td>
+                <td>${prices[i]}</td>
+                <td>${quantities[i]}</td>
+                <td><button class="button is-small is-danger cartDeleteBtn" id="${i}">Remove</button></td>
+              </tr>`;
+                totalCost = totalCost + prices[i] * quantities[i];
+                r_e("cartTotalCost").innerHTML = `$${totalCost}`;
+              }
+            );
+          }
+
+          r_e("cartTotalQuantity").innerHTML = sum(quantities);
+
+          r_e("cartTable").addEventListener("click", (event) => {
+            let lessCost = parseInt(prices[i]) * parseInt(quantities[i]);
+
+            prices.splice(event.target.id, 1);
+            products.splice(event.target.id, 1);
+            quantities.splice(event.target.id, 1);
+            if (event.target.classList.contains("cartDeleteBtn")) {
+              db.collection("orders")
+                .doc(data.docs[0].id)
+                .update({
+                  product_prices: prices,
+                  product_quantities: quantities,
+                  product_ids: products,
+                })
+                .then(() => {
+                  event.target.closest("tr").remove();
+                  totalCost = totalCost - lessCost;
+                  if (isNaN(totalCost) || totalCost < 0) {
+                    totalCost = 0;
+                  }
+                  r_e("cartTotalCost").innerHTML = `$${totalCost}`;
+                  r_e("cartTotalQuantity").innerHTML = sum(quantities);
+                });
+            }
+          });
+        } else {
+        }
+      });
+  } else {
+    configure_message_bar("You must be signed in to access the cart");
+  }
+});
+
+// Checkout
+r_e("checkoutBtn").addEventListener("click", () => {
+  r_e("checkoutTable").innerHTML = "";
+  r_e("shoppingCartModal").classList.remove("is-active");
+  r_e("checkoutModal").classList.add("is-active");
+  db.collection("orders")
+    .where("user_email", "==", firebase.auth().currentUser.email)
+    .where("order_status", "==", "CART")
+    .get()
+    .then((data) => {
+      if (data.docs.length == 1) {
+        get_user_info(firebase.auth().currentUser.email, "full_name").then(
+          (name) => {
+            r_e("name_checkout").value = name;
+            let cart = data.docs[0].data();
+            let products = cart.product_ids;
+            let prices = cart.product_prices;
+            let quantities = cart.product_quantities;
+            let totalCost = 0;
+            for (let i = 0; i < products.length; i++) {
+              get_firebase_data("products", products[i], "product_name").then(
+                (productName) => {
+                  r_e("checkoutTable").innerHTML += `<tr>
+              <td>${productName}</td>
+              <td>${prices[i]}</td>
+              <td>${quantities[i]}</td>
+            </tr>`;
+                  totalCost = totalCost + prices[i] * quantities[i];
+                  r_e("checkoutTotalCost").innerHTML = `$${totalCost}`;
+                }
+              );
+            }
+            r_e("checkoutTotalQuantity").innerHTML = sum(quantities);
+          }
+        );
+      } else {
+        // nothing in the cart
+      }
+    });
+});
+
+// when the user clicks on the backgorund, hide the modal
+r_e("checkoutModalBg").addEventListener("click", () => {
+  r_e("checkoutModal").classList.remove("is-active");
+});
+
+// when the user clicks on the backgorund, hide the modal
+r_e("shoppingCartModalBg").addEventListener("click", () => {
+  r_e("shoppingCartModal").classList.remove("is-active");
+  r_e("cartTotalCost").innerHTML = "$0";
+  r_e("cartTotalQuantity").innerHTML = "0";
+  r_e("cartTable").innerHTML = "";
 });
 
 // Public gallery Page
@@ -190,6 +577,7 @@ document.querySelector("#aboutbtn").addEventListener("click", () => {
     }
   });
   showmodal(aboutpage);
+  showAboutUs();
   hidemodal(homepage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
@@ -204,6 +592,43 @@ document.querySelector("#aboutbtn").addEventListener("click", () => {
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
 });
+
+//Pulling about us page data from firebase
+function showAboutUs() {
+  let p1 = "";
+  let p2 = "";
+  let img = "";
+  let html = "";
+  new Promise((res, rej) => {
+    db.collection("site_static")
+      .where("ref", "==", "abt_us")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        p1 = mydocs[0].data().paragraph1;
+        p2 = mydocs[0].data().paragraph2;
+        img = mydocs[0].data().img_url;
+
+        html += `<div class="columns is-flex-direction-row my-2">
+            <div class="column is-5">
+              <figure class="image is-4by5">
+                <img src=${img}/>
+              </figure>
+            </div>
+            <div class="column is-7">
+              <div class="content">
+                <h1>Meet the Owner!</h1>
+                <p class="subtitle is-4 my-1">${p1}</p>
+                <br />
+                <p class="subtitle is-4 my-1">${p2}</p>
+                <br />
+              </div>
+            </div>
+          </div>`;
+        r_e("aboutushtml").innerHTML = html;
+      });
+  });
+}
 
 // Public contact Page
 document.querySelector("#contactbtn").addEventListener("click", () => {
@@ -434,7 +859,7 @@ function configure_message_bar(msg) {
   setTimeout(() => {
     r_e("message_bar").classList.add("is-hidden");
     r_e("message_bar").innerHTML = "";
-  }, 2000);
+  }, 3000);
 }
 
 //Dashboard JS
@@ -446,6 +871,18 @@ function mngShopBtn() {
   });
   showmodal(manageshoppage);
   hidemodal(dashboardpage);
+  // Update Title text
+  r_e("manageShopTableTitle").innerHTML = "";
+  // Hide the product table if it was showing
+  if (!r_e("productTable").classList.contains("is-hidden")) {
+    r_e("productTable").classList.add("is-hidden");
+    r_e("manageProductsPageLinks").classList.add("is-hidden");
+  }
+  // Hide the orders table if it was showing
+  if (!r_e("ordersTable").classList.contains("is-hidden")) {
+    r_e("ordersTable").classList.add("is-hidden");
+    r_e("manageOrdersPageLinks").classList.add("is-hidden");
+  }
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
     if (btn.classList.contains("is-active")) {
@@ -527,6 +964,7 @@ function mngAbtUsBtn() {
     }
   });
   showmodal(manageaboutuspage);
+  showMngAboutUs();
   hidemodal(dashboardpage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {
@@ -538,6 +976,78 @@ function mngAbtUsBtn() {
   dashboardbtn.classList.add("is-active");
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
+}
+
+function showMngAboutUs() {
+  let hp1 = "";
+  let hp2 = "";
+  let hp3 = "";
+  let ap1 = "";
+  let ap2 = "";
+  let html = "";
+  new Promise((res, rej) => {
+    db.collection("site_static")
+      .where("ref", "==", "home")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        hp1 = mydocs[0].data().paragraph1;
+        hp2 = mydocs[0].data().paragraph2;
+        hp3 = mydocs[0].data().paragraph3;
+        html += `<div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Home Page First Paragraph</div>
+        <div class="field">
+          <textarea class="textarea" placeholder="Input new text for the first paragraph of the home page!" rows = "10" id="hometextbox">${hp1}</textarea>
+          <br>
+          <button class="button has-text-white" style="background-color: #b493db" onclick="updateHomep1Button()"><strong>Update Home Page</strong></button>
+        </div>
+      </div>
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Home Page Second Paragraph</div>
+        <div class="field">
+          <textarea class="textarea" placeholder="Input new text for the second paragraph of the home page!" rows = "10" id="hometextbox2">${hp2}</textarea>
+          <br>
+          <button class="button has-text-white" style="background-color: #b493db" onclick="updateHomep2Button()"><strong>Update Home Page</strong></button>
+        </div>
+      </div>
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Home Page Third Paragraph</div>
+        <div class="field">
+          <textarea class="textarea" placeholder="Input new text for the third paragraph of the home page!" rows = "10" id="hometextbox3">${hp3}</textarea>
+          <br>
+          <button class="button has-text-white" style="background-color: #b493db" onclick="updateHomep3Button()"><strong>Update Home Page</strong></button>
+        </div>
+      </div>`;
+      });
+  });
+  new Promise((res, rej) => {
+    db.collection("site_static")
+      .where("ref", "==", "abt_us")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        ap1 = mydocs[0].data().paragraph1;
+        ap2 = mydocs[0].data().paragraph2;
+        html += `<div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage About Us First Paragraph</div>
+        <div class="field">
+          <textarea class="textarea" placeholder="Input new text for the first paragraph of the about us page!" rows = "10" id="aboutustextbox">${ap1}</textarea>
+          <br>
+          <button class="button has-text-white" style="background-color: #b493db" onclick="updateAboutUsp1Button()"><strong>Update About Us Page</strong></button>
+        </div>
+      </div>
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage About Us Second Paragraph</div>
+        <div class="field">
+          <textarea class="textarea" placeholder="Input new text for the second paragraph of the about us page!" rows = "10" id="aboutustextbox2">${ap2}</textarea>
+          <br>
+          <button class="button has-text-white" style="background-color: #b493db" onclick="updateAboutUsp2Button()"><strong>Update About Us Page</strong></button>
+        </div>
+      </div>`;
+
+        r_e("mngabtpagewrp").innerHTML = html;
+      });
+  });
 }
 
 function backToDashboardBtn() {
@@ -557,8 +1067,33 @@ function backToDashboardBtn() {
   menu.classList.toggle("is-active");
 }
 
+function updateHomep1Button() {
+  let newtext = r_e("hometextbox").value;
+  update_firebase("site_static", "home", "paragraph1", newtext);
+}
+
+function updateHomep2Button() {
+  let newtext = r_e("hometextbox2").value;
+  update_firebase("site_static", "home", "paragraph2", newtext);
+}
+
+function updateHomep3Button() {
+  let newtext = r_e("hometextbox3").value;
+  update_firebase("site_static", "home", "paragraph3", newtext);
+}
+
+function updateAboutUsp1Button() {
+  let newtext = r_e("aboutustextbox").value;
+  update_firebase("site_static", "about_us", "paragraph1", newtext);
+}
+
+function updateAboutUsp2Button() {
+  let newtext = r_e("aboutustextbox2").value;
+  update_firebase("site_static", "about_us", "paragraph2", newtext);
+}
+
 // Example of how to use function for reference when working
-// get_user_info(auth.currentUser.email, "full_name").then(
+// get_user_info(firebase.auth().currentUser.email, "full_name").then(
 //   (name) => {
 // console.log(name);    would log the full name (First Last) of the current user
 //   }
@@ -640,9 +1175,11 @@ r_e("signUpModalBg").addEventListener("click", () => {
 r_e("signUpForm").addEventListener("submit", (e) => {
   // prevent the page from auto-refresh
   e.preventDefault();
+  // Show loading button
+  r_e("submitSignUP").classList.add("is-loading");
   // Get the profile pic
   let profilePic = r_e("profilePic_su").files[0];
-  let profileImage = new Date() + "_" + profilePic.name;
+  let profileImage = new Date() + "_";
   const task = ref.child(profileImage).put(profilePic);
   task
     .then((snapshot) => snapshot.ref.getDownloadURL())
@@ -655,7 +1192,7 @@ r_e("signUpForm").addEventListener("submit", (e) => {
         l_name: r_e("l_name_su").value,
         username: r_e("username_su").value,
         email: r_e("email_su").value,
-        a_type: r_e("a_type_su").value,
+        a_type: "Customer",
         date_account_created: get_date(),
         profile_pic: url,
       };
@@ -671,7 +1208,7 @@ r_e("signUpForm").addEventListener("submit", (e) => {
       // send these to firebase
       auth.createUserWithEmailAndPassword(email, password).then((user) => {
         // console.log("user created");
-        configure_message_bar(`Welcome ${auth.currentUser.email}`);
+        configure_message_bar(`Welcome ${firebase.auth().currentUser.email}`);
         // reset the form
         document.querySelector("#signUpForm").reset();
         // close (hide) the modal
@@ -691,7 +1228,7 @@ r_e("signUpForm").addEventListener("submit", (e) => {
             //       <i class="fa-solid fa-user is-center fa-2x"></i>
             //     </p>
             //   </figure>
-            //   <div class="button mt-1">${auth.currentUser.email}</div>
+            //   <div class="button mt-1">${firebase.auth().currentUser.email}</div>
             // </div>
             // `;
             // User is signed in
@@ -706,10 +1243,12 @@ r_e("signUpForm").addEventListener("submit", (e) => {
                 hidemodal(page);
               }
             });
+            // Stop loading button
+            r_e("submitSignUP").classList.remove("is-loading");
             showmodal(homepage);
           })
           .catch((error) => {
-            console.error("Error adding user: ", error);
+            configure_message_bar("Error adding user: ", error);
           });
       });
     });
@@ -754,8 +1293,16 @@ auth.onAuthStateChanged((user) => {
       r_e("profileInfo").classList.remove("is-hidden");
     }
     configure_message_bar(`${user.email} has successfully signed in.`);
+    // Show orders button if hidden
+    if (r_e("showCustomerOrders").classList.contains("is-hidden")) {
+      r_e("showCustomerOrders").classList.remove("is-hidden");
+    }
+    // Show shopping cart if hidden
+    if (r_e("shoppingCartBtn").classList.contains("is-hidden")) {
+      r_e("shoppingCartBtn").classList.remove("is-hidden");
+    }
     // Hiding Dashboard Tab From Non-Admin Accounts
-    get_user_info(auth.currentUser.email, "a_type").then((type) => {
+    get_user_info(firebase.auth().currentUser.email, "a_type").then((type) => {
       // console.log(type);
       if (type == "Customer") {
         // Hide the dashboard tab
@@ -771,38 +1318,44 @@ auth.onAuthStateChanged((user) => {
       r_e("logOutBtn").classList.remove("is-hidden");
       // log the login to the user account in the database
       db.collection("users")
-        .where("email", "==", auth.currentUser.email)
+        .where("email", "==", firebase.auth().currentUser.email)
         .get()
         .then((currentuser) => {
           let dateTime = get_current_timestamp();
           // update the database
           update_firebase("users", currentuser.id, "last_login", dateTime);
           // Show name and pic in upper corner
-          get_user_info(auth.currentUser.email, "f_name").then((name) => {
-            get_user_info(auth.currentUser.email, "profile_pic").then((pic) => {
-              document.getElementById("profilePicture").innerHTML = `
+          get_user_info(firebase.auth().currentUser.email, "f_name").then(
+            (name) => {
+              get_user_info(
+                firebase.auth().currentUser.email,
+                "profile_pic"
+              ).then((pic) => {
+                document.getElementById("profilePicture").innerHTML = `
                   <figure class="image is-64x128 m-auto" >
                       <img class="is-rounded is-clickable my-1 mr-2" id="profileinfoicon" src="${pic}">
                   </figure>
                   
                   `;
-              document.getElementById("nameCorner").innerHTML = name;
-              // Highlight the selected nav element
-              allPages.forEach((page) => {
-                if (page.classList.contains("is-active")) {
-                  let temp = page.id.substring(0, 4);
-                  allBtns.forEach((btn) => {
-                    let tempbtn = btn.id.substring(0, 4);
-                    if (tempbtn == temp) {
-                      btn.classList.add("is-active");
-                    }
-                  });
-                }
+                document.getElementById("nameCorner").innerHTML = name;
+                // Highlight the selected nav element
+                allPages.forEach((page) => {
+                  if (page.classList.contains("is-active")) {
+                    let temp = page.id.substring(0, 4);
+                    allBtns.forEach((btn) => {
+                      let tempbtn = btn.id.substring(0, 4);
+                      if (tempbtn == temp) {
+                        btn.classList.add("is-active");
+                      }
+                    });
+                  }
+                });
               });
-            });
-          });
+            }
+          );
         });
     });
+    showHomePage();
   } else {
     // User is signed out
     // Hide the dashboard tab
@@ -811,7 +1364,13 @@ auth.onAuthStateChanged((user) => {
     if (!r_e("profileInfo").classList.contains("is-hidden")) {
       r_e("profileInfo").classList.add("is-hidden");
     }
+    // Hide shopping cart if visible
+    if (!r_e("shoppingCartBtn").classList.contains("is-hidden")) {
+      r_e("shoppingCartBtn").classList.add("is-hidden");
+    }
     showmodal(homepage);
+    // Hide the view orders button
+    r_e("showCustomerOrders").classList.add("is-hidden");
     // configure_nav_bar(user.email);
     r_e("signUpBtn").classList.remove("is-hidden");
     r_e("loginBtn").classList.remove("is-hidden");
@@ -830,27 +1389,35 @@ auth.onAuthStateChanged((user) => {
         });
       }
     });
+    showHomePage();
   }
 });
 
 // show the profile information modal when the user icon is clicked (with info loaded in)
 r_e("profileInfo").addEventListener("click", () => {
   // Get the details and display them
-  get_user_info(auth.currentUser.email, "f_name").then((first) => {
-    get_user_info(auth.currentUser.email, "l_name").then((last) => {
-      get_user_info(auth.currentUser.email, "username").then((username) => {
-        get_user_info(auth.currentUser.email, "a_type").then((account) => {
-          get_user_info(auth.currentUser.email, "profile_pic").then((pic) => {
-            r_e("f_name_pi").value = first;
-            r_e("l_name_pi").value = last;
-            r_e("username_pi").value = username;
-            r_e("email_pi").value = auth.currentUser.email;
-            r_e("a_type_pi").value = account;
-            document.getElementById("profileInfoProfilePic").src = pic;
-            r_e("profileinformationmodal").classList.add("is-active");
-          });
-        });
-      });
+  get_user_info(firebase.auth().currentUser.email, "f_name").then((first) => {
+    get_user_info(firebase.auth().currentUser.email, "l_name").then((last) => {
+      get_user_info(firebase.auth().currentUser.email, "username").then(
+        (username) => {
+          get_user_info(firebase.auth().currentUser.email, "a_type").then(
+            (account) => {
+              get_user_info(
+                firebase.auth().currentUser.email,
+                "profile_pic"
+              ).then((pic) => {
+                r_e("f_name_pi").value = first;
+                r_e("l_name_pi").value = last;
+                r_e("username_pi").value = username;
+                r_e("email_pi").value = firebase.auth().currentUser.email;
+                r_e("a_type_pi").value = account;
+                document.getElementById("profileInfoProfilePic").src = pic;
+                r_e("profileinformationmodal").classList.add("is-active");
+              });
+            }
+          );
+        }
+      );
     });
   });
 });
@@ -864,7 +1431,7 @@ r_e("profileinfomodalbg").addEventListener("click", () => {
 r_e("profileinfoform").addEventListener("submit", (e) => {
   e.preventDefault();
   // find the current user in the users collection of the database
-  let email = auth.currentUser.email;
+  let email = firebase.auth().currentUser.email;
 
   db.collection("users")
     .get()
@@ -876,7 +1443,7 @@ r_e("profileinfoform").addEventListener("submit", (e) => {
           // get the new info
           let newInfo = {
             a_type: r_e("a_type_pi").value,
-            email: auth.currentUser.email,
+            email: firebase.auth().currentUser.email,
             f_name: r_e("f_name_pi").value,
             l_name: r_e("l_name_pi").value,
             username: r_e("username_pi").value,
@@ -934,6 +1501,19 @@ function get_current_timestamp() {
 // Shop Page Work
 r_e("addShopItemBtn").addEventListener("click", () => {
   r_e("addShopItemModal").classList.add("is-active");
+  // Update Title text
+  r_e("manageShopTableTitle").innerHTML = "";
+  // Hide the orders table if it was showing
+  if (!r_e("ordersTable").classList.contains("is-hidden")) {
+    r_e("ordersTable").classList.add("is-hidden");
+    r_e("manageOrdersPageLinks").classList.add("is-hidden");
+  }
+  // Hide the product table if it was showing
+  if (!r_e("productTable").classList.contains("is-hidden")) {
+    r_e("productTable").classList.add("is-hidden");
+    r_e("manageProductsPageLinks").classList.add("is-hidden");
+  }
+  r_e("addShopItemModal").classList.add("is-active");
 });
 
 r_e("addShopItemModalBg").addEventListener("click", () => {
@@ -942,6 +1522,8 @@ r_e("addShopItemModalBg").addEventListener("click", () => {
 
 // Add the shop item to the database
 r_e("addShopItemForm").addEventListener("submit", (e) => {
+  // Show Loading button
+  r_e("submitAddProduct").classList.add("is-loading");
   // prevent the page from auto-refresh
   e.preventDefault();
   // Get the main picture
@@ -1052,7 +1634,7 @@ r_e("addShopItemForm").addEventListener("submit", (e) => {
         main_pic: url,
         date_added: get_current_timestamp(),
         supplement_pics: sup_pics,
-        added_by: auth.currentUser.email,
+        added_by: firebase.auth().currentUser.email,
       };
 
       // Store the object in the database
@@ -1061,6 +1643,8 @@ r_e("addShopItemForm").addEventListener("submit", (e) => {
         .then(() => {
           // Hide the form
           r_e("addShopItemModal").classList.remove("is-active");
+          // Remove Loading button
+          r_e("submitAddProduct").classList.remove("is-loading");
           // Clear the form
 
           // Display Message
@@ -1129,7 +1713,7 @@ function show_users() {
     let html = "";
     for (let i = 0; i < numPages; i++) {
       html += `
-        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+        <a class="pagination-link has-text-white" data-page="${i}">${i + 1}</a>
       `;
     }
 
@@ -1144,8 +1728,8 @@ function show_users() {
   }
 
   function updateNavigation() {
-    let prevBtn = document.getElementById("fullStandingsPrevPage");
-    let nextBtn = document.getElementById("fullStandingsNextPage");
+    let prevBtn = document.getElementById("manageUsersPrevPage");
+    let nextBtn = document.getElementById("manageUsersNextPage");
 
     if (prevBtn) {
       prevBtn.disabled = currentPage === 0;
@@ -1155,12 +1739,15 @@ function show_users() {
       nextBtn.disabled = currentPage === numPages - 1;
     }
 
-    let pageLinks = document.querySelectorAll("#fullStandingsPageLinks a");
+    let pageLinks = document.querySelectorAll("#manageUsersPageLinks a");
     pageLinks.forEach((link) => {
-      link.classList.toggle(
-        "is-current",
-        parseInt(link.dataset.page) === currentPage
-      );
+      if (parseInt(link.dataset.page) === currentPage) {
+        link.classList.add("is-active");
+        link.style.backgroundColor = "#b493db";
+      } else {
+        link.classList.remove("is-active");
+        link.style.backgroundColor = "";
+      }
     });
   }
 
@@ -1173,9 +1760,9 @@ function show_users() {
     });
 
   document.addEventListener("click", (event) => {
-    if (event.target.id === "fullStandingsPrevPage") {
+    if (event.target.id === "manageUsersPrevPage") {
       showPage(currentPage - 1);
-    } else if (event.target.id === "fullStandingsNextPage") {
+    } else if (event.target.id === "manageUsersNextPage") {
       showPage(currentPage + 1);
     } else if (event.target.classList.contains("pagination-link")) {
       showPage(parseInt(event.target.dataset.page));
@@ -1257,7 +1844,7 @@ function confirmDeleteUser(email) {
   r_e("confirmDeleteUser").addEventListener("click", () => {
     // Delete the user
     // Get the currently logged in user
-    var user = auth.currentUser;
+    var user = firebase.auth().currentUser;
     // console.log(user);
     // Call the delete method on the user object
     user
@@ -1288,7 +1875,7 @@ r_e("cancelDeleteUser").addEventListener("click", () => {
 
 r_e("deleteUserAccountBtn").addEventListener("click", (e) => {
   e.preventDefault();
-  confirmDeleteUser(auth.currentUser.email);
+  confirmDeleteUser(firebase.auth().currentUser.email);
 });
 
 async function deleteUserByEmail2(email) {
@@ -1298,7 +1885,7 @@ async function deleteUserByEmail2(email) {
 
     // console.log("Made it here");
     if (!userQuery) {
-      console.log("No matching user found.");
+      configure_message_bar("No matching user found.");
       return;
     }
     const userId = userQuery.uid;
@@ -1365,40 +1952,42 @@ function load_data(coll, loc, loc2, field, val) {
   }
   query.get().then((res) => {
     let documents = res.docs;
-    let user = auth.currentUser;
+    let user = firebase.auth().currentUser;
     let type = null;
     // html reference
     html = "";
 
     if (user) {
-      get_user_info(auth.currentUser.email, "a_type").then((type) => {
-        // if a user exists then get the user type
+      get_user_info(firebase.auth().currentUser.email, "a_type").then(
+        (type) => {
+          // if a user exists then get the user type
 
-        // loop through documents array
-        let count = 0;
-        html += `<div class="columns is-multiline">`;
-        documents.forEach((doc) => {
-          // console.log(doc.data().title);
-          html += `<div class="column is-one-third">`;
-          html += `<figure style="position:relative;">`;
-          html += `<img src="${doc.data().url}" />`;
-          // Check if the user is an admin
-          if (type == "Admin") {
-            html += `<button class="button is-pulled-right is-danger" style="position:absolute;top:0;right:0;" onclick="del_doc('gallery_images', '${doc.id}')">X</button>`;
-          }
-          html += `</figure>`;
+          // loop through documents array
+          let count = 0;
+          html += `<div class="columns is-multiline">`;
+          documents.forEach((doc) => {
+            // console.log(doc.data().title);
+            html += `<div class="column is-one-third">`;
+            html += `<figure style="position:relative;">`;
+            html += `<img src="${doc.data().url}" />`;
+            // Check if the user is an admin
+            if (type == "Admin") {
+              html += `<button class="button is-pulled-right is-danger" style="position:absolute;top:0;right:0;" onclick="del_doc('gallery_images', '${doc.id}')">X</button>`;
+            }
+            html += `</figure>`;
+            html += `</div>`;
+            // Create a new row after every 3 images
+            count++;
+            if (count % 3 == 0) {
+              html += `</div><div class="columns is-multiline">`;
+            }
+          });
           html += `</div>`;
-          // Create a new row after every 3 images
-          count++;
-          if (count % 3 == 0) {
-            html += `</div><div class="columns is-multiline">`;
-          }
-        });
-        html += `</div>`;
 
-        // show on the div with id indicated location
-        r_e(loc2).innerHTML = html;
-      });
+          // show on the div with id indicated location
+          r_e(loc2).innerHTML = html;
+        }
+      );
     } else {
       // User is logged out, show general layout
       let count = 0;
@@ -1545,7 +2134,7 @@ function show_contact_responses() {
     let html = "";
     for (let i = 0; i < numPages; i++) {
       html += `
-        <a class="pagination-link" data-page="${i}">${i + 1}</a>
+        <a class="pagination-link has-text-white" data-page="${i}">${i + 1}</a>
       `;
     }
 
@@ -1560,8 +2149,8 @@ function show_contact_responses() {
   }
 
   function updateNavigation() {
-    let prevBtn = document.getElementById("fullStandingsPrevPage");
-    let nextBtn = document.getElementById("fullStandingsNextPage");
+    let prevBtn = document.getElementById("manageContactPrevPage");
+    let nextBtn = document.getElementById("manageContactNextPage");
 
     if (prevBtn) {
       prevBtn.disabled = currentPage === 0;
@@ -1571,12 +2160,15 @@ function show_contact_responses() {
       nextBtn.disabled = currentPage === numPages - 1;
     }
 
-    let pageLinks = document.querySelectorAll("#fullStandingsPageLinks a");
+    let pageLinks = document.querySelectorAll("#manageContactPageLinks a");
     pageLinks.forEach((link) => {
-      link.classList.toggle(
-        "is-current",
-        parseInt(link.dataset.page) === currentPage
-      );
+      if (parseInt(link.dataset.page) === currentPage) {
+        link.classList.add("is-active");
+        link.style.backgroundColor = "#b493db";
+      } else {
+        link.classList.remove("is-active");
+        link.style.backgroundColor = "";
+      }
     });
   }
 
@@ -1589,9 +2181,9 @@ function show_contact_responses() {
     });
 
   document.addEventListener("click", (event) => {
-    if (event.target.id === "fullStandingsPrevPage") {
+    if (event.target.id === "manageContactPrevPage") {
       showPage(currentPage - 1);
-    } else if (event.target.id === "fullStandingsNextPage") {
+    } else if (event.target.id === "manageContactNextPage") {
       showPage(currentPage + 1);
     } else if (event.target.classList.contains("pagination-link")) {
       showPage(parseInt(event.target.dataset.page));
@@ -1664,11 +2256,11 @@ function editContact(response_id) {
         r_e("contact_us_date_submitted").value = doc.data().time_submitted;
       } else {
         // Error Loading the data
-        console.log("No such document!");
+        configure_message_bar("No such document!");
       }
     })
     .catch((error) => {
-      console.log("Error getting document:", error);
+      configure_message_bar("Error getting document:", error);
     });
 
   // Update the response when submitted
@@ -1712,4 +2304,1126 @@ function editContact(response_id) {
 // Hide contact us modal
 r_e("contactFormResponseModalBg").addEventListener("click", () => {
   r_e("contactFormResponseModal").classList.remove("is-active");
+});
+
+// Table of products for admin dashboard
+function show_products() {
+  // Update Title text
+  r_e("manageShopTableTitle").innerHTML = "Products";
+  const PAGE_SIZE = 10;
+  let currentPage = 0;
+  let numPages = 0;
+
+  function renderTable(startIndex, numToShow) {
+    db.collection("products")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        let html = "";
+
+        let endIndex =
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
+
+        mydocs.slice(startIndex, endIndex).forEach((product, index) => {
+          html += `
+            <tr>
+              <td>
+                <figure class="image is-1by1 is-small">
+                  <img class="is-rounded" src="${product.data().main_pic}">
+                </figure>
+              </td>
+              <td class="has-text-left">${product.id}</td>
+              <td class="has-text-left">${product.data().product_name}</td>
+              <td class="has-text-center">${product.data().price}</td>
+              <td class="has-text-center">${product.data().sale_price}</td>
+              <td class="has-text-center">${product.data().on_sale}</td>
+              <td class="has-text-center">${
+                product.data().product_description
+              }</td>
+              <td>
+              
+                <div class="buttons has-addons is-centered">
+                <button class="button is-small" onclick="editProduct('${
+                  product.id
+                }')"><i class="fas fa-edit"></i></button>
+                <button class="button is-danger is-small" onclick="deleteProduct('${
+                  product.id
+                }')">X</button>
+               
+              </div> 
+              
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById("products_table").innerHTML = html;
+      });
+  }
+
+  function renderPageLinks() {
+    let html = "";
+    for (let i = 0; i < numPages; i++) {
+      html += `
+        <a class="pagination-link has-text-white" data-page="${i}">${i + 1}</a>
+      `;
+    }
+
+    document.getElementById("manageProductsPageLinks").innerHTML = html;
+  }
+
+  function showPage(pageNum) {
+    let startIndex = pageNum * PAGE_SIZE;
+    renderTable(startIndex, PAGE_SIZE);
+    currentPage = pageNum;
+    updateNavigation();
+  }
+
+  function updateNavigation() {
+    let prevBtn = document.getElementById("manageProductsPrevPage");
+    let nextBtn = document.getElementById("manageProductsNextPage");
+
+    if (prevBtn) {
+      prevBtn.disabled = currentPage === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = currentPage === numPages - 1;
+    }
+
+    let pageLinks = document.querySelectorAll("#manageProductsPageLinks a");
+    pageLinks.forEach((link) => {
+      if (parseInt(link.dataset.page) === currentPage) {
+        link.classList.add("is-active");
+        link.style.backgroundColor = "#b493db";
+      } else {
+        link.classList.remove("is-active");
+        link.style.backgroundColor = "";
+      }
+    });
+  }
+
+  db.collection("products")
+    .get()
+    .then((data) => {
+      numPages = Math.ceil(data.docs.length / PAGE_SIZE);
+      renderPageLinks();
+      showPage(0);
+    });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "manageProductsPrevPage") {
+      showPage(currentPage - 1);
+    } else if (event.target.id === "manageProductsNextPage") {
+      showPage(currentPage + 1);
+    } else if (event.target.classList.contains("pagination-link")) {
+      showPage(parseInt(event.target.dataset.page));
+    }
+  });
+}
+
+// Show the products table
+r_e("viewShopProductsBtn").addEventListener("click", () => {
+  // Hide the orders table if it was showing
+  if (!r_e("ordersTable").classList.contains("is-hidden")) {
+    r_e("ordersTable").classList.add("is-hidden");
+    r_e("manageOrdersPageLinks").classList.add("is-hidden");
+  }
+  r_e("productTable").classList.remove("is-hidden");
+  r_e("manageProductsPageLinks").classList.remove("is-hidden");
+  show_products();
+});
+
+// View the orders in the shop
+r_e("viewShopOrdersDash").addEventListener("click", () => {
+  // Hide the product table if it was showing
+  if (!r_e("productTable").classList.contains("is-hidden")) {
+    r_e("productTable").classList.add("is-hidden");
+    r_e("manageProductsPageLinks").classList.add("is-hidden");
+  }
+  // Show the orders table
+  r_e("ordersTable").classList.remove("is-hidden");
+  r_e("manageOrdersPageLinks").classList.remove("is-hidden");
+  show_orders();
+});
+
+// Edit the Product
+function editProduct(id) {
+  r_e("editProductModal").classList.add("is-active");
+  db.collection("products")
+    .doc(id)
+    .get()
+    .then((product) => {
+      r_e("editShopItemName").value = product.data().product_name;
+      r_e("editShopItemDescription").value = product.data().product_description;
+      r_e("editShopItemInventory").value = product.data().current_inventory;
+      r_e("editShopItemRegPrice").value = product.data().price;
+      r_e("editShopItemLastUpdated").value = product.data().last_updated;
+      r_e("editShopItemSalePrice").value = product.data().sale_price;
+      r_e("editShopItemOnSale").checked = product.data().on_sale;
+      r_e("editShopItemDateAdded").value = product.data().date_added;
+      r_e("editShopItemAddedBy").value = product.data().added_by;
+      r_e("editShopItemId").value = product.id;
+    });
+}
+
+// Submit the form if they choose to
+r_e("editProductForm").addEventListener("submit", (e) => {
+  // Show Loading button
+  r_e("submitEditItem").classList.add("is-loading");
+  // prevent the page from auto-refresh
+  e.preventDefault();
+
+  // Get the main picture
+  let mainPic = r_e("editShopItemMainPic").files[0];
+  let task = "";
+
+  if (mainPic) {
+    let mainImage = new Date() + "_" + mainPic.name;
+    task = ref.child(mainImage).put(mainPic);
+  }
+
+  // Check for supplement pictures
+  let task1 = "";
+  let task2 = "";
+  let task3 = "";
+  let task4 = "";
+  let task5 = "";
+  let sup_pics = [];
+
+  for (let index = 1; index < 6; index++) {
+    let supPic = r_e(`editShopItemSupPic${index}`).files[0];
+
+    if (supPic) {
+      let supImage = new Date() + "_" + supPic.name;
+      let taskName = `task${index}`;
+      let taskObject = ref.child(supImage).put(supPic);
+
+      eval(`${taskName} = taskObject`);
+
+      taskObject
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => {
+          sup_pics.push(url);
+        });
+    }
+  }
+
+  // Delay to ensure images get retrieved and properly updated
+  setTimeout(function () {
+    if (typeof task != "string") {
+      task
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => {
+          // get the information to submit
+          let item = {
+            product_name: r_e("editShopItemName").value,
+            product_description: r_e("editShopItemDescription").value,
+            current_inventory: r_e("editShopItemInventory").value,
+            price: r_e("editShopItemRegPrice").value,
+            sale_price: r_e("editShopItemSalePrice").value,
+            on_sale: r_e("editShopItemOnSale").checked,
+            date_added: r_e("editShopItemDateAdded").value,
+            last_updated: get_current_timestamp(),
+            added_by: firebase.auth().currentUser.email,
+          };
+
+          if (url) {
+            item.main_pic = url;
+          }
+
+          if (sup_pics.length > 0) {
+            item.supplement_pics = sup_pics;
+          }
+
+          // update the data
+          db.collection("products")
+            .doc(r_e("editShopItemId").value)
+            .update(item)
+            .then(() => {
+              // Show updated table
+              show_products();
+              // Stop loading button
+              r_e("submitEditItem").classList.remove("is-loading");
+              // Hide the modal
+              r_e("editProductModal").classList.remove("is-active");
+              configure_message_bar(
+                `${item.product_name} was successfully updated!`
+              );
+            });
+        });
+    } else {
+      let item = {
+        product_name: r_e("editShopItemName").value,
+        product_description: r_e("editShopItemDescription").value,
+        current_inventory: r_e("editShopItemInventory").value,
+        price: r_e("editShopItemRegPrice").value,
+        sale_price: r_e("editShopItemSalePrice").value,
+        on_sale: r_e("editShopItemOnSale").checked,
+        date_added: r_e("editShopItemDateAdded").value,
+        last_updated: get_current_timestamp(),
+        added_by: firebase.auth().currentUser.email,
+      };
+
+      if (sup_pics.length > 0) {
+        item.supplement_pics = sup_pics;
+      }
+
+      // update the data
+      db.collection("products")
+        .doc(r_e("editShopItemId").value)
+        .update(item)
+        .then(() => {
+          // Show updated table
+          show_products();
+          // Stop loading button
+          r_e("submitEditItem").classList.remove("is-loading");
+          // Hide the modal
+          r_e("editProductModal").classList.remove("is-active");
+          configure_message_bar(
+            `${item.product_name} was successfully updated!`
+          );
+        });
+    }
+  }, 2000);
+});
+
+// Hide edit product modal
+r_e("editProductModalBg").addEventListener("click", () => {
+  r_e("editProductModal").classList.remove("is-active");
+});
+
+// Delete the Product
+function deleteProduct(id) {
+  db.collection("products")
+    .doc(id)
+    .get()
+    .then((product) => {
+      r_e("confirmDeleteProductModal").classList.add("is-active");
+      r_e(
+        "confirmDeleteProductMessage"
+      ).innerHTML = `Are you sure you want to delete ${
+        product.data().product_name
+      }? WARNING this cannot be undone`;
+
+      // User selects confirm
+      r_e("confirmDeleteProduct").addEventListener("click", () => {
+        // Get a reference to the document
+        var docRef = db.collection("products").doc(id);
+
+        // Delete the document
+        docRef
+          .delete()
+          .then(() => {
+            r_e("confirmDeleteProductModal").classList.remove("is-active");
+            configure_message_bar("Product successfully deleted!");
+            show_products();
+          })
+          .catch((error) => {
+            configure_message_bar("Error deleting product");
+          });
+      });
+    });
+}
+
+// Hide the Modal When Needed
+r_e("confirmDeleteProductModalBg").addEventListener("click", () => {
+  r_e("confirmDeleteProductModal").classList.remove("is-active");
+});
+r_e("cancelDeleteProduct").addEventListener("click", () => {
+  r_e("confirmDeleteProductModal").classList.remove("is-active");
+});
+
+// Show orders on the admin dashboard
+function show_orders() {
+  // Update Title text
+  r_e("manageShopTableTitle").innerHTML = "Orders";
+  const PAGE_SIZE = 10;
+  let currentPage = 0;
+  let numPages = 0;
+
+  function renderTable(startIndex, numToShow) {
+    db.collection("orders")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        let html = "";
+
+        let endIndex =
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
+
+        mydocs.slice(startIndex, endIndex).forEach((order, index) => {
+          let total_price = 0;
+          let total_products = 0;
+
+          for (let i = 0; i <= order.data().product_ids.length - 1; i++) {
+            total_price +=
+              parseInt(order.data().product_prices[i]) *
+              parseInt(order.data().product_quantities[i]);
+            total_products += parseInt(order.data().product_quantities[i]);
+          }
+
+          html += `
+            <tr>         
+              <td class="has-text-left">${order.id}</td>
+              <td class="has-text-left">${order.data().user_email}</td>
+              <td class="has-text-left">${order.data().order_status}</td>
+              <td class="has-text-center">${order.data().date_placed}</td>
+              <td class="has-text-center">${
+                order.data().requested_completion_date
+              }</td>
+              <td class="has-text-center">${total_products}</td>
+              <td class="has-text-center">$${total_price}</td>
+              <td class="has-text-center">${order.data().delivery}</td>
+
+              <td>
+              
+                <div class="buttons has-addons is-centered">
+                <button class="button is-small" onclick="editOrder('${
+                  order.id
+                }')"><i class="fas fa-edit"></i></button>
+                <button class="button is-danger is-small" onclick="deleteOrder('${
+                  order.id
+                }')">X</button>
+               
+              </div> 
+              
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById("orders_table").innerHTML = html;
+      });
+  }
+
+  function renderPageLinks() {
+    let html = "";
+    for (let i = 0; i < numPages; i++) {
+      html += `
+        <a class="pagination-link has-text-white" data-page="${i}">${i + 1}</a>
+      `;
+    }
+
+    document.getElementById("manageOrdersPageLinks").innerHTML = html;
+  }
+
+  function showPage(pageNum) {
+    let startIndex = pageNum * PAGE_SIZE;
+    renderTable(startIndex, PAGE_SIZE);
+    currentPage = pageNum;
+    updateNavigation();
+  }
+
+  function updateNavigation() {
+    let prevBtn = document.getElementById("manageOrdersPrevPage");
+    let nextBtn = document.getElementById("manageOrdersNextPage");
+
+    if (prevBtn) {
+      prevBtn.disabled = currentPage === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = currentPage === numPages - 1;
+    }
+
+    let pageLinks = document.querySelectorAll("#manageOrdersPageLinks a");
+    pageLinks.forEach((link) => {
+      if (parseInt(link.dataset.page) === currentPage) {
+        link.classList.add("is-active");
+        link.style.backgroundColor = "#b493db";
+      } else {
+        link.classList.remove("is-active");
+        link.style.backgroundColor = "";
+      }
+    });
+  }
+
+  db.collection("orders")
+    .get()
+    .then((data) => {
+      numPages = Math.ceil(data.docs.length / PAGE_SIZE);
+      renderPageLinks();
+      showPage(0);
+    });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "manageOrdersPrevPage") {
+      showPage(currentPage - 1);
+    } else if (event.target.id === "manageOrdersNextPage") {
+      showPage(currentPage + 1);
+    } else if (event.target.classList.contains("pagination-link")) {
+      showPage(parseInt(event.target.dataset.page));
+    }
+  });
+}
+
+// Modal for confirming order
+r_e("showConfirmOrderModalBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  r_e("confirmOrderMessage").innerHTML = "Please confirm your order";
+  r_e("confirmOrderModal").classList.add("is-active");
+});
+r_e("confirmOrderModalBg").addEventListener("click", () => {
+  r_e("confirmOrderModal").classList.remove("is-active");
+});
+r_e("cancelPlaceOrder").addEventListener("click", () => {
+  r_e("confirmOrderModal").classList.remove("is-active");
+});
+
+// Submit the Order (Customer)
+r_e("confirmPlaceOrder").addEventListener("click", () => {
+  // Get items that might need updating
+  let temp_date = [];
+  temp_date.push(r_e("month_requested_checkout").value);
+  temp_date.push(r_e("day_requested_checkout").value);
+  temp_date.push(r_e("year_requested_checkout").value);
+  temp_date = temp_date.join("/");
+  let requested_completion = temp_date;
+  let payment = r_e("payment_checkout").value;
+  let delivery = r_e("delivery_checkout").value;
+  let name = r_e("name_checkout").value;
+  let address1 = r_e("address1_checkout").value;
+  let address2 = r_e("address2_checkout").value;
+  let city = r_e("city_checkout").value;
+  let state = r_e("state_checkout").value;
+  let zip = r_e("zipCode_checkout").value;
+  let additional_details = r_e("additional_notes_checkout").value;
+
+  db.collection("orders")
+    .where("order_status", "==", "CART")
+    .where("user_email", "==", firebase.auth().currentUser.email)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        doc.ref.update({
+          delivery_info: {
+            city: city,
+            name: name,
+            state: state,
+            street_address1: address1,
+            street_address2: address2,
+            zip_code: zip,
+          },
+          delivery: delivery,
+          payment_method: payment,
+          order_status: "NEW",
+          date_placed: get_date(),
+          requested_completion_date: requested_completion,
+          additional_details: additional_details,
+          payment_status: "Unpaid",
+        });
+      });
+    });
+
+  // close the modal
+  r_e("checkoutModal").classList.remove("is-active");
+  r_e("confirmOrderModal").classList.remove("is-active");
+  // Show confirmation message
+  configure_message_bar("Order successfully submitted!");
+});
+
+// Delete Products
+function deleteProductEditOrder(
+  orderId,
+  productId,
+  productIndex,
+  price,
+  quantity,
+  totalCost
+) {
+  db.collection("orders")
+    .doc(orderId)
+    .get()
+    .then((doc) => {
+      // Create new arrays that exclude the element at productIndex
+      const productPrices = doc
+        .data()
+        .product_prices.filter((_, i) => i !== productIndex);
+      const productQuantities = doc
+        .data()
+        .product_quantities.filter((_, i) => i !== productIndex);
+      const productIds = doc
+        .data()
+        .product_ids.filter((_, i) => i !== productIndex);
+
+      // Update the Firestore document with the new arrays
+      return db.collection("orders").doc(orderId).update({
+        product_prices: productPrices,
+        product_quantities: productQuantities,
+        product_ids: productIds,
+      });
+    })
+    .then(() => {
+      // Remove row from table
+      const row = document.getElementById(`row-${productIndex}`);
+      if (row) {
+        row.remove();
+      }
+
+      totalCost = totalCost - price * quantity;
+
+      let quantities = 0;
+      db.collection("orders")
+        .doc(orderId)
+        .get()
+        .then((order) => {
+          order.data().product_quantities.forEach((quantity) => {
+            quantities += quantity;
+          });
+
+          if (isNaN(totalCost) || totalCost < 0) {
+            totalCost = 0;
+          }
+          r_e("editOrderTotalCost").innerHTML = `$${totalCost}`;
+          r_e("editOrderTotalQuantity").innerHTML = quantities;
+        });
+    })
+    .catch((error) => {
+      configure_message_bar("Error deleting product from order:", error);
+    });
+}
+
+// Add products to the order if requested
+function addItemtoOrderAdmin() {
+  r_e("addItemAdminModal").classList.add("is-active");
+  show_products_admin();
+}
+
+r_e("addItemAdminModalBg").addEventListener("click", () => {
+  r_e("addItemAdminModal").classList.remove("is-active");
+});
+
+// Edit the Order
+function editOrder(id) {
+  r_e("editOrderModal").classList.add("is-active");
+  r_e("editOrderTable").innerHTML = "";
+  db.collection("orders")
+    .doc(id)
+    .get()
+    .then((order) => {
+      r_e("editOrderID").value = order.id;
+      r_e("editOrderEmail").value = order.data().user_email;
+      r_e("editOrderDatePlaced").value = order.data().date_placed;
+      r_e("editOrderAdditionalDetails").value = order.data().additional_details;
+      r_e("editOrderDateRequested").value =
+        order.data().requested_completion_date;
+      r_e("editOrderStatus").value = order.data().order_status;
+
+      r_e("editOrderPayment").value = order.data().payment_method;
+      r_e("editOrderDelivery").value = order.data().delivery;
+      r_e("editOrderDeliveryName").value = order.data().delivery_info.name;
+      r_e("editOrderDeliveryAdress1").value =
+        order.data().delivery_info.street_address1;
+      r_e("editOrderDeliveryAdress2").value =
+        order.data().delivery_info.street_address2;
+      r_e("editOrderDeliveryCity").value = order.data().delivery_info.city;
+      r_e("editOrderDeliveryState").value = order.data().delivery_info.state;
+      r_e("editOrderDeliveryZip").value = order.data().delivery_info.zip_code;
+
+      // Show the Products
+      if (order.data().product_ids.length >= 1) {
+        let products = order.data().product_ids;
+        let prices = order.data().product_prices;
+        let quantities = order.data().product_quantities;
+        let totalCost = 0;
+
+        for (let i = 0; i < products.length; i++) {
+          get_firebase_data("products", products[i], "product_name").then(
+            (productName) => {
+              const productId = products[i];
+              const price = prices[i];
+              const quantity = quantities[i];
+              totalCost = totalCost + price * quantity;
+              const row = `<tr id="row-${i}">
+                <td>${productName}</td>
+                <td>${price}</td>
+                <td>${quantity}</td>
+                <td><button class="button is-small is-danger" onclick="deleteProductEditOrder('${order.id}', '${productId}', ${i}, ${price}, ${quantity}, ${totalCost})" id="${i}">Remove</button></td>
+              </tr>`;
+
+              r_e("editOrderTable").insertAdjacentHTML("beforeend", row);
+
+              r_e("editOrderTotalCost").innerHTML = `$${totalCost}`;
+            }
+          );
+        }
+
+        r_e("editOrderTotalQuantity").innerHTML = sum(quantities);
+      } else {
+        // nothing in the cart
+      }
+    });
+
+  // // Submit the form if they choose to
+  // r_e("editProductForm").addEventListener("submit", (e) => {
+  //   // Show Loading button
+  //   r_e("submitEditItem").classList.add("is-loading");
+  //   // prevent the page from auto-refresh
+  //   e.preventDefault();
+  // });
+}
+
+r_e("editOrderModalBg").addEventListener("click", () => {
+  show_orders();
+  r_e("editOrderModal").classList.remove("is-active");
+});
+
+// Table of products for admin to add to an order
+function show_products_admin() {
+  db.collection("products")
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
+
+      mydocs.forEach((product) => {
+        html += `
+            <tr>
+              <td>
+                <figure class="image is-1by1 is-small">
+                  <img class="is-rounded is-small" src="${
+                    product.data().main_pic
+                  }">
+                </figure>
+              </td>
+              <td class="has-text-left">${product.data().product_name}</td>
+              <td class="has-text-centered">${product.data().price}</td>
+              <td class="has-text-centered">
+                <div class="button is-small is-primary onclick="add_item_to_order_admin(${
+                  product.id
+                })""><i class="fa fa-plus has-text-white" aria-hidden="true" onclick="add_item_to_order_admin('${
+          product.id
+        }')"></i></div>
+              </td>
+            </tr>
+          `;
+      });
+
+      document.getElementById("add_products_table").innerHTML = html;
+    });
+}
+
+// Add an item to the order (admin)
+function add_item_to_order_admin(productId) {
+  let orderId = r_e("editOrderID").value;
+  // Get the product and order
+  db.collection("products")
+    .doc(productId)
+    .get()
+    .then((product) => {
+      db.collection("orders")
+        .doc(orderId)
+        .get()
+        .then((order) => {
+          // Get and update the order
+          let product_ids = order.data().product_ids;
+          let product_prices = order.data().product_prices;
+          let product_quantities = order.data().product_quantities;
+
+          let productIndex = product_ids.indexOf(productId);
+
+          if (productIndex !== -1) {
+            product_quantities[productIndex] += 1;
+            let rowToRemove = document.getElementById(`row-${productIndex}`);
+            if (rowToRemove) {
+              rowToRemove.remove();
+            }
+          } else {
+            product_ids.push(productId);
+            product_prices.push(product.data().price);
+            product_quantities.push(1);
+          }
+
+          db.collection("orders").doc(orderId).update({
+            product_prices: product_prices,
+            product_quantities: product_quantities,
+            product_ids: product_ids,
+          });
+          // Add the product in the modal
+          get_firebase_data("products", product.id, "product_name").then(
+            (productName) => {
+              const productId = product.id;
+              const price = product.data().price;
+              const quantity = product_quantities[productIndex];
+              let totalCost = r_e("editOrderTotalCost").innerHTML;
+              totalCost = totalCost.replace(/\$/g, "");
+              totalCost = parseInt(totalCost);
+              totalCost = totalCost + price * quantity;
+              const row = `<tr id="row-${productIndex}">
+                  <td>${productName}</td>
+                  <td>${price}</td>
+                  <td>${quantity}</td>
+                  <td><button class="button is-small is-danger" onclick="deleteProductEditOrder('${order.id}', '${productId}', ${productIndex}, ${price}, ${quantity}, ${totalCost})" id="${productIndex}">Remove</button></td>
+                </tr>`;
+
+              r_e("editOrderTable").insertAdjacentHTML("beforeend", row);
+
+              r_e("editOrderTotalCost").innerHTML = `$${totalCost}`;
+            }
+          );
+          let quantities = parseInt(r_e("editOrderTotalQuantity").innerHTML);
+          r_e("editOrderTotalQuantity").innerHTML = quantities + 1;
+        });
+    });
+  r_e("addItemAdminModal").classList.remove("is-active");
+}
+
+// Close the add item to an order modal
+r_e("close_add_item_admin").addEventListener("click", () => {
+  r_e("addItemAdminModal").classList.remove("is-active");
+});
+
+// Submit Editing the Order
+r_e("editOrderForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  // Get items that might need updating
+  let email = r_e("editOrderEmail").value;
+  let requested_completion = r_e("editOrderDateRequested").value;
+  let status = r_e("editOrderStatus").value;
+  let payment = r_e("editOrderPayment").value;
+  let delivery = r_e("editOrderDelivery").value;
+  let name = r_e("editOrderDeliveryName").value;
+  let address1 = r_e("editOrderDeliveryAdress1").value;
+  let address2 = r_e("editOrderDeliveryAdress2").value;
+  let city = r_e("editOrderDeliveryCity").value;
+  let state = r_e("editOrderDeliveryState").value;
+  let zip = r_e("editOrderDeliveryZip").value;
+  let additional_details = r_e("editOrderAdditionalDetails").value;
+  let orderId = r_e("editOrderID").value;
+  db.collection("orders")
+    .doc(orderId)
+    .update({
+      delivery_info: {
+        city: city,
+        name: name,
+        state: state,
+        street_address1: address1,
+        street_address2: address2,
+        zip_code: zip,
+      },
+      delivery: delivery,
+      payment: payment,
+      order_status: status,
+      requested_completion_date: requested_completion,
+      user_email: email,
+      additional_details: additional_details,
+    })
+    .then(() => {
+      // close the modal
+      r_e("editOrderModal").classList.remove("is-active");
+      // Show confirmation message
+      configure_message_bar("Order successfully updated!");
+      // Update the orders table
+      show_orders();
+    });
+});
+
+function deleteOrder(id) {
+  // console.log("Delete Order with the id - ", id);
+
+  r_e("confirmDeleteOrderModal").classList.add("is-active");
+  r_e(
+    "confirmDeleteOrderMessage"
+  ).innerHTML = `Are you sure you want to delete the order with the ID - ${id}? WARNING this cannot be undone`;
+  // User selects confirm
+  r_e("confirmDeleteOrder").addEventListener("click", () => {
+    // Get a reference to the document
+    var docRef = db.collection("orders").doc(id);
+    // Delete the document
+    docRef
+      .delete()
+      .then(() => {
+        r_e("confirmDeleteOrderModal").classList.remove("is-active");
+        configure_message_bar("Order successfully deleted!");
+        show_orders();
+      })
+      .catch((error) => {
+        configure_message_bar("Error deleting order");
+      });
+  });
+}
+
+// Hide the Modal When Needed
+r_e("confirmDeleteOrderModalBg").addEventListener("click", () => {
+  r_e("confirmDeleteOrderModal").classList.remove("is-active");
+});
+r_e("cancelDeleteOrder").addEventListener("click", () => {
+  r_e("confirmDeleteOrderModal").classList.remove("is-active");
+});
+
+// Function called on click of eye icon or text button
+function showCustomerOrders() {
+  // Hide the shop page
+  shoppage.classList.add("is-hidden");
+  // Show the customer's orders
+  r_e("customerOrdersPage").classList.remove("is-hidden");
+  r_e("customerOrdersPage").classList.add("is-active");
+  show_orders_customer();
+}
+
+function show_orders_customer() {
+  get_user_info(firebase.auth().currentUser.email, "full_name").then((name) => {
+    r_e("customerOrdersPageTitle").innerHTML = `${name}'s Orders`;
+  });
+
+  const PAGE_SIZE = 10;
+  let currentPage = 0;
+  let numPages = 0;
+
+  function renderTable(startIndex, numToShow) {
+    db.collection("orders")
+      .where("user_email", "==", firebase.auth().currentUser.email)
+      .where("order_status", "!=", "CART")
+      .get()
+      .then((data) => {
+        let mydocs = data.docs;
+        let html = "";
+
+        let endIndex =
+          numToShow > 0
+            ? Math.min(startIndex + numToShow, mydocs.length)
+            : mydocs.length;
+
+        mydocs.slice(startIndex, endIndex).forEach((order, index) => {
+          let total_price = 0;
+          let total_products = 0;
+
+          for (let i = 0; i <= order.data().product_ids.length - 1; i++) {
+            total_price +=
+              parseInt(order.data().product_prices[i]) *
+              parseInt(order.data().product_quantities[i]);
+            total_products += parseInt(order.data().product_quantities[i]);
+          }
+
+          html += `
+            <tr>         
+              <td class="has-text-left">${order.id}</td>
+              <td class="has-text-left">${order.data().user_email}</td>
+              <td class="has-text-left">${order.data().order_status}</td>
+              <td class="has-text-center">${order.data().date_placed}</td>
+              <td class="has-text-center">${
+                order.data().requested_completion_date
+              }</td>
+              <td class="has-text-center">${total_products}</td>
+              <td class="has-text-center">$${total_price}</td>
+              <td class="has-text-center" style="max-height: 3em; overflow: hidden; text-overflow: ellipsis;">${
+                order.data().delivery
+              }</td>
+              <td>
+                <div class="buttons has-addons is-centered">
+                  <button class="button is-small" onclick="editOrderCustomer('${
+                    order.id
+                  }')"><i class="fas fa-edit"></i></button>               
+                </div> 
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById("orders_table_customer").innerHTML = html;
+      });
+  }
+
+  function renderPageLinks() {
+    let html = "";
+    for (let i = 0; i < numPages; i++) {
+      html += `
+        <a class="pagination-link has-text-white" data-page="${i}">${i + 1}</a>
+      `;
+    }
+
+    r_e("manageOrdersCustomerPageLinks").innerHTML = html;
+  }
+
+  function showPage(pageNum) {
+    let startIndex = pageNum * PAGE_SIZE;
+    renderTable(startIndex, PAGE_SIZE);
+    currentPage = pageNum;
+    updateNavigation();
+  }
+
+  function updateNavigation() {
+    let prevBtn = document.getElementById("manageOrdersCustomerPrevPage");
+    let nextBtn = document.getElementById("manageOrdersCustomerNextPage");
+
+    if (prevBtn) {
+      prevBtn.disabled = currentPage === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = currentPage === numPages - 1;
+    }
+
+    let pageLinks = document.querySelectorAll(
+      "#manageOrdersCustomerPageLinks a"
+    );
+    pageLinks.forEach((link) => {
+      if (parseInt(link.dataset.page) === currentPage) {
+        link.classList.add("is-active");
+        link.style.backgroundColor = "#b493db";
+      } else {
+        link.classList.remove("is-active");
+        link.style.backgroundColor = "";
+      }
+    });
+  }
+
+  db.collection("orders")
+    .where("user_email", "==", firebase.auth().currentUser.email)
+    .get()
+    .then((data) => {
+      numPages = Math.ceil(data.docs.length / PAGE_SIZE);
+      renderPageLinks();
+      showPage(0);
+    });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "manageOrdersCustomerPrevPage") {
+      showPage(currentPage - 1);
+    } else if (event.target.id === "manageOrdersCustomerNextPage") {
+      showPage(currentPage + 1);
+    } else if (event.target.classList.contains("pagination-link")) {
+      showPage(parseInt(event.target.dataset.page));
+    }
+  });
+}
+
+// Edit the Order (Customer)
+function editOrderCustomer(id) {
+  r_e("editOrderCustomerModal").classList.add("is-active");
+  r_e("editOrderCustomerTable").innerHTML = "";
+  db.collection("orders")
+    .doc(id)
+    .get()
+    .then((order) => {
+      r_e("editOrderCustomerID").value = order.id;
+      r_e("editOrderCustomerEmail").value = order.data().user_email;
+      r_e("editOrderCustomerDatePlaced").value = order.data().date_placed;
+
+      let date = order.data().requested_completion_date;
+      date = date.split("/");
+      r_e("editOrderCustomerMonth").value = date[0];
+      r_e("editOrderCustomerDay").value = date[1];
+      r_e("editOrderCustomerYear").value = date[2];
+
+      r_e("editOrderCustomerStatus").value = order.data().order_status;
+      r_e("editOrderCustomerAdditionalDetails").value =
+        order.data().additional_details;
+      r_e("editOrderCustomerPayment").value = order.data().payment_method;
+      r_e("editOrderCustomerDelivery").value = order.data().delivery;
+      r_e("editOrderCustomerDeliveryName").value =
+        order.data().delivery_info.name;
+      r_e("editOrderCustomerDeliveryAdress1").value =
+        order.data().delivery_info.street_address1;
+      r_e("editOrderCustomerDeliveryAdress2").value =
+        order.data().delivery_info.street_address2;
+      r_e("editOrderCustomerDeliveryCity").value =
+        order.data().delivery_info.city;
+      r_e("editOrderCustomerDeliveryState").value =
+        order.data().delivery_info.state;
+      r_e("editOrderCustomerDeliveryZip").value =
+        order.data().delivery_info.zip_code;
+
+      // Show the Products
+      if (order.data().product_ids.length >= 1) {
+        let products = order.data().product_ids;
+        let prices = order.data().product_prices;
+        let quantities = order.data().product_quantities;
+        let totalCost = 0;
+
+        for (let i = 0; i < products.length; i++) {
+          get_firebase_data("products", products[i], "product_name").then(
+            (productName) => {
+              const productId = products[i];
+              const price = prices[i];
+              const quantity = quantities[i];
+              totalCost = totalCost + price * quantity;
+              const row = `<tr id="row-${i}">
+                <td>${productName}</td>
+                <td>$${price}</td>
+                <td>${quantity}</td>
+              </tr>`;
+
+              r_e("editOrderCustomerTable").insertAdjacentHTML(
+                "beforeend",
+                row
+              );
+
+              r_e("editOrderCustomerTotalCost").innerHTML = `$${totalCost}`;
+            }
+          );
+        }
+
+        r_e("editOrderCustomerTotalQuantity").innerHTML = sum(quantities);
+      } else {
+        // nothing in the cart
+      }
+    });
+
+  // // Submit the form if they choose to
+  // r_e("editProductForm").addEventListener("submit", (e) => {
+  //   // Show Loading button
+  //   r_e("submitEditItem").classList.add("is-loading");
+  //   // prevent the page from auto-refresh
+  //   e.preventDefault();
+  // });
+}
+
+r_e("editOrderCustomerModalBg").addEventListener("click", () => {
+  r_e("editOrderCustomerModal").classList.remove("is-active");
+});
+
+// Submit Editing the Order
+r_e("editOrderCustomerForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  // Get items that might need updating
+  let temp_date = [];
+  temp_date.push(r_e("editOrderCustomerMonth").value);
+  temp_date.push(r_e("editOrderCustomerDay").value);
+  temp_date.push(r_e("editOrderCustomerYear").value);
+  temp_date = temp_date.join("/");
+  let requested_completion = temp_date;
+  let payment = r_e("editOrderCustomerPayment").value;
+  let delivery = r_e("editOrderCustomerDelivery").value;
+  let name = r_e("editOrderCustomerDeliveryName").value;
+  let address1 = r_e("editOrderCustomerDeliveryAdress1").value;
+  let address2 = r_e("editOrderCustomerDeliveryAdress2").value;
+  let city = r_e("editOrderCustomerDeliveryCity").value;
+  let state = r_e("editOrderCustomerDeliveryState").value;
+  let zip = r_e("editOrderCustomerDeliveryZip").value;
+  let additional_details = r_e("editOrderCustomerAdditionalDetails").value;
+  let orderId = r_e("editOrderCustomerID").value;
+  db.collection("orders")
+    .doc(orderId)
+    .update({
+      delivery_info: {
+        city: city,
+        name: name,
+        state: state,
+        street_address1: address1,
+        street_address2: address2,
+        zip_code: zip,
+      },
+      delivery: delivery,
+      payment: payment,
+      requested_completion_date: requested_completion,
+      additional_details: additional_details,
+    });
+  // Update the orders table
+  show_orders_customer();
+  // close the modal
+  r_e("editOrderCustomerModal").classList.remove("is-active");
+  // Show confirmation message
+  configure_message_bar("Order successfully updated!");
+});
+
+// Back to the shop from customer orders page
+r_e("backToShopBtn").addEventListener("click", () => {
+  r_e("customerOrdersPage").classList.add("is-hidden");
+  r_e("shopPage").classList.remove("is-hidden");
 });

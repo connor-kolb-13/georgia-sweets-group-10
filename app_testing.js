@@ -21,7 +21,7 @@ async function go() {
   await page.type("#f_name_su", "Testingboy2");
   await page.type("#l_name_su", "Jacqmin2");
   await page.type("#username_su", "testyjacqy1232");
-  await page.type("#email_su", "testyjacqy123@test.com2");
+  await page.type("#email_su", "testyjacqy123@test2.com");
   await page.type("#password_su", "testy1234!");
   await page.click("#a_type_su");
   //   must select an image in 25 seconds and wait
