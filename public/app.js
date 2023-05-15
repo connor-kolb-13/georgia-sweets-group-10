@@ -319,7 +319,7 @@ document.querySelector("#shopbtn").addEventListener("click", () => {
           r_e("viewProductQuantityView").classList.add("has-text-black");
           r_e(
             "viewProductQuantityView"
-          ).innerHTML = `<span class="has-text-weight-medium has-text-info">${requestedQty}</span> item(s) totaling <span class="has-text-weight-medium has-text-info">$${(
+          ).innerHTML = `<span class="has-text-weight-medium has-text-info">${requestedQty}</span> dozen(s) totaling <span class="has-text-weight-medium has-text-info">$${(
             requestedQty * price
           ).toFixed(2)}</span>`;
           r_e("viewProductAddCartBtn").removeAttribute("disabled");
