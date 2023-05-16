@@ -129,9 +129,37 @@ function showHomePage() {
         img = mydocs[0].data().img_url;
 
         html += `<div class="column is-5">
-        <figure class="image is-4by5">
-          <img src="Untitled_design.png"/>
-        </figure>
+        <!-- Slideshow container -->
+        <div class="slideshow-container">
+        
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides fade">
+            <div class="numbertext">1 / 3</div>
+            <img src="Untitled_design.png" style="width:100%">
+          </div>
+        
+          <div class="mySlides fade" id="mySlides2">
+            <div class="numbertext">2 / 3</div>
+            <img src="aboutus_collage.jpg" style="width:100%">
+          </div>
+        
+          <div class="mySlides fade" id="mySlides3">
+            <div class="numbertext">3 / 3</div>
+            <img src="Untitled_design.png" style="width:100%">
+          </div>
+        
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+        
+        <!-- The dots/circles -->
+        <div style="text-align:center">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
       </div>
       <div class="column is-7">
         <div class="content">
@@ -3427,3 +3455,36 @@ r_e("backToShopBtn").addEventListener("click", () => {
   r_e("customerOrdersPage").classList.add("is-hidden");
   r_e("shopPage").classList.remove("is-hidden");
 });
+
+let slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides((slideIndex += n));
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides((slideIndex = n));
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " active";
+}
