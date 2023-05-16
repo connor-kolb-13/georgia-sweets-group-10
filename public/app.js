@@ -130,7 +130,7 @@ function showHomePage() {
 
         html += `<div class="column is-5">
         <figure class="image is-4by5">
-          <img src=${img}/>
+          <img src="Untitled_design.png"/>
         </figure>
       </div>
       <div class="column is-7">
