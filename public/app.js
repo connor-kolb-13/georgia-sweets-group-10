@@ -29,6 +29,7 @@ let gallerybtn = r_e("gallerybtn");
 let dashboardbtn = r_e("dashboardbtn");
 let aboutbtn = r_e("aboutbtn");
 let contactbtn = r_e("contactbtn");
+let availabilitybtn = r_e("availabilitybtn");
 // let reportanissuebtn = r_e("reportanissuebtn");
 
 let = allBtns = [
@@ -38,6 +39,7 @@ let = allBtns = [
   dashboardbtn,
   aboutbtn,
   contactbtn,
+  availabilitybtn,
   // reportanissuebtn,
 ];
 
@@ -54,6 +56,7 @@ let managegallerypage = r_e("managegallerypage");
 let manageuserspage = r_e("manageuserspage");
 let manageaboutuspage = r_e("manageaboutuspage");
 let customerorderspage = r_e("customerOrdersPage");
+let availabilitypage = r_e("availabilitypage");
 
 let = allPages = [
   homepage,
@@ -69,6 +72,7 @@ let = allPages = [
   manageuserspage,
   manageaboutuspage,
   customerorderspage,
+  availabilitypage,
 ];
 
 function showmodal(mymodal) {
@@ -619,6 +623,32 @@ document.querySelector("#aboutbtn").addEventListener("click", () => {
   aboutbtn.style.backgroundColor = "#f5f5f5";
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
+});
+
+// Public Availability Page
+document.querySelector("#availabilitybtn").addEventListener("click", () => {
+  // Hide all other pages
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(availabilitypage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    btn.style.backgroundColor = "";
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  availabilitybtn.classList.add("is-active");
+
+  availabilitybtn.style.backgroundColor = "#f5f5f5";
+
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+  // this is a test
 });
 
 //Pulling about us page data from firebase
