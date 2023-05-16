@@ -140,12 +140,12 @@ function showHomePage() {
         
           <div class="mySlides fade" id="mySlides2">
             <div class="numbertext">2 / 3</div>
-            <img src="aboutus_collage.jpg" style="width:100%">
+            <img src="Untitled_design2.png" style="width:100%">
           </div>
         
           <div class="mySlides fade" id="mySlides3">
             <div class="numbertext">3 / 3</div>
-            <img src="Untitled_design.png" style="width:100%">
+            <img src="Untitled_design3.png" style="width:100%">
           </div>
         
           <!-- Next and previous buttons -->
