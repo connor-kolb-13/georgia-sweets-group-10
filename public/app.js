@@ -135,12 +135,12 @@ function showHomePage() {
       </div>
       <div class="column is-7">
         <div class="content">
-          <h1 class="title is-2">Hello!</h1>
-          <p class="subtitle is-4 my-1">${p1}</p>
+          <h1 class="title is-2" style="font-family: Brush Script MT, Brush Script Std, cursive">Hello!</h1>
+          <p class="subtitle is-4 my-1" style="font-family: Snell Roundhand, Cursive">${p1}</p>
           <br />
-          <p class="subtitle is-4 my-0">${p2}</p>
+          <p class="subtitle is-4 my-0" style="font-family: Snell Roundhand, Cursive">${p2}</p>
           <br />
-          <p class="subtitle is-4 mt-1 mb-0">${p3}</p>
+          <p class="subtitle is-4 mt-1 mb-0" style="font-family: Snell Roundhand, Cursive">${p3}</p>
           <br />
         </div>
       </div>`;
@@ -617,10 +617,10 @@ function showAboutUs() {
             </div>
             <div class="column is-7">
               <div class="content">
-                <h1>Meet the Owner!</h1>
-                <p class="subtitle is-4 my-1">${p1}</p>
+                <h1 style="font-family: Brush Script MT, Brush Script Std, cursive">Meet the Owner!</h1>
+                <p class="subtitle is-4 my-1" style="font-family: Snell Roundhand, Cursive">${p1}</p>
                 <br />
-                <p class="subtitle is-4 my-1">${p2}</p>
+                <p class="subtitle is-4 my-1" style="font-family: Snell Roundhand, Cursive">${p2}</p>
                 <br />
               </div>
             </div>
