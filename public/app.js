@@ -2869,7 +2869,7 @@ r_e("confirmPlaceOrder").addEventListener("click", () => {
           },
           delivery: delivery,
           payment_method: payment,
-          order_status: "NEW",
+          order_status: "Submitted, Pending Approval",
           date_placed: get_date(),
           requested_completion_date: requested_completion,
           additional_details: additional_details,
