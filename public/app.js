@@ -57,6 +57,7 @@ let manageuserspage = r_e("manageuserspage");
 let manageaboutuspage = r_e("manageaboutuspage");
 let customerorderspage = r_e("customerOrdersPage");
 let availabilitypage = r_e("availabilitypage");
+let manageavailabilitypage = r_e("manageavailabilitypage");
 
 let = allPages = [
   homepage,
@@ -73,6 +74,7 @@ let = allPages = [
   manageaboutuspage,
   customerorderspage,
   availabilitypage,
+  manageavailabilitypage,
 ];
 
 function showmodal(mymodal) {
@@ -980,6 +982,26 @@ function mngGalleryBtn() {
     }
   });
   showmodal(managegallerypage);
+  hidemodal(dashboardpage);
+  // Remove the is-active from the prior page
+  allBtns.forEach((btn) => {
+    if (btn.classList.contains("is-active")) {
+      btn.classList.remove("is-active");
+    }
+  });
+  // Update the Navbar
+  dashboardbtn.classList.add("is-active");
+  // Hide the menu when burger icon was clicked
+  menu.classList.toggle("is-active");
+}
+
+function mngAvailabilityBtn() {
+  allPages.forEach((page) => {
+    if (page.classList.contains("is-active")) {
+      hidemodal(page);
+    }
+  });
+  showmodal(manageavailabilitypage);
   hidemodal(dashboardpage);
   // Remove the is-active from the prior page
   allBtns.forEach((btn) => {

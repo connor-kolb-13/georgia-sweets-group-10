@@ -2751,14 +2751,14 @@
                   <img
                     src="calendar.png"
                     alt="Placeholder image"
-                    onclick=""
+                    onclick="mngAvailabilityBtn()"
                     class="is-clickable"
                   />
                 </figure>
               </div>
             </div>
             <div class="card-content has-text-centered">
-              <div class="title is-5" onclick="">
+              <div class="title is-5" onclick="mngAvailabilityBtn()">
                 <a href="#" class="has-text-white">Manage Availability</a>
               </div>
             </div>
@@ -2911,6 +2911,51 @@
                   <button
                     class="button ml-3 mt-2"
                     id="resetgallerypic"
+                    style="background-color: whitesmoke"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="column is-"></div>
+        </div>
+      </div>
+    </div>
+    <!--End of Manage Gallery-->
+
+    <!--Start of Manage Availability-->
+    <div
+      class="container is-hidden"
+      id="manageavailabilitypage"
+      style="background-color: #f5f5f5"
+    >
+      <a
+        class="button has-text-white mb-4 mt-2"
+        style="background-color: #b493db"
+        onclick="backToDashboardBtn()"
+        ><strong>Back</strong></a
+      >
+
+      <div class="section has-text-centered mt-2 pt-0">
+        <div class="subtitle is-3">Manage Availability</div>
+        <div class="columns is-flex is-6">
+          <div class="column is-"></div>
+          <div class="column is-8" style="background-color: #b493db">
+            <form id="">
+              <div class="field has-text-left">
+                <label class="label is-medium">Availability Image Upload</label>
+                <div>
+                  <input type="file" class="input" id="" />
+                </div>
+                <!-- submit button -->
+                <div>
+                  <button class="button mt-2 is-primary" id="">Upload</button>
+                  <!-- reset button -->
+                  <button
+                    class="button ml-3 mt-2"
+                    id=""
                     style="background-color: whitesmoke"
                   >
                     Delete
