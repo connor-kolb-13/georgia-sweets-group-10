@@ -2968,6 +2968,16 @@ r_e("confirmPlaceOrder").addEventListener("click", () => {
   r_e("confirmOrderModal").classList.remove("is-active");
   // Show confirmation message
   configure_message_bar("Order successfully submitted!");
+  r_e("AfterconfirmOrderMessage").innerHTML =
+    "Thank you for choosing Georgia Sweets! You will receive an email with confirmation and payment details once the order is accepted by the owner!";
+  r_e("AfterconfirmOrderModal").classList.add("is-active");
+});
+
+r_e("AfterconfirmOrderModalBg").addEventListener("click", () => {
+  r_e("AfterconfirmOrderModal").classList.remove("is-active");
+});
+r_e("AfterconfirmPlaceOrder").addEventListener("click", () => {
+  r_e("AfterconfirmOrderModal").classList.remove("is-active");
 });
 
 // Delete Products
