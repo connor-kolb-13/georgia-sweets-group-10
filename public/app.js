@@ -671,13 +671,13 @@ function showAboutUs() {
         img = mydocs[0].data().img_url;
 
         html += `<div class="columns is-flex-direction-row my-2">
-            <div class="column is-5 mr-2">
-              <figure class="image is-4by5 mr-2">
+            <div class="column is-5">
+              <figure class="image is-4by5">
                 <img src=${img}/>
               </figure>
             </div>
             <div class="column is-7 m-3">
-              <div class="content">
+              <div class="content p-5">
                 <h1 class="m-2" style="font-family: Brush Script MT, Brush Script Std, cursive">Meet the Owner!</h1>
                 <p class="subtitle is-4 my-1 p-4" style="font-family: Snell Roundhand, Cursive">${p1}</p>
                 <br />
