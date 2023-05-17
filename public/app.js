@@ -676,9 +676,9 @@ function showAboutUs() {
                 <img src=${img}/>
               </figure>
             </div>
-            <div class="column is-7">
+            <div class="column is-7 m-3">
               <div class="content">
-                <h1 style="font-family: Brush Script MT, Brush Script Std, cursive">Meet the Owner!</h1>
+                <h1 class="m-2" style="font-family: Brush Script MT, Brush Script Std, cursive">Meet the Owner!</h1>
                 <p class="subtitle is-4 my-1 p-4" style="font-family: Snell Roundhand, Cursive">${p1}</p>
                 <br />
                 <p class="subtitle is-4 my-1 p-4" style="font-family: Snell Roundhand, Cursive">${p2}</p>
