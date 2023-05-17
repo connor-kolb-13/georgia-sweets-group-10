@@ -167,7 +167,7 @@ function showHomePage() {
           <span class="dot" onclick="currentSlide(3)"></span>
         </div>
       </div>
-      <div class="column is-7">
+      <div class="column is-7 m-2">
         <div class="content">
           <h1 class="title is-2" style="font-family: Brush Script MT, Brush Script Std, cursive">Hello!</h1>
           <p class="subtitle is-4 my-1" style="font-family: Snell Roundhand, Cursive">${p1}</p>
