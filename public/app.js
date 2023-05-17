@@ -651,7 +651,7 @@ document.querySelector("#availabilitybtn").addEventListener("click", () => {
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
   // this is a test
-  load_data2("janavail", "feed-page", "janavailcard", "users");
+  load_data2("janavail", "feed-page", "janavail", "users");
 });
 
 //Pulling about us page data from firebase
@@ -2120,7 +2120,7 @@ function load_data2(coll, loc, loc2, field, val) {
             html += `<img src="${doc.data().img_url}" />`;
             // Check if the user is an admin
             if (type == "Admin") {
-              html += `<button class="button is-pulled-right is-danger" style="position:absolute;top:0;right:0;" onclick="del_doc2('janavail', '${doc.id}')">X</button>`;
+              html += `<button class="button is-pulled-right is-danger" style="position:absolute;top:0;right:0;" onclick="del_doc2('${coll}', '${doc.id}')">X</button>`;
             }
             html += `</figure>`;
           });
@@ -2166,7 +2166,7 @@ function del_doc2(coll, id) {
       configure_message_bar("An image has been deleted!");
 
       // reload all images
-      load_data2("janavail", "feed-page", "janavailcard", "users");
+      load_data2("janavail", "feed-page", "janavail", "users");
     });
 }
 
@@ -3583,8 +3583,7 @@ function save_data2(coll, obj) {
       // grab from tag and access the .value and reset it (make it empty string)
 
       r_e("janpic").value = "";
-
-      load_data2("janavail", "feed-page", "janavailcard", "users");
+      r_e("febpic").value = "";
     });
 }
 
