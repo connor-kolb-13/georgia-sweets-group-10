@@ -671,8 +671,8 @@ function showAboutUs() {
         img = mydocs[0].data().img_url;
 
         html += `<div class="columns is-flex-direction-row my-2">
-            <div class="column is-5">
-              <figure class="image is-4by5">
+            <div class="column is-5 mr-2">
+              <figure class="image is-4by5 mr-2">
                 <img src=${img}/>
               </figure>
             </div>
