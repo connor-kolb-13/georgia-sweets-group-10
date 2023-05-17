@@ -651,6 +651,7 @@ document.querySelector("#availabilitybtn").addEventListener("click", () => {
   // Hide the menu when burger icon was clicked
   menu.classList.toggle("is-active");
   // this is a test
+  load_data2("janavail", "feed-page", "janavailcard", "users");
 });
 
 //Pulling about us page data from firebase
@@ -2093,6 +2094,54 @@ function load_data(coll, loc, loc2, field, val) {
   });
 }
 
+function load_data2(coll, loc, loc2, field, val) {
+  let query = "";
+  if (field && val) {
+    query = db.collection(coll).where(field, "array-contains", val);
+  } else {
+    query = db.collection(coll);
+  }
+  query.get().then((res) => {
+    let documents = res.docs;
+    let user = firebase.auth().currentUser;
+    let type = null;
+    // html reference
+    html = "";
+
+    if (user) {
+      get_user_info(firebase.auth().currentUser.email, "a_type").then(
+        (type) => {
+          // if a user exists then get the user type
+
+          // loop through documents array
+          let count = 0;
+          documents.forEach((doc) => {
+            html += `<figure style="position:relative;">`;
+            html += `<img src="${doc.data().img_url}" />`;
+            // Check if the user is an admin
+            if (type == "Admin") {
+              html += `<button class="button is-pulled-right is-danger" style="position:absolute;top:0;right:0;" onclick="del_doc2('janavail', '${doc.id}')">X</button>`;
+            }
+            html += `</figure>`;
+          });
+
+          // show on the div with id indicated location
+          r_e(loc2).innerHTML = html;
+        }
+      );
+    } else {
+      // User is logged out, show general layout
+      documents.forEach((doc) => {
+        // console.log(doc.data().title);
+        html += `<img src="${doc.data().img_url}" />`;
+      });
+
+      // show on the div with id indicated location
+      r_e(loc2).innerHTML = html;
+    }
+  });
+}
+
 // delete gallery images for admin only
 function del_doc(coll, id) {
   db.collection(coll)
@@ -2104,6 +2153,20 @@ function del_doc(coll, id) {
 
       // reload all images
       load_data("gallery_images", "feed-page", "gallerypage", "users");
+    });
+}
+
+// delete gallery images for admin only
+function del_doc2(coll, id) {
+  db.collection(coll)
+    .doc(id)
+    .delete()
+    .then(() => {
+      // show a message on the message bar
+      configure_message_bar("An image has been deleted!");
+
+      // reload all images
+      load_data2("janavail", "feed-page", "janavailcard", "users");
     });
 }
 
@@ -3506,6 +3569,45 @@ r_e("editOrderCustomerForm").addEventListener("submit", (e) => {
 r_e("backToShopBtn").addEventListener("click", () => {
   r_e("customerOrdersPage").classList.add("is-hidden");
   r_e("shopPage").classList.remove("is-hidden");
+});
+
+// uploading images to availability
+// save new data into a collection
+function save_data2(coll, obj) {
+  db.collection(coll)
+    .add(obj)
+    .then(() => {
+      // show a success message to the user
+      configure_message_bar(`image has been uploaded!`);
+      // reset the form
+      // grab from tag and access the .value and reset it (make it empty string)
+
+      r_e("janpic").value = "";
+
+      load_data2("janavail", "feed-page", "janavailcard", "users");
+    });
+}
+
+// admin uploading jan avail image
+r_e("jansubmit").addEventListener("click", () => {
+  // getting the image ready
+  console.log("here");
+  let file = document.querySelector("#janpic").files[0];
+  let image = new Date() + "_" + file;
+
+  const task = ref.child(image).put(file);
+  task
+    .then((snapshot) => snapshot.ref.getDownloadURL())
+    .then((url) => {
+      // the url of the image is ready now!
+      // 4. wrap those in an object
+      let Image22 = {
+        img_url: url,
+      };
+      // 5. send the object to firebase
+
+      save_data2("janavail", Image22);
+    });
 });
 
 let slideIndex = 1;
