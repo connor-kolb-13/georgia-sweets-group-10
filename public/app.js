@@ -134,7 +134,7 @@ function showHomePage() {
         p3 = mydocs[0].data().paragraph3;
         img = mydocs[0].data().img_url;
 
-        html += `<div class="column is-5">
+        html += `<div class="column is-5 mr-2">
         <!-- Slideshow container -->
         <div class="slideshow-container">
         
@@ -679,9 +679,9 @@ function showAboutUs() {
             <div class="column is-7">
               <div class="content">
                 <h1 style="font-family: Brush Script MT, Brush Script Std, cursive">Meet the Owner!</h1>
-                <p class="subtitle is-4 my-1" style="font-family: Snell Roundhand, Cursive">${p1}</p>
+                <p class="subtitle is-4 my-1 p-4" style="font-family: Snell Roundhand, Cursive">${p1}</p>
                 <br />
-                <p class="subtitle is-4 my-1" style="font-family: Snell Roundhand, Cursive">${p2}</p>
+                <p class="subtitle is-4 my-1 p-4" style="font-family: Snell Roundhand, Cursive">${p2}</p>
                 <br />
               </div>
             </div>
